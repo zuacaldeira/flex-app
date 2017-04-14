@@ -1,197 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2ab3cdb0-7e60-4aa4-9d09-2854dbf1929d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.stickyStorage" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/db/.RData" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/VAADIN/themes/mytheme/favicon.ico" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/1B405055827B07768B22B91352B85000.cache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/333A66D5307B1C8C9935C59A877F1993.cache.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/51DCB1D3F3D956ACC80F89D3CF0AC5BE.cache.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/AppWidgetset.devmode.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/AppWidgetset.nocache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/D03281BC3FDB49177B485D1DC10A13C4.cache.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/clear.cache.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/1.cache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/3.cache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/4.cache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/5.cache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/6.cache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/7.cache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/8.cache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/org/test/MyUI$1.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/org/test/MyUI$2.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/org/test/MyUI$MyUIServlet.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/org/test/MyUI.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/org/test/NewsApiOrg.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT.war" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/VAADIN/themes/mytheme/favicon.ico" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/1B405055827B07768B22B91352B85000.cache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/333A66D5307B1C8C9935C59A877F1993.cache.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/51DCB1D3F3D956ACC80F89D3CF0AC5BE.cache.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/AppWidgetset.devmode.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/AppWidgetset.nocache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/D03281BC3FDB49177B485D1DC10A13C4.cache.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/clear.cache.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/1.cache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/3.cache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/4.cache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/5.cache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/6.cache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/7.cache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/8.cache.js.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/org/test/MyUI$1.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/org/test/MyUI$2.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/org/test/MyUI$MyUIServlet.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/org/test/MyUI.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/org/test/NewsApiOrg.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/atmosphere-runtime-2.4.5.vaadin2.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/commons-codec-1.6.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/commons-lang3-3.4.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/commons-logging-1.1.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/flute-1.3.0.gg2.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/gentyref-1.2.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/googlemaps-2.0.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/gwt-ajaxloader-1.1.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/gwt-maps-api-3.10.0-alpha-7.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/httpclient-4.3.5.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/httpcore-4.3.2.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/jsoup-1.8.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/junit-3.8.1.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/sac-1.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/vaadin-client-compiled-8.0.5.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/vaadin-push-8.0.5.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/vaadin-sass-compiler-0.9.13.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/vaadin-server-8.0.5.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/vaadin-shared-8.0.5.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/vaadin-slf4j-jdk14-1.6.1.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/lib/vaadin-themes-8.0.5.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_branflake2267_gwt_maps_api_3_10_0_alpha_7.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_gwt_google_apis_gwt_ajaxloader_1_1_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_googlecode_gentyref_gentyref_1_2_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_external_atmosphere_atmosphere_runtime_2_4_5_vaadin2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_external_flute_flute_1_3_0_gg2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_external_slf4j_vaadin_slf4j_jdk14_1_6_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_tapio_googlemaps_2_0_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_vaadin_client_compiled_8_0_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_vaadin_push_8_0_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_vaadin_sass_compiler_0_9_13.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_vaadin_server_8_0_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_vaadin_shared_8_0_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_vaadin_themes_8_0_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_6.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_1_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_0_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_3_8_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_sourceforge_javacsv_javacsv_2_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_3_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_3_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jsoup_jsoup_1_8_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_w3c_css_sac_1_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flex-app.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/db/.Rhistory" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/db/World_Cities_Location_table.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/db/import_csv.cypher" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/ApiArticle.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/ApiArticles.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/ApiSource.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/ApiSourceView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/ApiSources.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/ArticleView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/ArticlesInfoView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/Countries.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/CountryData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/FlexViewFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/GeoInfo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/LatestArticles.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/LoadAllMessage.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/MapView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/MyUI.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/NewsApiOrg.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/NewsManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/NewsPublisher.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/PublishNewsMessage.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/test/SourcesInfoView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/World_Cities_Location_table.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/VAADIN/themes/mytheme/addons.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/VAADIN/themes/mytheme/mytheme.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/VAADIN/themes/mytheme/styles.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/VAADIN/themes/mytheme/styles.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/World_Cities_Location_table.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/.generated/com/google/gwt/ajaxloader/client/AjaxKeyConstants_.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/.generated/com/google/gwt/i18n/client/CurrencyList_.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/.generated/com/google/gwt/i18n/client/constants/NumberConstantsImpl_.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/.generated/com/google/gwt/i18n/client/impl/LocaleInfoImpl_.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/.generated/com/google/gwt/i18n/client/impl/LocaleInfoImpl_shared.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/.generated/com/google/gwt/lang/AppWidgetset__EntryMethodHolder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/.generated/com/google/gwt/user/client/DocumentModeAsserter_DocumentModeProperty.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/.generated/com/google/gwt/user/client/ui/FormPanel_IFrameTemplateImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/.generated/com/google/gwt/user/client/ui/MenuBar_Resources_default_InlineClientBundleGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/.generated/com/google/gwt/user/client/ui/impl/ClippedImageImpl_DraggableTemplateImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/.generated/com/google/gwt/user/client/ui/impl/ClippedImageImpl_TemplateImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/.generated/com/vaadin/client/debug/internal/theme/DebugWindowStyles_default_InlineClientBundleGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/.generated/com/vaadin/client/metadata/ConnectorBundleLoaderImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/.generated/com/vaadin/client/ui/dd/VAcceptCriterionFactoryImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/.generated/com/vaadin/client/ui/richtextarea/VRichTextToolbar_Images_default_InlineClientBundleGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/.generated/com/vaadin/client/ui/richtextarea/VRichTextToolbar_Strings_.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/AppWidgetset.gwt.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/1B405055827B07768B22B91352B85000.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/AppWidgetset.devmode.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/AppWidgetset.nocache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/C81F8CA7CA7012F31BDE883DF6C99E61.cache.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/compilation-mappings.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/1.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/2.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/3.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/4.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/5.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/6.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/7.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/8.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/AppWidgetset/googlemaps/styles.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/VAADIN/widgetsets/WEB-INF/deploy/AppWidgetset/rpcPolicyManifest/manifest.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/World_Cities_Location_table.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/VAADIN/themes/mytheme/addons.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/VAADIN/themes/mytheme/mytheme.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/VAADIN/themes/mytheme/styles.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/VAADIN/themes/mytheme/styles.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/AppWidgetset.gwt.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/1B405055827B07768B22B91352B85000.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/AppWidgetset.devmode.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/AppWidgetset.nocache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/C81F8CA7CA7012F31BDE883DF6C99E61.cache.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/compilation-mappings.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/1.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/2.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/3.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/4.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/5.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/6.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/7.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/deferredjs/1B405055827B07768B22B91352B85000/8.cache.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/AppWidgetset/googlemaps/styles.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/VAADIN/widgetsets/WEB-INF/deploy/AppWidgetset/rpcPolicyManifest/manifest.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/WEB-INF/classes/World_Cities_Location_table.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/flex-app-1.0-SNAPSHOT/World_Cities_Location_table.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/generated-resources/gwt/AppWidgetset.gwt.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
-    </list>
+    <list default="true" id="2ab3cdb0-7e60-4aa4-9d09-2854dbf1929d" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -415,6 +225,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="flex-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flex-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flex-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -737,7 +565,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="10" y="43" width="1260" height="733" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -754,7 +581,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32831326" sideWeight="0.47372743" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32619047" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32619047" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Graph Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917318" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24958949" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
