@@ -1,8 +1,8 @@
-package org.test;
+package flex.frontend.ui;
 
-import com.vaadin.ui.CheckBoxGroup;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import flex.backend.db.ApiSource;
 
 /**
  * Created by zua on 12/04/17.

@@ -1,20 +1,22 @@
-package org.test;
+package flex.backend.db;
 
-import java.text.DateFormat;
+
 import java.text.ParseException;
-import java.util.Date;
+import org.neo4j.ogm.annotation.NodeEntity;
 
 /**
  * Created by zua on 13/04/17.
  */
-public class ApiArticle {
-    private final String sourceId;
-    private final String author;
-    private final String title;
-    private final String description;
-    private final String url;
-    private final String imageUrl;
-    private final String publishedAt;
+@NodeEntity
+public class ApiArticle extends GraphEntity {
+
+    private String sourceId;
+    private String author;
+    private String title;
+    private String description;
+    private String url;
+    private String imageUrl;
+    private String publishedAt;
 
     public ApiArticle(String sourceId, String author, String title, String description, String url, String imageUrl, String publishedAt) throws ParseException {
         this.sourceId = sourceId;
@@ -53,5 +55,33 @@ public class ApiArticle {
 
     public String getPublishedAt() {
         return publishedAt;
+    }
+
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setPublishedAt(String publishedAt) {
+        this.publishedAt = publishedAt;
     }
 }

@@ -1,4 +1,4 @@
-package org.test;
+package flex.frontend.ui;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;

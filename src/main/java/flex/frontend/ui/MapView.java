@@ -1,4 +1,4 @@
-package org.test;
+package flex.frontend.ui;
 
 import com.vaadin.tapio.googlemaps.GoogleMap;
 import com.vaadin.tapio.googlemaps.client.LatLon;
@@ -17,6 +17,7 @@ public class MapView extends VerticalLayout {
     private GoogleMap googleMap;
 
     public MapView() {
+        setSizeFull();
         createGoogleMap();
         /* A vertical layout to hold the google map component */
         addComponent(googleMap);

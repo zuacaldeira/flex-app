@@ -1,13 +1,15 @@
-package org.test;
+package flex.frontend.ui;
 
-import com.vaadin.ui.Component;
+import flex.backend.db.ApiArticle;
+import flex.backend.db.ApiSource;
+
 
 /**
  * Created by zua on 12/04/17.
  */
 public class FlexViewFactory {
-    public static ApiSourceView createView(Object api) {
-        return new ApiSourceView((ApiSource) api);
+    public static ApiSourceView createSourceView(ApiSource source) {
+        return new ApiSourceView(source);
     }
 
     public static ArticleView createArticleView(ApiSource source, ApiArticle article) {

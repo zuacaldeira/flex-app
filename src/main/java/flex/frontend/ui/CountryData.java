@@ -1,4 +1,4 @@
-package org.test;
+package flex.frontend.ui;
 
 /**
  * Created by zua on 12/04/17.

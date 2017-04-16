@@ -1,18 +1,19 @@
-package org.test;
+package flex.backend.db;
 
 
-import elemental.json.JsonArray;
-import elemental.json.JsonObject;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Collection;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by zua on 11/04/17.
@@ -22,6 +23,7 @@ public class NewsApiOrg {
     private static final String apiKey = "5b4e00f3046843138d8368211777a4f2";
     private static String sourcesUrl = "https://newsapi.org/v1/sources?";
     private static String articlesUrl = "https://newsapi.org/v1/articles?";
+
 
     private static Map<String, String> getSourceParams() {
         Map<String, String> params = new HashMap<>();
@@ -62,20 +64,20 @@ public class NewsApiOrg {
 
         return params;
     }
+    
 
     public static ApiSources GET_ApiSources() {
-        String query          = NewsApiOrg.createSourceQuery(null, "en", null);
+        String query          = NewsApiOrg.createSourceQuery(null, null, null);
         System.out.println("Query is = " + query);
 
-        String jsonString     = makeApiCall(query);
         ApiSources apiSources = new ApiSources();
 
         try {
-            elemental.json.JsonObject jsonObject = elemental.json.Json.parse(jsonString);
-            JsonArray allSourcesArray = jsonObject.getArray("sources");
+            JSONObject jsonObject     = makeApiCall(query);
+            JSONArray allSourcesArray = jsonObject.getJSONArray("sources");
 
             for(int i = 0; i < allSourcesArray.length(); i++) {
-                JsonObject obj = allSourcesArray.getObject(i);
+                JSONObject obj = allSourcesArray.getJSONObject(i);
 
                 String id = obj.getString("id");
                 String name = obj.getString("name");
@@ -95,19 +97,18 @@ public class NewsApiOrg {
     }
 
     public static ApiArticles GET_Articles(ApiSource source) {
-        String query = NewsApiOrg.createArticlesQuery(source.getId(), "latest");
+        String query = NewsApiOrg.createArticlesQuery(source.getSourceId(), "latest");
         System.out.println("Query is = " + query);
 
-        String jsonString     = makeApiCall(query);
-
         ApiArticles apiArticles = new ApiArticles();
+
         try {
-            elemental.json.JsonObject jsonObject = elemental.json.Json.parse(jsonString);
-            JsonArray allArticlesArray = jsonObject.getArray("articles");
+            JSONObject jsonObject = makeApiCall(query);
+
+            JSONArray allArticlesArray = jsonObject.getJSONArray("articles");
 
             for(int i = 0; i < allArticlesArray.length(); i++) {
-                JsonObject obj = allArticlesArray.getObject(i);
-
+                JSONObject obj = allArticlesArray.getJSONObject(i);
                 String author = obj.getString("author");
                 String title = obj.getString("title");
                 String description = obj.getString("description");
@@ -115,7 +116,7 @@ public class NewsApiOrg {
                 String imageUrl = obj.getString("urlToImage");
                 String publishedAt = obj.getString("publishedAt");
 
-                apiArticles.addArticle(source.getId(), author, title, description, url, imageUrl, publishedAt);
+                apiArticles.addArticle(source.getSourceId(), author, title, description, url, imageUrl, publishedAt);
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -134,18 +135,29 @@ public class NewsApiOrg {
         query += ("&apiKey=" + apiKey);
         return query;
     }
-
-    private static String makeApiCall(String url) {
-        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
-            HttpGet request = new HttpGet(url);
-            request.addHeader("content-type", "application/json");
-            //request.addHeader("x-api-key", apiKey);
-            HttpResponse result = httpClient.execute(request);
-            String json = EntityUtils.toString(result.getEntity(), "UTF-8");
-            return json;
-        } catch (IOException ex) {}
-        return null;
+    
+    
+    public static JSONObject makeApiCall(String url) throws IOException, JSONException {
+        InputStream is = new URL(url).openStream();
+        try {
+          BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+          String jsonText = readAll(rd);
+          JSONObject json = new JSONObject(jsonText);
+          return json;
+        } finally {
+          is.close();
+        }
     }
+    
+    private static String readAll(Reader rd) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        int cp;
+        while ((cp = rd.read()) != -1) {
+          sb.append((char) cp);
+        }
+        return sb.toString();
+    }
+
 
 
 }

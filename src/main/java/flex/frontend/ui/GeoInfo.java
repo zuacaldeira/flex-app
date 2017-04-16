@@ -1,6 +1,6 @@
-package org.test;
+package flex.frontend.ui;
 
-import com.vaadin.tapio.googlemaps.client.LatLon;
+import flex.backend.db.ApiSource;
 
 /**
  * Created by zua on 12/04/17.

@@ -1,4 +1,4 @@
-package org.test;
+package flex.frontend.ui;
 
 import com.csvreader.CsvReader;
 import com.vaadin.server.FileResource;
