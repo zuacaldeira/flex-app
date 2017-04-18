@@ -32,6 +32,7 @@ public class MyUI extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
+        
         // Load new news
         sourcesInfoView = new SourcesInfoView();
         articlesInfoView = new ArticlesInfoView();
@@ -40,12 +41,14 @@ public class MyUI extends UI {
         /* World News tab */
         /* Data presentation is provided in a tabsheet */
         TabSheet tabs = new TabSheet();
+        
         tabs.setSizeFull();
         tabs.addTab(mapView, "The World News");
         tabs.addTab(sourcesInfoView, "News Sources");
         tabs.addTab(articlesInfoView, "Latest News");
 
         VerticalLayout base = new VerticalLayout(tabs);
+        base.setStyleName("base-layout");
         base.setSizeFull();
         base.setMargin(true);
 
@@ -65,4 +68,5 @@ public class MyUI extends UI {
     @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
     public static class MyUIServlet extends VaadinServlet {
     }
+
 }

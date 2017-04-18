@@ -89,11 +89,10 @@ public class NewsApiOrg {
 
                 apiSources.addSource(id, name, description, url, category, language, country);
             }
-            return apiSources;
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        return null;
+        return apiSources;
     }
 
     public static ApiArticles GET_Articles(ApiSource source) {

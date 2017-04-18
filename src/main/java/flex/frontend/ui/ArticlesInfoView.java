@@ -1,13 +1,11 @@
 package flex.frontend.ui;
 
 import com.vaadin.ui.GridLayout;
-import com.vaadin.ui.VerticalLayout;
 import flex.backend.db.ApiArticle;
 import flex.backend.db.ApiSource;
 import flex.backend.services.NewsLoaderService;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import org.utils.ServiceLocator;
 
 /**
@@ -17,7 +15,7 @@ public class ArticlesInfoView extends GridLayout {
     private NewsLoaderService service;
 
     public ArticlesInfoView() {
-        super(4, 1);
+        super(3, 1);
         setSizeFull();
         setHeightUndefined();
         initArticles();

@@ -29,6 +29,16 @@
 // For more information, see: https://vaadin.com/book/-/page/themes.valo.html
 // Example variants can be copy/pasted from https://vaadin.com/wiki/-/wiki/Main/Valo+Examples
 
+
+#grad {
+  background: red; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, red, yellow); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, red, yellow); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, red, yellow); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, red, yellow); /* Standard syntax */
+}
+
+
 @import "../valo/valo.scss";
 
 @mixin mytheme {
@@ -36,6 +46,11 @@
 
   // Insert your own theme rules here
   .v-ui{
+    //background: url('alex-2-eu-2016-010.jpg')
+    background: grad;
+  }
+  
+  .base-layout {
       background: transparent;
   }
 
@@ -63,6 +78,12 @@
   .article-content {
     background: white;
     font-size: 12pt;
+  }
+  
+  .tabsheet {
+    background: white;
+    opacity: .75;
+
   }
 
 }

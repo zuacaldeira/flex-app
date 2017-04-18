@@ -8,8 +8,6 @@ import com.vaadin.ui.themes.ValoTheme;
 import flex.backend.db.ApiArticle;
 import flex.backend.db.ApiSource;
 
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by zua on 13/04/17.
@@ -17,47 +15,28 @@ import java.util.List;
 public class ArticleView extends VerticalLayout implements Button.ClickListener {
     private final ApiSource source;
     private final ApiArticle article;
-    private final Label title;
-    private final Label author;
-    private final Label content;
-    private final Embedded image;
+    private  Label title;
+    private  Label author;
+    private  Label content;
+    private  Embedded image;
     private  HorizontalLayout controls;
     private  Button addVideoButton;
     private  Button shareOnFacebookButton;
     private  Button shareOnTwitterButton;
-    private List<String> videosUrls;
 
     public ArticleView(ApiSource source, ApiArticle article) {
         this.source = source;
         this.article = article;
 
-        this.title = new Label(article.getTitle());
-        this.title.setStyleName("article-title white-on-black");
-        this.title.setWidth("100%");
-        this.title.setHeight("100%");
-
-        this.author = new Label(article.getAuthor() + ", " + source.getName());
-        this.author.setStyleName("article-author white-on-black");
-        this.author.setWidth("100%");
-        this.author.setHeight("100%");
-
-        String text = article.getDescription() + " " + getLinkString(article.getUrl());
-        this.content = new Label(text, ContentMode.HTML);
-        this.content.setStyleName("article-content");
-        this.content.setWidth("100%");
-        this.content.setHeight("100%");
-
-        this.image = new Embedded("", new ExternalResource(article.getImageUrl()));
-        this.image.setWidth("100%");
-        this.image.setHeight("100px");
-
-
-        this.videosUrls = new LinkedList<>();
-
-        initControls(article);
-        addComponents(title, author, content, image, controls);
-        setSizeFull();
         setSpacing(false);
+        setSizeFull();
+        initTitle(article);
+        initAuthor(source, article);
+        initContent(article);
+        initImage(article);
+        initControls(article);
+        addComponents(image, title, author, content, controls);
+        setSizeFull();
     }
 
     private void initControls(ApiArticle article) {
@@ -75,7 +54,6 @@ public class ArticleView extends VerticalLayout implements Button.ClickListener 
 
 
         this.controls = new HorizontalLayout();
-        this.controls.setWidth("100%");
         this.controls.addComponents(addVideoButton, shareOnFacebookButton, shareOnTwitterButton);
 
     }
@@ -112,14 +90,7 @@ public class ArticleView extends VerticalLayout implements Button.ClickListener 
         }
 
         else if(event.getButton() == shareOnFacebookButton) {
-            Window w = new Window("Share on Facebook");
-            w.center();
-            w.setModal(true);
-
-            TextField message = new TextField("Message");
-            w.setContent(message);
-
-            UI.getCurrent().addWindow(w);
+            interactWithShareOnFacebookButton();
         }
 
         else if(event.getButton() == shareOnTwitterButton) {
@@ -144,7 +115,7 @@ public class ArticleView extends VerticalLayout implements Button.ClickListener 
         save.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                videosUrls.add(text.getValue());
+                //videosUrls.add(text.getValue());
             }
         });
 
@@ -165,4 +136,57 @@ public class ArticleView extends VerticalLayout implements Button.ClickListener 
 
         UI.getCurrent().addWindow(w);
     }
+
+    private void interactWithShareOnFacebookButton() {
+        Window w = new ShareOnFacebookWindow(source, article);
+        UI.getCurrent().addWindow(w);
+    }
+
+    private void initTitle(ApiArticle article) {
+        this.title = new Label(article.getTitle());
+        this.title.setStyleName("article-title white-on-black");
+        this.title.setSizeFull();
+    }
+
+    private void initAuthor(ApiSource source, ApiArticle article) {
+        this.author = new Label(article.getAuthor() + ", " + source.getName());
+        this.author.setStyleName("article-author white-on-black");
+        this.author.setSizeFull();
+    }
+
+    private void initContent(ApiArticle article) {
+        String text = article.getDescription() + " " + getLinkString(article.getUrl());
+        this.content = new Label(text, ContentMode.HTML);
+        this.content.setStyleName("article-content");
+        this.content.setSizeFull();
+    }
+
+    private void initImage(ApiArticle article) {
+        this.image = new Embedded("", new ExternalResource(article.getImageUrl()));
+        this.image.setWidth("100%");
+    }
+
+    public Embedded getImage() {
+        return image;
+    }
+
+    public HorizontalLayout getControls() {
+        return controls;
+    }
+
+    public Button getAddVideoButton() {
+        return addVideoButton;
+    }
+
+    public Button getShareOnFacebookButton() {
+        return shareOnFacebookButton;
+    }
+
+    public Button getShareOnTwitterButton() {
+        return shareOnTwitterButton;
+    }
+    
+    
+    
+    
 }

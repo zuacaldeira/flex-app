@@ -1,3 +1,11 @@
+#grad {
+	background: red;
+	background: -webkit-linear-gradient(left top, red, yellow);
+	background: -o-linear-gradient(bottom right, red, yellow);
+	background: -moz-linear-gradient(bottom right, red, yellow);
+	background: linear-gradient(to bottom right, red, yellow);
+}
+
 /**
  * Checks if a list contains a certain value.
  * 
@@ -12503,6 +12511,10 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .v-ui {
+	background: grad;
+}
+
+.mytheme .base-layout {
 	background: transparent;
 }
 
@@ -12530,4 +12542,9 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme .article-content {
 	background: white;
 	font-size: 12pt;
+}
+
+.mytheme .tabsheet {
+	background: white;
+	opacity: 0.75;
 }
