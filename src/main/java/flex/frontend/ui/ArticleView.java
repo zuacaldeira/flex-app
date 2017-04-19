@@ -18,7 +18,7 @@ public class ArticleView extends VerticalLayout implements Button.ClickListener 
     private  Label title;
     private  Label author;
     private  Label content;
-    private  Embedded image;
+    private  Image image;
     private  HorizontalLayout controls;
     private  Button addVideoButton;
     private  Button shareOnFacebookButton;
@@ -162,11 +162,11 @@ public class ArticleView extends VerticalLayout implements Button.ClickListener 
     }
 
     private void initImage(ApiArticle article) {
-        this.image = new Embedded("", new ExternalResource(article.getImageUrl()));
+        this.image = new Image("", new ExternalResource(article.getImageUrl()));
         this.image.setWidth("100%");
     }
 
-    public Embedded getImage() {
+    public Image getImage() {
         return image;
     }
 

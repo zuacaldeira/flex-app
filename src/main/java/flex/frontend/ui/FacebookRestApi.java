@@ -10,7 +10,7 @@ package flex.frontend.ui;
  * @author zua
  */
 public class FacebookRestApi {
-    private static final String MY_ACCESS_TOKEN = "EAAYOhasITgIBAJtwTVASnmwPOU39edZCq0WRpi03gxZA5lt9ezbaZCOcLpYLT8pXW7It2oWKE8BKaPX3NBVaGuv32WHoG7UWYec3OwXvANuNxIZCqwytKMO7Ak3xKQ0wxvL6gS1qgUSIxOlxmXBOLiKMFuxe4bdYUz4oqAHaRSf2TxnCFao0G7mhuIfT62txrO6fT3EMsZBazT82oiGQ8hhUsNr6fEt8ZD";
+    private static final String MY_ACCESS_TOKEN = "EAAYOhasITgIBADuxCZBZAkB5SgRjSunDeuQA5lR9zZC8l2gdPpofDqr2C9ETqORUgeZAuLoHR8ESWMIa5qEYPRHuCuKnVhbGhB7A3ciujXAAvP9RnhkASRS2EiBcADBIz61sAJNijqUkmfXaRIY4gt8K7z6Xxykm9Nf0HZCMplXd6E2XZBJAJWBXZBoQQwZCSIJWhwHe5mOt3ydZC2KRQH2KBDMvGCdGdYkMZD";
     private static final String MY_APP_SECRET = "7349b4773f7086df12382c8618a909b7";
     
     private FacebookRestApi(){}

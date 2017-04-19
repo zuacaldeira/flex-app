@@ -23,7 +23,7 @@ public class NewsLoaderService {
             "NewsLoaderService");
     
     public Map<ApiSource, List<ApiArticle>> loadLatestNews(int howMany) {
-        logger.info("Automatic timeout occurred: Populating the database.");
+        System.out.printf("Populating the database with %s news", howMany);
         Map<ApiSource, List<ApiArticle>> result = new HashMap<>();
         
         // Load sources
@@ -38,9 +38,9 @@ public class NewsLoaderService {
                     result.put(source, new LinkedList());
                 }
                 result.get(source).add(article);
-                if(result.values().size() >= howMany) {
+                /*if(result.values().size() >= howMany) {
                     return result;
-                }
+                }*/
             }
         }
         

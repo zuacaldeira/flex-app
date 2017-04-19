@@ -21,7 +21,6 @@ import com.vaadin.ui.*;
 
 @Theme("mytheme")
 @Push
-@PreserveOnRefresh
 public class MyUI extends UI {
 
     private AbsoluteLayout rootLayout;

@@ -80,23 +80,30 @@ public class ShareOnFacebookWindow extends Window implements Button.ClickListene
 
     private void postOnFacebook() {
         facebookClient = new DefaultFacebookClient(FacebookRestApi.getAccessToken(), FacebookRestApi.getAppSecret(), Version.LATEST);
+        // You may also generate the appsecret_proof value directly (not normally needed).
+        String proof = new DefaultFacebookClient().obtainAppSecretProof(FacebookRestApi.getAccessToken(), FacebookRestApi.getAppSecret());
+        System.out.println("Here's my proof: " + proof);
 
         // Request will include appsecret_proof
         User me = facebookClient.fetchObject("me", User.class);
         Notification.show("I am " + me.getName(), Notification.Type.TRAY_NOTIFICATION);
         
-        String message = "Good Morning " + me.getName();
-        
+
+        publishTestPost(facebookClient);        
+    }
+
+    private void publishTestPost(FacebookClient facebookClient) {
         // Publish Good Morning! Message
         GraphResponse publishMessageResponse = 
-                facebookClient.publish("me/feed", GraphResponse.class, 
-                        Parameter.with("message", message));
-        
-        System.out.println("Published message ID: " + publishMessageResponse.getId());
+                facebookClient.publish("me/feed", GraphResponse.class,
+                        Parameter.with("message", messageView.getValue()), // News title
+                        Parameter.with("description", articleView.getArticle().getDescription()),
+                        Parameter.with("permalink_url", articleView.getArticle().getUrl()),
+                        Parameter.with("type", "photo"),
+                        Parameter.with("link", articleView.getArticle().getUrl()));
 
-        // You may also generate the appsecret_proof value directly (not normally needed).
-        String proof = new DefaultFacebookClient().obtainAppSecretProof(FacebookRestApi.getAccessToken(), FacebookRestApi.getAppSecret());
-        
-        System.out.println("Here's my proof: " + proof);
-    }    
+        System.out.println("Published message ID: " + publishMessageResponse.getId());
+    }
+
+    
 }
