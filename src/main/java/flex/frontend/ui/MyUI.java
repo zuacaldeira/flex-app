@@ -1,15 +1,23 @@
 package flex.frontend.ui;
 
-import javax.servlet.annotation.WebServlet;
 
-import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.event.selection.SingleSelectionEvent;
+import com.vaadin.event.selection.SingleSelectionListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.shared.ui.MarginInfo;
 
 import com.vaadin.ui.*;
+import flex.backend.db.ApiArticle;
+import flex.backend.db.ApiSource;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.annotation.WebServlet;
+import org.utils.ServiceLocator;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser window 
@@ -23,43 +31,74 @@ import com.vaadin.ui.*;
 @Push
 public class MyUI extends UI {
 
-    private AbsoluteLayout rootLayout;
-    private SourcesInfoView sourcesInfoView;
+    public static final int MAX_ARTICLES = 10;
+    private VerticalLayout rootLayout;
+    private FlexMenu menu;
+    private VerticalLayout body;
+    private FlexMenu footer;
+    
     private ArticlesInfoView articlesInfoView;
-    private MapView mapView;
 
 
     @Override
     protected void init(VaadinRequest request) {
         
         // Load new news
-        sourcesInfoView = new SourcesInfoView();
-        articlesInfoView = new ArticlesInfoView();
-        mapView = new MapView();
-
-        /* World News tab */
-        /* Data presentation is provided in a tabsheet */
-        TabSheet tabs = new TabSheet();
+        initMenu();
+        initBody();
+        initFooter();
         
-        tabs.setSizeFull();
-        tabs.addTab(mapView, "The World News");
-        tabs.addTab(sourcesInfoView, "News Sources");
-        tabs.addTab(articlesInfoView, "Latest News");
+        rootLayout = new VerticalLayout();
+        rootLayout.addComponent(menu);
+        rootLayout.addComponent(body);
+        
+        setContent(rootLayout);
+    }
 
-        VerticalLayout base = new VerticalLayout(tabs);
-        base.setStyleName("base-layout");
-        base.setSizeFull();
-        base.setMargin(true);
+    private void initMenu() {
+        menu = new FlexMenu();
+        menu.setHeight("4cm");
+    }
 
+    private void initBody() {
+        body = new VerticalLayout();
+        body.setHeightUndefined();
+        body.setStyleName("flex-body");
+        body.setMargin(new MarginInfo(true, false, false, false));
+        
+
+        articlesInfoView = new ArticlesInfoView();
+        menu.getSourcesComboBox().addSelectionListener(new SingleSelectionListener<ApiSource>() {
+            @Override
+            public void selectionChange(SingleSelectionEvent<ApiSource> event) {
+                SingleSelect<ApiSource> ss = event.getSource();
+                ApiSource apiSource = ss.getValue();
+                articlesInfoView.removeAllComponents();
+                if(apiSource == null) {
+                    Map<ApiSource, List<ApiArticle>> articles = ServiceLocator.findNewsLoaderService().loadArticles(MAX_ARTICLES);
+                    for(ApiSource s: articles.keySet()) {
+                        articlesInfoView.addArticles(s, articles.get(s));
+                    }
+                }
+                else {
+                    Collection<ApiArticle> articles = ServiceLocator.findNewsLoaderService().loadArticles(apiSource);
+                    articlesInfoView.addArticles(apiSource, articles);
+                }
+                articlesInfoView.setHeightUndefined();
+            }
+        });
+        body.addComponent(articlesInfoView);
+        
+        /* World News tab */
         /* Full-size CSS Layout root component */
 
-        rootLayout = new AbsoluteLayout();
-        rootLayout.setSizeFull();
-        rootLayout.addComponent(base);
-        setContent(rootLayout);
 
+    }
 
-        /* Start the actor system and managing the information to display in the ui */
+    private void initFooter() {
+        footer = new FlexMenu();
+        footer.setHeight("1cm");
+        footer.setWidth("100%");
     }
 
 

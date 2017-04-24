@@ -1,4 +1,4 @@
-package flex.frontend.ui;
+package flex.frontend.ui.map;
 
 /**
  * Created by zua on 12/04/17.

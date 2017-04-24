@@ -1,6 +1,7 @@
-package flex.frontend.ui;
+package flex.frontend.ui.map;
 
 import flex.backend.db.ApiSource;
+import flex.frontend.ui.Countries;
 
 /**
  * Created by zua on 12/04/17.

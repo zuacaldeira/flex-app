@@ -67,9 +67,11 @@ public class NewsApiOrg {
     
 
     public static ApiSources GET_ApiSources() {
-        String query          = NewsApiOrg.createSourceQuery(null, null, null);
-        System.out.println("Query is = " + query);
-
+        return GET_ApiSources("", "", "");
+    }
+    
+    public static ApiSources GET_ApiSources(String category, String language2letter, String country) {
+        String query          = NewsApiOrg.createSourceQuery(category, language2letter, country);
         ApiSources apiSources = new ApiSources();
 
         try {
@@ -83,11 +85,11 @@ public class NewsApiOrg {
                 String name = obj.getString("name");
                 String description = obj.getString("description");
                 String url = obj.getString("url");
-                String category = obj.getString("category");
+                String cat = obj.getString("category");
                 String language = obj.getString("language");
-                String country = obj.getString("country");
+                String ctry = obj.getString("country");
 
-                apiSources.addSource(id, name, description, url, category, language, country);
+                apiSources.addSource(id, name, description, url, cat, language, ctry);
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -96,8 +98,7 @@ public class NewsApiOrg {
     }
 
     public static ApiArticles GET_Articles(ApiSource source) {
-        String query = NewsApiOrg.createArticlesQuery(source.getSourceId(), "latest");
-        System.out.println("Query is = " + query);
+        String query = NewsApiOrg.createArticlesQuery(source.getSourceId(), "");
 
         ApiArticles apiArticles = new ApiArticles();
 
@@ -108,12 +109,31 @@ public class NewsApiOrg {
 
             for(int i = 0; i < allArticlesArray.length(); i++) {
                 JSONObject obj = allArticlesArray.getJSONObject(i);
-                String author = obj.getString("author");
-                String title = obj.getString("title");
-                String description = obj.getString("description");
-                String url = obj.getString("url");
-                String imageUrl = obj.getString("urlToImage");
-                String publishedAt = obj.getString("publishedAt");
+                String author = null, 
+                        title = null, 
+                        description = null, 
+                        url = null, 
+                        imageUrl = null, 
+                        publishedAt = null;
+                
+                if(obj.get("author") != null) {
+                    author = obj.getString("author");
+                }
+                if(obj.get("title") != null) {
+                    title = obj.getString("title");
+                }
+                if(obj.get("description") != null) {
+                    description = obj.getString("description");
+                }
+                if(obj.get("url") != null) {
+                    url = obj.getString("url");
+                }
+                if(obj.get("urlToImage") != null) {
+                    imageUrl = obj.getString("urlToImage");
+                }
+                if(obj.get("publishedAt") != null) {
+                    publishedAt = obj.getString("publishedAt");
+                }
 
                 apiArticles.addArticle(source.getSourceId(), author, title, description, url, imageUrl, publishedAt);
             }
@@ -125,12 +145,25 @@ public class NewsApiOrg {
 
     private static String createSourceQuery(String category, String language2Letter, String country) {
         String query = sourcesUrl;
+        
+        query += ("category=" + category);
+        if(language2Letter != null) {
+            query += ("&language=" + language2Letter);
+        }
+        if(country != null) {
+            query += ("&country=" + country);
+        }
+        query += ("&apiKey=" + apiKey);
         return query;
     }
 
     private static String createArticlesQuery(String sourceId, String sortBy) {
         String query = articlesUrl;
+        
         query += ("source=" + sourceId);
+        if(sortBy != null) {
+            query += ("&sortBy=" + sortBy);
+        }
         query += ("&apiKey=" + apiKey);
         return query;
     }

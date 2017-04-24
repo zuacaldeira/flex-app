@@ -1,4 +1,4 @@
-package flex.frontend.ui;
+package flex.frontend.ui.map;
 
 import com.vaadin.tapio.googlemaps.GoogleMap;
 import com.vaadin.tapio.googlemaps.client.LatLon;
@@ -8,6 +8,10 @@ import com.vaadin.tapio.googlemaps.client.overlays.GoogleMapMarker;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
+import flex.backend.db.ApiArticle;
+import flex.backend.db.ApiSource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zua on 13/04/17.
@@ -91,4 +95,9 @@ public class MapView extends VerticalLayout {
             }
         });
         return googleMap;
-    }}
+    }
+
+    public void initMarkers(Map<ApiSource, List<ApiArticle>> data) {
+        Notification.show("Not supported yet.", Notification.Type.WARNING_MESSAGE); 
+    }
+}

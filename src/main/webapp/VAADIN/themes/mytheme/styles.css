@@ -12511,40 +12511,41 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .v-ui {
-	background: grad;
-}
-
-.mytheme .base-layout {
-	background: transparent;
-}
-
-.mytheme .white-on-black {
 	background: black;
-	color: white;
 }
 
-.mytheme .black-on-white {
+.mytheme .flex-menu {
+	background: black;
+}
+
+.mytheme .flex-body {
+	background: black;
+	opacity: 1;
+}
+
+.mytheme .article {
 	background: white;
 	color: black;
 }
 
-.mytheme .article-title {
-	font-size: 12pt;
+.mytheme .article .article-title {
+	opacity: 1;
+	font-size: 120%;
 	font-weight: bold;
 }
 
-.mytheme .article-author {
-	font-size: 8pt;
+.mytheme .article .article-author {
+	opacity: 1;
+	font-size: 10pt;
 	font-style: italic;
 	font-weight: bold;
 }
 
-.mytheme .article-content {
-	background: white;
+.mytheme .article .article-content {
+	opacity: 1;
 	font-size: 12pt;
 }
 
-.mytheme .tabsheet {
-	background: white;
-	opacity: 0.75;
+.mytheme .sources {
+	opacity: 1;
 }

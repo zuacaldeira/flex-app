@@ -1,5 +1,6 @@
 package flex.frontend.ui;
 
+import flex.frontend.ui.map.CountryData;
 import com.csvreader.CsvReader;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinService;

@@ -17,6 +17,6 @@ public class FlexButton extends Button {
     
     public FlexButton(String caption, Resource icon) {
         super(caption, icon);
-        setStyleName(ValoTheme.BUTTON_PRIMARY);
+        setStyleName(ValoTheme.BUTTON_BORDERLESS_COLORED);
     }
 }

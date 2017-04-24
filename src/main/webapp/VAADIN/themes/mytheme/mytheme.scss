@@ -31,59 +31,57 @@
 
 
 #grad {
-  background: red; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left top, red, yellow); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(bottom right, red, yellow); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(bottom right, red, yellow); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, red, yellow); /* Standard syntax */
+    background: red; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left top, red, yellow); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(bottom right, red, yellow); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(bottom right, red, yellow); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to bottom right, red, yellow); /* Standard syntax */
 }
 
 
 @import "../valo/valo.scss";
 
 @mixin mytheme {
-  @include valo;
+    @include valo;
 
-  // Insert your own theme rules here
-  .v-ui{
-    //background: url('alex-2-eu-2016-010.jpg')
-    background: grad;
-  }
-  
-  .base-layout {
-      background: transparent;
-  }
+    // Insert your own theme rules here
+    .v-ui{
+        background: black;
+    }
 
-  .white-on-black {
-    background: black;
-    color: white;
-  }
+    .flex-menu {
+        background: black;
+    }
 
-  .black-on-white {
-    background: white;
-    color: black;
-  }
+    .flex-body {
+        background: black;
+        opacity: 1;
+    }
 
-  .article-title {
-    font-size: 12pt;
-    font-weight: bold;
-  }
+    .article{
+        background: white;
+        color: black;
+        
+        .article-title {
+            opacity: 1;
+            font-size: 120%;
+            font-weight: bold;
+        }
+        .article-author {
+            opacity: 1;
+            font-size: 10pt;
+            font-style: italic;
+            font-weight: bold;
+        }
+        .article-content {
+            opacity: 1;
+            font-size: 12pt;
+        }
+    }
 
-  .article-author {
-    font-size: 8pt;
-    font-style: italic;
-    font-weight: bold;
-  }
-
-  .article-content {
-    background: white;
-    font-size: 12pt;
-  }
-  
-  .tabsheet {
-    background: white;
-    opacity: .75;
-
-  }
+    .sources {
+        opacity: 1;      
+        .source {}      
+    }
 
 }

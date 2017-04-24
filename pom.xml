@@ -21,7 +21,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <!-- If there are no local customisations, this can also be "fetch" or "cdn" -->
-        <vaadin.widgetset.mode>local</vaadin.widgetset.mode>
+        <vaadin.widgetset.mode>cdn</vaadin.widgetset.mode>
     </properties>
 
     <repositories>
@@ -138,19 +138,22 @@
             <type>jar</type>
         </dependency>
         <dependency>
+            <groupId>org.scribe</groupId>
+            <artifactId>scribe</artifactId>
+            <version>1.3.7</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.github.scribejava</groupId>
+            <artifactId>scribejava-apis</artifactId>
+            <version>2.7.3</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
             <type>jar</type>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.glassfish.extras/glassfish-embedded-all -->
-
-        <!-- https://mvnrepository.com/artifact/com.restfb/restfb -->
-        <dependency>
-            <groupId>com.restfb</groupId>
-            <artifactId>restfb</artifactId>
-            <version>2.0.0-rc.2</version>
         </dependency>
 
     </dependencies>

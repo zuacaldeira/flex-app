@@ -1,30 +1,27 @@
 package flex.frontend.ui;
 
 import com.vaadin.ui.*;
-import flex.backend.services.NewsLoaderService;
-import org.utils.ServiceLocator;
+import flex.backend.db.ApiArticle;
+import flex.backend.db.ApiSource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zua on 12/04/17.
  */
 public class SourcesInfoView extends GridLayout {
-    private NewsLoaderService service;
-    
-
     public SourcesInfoView() {
-        super(3, 1);
+        super(1, 1);
         setSizeFull();
         setHeightUndefined();
         setSpacing(true);
-        initSources();
+        setMargin(true);
+        setStyleName("sources");
     }
 
-    private void initSources() {
-        service = ServiceLocator.findNewsLoaderService();
-        System.out.print("Found Service? " + (service != null));
-        service.loadSources().getSources()
-                .forEach(s -> {
-                    addComponent(FlexViewFactory.createSourceView(s));
-                });
+    public void initSources(Map<ApiSource, List<ApiArticle>> data) {
+        for(ApiSource source: data.keySet()) {
+            addComponent(FlexViewFactory.createSourceView(source));
+        }
     }
 }
