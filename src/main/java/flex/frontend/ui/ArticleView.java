@@ -9,7 +9,7 @@ import flex.backend.db.ApiSource;
 /**
  * Created by zua on 13/04/17.
  */
-public class ArticleView extends AbsoluteLayout {
+public class ArticleView extends VerticalLayout {
     private final ApiSource source;
     private final ApiArticle article;
     private  Label title;
@@ -17,32 +17,26 @@ public class ArticleView extends AbsoluteLayout {
     private  Label content;
     private  Image image;
     private Link link;
-    private final HorizontalLayout text;
+    private final VerticalLayout text;
 
     public ArticleView(ApiSource source, ApiArticle article) {
         this.source = source;
         this.article = article;
         
         setWidth("100%");
-        setHeight("720px");
-        
+
+        initImage(article);
+
         initTitle(article);
         initAuthor(source, article);
         initContent(article);
-        initImage(article);
         initLink(article);
         
-        VerticalLayout left = new VerticalLayout(title, author);
-        VerticalLayout right = new VerticalLayout(content, link);
-        text = new HorizontalLayout(left, right);
+        text = new VerticalLayout(title, author, content, link, image);
         text.setWidth("100%");
-        text.setSpacing(true);
         text.setStyleName("article");
         
-        addComponents(image, text);
-        ComponentPosition textPosition = new ComponentPosition();
-        textPosition.setBottom(0f, Unit.PERCENTAGE);
-        setPosition(text, textPosition);
+        addComponent(text);
     }
 
     private void initLink(ApiArticle article) {
@@ -89,8 +83,8 @@ public class ArticleView extends AbsoluteLayout {
     }
 
     private void initImage(ApiArticle article) {
-        this.image = new Image(article.getTitle(), new ExternalResource(article.getImageUrl()));
-        this.image.setSizeFull();
+        this.image = new Image("", new ExternalResource(article.getImageUrl()));
+        this.image.setWidth("100%");
     }
 
     public Image getImage() {

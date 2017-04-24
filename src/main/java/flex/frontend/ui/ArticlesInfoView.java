@@ -12,30 +12,29 @@ import org.utils.ServiceLocator;
  * Created by zua on 13/04/17.
  */
 public class ArticlesInfoView extends GridLayout {
-    private Map<ApiSource, List<ApiArticle>> news;
     public ArticlesInfoView() {
-        super(1, 1);
+        super(3, 1);
         setWidth("100%");
         setHeightUndefined();
-        setSpacing(true);
-        setMargin(true);
+        setSpacing(false);
+        setMargin(false);
         setStyleName("articles");
         initArticles();
     }
 
-    public void initArticles() {
-        news = ServiceLocator.findNewsLoaderService().loadArticles(MyUI.MAX_ARTICLES);
-        for(ApiSource source: news.keySet()) {
-            for(ApiArticle article: news.get(source)) {
+    private void initArticles() {
+        Map<ApiSource, List<ApiArticle>> news = ServiceLocator.findNewsLoaderService().loadArticles(MyUI.MAX_ARTICLES);
+        news.keySet().stream().forEach((source) -> {
+            news.get(source).stream().forEach((article) -> {
                 addComponent(FlexViewFactory.createArticleView(source, article));
-            }
-        }
+            });
+        });
     }
 
     public void addArticles(ApiSource source, Collection<ApiArticle> articles) {
-        for(ApiArticle article: articles) {
+        articles.stream().forEach((article) -> {
             addComponent(FlexViewFactory.createArticleView(source, article));
-        }
+        });
     }
 
 

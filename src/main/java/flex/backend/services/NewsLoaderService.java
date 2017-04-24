@@ -34,9 +34,9 @@ public class NewsLoaderService {
                     result.put(source, new LinkedList());
                 }
                 result.get(source).add(article);
-                if(result.values().size() >= howMany) {
+                /*if(result.values().size() >= howMany) {
                     return result;
-                }
+                }*/
             }
         }
         return result;

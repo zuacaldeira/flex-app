@@ -31,7 +31,7 @@ import org.utils.ServiceLocator;
 @Push
 public class MyUI extends UI {
 
-    public static final int MAX_ARTICLES = 10;
+    public static final int MAX_ARTICLES = 100;
     private VerticalLayout rootLayout;
     private FlexMenu menu;
     private VerticalLayout body;
@@ -57,7 +57,7 @@ public class MyUI extends UI {
 
     private void initMenu() {
         menu = new FlexMenu();
-        menu.setHeight("4cm");
+        //menu.setHeight("4cm");
     }
 
     private void initBody() {

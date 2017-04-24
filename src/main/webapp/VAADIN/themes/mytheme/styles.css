@@ -12519,13 +12519,14 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-body {
-	background: black;
+	background: whitesmoke;
 	opacity: 1;
 }
 
 .mytheme .article {
 	background: white;
 	color: black;
+	font-family: serif;
 }
 
 .mytheme .article .article-title {
