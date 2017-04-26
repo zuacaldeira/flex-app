@@ -54,7 +54,7 @@
     }
 
     .flex-body {
-        background: whitesmoke;
+        background: -moz-linear-gradient(bottom right, black, silver); /* For Firefox 3.6 to 15 */
         opacity: 1;
     }
 

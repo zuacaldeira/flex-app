@@ -6,22 +6,27 @@ import flex.backend.db.ApiSource;
 import flex.backend.db.ApiSources;
 import flex.backend.db.NewsApiOrg;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import javax.ejb.Stateless;
+import java.util.TreeMap;
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
 
 /**
  * Created by zua on 15/04/17.
  */
-@Stateless
+@Singleton
 public class NewsLoaderService {
     
-    public Map<ApiSource, List<ApiArticle>> loadArticles(int howMany) {
-        System.out.printf("Populating the database with %s news", howMany);
-        Map<ApiSource, List<ApiArticle>> result = new HashMap<>();
-        
+    private Map<ApiSource, Collection<ApiArticle>> sourcesAndArticles;
+
+    public NewsLoaderService() {
+        this.sourcesAndArticles = new TreeMap<>();
+    }
+    
+    @PostConstruct
+    private void initSourcesAndArticles() {
         // Load sources
         ApiSources sources = NewsApiOrg.GET_ApiSources();
 
@@ -30,32 +35,86 @@ public class NewsLoaderService {
             //sourceService.createOrUpdate(source);
             ApiArticles articles = NewsApiOrg.GET_Articles(source);
             for(ApiArticle article: articles.getArticles()) {
+                if(!sourcesAndArticles.containsKey(source)) {
+                    sourcesAndArticles.put(source, new LinkedList());
+                }
+                sourcesAndArticles.get(source).add(article);
+            }
+        }
+    }
+    
+    
+    
+    public Map<ApiSource, Collection<ApiArticle>> loadArticles(int howMany) {
+        // Load sources
+        Map<ApiSource, Collection<ApiArticle>> result = new TreeMap<>();
+
+        // Store sources
+        for(ApiSource source: sourcesAndArticles.keySet()) {
+            Collection<ApiArticle> articles = sourcesAndArticles.get(source);
+            for(ApiArticle article: articles) {
                 if(!result.containsKey(source)) {
                     result.put(source, new LinkedList());
                 }
                 result.get(source).add(article);
-                /*if(result.values().size() >= howMany) {
+                if(result.values().size() >= howMany) {
                     return result;
-                }*/
+                }
             }
         }
         return result;
     }
     
     public Collection<ApiArticle> loadArticles(ApiSource source) {
-        return NewsApiOrg.GET_Articles(source).getArticles();
+        return sourcesAndArticles.get(source);
     }
 
 
     public ApiSources loadSources() {
-        return NewsApiOrg.GET_ApiSources();
+        ApiSources result = new ApiSources();
+        sourcesAndArticles.forEach((k,v) -> {
+            if(!result.containsSource(k)) {
+                result.addSource(k);
+            }
+        });
+        return result;
     }
     
+    public ApiSources loadSourcesWithCategory(String category) {
+        ApiSources result = new ApiSources();
+        sourcesAndArticles.forEach((k,v) -> {
+            if(k.getCategory() != null && k.getCategory().equals(category) && !result.containsSource(k)) {
+                result.addSource(k);
+            }
+        });
+        return result;
+    }
+
+    public ApiSources loadSourcesWithLanguage(String language) {
+        ApiSources result = new ApiSources();
+        sourcesAndArticles.forEach((k,v) -> {
+            if(k.getLanguage() != null && k.getLanguage().equals(language) && !result.containsSource(k)) {
+                result.addSource(k);
+            }
+        });
+        return result;
+    }
+
+    public ApiSources loadSourcesWithCountry(String country) {
+        ApiSources result = new ApiSources();
+        sourcesAndArticles.forEach((k,v) -> {
+            if(k.getCountry() != null 
+                    && k.getCountry().equals(country) 
+                    && !result.containsSource(k)) {
+                result.addSource(k);
+            }
+        });
+        return result;
+    }
+
     public List<String> loadCategories() {
         List<String> categories = new LinkedList<>();
-        
-        ApiSources sources = NewsApiOrg.GET_ApiSources();
-        sources.getSources().forEach(s -> {
+        sourcesAndArticles.keySet().forEach(s -> {
             if(!categories.contains(s.getCategory())) {
                 categories.add(s.getCategory());
             }
@@ -65,10 +124,8 @@ public class NewsLoaderService {
     }
 
     public List<String> loadLanguages() {
-        List<String> languages = new LinkedList<>();
-        
-        ApiSources sources = NewsApiOrg.GET_ApiSources();
-        sources.getSources().forEach(s -> {
+        List<String> languages = new LinkedList<>();        
+        sourcesAndArticles.keySet().forEach(s -> {
             if(!languages.contains(s.getLanguage())) {
                 languages.add(s.getLanguage());
             }
@@ -79,9 +136,7 @@ public class NewsLoaderService {
     
     public List<String> loadCountries() {
         List<String> countries = new LinkedList<>();
-        
-        ApiSources sources = NewsApiOrg.GET_ApiSources();
-        sources.getSources().forEach(s -> {
+        sourcesAndArticles.keySet().forEach(s -> {
             if(!countries.contains(s.getCountry())) {
                 countries.add(s.getCountry());
             }

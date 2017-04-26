@@ -12519,7 +12519,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-body {
-	background: whitesmoke;
+	background: -moz-linear-gradient(bottom right, black, silver);
 	opacity: 1;
 }
 

@@ -26,4 +26,12 @@ public class ApiSources {
     public Collection<ApiSource> getSources() {
         return sourcesMap.values();
     }
+
+    public boolean containsSource(ApiSource k) {
+        return getSources().contains(k);
+    }
+
+    public void addSource(ApiSource k) {
+        sourcesMap.put(k.getSourceId(), k);
+    }
 }

@@ -4,7 +4,6 @@ import com.vaadin.ui.GridLayout;
 import flex.backend.db.ApiArticle;
 import flex.backend.db.ApiSource;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import org.utils.ServiceLocator;
 
@@ -13,7 +12,7 @@ import org.utils.ServiceLocator;
  */
 public class ArticlesInfoView extends GridLayout {
     public ArticlesInfoView() {
-        super(3, 1);
+        super(4, 1);
         setWidth("100%");
         setHeightUndefined();
         setSpacing(false);
@@ -23,7 +22,7 @@ public class ArticlesInfoView extends GridLayout {
     }
 
     private void initArticles() {
-        Map<ApiSource, List<ApiArticle>> news = ServiceLocator.findNewsLoaderService().loadArticles(MyUI.MAX_ARTICLES);
+        Map<ApiSource, Collection<ApiArticle>> news = ServiceLocator.findNewsLoaderService().loadArticles(MyUI.MAX_ARTICLES);
         news.keySet().stream().forEach((source) -> {
             news.get(source).stream().forEach((article) -> {
                 addComponent(FlexViewFactory.createArticleView(source, article));

@@ -6,7 +6,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
  * Created by zua on 12/04/17.
  */
 @NodeEntity
-public class ApiSource extends GraphEntity {
+public class ApiSource extends GraphEntity implements Comparable<ApiSource> {
     private String sourceId;
     private String name;
     private String description;
@@ -86,6 +86,11 @@ public class ApiSource extends GraphEntity {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public int compareTo(ApiSource o) {
+        return name.compareTo(o.getName());
     }
 
 }
