@@ -30,15 +30,6 @@
 // Example variants can be copy/pasted from https://vaadin.com/wiki/-/wiki/Main/Valo+Examples
 
 
-#grad {
-    background: red; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(left top, red, yellow); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(bottom right, red, yellow); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(bottom right, red, yellow); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(to bottom right, red, yellow); /* Standard syntax */
-}
-
-
 @import "../valo/valo.scss";
 
 @mixin mytheme {
@@ -46,26 +37,29 @@
 
     // Insert your own theme rules here
     .v-ui{
-        background: black;
+        @include linear-gradient(to top, black, lightblue);
     }
 
     .flex-menu {
-        background: black;
+        background: white;
+    }
+    
+    .flex-logo {
+        font-weight: bold;
+        font-family: serif;
     }
 
     .flex-body {
-        background: -moz-linear-gradient(bottom right, black, silver); /* For Firefox 3.6 to 15 */
         opacity: 1;
     }
 
     .article{
-        background: white;
         color: black;
         font-family: serif;
         
         .article-title {
             opacity: 1;
-            font-size: 120%;
+            font-size: 200%;
             font-weight: bold;
         }
         .article-author {
@@ -78,11 +72,61 @@
             opacity: 1;
             font-size: 12pt;
         }
+        .controls{
+            background: grey;
+        }
     }
 
     .sources {
         opacity: 1;      
         .source {}      
     }
+    
+    .category-general {
+        background: #00ace0;
+        opacity: 1;
+    }
+    
+    .category-technology {
+        background: #46b33a;
+        opacity: 1;
+    }
+
+    .category-sport {
+        background: azure;
+        opacity: 1;
+    }
+
+    .category-business {
+        background: gold;
+        opacity: 1;
+    }
+
+    .category-politics {
+        background: greenyellow;
+        opacity: 1;
+    }
+
+    .category-entertainment {
+        background: pink;
+        opacity: 1;
+    }
+    
+    .category-music {
+        background: purple;
+        opacity: 1;
+    }
+
+    .category-science-and-nature{
+        background: yellow;
+        opacity: 1;
+    }
+
+    .category-gaming{
+        background: yellowgreen;
+        opacity: 1;
+    }
+
+
 
 }

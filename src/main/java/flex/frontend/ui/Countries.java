@@ -1,6 +1,6 @@
 package flex.frontend.ui;
 
-import flex.frontend.ui.map.CountryData;
+import flex.frontend.ui.map.CityData;
 import com.csvreader.CsvReader;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinService;
@@ -14,10 +14,10 @@ import java.util.*;
  */
 public class Countries {
 
-    private static Map<String, List<CountryData>> countries = loadAll();
+    private static Map<String, List<CityData>> countries = loadAll();
     private static String FILENAME = "World_Cities_Location_table.csv";
 
-    private static Map<String, List<CountryData>> loadAll() {
+    private static Map<String, List<CityData>> loadAll() {
         countries = new HashMap<>();
         try {
             String basepath = VaadinService.getCurrent().getBaseDirectory().getAbsolutePath();
@@ -45,7 +45,7 @@ public class Countries {
                 Double altitude = Double.parseDouble(values[5]);
 
                 // perform program logic here
-                addCountryData(new CountryData(id, country, city, latitude, longitude, altitude));
+                addCountryData(new CityData(id, country, city, latitude, longitude, altitude));
             }
 
             products.close();
@@ -58,16 +58,16 @@ public class Countries {
         return countries;
     }
 
-    private static void addCountryData(CountryData countryData) {
+    private static void addCountryData(CityData countryData) {
         if(!countries.containsKey(countryData.getCountry())) {
-            countries.put(countryData.getCountry(), new LinkedList<CountryData>());
+            countries.put(countryData.getCountry(), new LinkedList<CityData>());
         }
 
         countries.get(countryData.getCountry()).add(countryData);
     }
 
 
-    public static CountryData getCountryData(String country) {
+    public static CityData getCountryData(String country) {
 
         System.out.println("Input is: " + country);
         Locale[] locales = Locale.getAvailableLocales();
@@ -81,7 +81,7 @@ public class Countries {
             }
         }
 
-        return new CountryData("Unknown", country, "Unknown City", 0, 0, 0);
+        return new CityData("Unknown", country, "Unknown City", 0, 0, 0);
     }
 
 

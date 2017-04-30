@@ -3,7 +3,7 @@ package flex.frontend.ui.map;
 /**
  * Created by zua on 12/04/17.
  */
-public class CountryData {
+public class CityData {
     private final String country;
     private final String city;
     private final String id;
@@ -11,7 +11,7 @@ public class CountryData {
     private double latitude;
     private double longitude;
 
-    public CountryData(String id, String country, String city, double latitude, double longitude, double altitude) {
+    public CityData(String id, String country, String city, double latitude, double longitude, double altitude) {
         this.id = id;
         this.country = country;
         this.city = city;

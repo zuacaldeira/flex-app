@@ -8,9 +8,9 @@ import com.vaadin.event.selection.SingleSelectionEvent;
 import com.vaadin.event.selection.SingleSelectionListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.shared.ui.MarginInfo;
 
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
 import flex.backend.db.ApiArticle;
 import flex.backend.db.ApiSource;
 import flex.backend.db.ApiSources;
@@ -29,12 +29,12 @@ import org.utils.ServiceLocator;
 
 @Theme("mytheme")
 @Push
-public class MyUI extends UI implements SingleSelectionListener {
+public class NewsUI extends UI implements SingleSelectionListener {
 
     public static final int MAX_ARTICLES = 100;
-    private VerticalLayout rootLayout;
+    private AbsoluteLayout rootLayout;
     private FlexMenu menu;
-    private VerticalLayout body;
+    private Panel body;
     private FlexMenu footer;
     
     private ArticlesInfoView articlesInfoView;
@@ -48,31 +48,27 @@ public class MyUI extends UI implements SingleSelectionListener {
         initBody();
         initFooter();
         
-        rootLayout = new VerticalLayout();
+        rootLayout = new AbsoluteLayout();
+        rootLayout.addComponent(body, "top:2cm");
         rootLayout.addComponent(menu);
-        rootLayout.addComponent(body);
+        rootLayout.setHeight("1080px");
         
         setContent(rootLayout);
     }
 
     private void initMenu() {
         menu = new FlexMenu();
+        //menu.getSourcesComboBox().addSelectionListener(this);
+        //menu.getCategoryComboBox().addSelectionListener(this);
+        //menu.getLanguageComboBox().addSelectionListener(this);
         //menu.setHeight("4cm");
     }
 
     private void initBody() {
-        body = new VerticalLayout();
-        body.setHeightUndefined();
-        body.setStyleName("flex-body");
-        body.setMargin(new MarginInfo(true, false, false, false));
-        
-
-        articlesInfoView = new ArticlesInfoView();
-        menu.getSourcesComboBox().addSelectionListener(this);
-        menu.getCategoryComboBox().addSelectionListener(this);
-        menu.getLanguageComboBox().addSelectionListener(this);
-        
-        body.addComponent(articlesInfoView);
+        articlesInfoView = new ArticlesInfoView();        
+        body = new Panel(null, articlesInfoView);
+        body.setSizeFull();
+        body.setStyleName(ValoTheme.PANEL_BORDERLESS);
         
         /* World News tab */
         /* Full-size CSS Layout root component */
@@ -82,7 +78,7 @@ public class MyUI extends UI implements SingleSelectionListener {
 
     private void initFooter() {
         footer = new FlexMenu();
-        footer.setHeight("1cm");
+        footer.setHeight("1.5cm");
         footer.setWidth("100%");
     }
 
@@ -136,9 +132,9 @@ public class MyUI extends UI implements SingleSelectionListener {
     }
 
 
-    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
-    public static class MyUIServlet extends VaadinServlet {
+    @WebServlet(urlPatterns = "/news/*", name = "NewsUIServlet", asyncSupported = true)
+    @VaadinServletConfiguration(ui = NewsUI.class, productionMode = false)
+    public static class NewsUIServlet extends VaadinServlet {
     }
 
 }

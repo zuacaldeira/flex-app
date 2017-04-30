@@ -119,19 +119,19 @@ public class NewsApiOrg {
                 if(obj.get("author") != null) {
                     author = obj.getString("author");
                 }
-                if(obj.get("title") != null) {
+                if(obj.get("title")  != null) {
                     title = obj.getString("title");
                 }
                 if(obj.get("description") != null) {
                     description = obj.getString("description");
                 }
-                if(obj.get("url") != null) {
+                if(obj.get("url")  != null) {
                     url = obj.getString("url");
                 }
-                if(obj.get("urlToImage") != null) {
+                if(obj.get("urlToImage")  != null) {
                     imageUrl = obj.getString("urlToImage");
                 }
-                if(obj.get("publishedAt") != null) {
+                if(obj.get("publishedAt")  != null) {
                     publishedAt = obj.getString("publishedAt");
                 }
 

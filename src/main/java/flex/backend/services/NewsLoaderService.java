@@ -11,7 +11,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import javax.ejb.Schedule;
 import javax.ejb.Singleton;
+import javax.ejb.TimerService;
 
 /**
  * Created by zua on 15/04/17.
@@ -19,15 +22,16 @@ import javax.ejb.Singleton;
 @Singleton
 public class NewsLoaderService {
     
+    @Resource
+    private TimerService timer;
+    
     private Map<ApiSource, Collection<ApiArticle>> sourcesAndArticles;
 
-    public NewsLoaderService() {
-        this.sourcesAndArticles = new TreeMap<>();
-    }
-    
     @PostConstruct
     private void initSourcesAndArticles() {
         // Load sources
+        System.out.println("===> Loading data from newsapi.org...");
+        this.sourcesAndArticles = new TreeMap<>();
         ApiSources sources = NewsApiOrg.GET_ApiSources();
 
         // Store sources
@@ -41,6 +45,13 @@ public class NewsLoaderService {
                 sourcesAndArticles.get(source).add(article);
             }
         }
+        System.out.println("<=== Data loaded.");
+    }
+    
+    
+    @Schedule(hour = "*", minute = "*/5")
+    public void reload() {
+        initSourcesAndArticles();        
     }
     
     

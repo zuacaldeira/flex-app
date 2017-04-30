@@ -1,7 +1,6 @@
 package flex.backend.db;
 
 
-import java.text.ParseException;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 /**
@@ -18,7 +17,7 @@ public class ApiArticle extends GraphEntity {
     private String imageUrl;
     private String publishedAt;
 
-    public ApiArticle(String sourceId, String author, String title, String description, String url, String imageUrl, String publishedAt) throws ParseException {
+    public ApiArticle(String sourceId, String author, String title, String description, String url, String imageUrl, String publishedAt) {
         this.sourceId = sourceId;
         this.author = author;
         this.title = title;

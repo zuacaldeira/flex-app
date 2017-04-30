@@ -1,7 +1,6 @@
 package flex.backend.db;
 
 
-import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -16,12 +15,8 @@ public class ApiArticles {
     }
 
     public void addArticle(String sourceId, String author, String title, String description, String url, String imageUrl, String publishedAt) {
-        try {
-            ApiArticle article = new ApiArticle(sourceId, author, title, description, url, imageUrl, publishedAt);
-            articlesMap.put(title, article);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        ApiArticle article = new ApiArticle(sourceId, author, title, description, url, imageUrl, publishedAt);
+        articlesMap.put(title, article);
     }
 
     public ApiArticle getArticle(String title) {

@@ -8,7 +8,7 @@ import flex.frontend.ui.Countries;
  */
 public class GeoInfo {
     private final ApiSource source;
-    private final CountryData countryData;
+    private final CityData countryData;
 
     public GeoInfo(ApiSource source) {
         this.source = source;
@@ -19,7 +19,7 @@ public class GeoInfo {
         return source;
     }
 
-    public CountryData getCountryData() {
+    public CityData getCountryData() {
         return countryData;
     }
 }
