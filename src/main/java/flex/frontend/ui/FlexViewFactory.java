@@ -1,7 +1,7 @@
 package flex.frontend.ui;
 
-import flex.backend.db.ApiArticle;
-import flex.backend.db.ApiSource;
+import flex.backend.news.db.ApiArticle;
+import flex.backend.news.db.ApiSource;
 
 
 /**
@@ -12,7 +12,7 @@ public class FlexViewFactory {
         return new SourceView(source);
     }
 
-    public static ArticleView createArticleView(ApiSource source, ApiArticle article) {
-        return new ArticleView(source, article);
+    public static ArticleView createArticleView(ApiArticle article) {
+        return new ArticleView(article);
     }
 }

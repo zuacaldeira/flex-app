@@ -3,7 +3,7 @@ package flex.frontend.ui;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import flex.backend.db.ApiSource;
+import flex.backend.news.db.ApiSource;
 
 /**
  * Created by zua on 12/04/17.

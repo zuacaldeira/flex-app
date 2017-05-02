@@ -1,5 +1,8 @@
-package flex.backend.db;
+package flex.backend.news.db;
 
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 /**
@@ -14,10 +17,15 @@ public class ApiSource extends GraphEntity implements Comparable<ApiSource> {
     private String category;
     private String language;
     private String country;
-
-    public ApiSource() {}
+    
+    private Set<Author> authors;
+    
+    public ApiSource() {
+        authors = new HashSet<>();
+    }
 
     public ApiSource(String id, String name, String description, String url, String category, String language, String country) {
+        this();
         this.sourceId = id;
         this.name = name;
         this.description = description;
@@ -83,6 +91,14 @@ public class ApiSource extends GraphEntity implements Comparable<ApiSource> {
         this.country = country;
     }
 
+    public Set<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<Author> authors) {
+        this.authors = authors;
+    }
+    
     @Override
     public String toString() {
         return name;
@@ -91,6 +107,35 @@ public class ApiSource extends GraphEntity implements Comparable<ApiSource> {
     @Override
     public int compareTo(ApiSource o) {
         return name.compareTo(o.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 23 * hash + Objects.hashCode(this.sourceId);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ApiSource other = (ApiSource) obj;
+        if (!Objects.equals(this.sourceId, other.sourceId)) {
+            return false;
+        }
+        return true;
+    }    
+
+    public void addAuthor(Author author) {
+        if(author == null) {
+            throw new NullPointerException("Author cannot be null");
+        }
+        authors.add(author);
     }
 
 }

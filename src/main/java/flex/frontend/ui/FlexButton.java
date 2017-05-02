@@ -17,6 +17,7 @@ public class FlexButton extends Button {
     
     public FlexButton(String caption, Resource icon) {
         super(caption, icon);
-        setStyleName(ValoTheme.BUTTON_BORDERLESS);
+        setStyleName(ValoTheme.BUTTON_QUIET + " " + ValoTheme.BUTTON_BORDERLESS);
+        setSizeUndefined();
     }
 }

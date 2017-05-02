@@ -40,12 +40,32 @@
         @include linear-gradient(to top, black, lightblue);
     }
 
-    .flex-menu {
-        background: white;
+    .v-label-huge {
+        font-size: 200px;
+        font-weight: bold;
+        color: white;
+        font-family: serif;
     }
     
-    .flex-logo {
+    .login-view {
+        color: white;        
+    }
+    
+    .welcome-message {
+        font-size: 200px;
+    }            
+
+    .app-icon {
+        font-size: 100px;
+    }            
+    
+    .flex-menu {
+        background: transparent;
+    }
+    
+    .flex-logo{
         font-weight: bold;
+        color: white;
         font-family: serif;
     }
 
@@ -54,7 +74,8 @@
     }
 
     .article{
-        color: black;
+        background: white;
+        opacity: .25;
         font-family: serif;
         
         .article-title {
@@ -73,7 +94,8 @@
             font-size: 12pt;
         }
         .controls{
-            background: grey;
+            opacity: 1;
+            color: tomato;
         }
     }
 

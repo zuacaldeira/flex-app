@@ -38,7 +38,7 @@
             <snapshots>
                     <enabled>true</enabled>
             </snapshots>
-        </repository>        
+        </repository>
     </repositories>
 
     <dependencyManagement>
@@ -90,13 +90,13 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.4.1</version>
+            <version>4.5.3</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.9</version>
+            <version>1.10</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
         <dependency>
@@ -138,11 +138,18 @@
         </dependency>
         <dependency>
             <groupId>org.neo4j</groupId>
-            <artifactId>neo4j-ogm</artifactId>
-            <version>1.1.4</version>
-            <type>jar</type>
+            <artifactId>neo4j-ogm-core</artifactId>
+            <version>3.0.0-M01</version>
+            <scope>compile</scope>
         </dependency>
+
+        <!-- Only add if you're using the HTTP driver -->
         <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-ogm-http-driver</artifactId>
+            <version>3.0.0-M01</version>
+            <scope>runtime</scope>
+        </dependency>        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>

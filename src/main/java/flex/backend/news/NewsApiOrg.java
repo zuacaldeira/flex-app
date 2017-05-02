@@ -1,7 +1,10 @@
-package flex.backend.db;
+package flex.backend.news;
 
 
 
+import flex.backend.news.db.ApiArticle;
+import flex.backend.news.db.ApiSource;
+import flex.backend.news.db.Author;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import org.json.JSONArray;
@@ -23,7 +27,6 @@ public class NewsApiOrg {
     private static final String apiKey = "5b4e00f3046843138d8368211777a4f2";
     private static String sourcesUrl = "https://newsapi.org/v1/sources?";
     private static String articlesUrl = "https://newsapi.org/v1/articles?";
-
 
     private static Map<String, String> getSourceParams() {
         Map<String, String> params = new HashMap<>();
@@ -65,42 +68,28 @@ public class NewsApiOrg {
         return params;
     }
     
-
-    public static ApiSources GET_ApiSources() {
-        return GET_ApiSources("", "", "");
-    }
-    
-    public static ApiSources GET_ApiSources(String category, String language2letter, String country) {
-        String query          = NewsApiOrg.createSourceQuery(category, language2letter, country);
-        ApiSources apiSources = new ApiSources();
-
+    public static Map<ApiSource, Map<Author, Collection<ApiArticle>>> loadData() {
+        Map<ApiSource, Map<Author, Collection<ApiArticle>>> data = new HashMap<>();
         try {
+            String query = NewsApiOrg.createSourceQuery("", "", "");
             JSONObject jsonObject     = makeApiCall(query);
             JSONArray allSourcesArray = jsonObject.getJSONArray("sources");
-
             for(int i = 0; i < allSourcesArray.length(); i++) {
                 JSONObject obj = allSourcesArray.getJSONObject(i);
-
-                String id = obj.getString("id");
-                String name = obj.getString("name");
-                String description = obj.getString("description");
-                String url = obj.getString("url");
-                String cat = obj.getString("category");
-                String language = obj.getString("language");
-                String ctry = obj.getString("country");
-
-                apiSources.addSource(id, name, description, url, cat, language, ctry);
+                ApiSource source = createSource(obj);
+                ApiArticles articles = loadArticles(source);
+                data.put(source, articles.getArticlesMap());
             }
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
             System.err.println(e.getMessage());
         }
-        return apiSources;
+        return data;
     }
 
-    public static ApiArticles GET_Articles(ApiSource source) {
+    private static ApiArticles loadArticles(ApiSource source) {
         String query = NewsApiOrg.createArticlesQuery(source.getSourceId(), "");
 
-        ApiArticles apiArticles = new ApiArticles();
+        ApiArticles apiArticles = new ApiArticles(source);
 
         try {
             JSONObject jsonObject = makeApiCall(query);
@@ -109,36 +98,31 @@ public class NewsApiOrg {
 
             for(int i = 0; i < allArticlesArray.length(); i++) {
                 JSONObject obj = allArticlesArray.getJSONObject(i);
-                String author = null, 
-                        title = null, 
-                        description = null, 
-                        url = null, 
-                        imageUrl = null, 
-                        publishedAt = null;
+                ApiArticle article = new ApiArticle();
                 
-                if(obj.get("author") != null) {
-                    author = obj.getString("author");
+                if(!obj.isNull("author")) {
+                    article.setAuthor(obj.getString("author"));
                 }
-                if(obj.get("title")  != null) {
-                    title = obj.getString("title");
+                if(!obj.isNull("title")) {
+                    article.setTitle(obj.getString("title"));
                 }
-                if(obj.get("description") != null) {
-                    description = obj.getString("description");
+                if(!obj.isNull("description")) {
+                    article.setDescription(obj.getString("description"));
                 }
-                if(obj.get("url")  != null) {
-                    url = obj.getString("url");
+                if(!obj.isNull("url")) {
+                    article.setUrl(obj.getString("url"));
                 }
-                if(obj.get("urlToImage")  != null) {
-                    imageUrl = obj.getString("urlToImage");
+                if(!obj.isNull("urlToImage")) {
+                    article.setImageUrl(obj.getString("urlToImage"));
                 }
-                if(obj.get("publishedAt")  != null) {
-                    publishedAt = obj.getString("publishedAt");
+                if(!obj.isNull("publishedAt")) {
+                    article.setPublishedAt(obj.getString("publishedAt"));
                 }
 
-                apiArticles.addArticle(source.getSourceId(), author, title, description, url, imageUrl, publishedAt);
+                apiArticles.addArticle(article);
             }
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.err.println("EXCEPTON at LOAD ARTICLES: " + e.getMessage());
         }
         return apiArticles;
     }
@@ -190,6 +174,31 @@ public class NewsApiOrg {
         return sb.toString();
     }
 
-
-
+    private static ApiSource createSource(JSONObject obj) {
+        ApiSource source = new ApiSource();
+        
+        if(!obj.isNull("id")) {
+            source.setSourceId(obj.getString("id"));
+        }
+        if(!obj.isNull("name")) {
+            source.setName(obj.getString("name"));
+        }
+        if(!obj.isNull("description")) {
+            source.setDescription(obj.getString("description"));
+        }
+        if(!obj.isNull("url")) {
+            source.setUrl(obj.getString("url"));
+        }
+        if(!obj.isNull("category")) {
+            source.setCategory(obj.getString("category"));
+        }
+        if(!obj.isNull("country")) {
+            source.setCountry(obj.getString("country"));
+        }
+        if(!obj.isNull("language")) {
+            source.setLanguage(obj.getString("language"));
+        }
+        
+        return source;
+    }
 }

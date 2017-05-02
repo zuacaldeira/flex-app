@@ -4,20 +4,12 @@ package flex.frontend.ui;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
-import com.vaadin.event.selection.SingleSelectionEvent;
-import com.vaadin.event.selection.SingleSelectionListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import flex.backend.db.ApiArticle;
-import flex.backend.db.ApiSource;
-import flex.backend.db.ApiSources;
-import java.util.Collection;
-import java.util.Map;
 import javax.servlet.annotation.WebServlet;
-import org.utils.ServiceLocator;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser window 
@@ -29,7 +21,7 @@ import org.utils.ServiceLocator;
 
 @Theme("mytheme")
 @Push
-public class NewsUI extends UI implements SingleSelectionListener {
+public class NewsUI extends UI {
 
     public static final int MAX_ARTICLES = 100;
     private AbsoluteLayout rootLayout;
@@ -82,54 +74,7 @@ public class NewsUI extends UI implements SingleSelectionListener {
         footer.setWidth("100%");
     }
 
-    @Override
-    public void selectionChange(SingleSelectionEvent event) {
-        articlesInfoView.removeAllComponents();
-        
-        if(event.getComponent() == menu.getSourcesComboBox()) {
-            SingleSelect<ApiSource> ss = event.getSource();
-            ApiSource apiSource = ss.getValue();
-            
-            if(apiSource == null) {
-                Map<ApiSource, Collection<ApiArticle>> articles = ServiceLocator.findNewsLoaderService().loadArticles(MAX_ARTICLES);
-                for(ApiSource s: articles.keySet()) {
-                    articlesInfoView.addArticles(s, articles.get(s));
-                }
-            }
-            else {
-                Collection<ApiArticle> articles = ServiceLocator.findNewsLoaderService().loadArticles(apiSource);
-                articlesInfoView.addArticles(apiSource, articles);
-            }
-        }
-        
-        else if(event.getComponent() == menu.getCategoryComboBox()) {
-            SingleSelect<String> selection = event.getSource();
-            String category = selection.getValue();
-            if(category == null) {
-                
-            } else {
-                ApiSources sources = ServiceLocator.findNewsLoaderService().loadSourcesWithCategory(category);
-                sources.getSources().forEach(s -> {
-                    articlesInfoView.addArticles(s, ServiceLocator.findNewsLoaderService().loadArticles(s));
-                });
-            }
-        }
-        
-        else if(event.getComponent() == menu.getLanguageComboBox()) {
-            SingleSelect<String> selection = event.getSource();
-            String language = selection.getValue();
-            if(language == null) {
-                
-            } else {
-                ApiSources sources = ServiceLocator.findNewsLoaderService().loadSourcesWithLanguage(language);
-                sources.getSources().forEach(s -> {
-                    articlesInfoView.addArticles(s, ServiceLocator.findNewsLoaderService().loadArticles(s));
-                });
-            }
-        }
 
-        articlesInfoView.setHeightUndefined();
-    }
 
 
     @WebServlet(urlPatterns = "/news/*", name = "NewsUIServlet", asyncSupported = true)

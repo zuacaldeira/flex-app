@@ -1,4 +1,4 @@
-package flex.backend.services;
+package flex.backend.news.services;
 
 /**
  * Created by zua on 15/04/17.
@@ -11,6 +11,6 @@ public interface DBService<T> {
 
     public void delete(Long id);
 
-    public T createOrUpdate(T object);
+    public void createOrUpdate(T object);
 
 }

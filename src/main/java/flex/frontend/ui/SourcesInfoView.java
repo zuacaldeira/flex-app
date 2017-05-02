@@ -1,8 +1,8 @@
 package flex.frontend.ui;
 
 import com.vaadin.ui.*;
-import flex.backend.db.ApiArticle;
-import flex.backend.db.ApiSource;
+import flex.backend.news.db.ApiArticle;
+import flex.backend.news.db.ApiSource;
 import java.util.List;
 import java.util.Map;
 

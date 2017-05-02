@@ -3,15 +3,13 @@ package flex.frontend.ui;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;
-import flex.backend.db.ApiArticle;
-import flex.backend.db.ApiSource;
+import flex.backend.news.db.ApiArticle;
 
 
 /**
  * Created by zua on 13/04/17.
  */
 public class ArticleView extends VerticalLayout {
-    private final ApiSource source;
     private final ApiArticle article;
     private Label title;
     private Label author;
@@ -19,17 +17,15 @@ public class ArticleView extends VerticalLayout {
     private Image image;
     private Link link;
     private VerticalLayout info;
-    private GridLayout controls;
+    private HorizontalLayout controls;
     private FlexButton commentButton;
     private FlexButton shareButton;
     private FlexButton location;
     private FlexButton time;
     private FlexButton category;
 
-    public ArticleView(ApiSource source, ApiArticle article) {
-        this.source = source;
+    public ArticleView(ApiArticle article) {
         this.article = article;
-
         setSizeFull();
         initInfo();
         addComponent(info);
@@ -42,10 +38,6 @@ public class ArticleView extends VerticalLayout {
         this.link = new Link("Read Full Story", new ExternalResource(article.getUrl()));
         link.setTargetName("_blank"); 
         link.setIcon(VaadinIcons.NEWSPAPER);
-    }
-
-    public ApiSource getSource() {
-        return source;
     }
 
     public ApiArticle getArticle() {
@@ -71,7 +63,7 @@ public class ArticleView extends VerticalLayout {
     }
 
     private void initAuthor() {
-        this.author = new Label(article.getAuthor() + ", " + source.getName());
+        this.author = new Label(article.getAuthor());
         this.author.setStyleName("article-author white-on-black");
         this.author.setSizeFull();
     }
@@ -92,12 +84,10 @@ public class ArticleView extends VerticalLayout {
     }
 
     private void initControls() {
-        initLocationLabel();
         initTimeLabel();
-        initCategoryLabel();
         commentButton = new FlexButton("Comment", VaadinIcons.COMMENT);
         shareButton = new FlexButton(("Share"), VaadinIcons.SHARE_SQUARE);
-        controls = new GridLayout(2, 1, location, category, commentButton, shareButton);
+        controls = new HorizontalLayout(commentButton, shareButton);
         controls.setSizeFull();
     }
 
@@ -113,21 +103,9 @@ public class ArticleView extends VerticalLayout {
         info.setWidth("100%"); 
     }
     
-    public void initLocationLabel() {
-        String loc = source.getCountry();
-        location = new FlexButton(loc, VaadinIcons.MAP_MARKER);
-        location.setEnabled(false);
-    }
-
     public void initTimeLabel() {
         String t = article.getPublishedAt();
         time = new FlexButton(t, VaadinIcons.CLOCK);
         time.setEnabled(false);
-    }
-
-    public void initCategoryLabel() {
-        String t = source.getCategory();
-        category = new FlexButton(t, VaadinIcons.TAGS);
-        category.setEnabled(false);
     }
 }

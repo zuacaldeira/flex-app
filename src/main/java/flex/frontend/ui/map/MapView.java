@@ -8,8 +8,8 @@ import com.vaadin.tapio.googlemaps.client.overlays.GoogleMapMarker;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
-import flex.backend.db.ApiArticle;
-import flex.backend.db.ApiSource;
+import flex.backend.news.db.ApiArticle;
+import flex.backend.news.db.ApiSource;
 import java.util.List;
 import java.util.Map;
 

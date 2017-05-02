@@ -12656,8 +12656,33 @@ div.v-layout.v-horizontal.v-widget {
 	background-image: linear-gradient(to top,black, lightblue);
 }
 
+.mytheme .v-label-huge {
+	font-size: 500px;
+	font-weight: bold;
+	color: white;
+	font-family: serif;
+}
+
+.mytheme .login-view {
+	color: white;
+}
+
+.mytheme .login-view .flex-logo {
+	font-weight: bold;
+	color: white;
+	font-family: serif;
+}
+
+.mytheme .login-view .flex-logo .app-name {
+	font-size: 200px;
+}
+
+.mytheme .login-view .flex-logo .app-icon {
+	font-size: 100px;
+}
+
 .mytheme .flex-menu {
-	background: white;
+	background: transparent;
 }
 
 .mytheme .flex-logo {
@@ -12670,7 +12695,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .article {
-	color: black;
+	background: white;
+	opacity: 0.25;
 	font-family: serif;
 }
 
@@ -12693,7 +12719,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .article .controls {
-	background: grey;
+	opacity: 1;
+	color: tomato;
 }
 
 .mytheme .sources {

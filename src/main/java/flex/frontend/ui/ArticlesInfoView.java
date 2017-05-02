@@ -2,14 +2,10 @@ package flex.frontend.ui;
 
 import com.neovisionaries.i18n.CountryCode;
 import com.vaadin.server.Sizeable.Unit;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.VerticalLayout;
-import flex.backend.db.ApiArticle;
-import flex.backend.db.ApiSource;
-import java.util.ArrayList;
+import com.vaadin.ui.GridLayout;
+import flex.backend.news.db.ApiArticle;
+import flex.backend.news.db.ApiSource;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 import org.utils.ServiceLocator;
 import org.vaadin.alump.maplayout.MapColors;
 import org.vaadin.alump.maplayout.WorldMap;
@@ -17,35 +13,28 @@ import org.vaadin.alump.maplayout.WorldMap;
 /**
  * Created by zua on 13/04/17.
  */
-public class ArticlesInfoView extends HorizontalLayout {
-    private List<VerticalLayout> lists;
-    private int current;
-    private final int N_LISTS = 3;
+public class ArticlesInfoView extends GridLayout {
     
     public ArticlesInfoView() {
+        super(1,1);
         setWidth("100%");
-        
         setStyleName("articles");
-        initLists();
-        initArticles();
+        //initArticles();
         setMargin(true);
         setSpacing(true);
     }
 
     private void initArticles() {
-        Map<ApiSource, Collection<ApiArticle>> news = ServiceLocator.findNewsLoaderService().loadArticles(NewsUI.MAX_ARTICLES);
-        news.keySet().stream().forEach((source) -> {
-            news.get(source).stream().forEach((article) -> {
-                lists.get(current).addComponent(FlexViewFactory.createArticleView(source, article));
-                updateCurrent();
-            });
-        });
+        ServiceLocator.findNewsArticleService().findAll()
+            .forEach((article) -> {
+                addComponent(FlexViewFactory.createArticleView(article));
+            }
+        );
     }
 
-    public void addArticles(ApiSource source, Collection<ApiArticle> articles) {
+    public void addArticles(Collection<ApiArticle> articles) {
         articles.stream().forEach((article) -> {
-            lists.get(current).addComponent(FlexViewFactory.createArticleView(source, article));
-            updateCurrent();
+            addComponent(FlexViewFactory.createArticleView(article));
         });
     }
 
@@ -58,26 +47,5 @@ public class ArticlesInfoView extends HorizontalLayout {
         map.setWidth(100, Unit.PERCENTAGE);
         return map;
     }
-
-    private void initLists() {
-        lists = new ArrayList<>();
-        for(int i = 0; i < N_LISTS; i++) {
-            VerticalLayout v = new VerticalLayout();
-            v.setSizeFull();
-            lists.add(v);
-            addComponent(v);
-        }
-        current = 0;
-    }
-
-    private void updateCurrent() {
-        if(current == lists.size()-1) {
-            current = 0;
-        }
-        else {
-            current++;
-        }
-    }
-
 
 }

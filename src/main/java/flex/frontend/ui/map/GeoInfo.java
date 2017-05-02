@@ -1,6 +1,6 @@
 package flex.frontend.ui.map;
 
-import flex.backend.db.ApiSource;
+import flex.backend.news.db.ApiSource;
 import flex.frontend.ui.Countries;
 
 /**
