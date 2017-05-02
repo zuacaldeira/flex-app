@@ -1,7 +1,7 @@
 package flex.frontend.ui.map;
 
 import flex.backend.news.db.ApiSource;
-import flex.frontend.ui.Countries;
+import flex.frontend.ui.news.Countries;
 
 /**
  * Created by zua on 12/04/17.

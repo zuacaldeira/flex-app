@@ -1,8 +1,9 @@
-package flex.frontend.ui;
+package flex.frontend.ui.news;
 
 import com.vaadin.ui.*;
 import flex.backend.news.db.ApiArticle;
 import flex.backend.news.db.ApiSource;
+import flex.frontend.ui.FlexViewFactory;
 import java.util.List;
 import java.util.Map;
 

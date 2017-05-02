@@ -1,4 +1,4 @@
-package flex.frontend.ui;
+package flex.frontend.ui.news;
 
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;

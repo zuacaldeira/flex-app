@@ -1,4 +1,4 @@
-package flex.frontend.ui;
+package flex.frontend.ui.news;
 
 import flex.frontend.ui.map.CityData;
 import com.csvreader.CsvReader;

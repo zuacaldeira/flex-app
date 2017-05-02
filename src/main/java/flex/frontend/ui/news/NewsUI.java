@@ -1,4 +1,4 @@
-package flex.frontend.ui;
+package flex.frontend.ui.news;
 
 
 import com.vaadin.annotations.Push;
@@ -9,6 +9,7 @@ import com.vaadin.server.VaadinServlet;
 
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import flex.frontend.ui.FlexMenu;
 import javax.servlet.annotation.WebServlet;
 
 /**

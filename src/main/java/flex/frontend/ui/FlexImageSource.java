@@ -21,7 +21,7 @@ import javax.imageio.ImageIO;
  *
  * @author https://vaadin.com/docs/-/part/framework/application/application-resources.html
  */
-public class MyImageSource implements StreamSource {
+public class FlexImageSource implements StreamSource {
     ByteArrayOutputStream imagebuffer = null;
     int reloads = 0;
 

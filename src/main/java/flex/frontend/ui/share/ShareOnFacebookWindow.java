@@ -13,7 +13,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import flex.backend.news.db.ApiArticle;
 import flex.backend.news.db.ApiSource;
-import flex.frontend.ui.ArticleView;
+import flex.frontend.ui.news.ArticleView;
 import flex.frontend.ui.CancelButton;
 import flex.frontend.ui.FlexViewFactory;
 import flex.frontend.ui.SaveButton;

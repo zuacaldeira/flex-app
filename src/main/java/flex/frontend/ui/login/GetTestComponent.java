@@ -19,7 +19,7 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-import flex.frontend.ui.ApiInfo;
+import flex.frontend.ui.news.ApiInfo;
 
 @SuppressWarnings("serial")
 class GetTestComponent extends Panel {

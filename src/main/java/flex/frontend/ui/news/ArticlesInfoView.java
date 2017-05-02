@@ -1,10 +1,11 @@
-package flex.frontend.ui;
+package flex.frontend.ui.news;
 
 import com.neovisionaries.i18n.CountryCode;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.GridLayout;
 import flex.backend.news.db.ApiArticle;
 import flex.backend.news.db.ApiSource;
+import flex.frontend.ui.FlexViewFactory;
 import java.util.Collection;
 import org.utils.ServiceLocator;
 import org.vaadin.alump.maplayout.MapColors;

@@ -1,5 +1,7 @@
 package flex.frontend.ui;
 
+import flex.frontend.ui.news.ArticleView;
+import flex.frontend.ui.news.SourceView;
 import flex.backend.news.db.ApiArticle;
 import flex.backend.news.db.ApiSource;
 

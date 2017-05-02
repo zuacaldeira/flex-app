@@ -1,9 +1,10 @@
-package flex.frontend.ui;
+package flex.frontend.ui.news;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;
 import flex.backend.news.db.ApiArticle;
+import flex.frontend.ui.FlexButton;
 
 
 /**
