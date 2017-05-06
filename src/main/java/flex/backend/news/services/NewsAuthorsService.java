@@ -6,7 +6,7 @@
 package flex.backend.news.services;
 
 import flex.backend.news.Neo4jSessionFactory;
-import flex.backend.news.db.NewsArticle;
+import flex.backend.news.db.NewsAuthor;
 import java.util.HashMap;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -18,17 +18,18 @@ import org.neo4j.ogm.session.Session;
  */
 @Stateless
 @LocalBean
-public class NewsArticleService extends  AbstractDBService<NewsArticle> {
+public class NewsAuthorsService extends AbstractDBService<NewsAuthor> {
 
     @Override
-    protected Class<NewsArticle> getClassType() {
-        return NewsArticle.class;
+    protected Class<NewsAuthor> getClassType() {
+        return NewsAuthor.class;
     }
     
-    public NewsArticle find(String title) {
+    public NewsAuthor find(String name) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        return session.queryForObject(NewsArticle.class, 
-                Neo4jQueries.findArticleByTitle(title), 
+        return session.queryForObject(NewsAuthor.class, 
+                Neo4jQueries.findSourceBySourceId(name), 
                 new HashMap<>()); 
     }
+
 }

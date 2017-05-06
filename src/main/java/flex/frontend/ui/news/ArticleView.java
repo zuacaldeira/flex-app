@@ -3,7 +3,7 @@ package flex.frontend.ui.news;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;
-import flex.backend.news.db.ApiArticle;
+import flex.backend.news.db.NewsArticle;
 import flex.frontend.ui.FlexButton;
 
 
@@ -11,9 +11,9 @@ import flex.frontend.ui.FlexButton;
  * Created by zua on 13/04/17.
  */
 public class ArticleView extends VerticalLayout {
-    private final ApiArticle article;
+    private final NewsArticle article;
     private Label title;
-    private Label author;
+    private Label authorLabel;
     private Label content;
     private Image image;
     private Link link;
@@ -21,11 +21,9 @@ public class ArticleView extends VerticalLayout {
     private HorizontalLayout controls;
     private FlexButton commentButton;
     private FlexButton shareButton;
-    private FlexButton location;
     private FlexButton time;
-    private FlexButton category;
 
-    public ArticleView(ApiArticle article) {
+    public ArticleView(NewsArticle article) {
         this.article = article;
         setSizeFull();
         initInfo();
@@ -38,10 +36,9 @@ public class ArticleView extends VerticalLayout {
     private void initLink() {
         this.link = new Link("Read Full Story", new ExternalResource(article.getUrl()));
         link.setTargetName("_blank"); 
-        link.setIcon(VaadinIcons.NEWSPAPER);
     }
 
-    public ApiArticle getArticle() {
+    public NewsArticle getArticle() {
         return article;
     }
 
@@ -50,7 +47,7 @@ public class ArticleView extends VerticalLayout {
     }
 
     public Label getAuthor() {
-        return author;
+        return authorLabel;
     }
 
     public Label getContent() {
@@ -63,12 +60,6 @@ public class ArticleView extends VerticalLayout {
         this.title.setSizeFull();
     }
 
-    private void initAuthor() {
-        this.author = new Label(article.getAuthor());
-        this.author.setStyleName("article-author white-on-black");
-        this.author.setSizeFull();
-    }
-
     private void initContent() {
         this.content = new Label(article.getDescription());
         this.content.setStyleName("article-content");
@@ -76,8 +67,13 @@ public class ArticleView extends VerticalLayout {
     }
 
     private void initImage() {
-        this.image = new Image("", new ExternalResource(article.getImageUrl()));
-        this.image.setWidth("100%");
+        if(article.getImageUrl() != null) {
+            this.image = new Image("", new ExternalResource(article.getImageUrl()));
+            this.image.setWidth("100%");
+        }
+        else {
+            this.image = new Image();
+        }
     }
 
     public Image getImage() {
@@ -94,13 +90,11 @@ public class ArticleView extends VerticalLayout {
 
     private void initInfo() {
         initTitle();
-        initAuthor();
         initContent();
         initLink();
         initImage();
         initControls();
-
-        info = new VerticalLayout(image, title, author, content, link, controls);
+        info = new VerticalLayout(image, title, authorLabel, content, link, controls);
         info.setWidth("100%"); 
     }
     

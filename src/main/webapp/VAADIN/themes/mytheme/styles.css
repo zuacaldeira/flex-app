@@ -12657,7 +12657,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .v-label-huge {
-	font-size: 500px;
+	font-size: x-large;
 	font-weight: bold;
 	color: white;
 	font-family: serif;
@@ -12667,27 +12667,22 @@ div.v-layout.v-horizontal.v-widget {
 	color: white;
 }
 
-.mytheme .login-view .flex-logo {
-	font-weight: bold;
-	color: white;
-	font-family: serif;
+.mytheme .welcome-message {
+	font-size: xx-large;
 }
 
-.mytheme .login-view .flex-logo .app-name {
-	font-size: 200px;
-}
-
-.mytheme .login-view .flex-logo .app-icon {
-	font-size: 100px;
+.mytheme .app-icon {
+	font-size: 200%;
 }
 
 .mytheme .flex-menu {
 	background: transparent;
+	color: white;
 }
 
 .mytheme .flex-logo {
-	font-weight: bold;
-	font-family: serif;
+	font-weight: lighter;
+	color: white;
 }
 
 .mytheme .flex-body {
@@ -12696,14 +12691,13 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .article {
 	background: white;
-	opacity: 0.25;
 	font-family: serif;
 }
 
 .mytheme .article .article-title {
 	opacity: 1;
-	font-size: 200%;
-	font-weight: bold;
+	font-size: larger;
+	font-weight: bolder;
 }
 
 .mytheme .article .article-author {

@@ -2,9 +2,9 @@ package flex.backend.news;
 
 
 
-import flex.backend.news.db.ApiArticle;
-import flex.backend.news.db.ApiSource;
-import flex.backend.news.db.Author;
+import flex.backend.news.db.NewsArticle;
+import flex.backend.news.db.NewsSource;
+import flex.backend.news.db.NewsAuthor;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,9 +12,12 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,9 +28,14 @@ import org.json.JSONObject;
 public class NewsApiOrg {
 
     private static final String apiKey = "5b4e00f3046843138d8368211777a4f2";
-    private static String sourcesUrl = "https://newsapi.org/v1/sources?";
-    private static String articlesUrl = "https://newsapi.org/v1/articles?";
+    private static String sourcesUrl = "http://newsapi.org/v1/sources?";
+    private static String articlesUrl = "http://newsapi.org/v1/articles?";
 
+    static {
+        String certificatesTrustStorePath = "/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home/jre/lib/security/cacerts";
+        System.setProperty("javax.net.ssl.trustStore", certificatesTrustStorePath);
+        System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
+    }
     private static Map<String, String> getSourceParams() {
         Map<String, String> params = new HashMap<>();
 
@@ -68,25 +76,37 @@ public class NewsApiOrg {
         return params;
     }
     
-    public static Map<ApiSource, Map<Author, Collection<ApiArticle>>> loadData() {
-        Map<ApiSource, Map<Author, Collection<ApiArticle>>> data = new HashMap<>();
+    public static Map<NewsSource, Map<NewsAuthor, Collection<NewsArticle>>> loadData() {
+        System.out.println("===> Loading data from newsapi.org...");
+        Map<NewsSource, Map<NewsAuthor, Collection<NewsArticle>>> data = new HashMap<>();
         try {
             String query = NewsApiOrg.createSourceQuery("", "", "");
+            System.out.println("===> Query for newapi.org: " + query);
+
             JSONObject jsonObject     = makeApiCall(query);
             JSONArray allSourcesArray = jsonObject.getJSONArray("sources");
             for(int i = 0; i < allSourcesArray.length(); i++) {
                 JSONObject obj = allSourcesArray.getJSONObject(i);
-                ApiSource source = createSource(obj);
+                
+                NewsSource source = createSource(obj);                
+                System.out.println("===> Source found: " + source);
+                
                 ApiArticles articles = loadArticles(source);
+                System.out.println("===> Articles found: " + articles.getArticlesMap().size());
+
                 data.put(source, articles.getArticlesMap());
             }
         } catch (IOException | JSONException e) {
-            System.err.println(e.getMessage());
+            e.printStackTrace();
         }
+        
+        System.out.println("<=== Data loaded.");
         return data;
     }
 
-    private static ApiArticles loadArticles(ApiSource source) {
+    private static ApiArticles loadArticles(NewsSource source) {
+        System.out.println("LOADING ARTICLES FOR SOURCE " + source);
+        
         String query = NewsApiOrg.createArticlesQuery(source.getSourceId(), "");
 
         ApiArticles apiArticles = new ApiArticles(source);
@@ -98,10 +118,13 @@ public class NewsApiOrg {
 
             for(int i = 0; i < allArticlesArray.length(); i++) {
                 JSONObject obj = allArticlesArray.getJSONObject(i);
-                ApiArticle article = new ApiArticle();
+                
+                NewsArticle article = new NewsArticle();
+                Set<NewsAuthor> authors = null;
                 
                 if(!obj.isNull("author")) {
-                    article.setAuthor(obj.getString("author"));
+                    System.out.println(obj.getString("author").toUpperCase());
+                    authors = extractAuthors(obj.getString("author"));
                 }
                 if(!obj.isNull("title")) {
                     article.setTitle(obj.getString("title"));
@@ -119,12 +142,26 @@ public class NewsApiOrg {
                     article.setPublishedAt(obj.getString("publishedAt"));
                 }
 
-                apiArticles.addArticle(article);
+                apiArticles.addArticle(article, authors);
             }
         } catch (Exception e) {
             System.err.println("EXCEPTON at LOAD ARTICLES: " + e.getMessage());
         }
         return apiArticles;
+    }
+    
+    
+    private static Set<NewsAuthor> extractAuthors(String value) {
+        Set<NewsAuthor> authors = new HashSet<>();
+
+        String[] parts = value.split(",");
+        Set<String> allParts = new HashSet<>(Arrays.asList(parts));
+        for(String part: allParts) {
+            System.out.println("Processing author... " + part.trim());
+            authors.add(getSingleActor(part.trim()));
+        }
+        
+        return authors;
     }
 
     private static String createSourceQuery(String category, String language2Letter, String country) {
@@ -153,8 +190,8 @@ public class NewsApiOrg {
     }
     
     
-    public static JSONObject makeApiCall(String url) throws IOException, JSONException {
-        InputStream is = new URL(url).openStream();
+    private static JSONObject makeApiCall(String url) throws IOException, JSONException {
+        InputStream is = new URL(url).openConnection().getInputStream();
         try {
           BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
           String jsonText = readAll(rd);
@@ -174,8 +211,8 @@ public class NewsApiOrg {
         return sb.toString();
     }
 
-    private static ApiSource createSource(JSONObject obj) {
-        ApiSource source = new ApiSource();
+    private static NewsSource createSource(JSONObject obj) {
+        NewsSource source = new NewsSource();
         
         if(!obj.isNull("id")) {
             source.setSourceId(obj.getString("id"));
@@ -200,5 +237,16 @@ public class NewsApiOrg {
         }
         
         return source;
+    }
+
+    private static NewsAuthor getSingleActor(String value) {
+        NewsAuthor author = new NewsAuthor();
+        if(value.startsWith("http")) {
+            author.setUrl(value);
+        }
+        else {
+            author.setName(value);
+        }
+        return author;
     }
 }

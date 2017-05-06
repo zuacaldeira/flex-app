@@ -8,7 +8,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
  * Created by zua on 13/04/17.
  */
 @NodeEntity
-public class ApiArticle extends GraphEntity implements Comparable<ApiArticle>{
+public class NewsArticle extends GraphEntity implements Comparable<NewsArticle>{
 
     private String title;
     private String description;
@@ -16,11 +16,12 @@ public class ApiArticle extends GraphEntity implements Comparable<ApiArticle>{
     private String imageUrl;
     private String publishedAt;
     private String sourceId;
-    private String author;
-    
-    public ApiArticle(){}
 
-    public ApiArticle(String title, String description, String url, String imageUrl, String publishedAt) {
+    public NewsArticle(){
+    }
+
+    public NewsArticle(String title, String description, String url, String imageUrl, String publishedAt) {
+        this();
         this.title = title;
         this.description = description;
         this.url = url;
@@ -75,15 +76,7 @@ public class ApiArticle extends GraphEntity implements Comparable<ApiArticle>{
     public void setSourceId(String sourceId) {
         this.sourceId = sourceId;
     }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
+    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -99,7 +92,7 @@ public class ApiArticle extends GraphEntity implements Comparable<ApiArticle>{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ApiArticle other = (ApiArticle) obj;
+        final NewsArticle other = (NewsArticle) obj;
         if (!Objects.equals(this.title, other.title)) {
             return false;
         }
@@ -108,11 +101,14 @@ public class ApiArticle extends GraphEntity implements Comparable<ApiArticle>{
     
     @Override
     public String toString() {
+        if(title == null) {
+            return "";
+        }
         return title;
     }
 
     @Override
-    public int compareTo(ApiArticle o) {
+    public int compareTo(NewsArticle o) {
         if(o.title == null) {
             return -1;
         }
@@ -123,6 +119,4 @@ public class ApiArticle extends GraphEntity implements Comparable<ApiArticle>{
             return this.title.compareTo(o.title);
         }
     }
-
-
 }

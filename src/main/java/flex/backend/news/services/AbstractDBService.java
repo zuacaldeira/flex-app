@@ -40,6 +40,5 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
         session.save(object);
     }
     
-    
     protected abstract Class<T> getClassType();
 }

@@ -1,15 +1,13 @@
 package flex.backend.news.db;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 /**
  * Created by zua on 12/04/17.
  */
 @NodeEntity
-public class ApiSource extends GraphEntity implements Comparable<ApiSource> {
+public class NewsSource extends GraphEntity implements Comparable<NewsSource> {
     private String sourceId;
     private String name;
     private String description;
@@ -18,15 +16,12 @@ public class ApiSource extends GraphEntity implements Comparable<ApiSource> {
     private String language;
     private String country;
     
-    private Set<Author> authors;
-    
-    public ApiSource() {
-        authors = new HashSet<>();
+    public NewsSource() {
     }
 
-    public ApiSource(String id, String name, String description, String url, String category, String language, String country) {
+    public NewsSource(String sourceId, String name, String description, String url, String category, String language, String country) {
         this();
-        this.sourceId = id;
+        this.sourceId = sourceId;
         this.name = name;
         this.description = description;
         this.url = url;
@@ -91,22 +86,17 @@ public class ApiSource extends GraphEntity implements Comparable<ApiSource> {
         this.country = country;
     }
 
-    public Set<Author> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(Set<Author> authors) {
-        this.authors = authors;
-    }
-    
     @Override
     public String toString() {
-        return name;
+        if(sourceId == null) {
+            return "";
+        }
+        return sourceId;
     }
 
     @Override
-    public int compareTo(ApiSource o) {
-        return name.compareTo(o.getName());
+    public int compareTo(NewsSource o) {
+        return sourceId.compareTo(o.getSourceId());
     }
 
     @Override
@@ -124,18 +114,11 @@ public class ApiSource extends GraphEntity implements Comparable<ApiSource> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ApiSource other = (ApiSource) obj;
+        final NewsSource other = (NewsSource) obj;
         if (!Objects.equals(this.sourceId, other.sourceId)) {
             return false;
         }
         return true;
     }    
-
-    public void addAuthor(Author author) {
-        if(author == null) {
-            throw new NullPointerException("Author cannot be null");
-        }
-        authors.add(author);
-    }
 
 }

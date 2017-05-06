@@ -6,7 +6,7 @@
 package flex.backend.news.services;
 
 import flex.backend.news.Neo4jSessionFactory;
-import flex.backend.news.db.ApiSource;
+import flex.backend.news.db.NewsSource;
 import java.util.HashMap;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -18,17 +18,16 @@ import org.neo4j.ogm.session.Session;
  */
 @Stateless
 @LocalBean
-public class NewsSourceService extends AbstractDBService<ApiSource> {
+public class NewsSourceService extends AbstractDBService<NewsSource> {
 
     @Override
-    protected Class<ApiSource> getClassType() {
-        return ApiSource.class;
+    protected Class<NewsSource> getClassType() {
+        return NewsSource.class;
     }
     
-    public ApiSource find(String sourceId) {
+    public NewsSource find(String sourceId) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        return session.queryForObject(
-                ApiSource.class, 
+        return session.queryForObject(NewsSource.class, 
                 Neo4jQueries.findSourceBySourceId(sourceId), 
                 new HashMap<>()); 
     }

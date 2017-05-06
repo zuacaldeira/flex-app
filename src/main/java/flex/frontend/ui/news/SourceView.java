@@ -1,19 +1,19 @@
 package flex.frontend.ui.news;
 
 import com.vaadin.ui.Alignment;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import flex.backend.news.db.ApiSource;
+import com.vaadin.ui.VerticalLayout;
+import flex.backend.news.db.NewsSource;
 
 /**
  * Created by zua on 12/04/17.
  */
-public class SourceView extends HorizontalLayout {
-    private final ApiSource apiSource;
+public class SourceView extends VerticalLayout {
+    private final NewsSource apiSource;
     private final Label name;
     private final Label desc;
 
-    public SourceView(ApiSource apiSource) {
+    public SourceView(NewsSource apiSource) {
         setSizeFull();
         setHeightUndefined();
 
@@ -30,10 +30,11 @@ public class SourceView extends HorizontalLayout {
         setExpandRatio(desc, 0.8f);
         setComponentAlignment(name, Alignment.TOP_RIGHT);
         setComponentAlignment(desc, Alignment.TOP_LEFT);
+        setStyleName("article");
     }
 
 
-    public ApiSource getApiSource() {
+    public NewsSource getApiSource() {
         return apiSource;
     }
 }

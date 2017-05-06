@@ -41,7 +41,7 @@
     }
 
     .v-label-huge {
-        font-size: 200px;
+        font-size: x-large;
         font-weight: bold;
         color: white;
         font-family: serif;
@@ -52,21 +52,21 @@
     }
     
     .welcome-message {
-        font-size: 200px;
+        font-size: xx-large;
     }            
 
     .app-icon {
-        font-size: 100px;
+        font-size: 200%;
     }            
     
     .flex-menu {
         background: transparent;
+        color: white;
     }
     
-    .flex-logo{
-        font-weight: bold;
+    .flex-logo {
+        font-weight: lighter;
         color: white;
-        font-family: serif;
     }
 
     .flex-body {
@@ -75,13 +75,12 @@
 
     .article{
         background: white;
-        opacity: .25;
         font-family: serif;
         
         .article-title {
             opacity: 1;
-            font-size: 200%;
-            font-weight: bold;
+            font-size: larger;
+            font-weight: bolder;
         }
         .article-author {
             opacity: 1;

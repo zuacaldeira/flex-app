@@ -8,8 +8,8 @@ import com.vaadin.tapio.googlemaps.client.overlays.GoogleMapMarker;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
-import flex.backend.news.db.ApiArticle;
-import flex.backend.news.db.ApiSource;
+import flex.backend.news.db.NewsArticle;
+import flex.backend.news.db.NewsSource;
 import java.util.List;
 import java.util.Map;
 
@@ -97,7 +97,7 @@ public class MapView extends VerticalLayout {
         return googleMap;
     }
 
-    public void initMarkers(Map<ApiSource, List<ApiArticle>> data) {
+    public void initMarkers(Map<NewsSource, List<NewsArticle>> data) {
         Notification.show("Not supported yet.", Notification.Type.WARNING_MESSAGE); 
     }
 }

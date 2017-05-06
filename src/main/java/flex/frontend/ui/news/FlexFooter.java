@@ -3,19 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package flex.backend.news.db;
+package flex.frontend.ui.news;
 
-import org.neo4j.ogm.annotation.NodeEntity;
+import com.vaadin.ui.HorizontalLayout;
 
 /**
  *
  * @author zua
  */
-@NodeEntity
-public class UnknownAuthor extends Author {
-
-    public UnknownAuthor() {
-        super("Unknown", null);
-    }
+public class FlexFooter extends HorizontalLayout {
     
 }

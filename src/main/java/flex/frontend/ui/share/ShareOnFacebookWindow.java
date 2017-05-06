@@ -11,8 +11,8 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-import flex.backend.news.db.ApiArticle;
-import flex.backend.news.db.ApiSource;
+import flex.backend.news.db.NewsArticle;
+import flex.backend.news.db.NewsSource;
 import flex.frontend.ui.news.ArticleView;
 import flex.frontend.ui.CancelButton;
 import flex.frontend.ui.FlexViewFactory;
@@ -36,7 +36,7 @@ public class ShareOnFacebookWindow extends Window implements Button.ClickListene
     private CancelButton cancelButton;
     private HorizontalLayout controls;
     
-    public ShareOnFacebookWindow(ApiSource source, ApiArticle article) {
+    public ShareOnFacebookWindow(NewsSource source, NewsArticle article) {
         super("Share on Facebook");
         
         this.articleView = FlexViewFactory.createArticleView(article);

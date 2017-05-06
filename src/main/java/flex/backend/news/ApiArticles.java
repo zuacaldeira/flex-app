@@ -1,10 +1,9 @@
 package flex.backend.news;
 
 
-import flex.backend.news.db.ApiArticle;
-import flex.backend.news.db.ApiSource;
-import flex.backend.news.db.Author;
-import flex.backend.news.db.UnknownAuthor;
+import flex.backend.news.db.NewsArticle;
+import flex.backend.news.db.NewsSource;
+import flex.backend.news.db.NewsAuthor;
 import java.util.*;
 
 /**
@@ -12,50 +11,41 @@ import java.util.*;
  */
 public class ApiArticles {
 
-    private Map<Author, Collection<ApiArticle>> articlesMap;
-    private ApiSource source;
+    private Map<NewsAuthor, Collection<NewsArticle>> articlesMap;
+    private NewsSource source;
 
     public ApiArticles() {
         this.articlesMap = new TreeMap<>();
     }
 
-    public ApiArticles(ApiSource source) {
+    public ApiArticles(NewsSource source) {
         this();
         this.source = source;
     }
 
-    public Map<Author, Collection<ApiArticle>> getArticlesMap() {
+    public Map<NewsAuthor, Collection<NewsArticle>> getArticlesMap() {
         return articlesMap;
     }
 
-    public void setArticlesMap(Map<Author, Collection<ApiArticle>> articlesMap) {
+    public void setArticlesMap(Map<NewsAuthor, Collection<NewsArticle>> articlesMap) {
         this.articlesMap = articlesMap;
     }
 
 
-    public ApiSource getSource() {
+    public NewsSource getSource() {
         return source;
     }
 
-    public void setSource(ApiSource source) {
+    public void setSource(NewsSource source) {
         this.source = source;
     }
     
-    public void addArticle(ApiArticle article) {
-        Author author = getAuthor(article);
-        if(articlesMap.get(author) == null) {
-            articlesMap.put(author, new HashSet<>());
-        }
-        articlesMap.get(author).add(article);
-    }
-
-    private Author getAuthor(ApiArticle article) {
-        if(article.getAuthor() == null) {
-            return new UnknownAuthor();
-        } else {
-            return new Author(article.getAuthor(), null);
+    public void addArticle(NewsArticle article, Set<NewsAuthor> authors) {
+        for(NewsAuthor author: authors) {
+            if(!articlesMap.containsKey(author)) {
+                articlesMap.put(author, new HashSet<>());
+            }
+            articlesMap.get(author).add(article);
         }
     }
-    
-
 }

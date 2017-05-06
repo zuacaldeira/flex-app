@@ -8,8 +8,6 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 
 import com.vaadin.ui.*;
-import com.vaadin.ui.themes.ValoTheme;
-import flex.frontend.ui.FlexMenu;
 import javax.servlet.annotation.WebServlet;
 
 /**
@@ -23,57 +21,21 @@ import javax.servlet.annotation.WebServlet;
 @Theme("mytheme")
 @Push
 public class NewsUI extends UI {
-
-    public static final int MAX_ARTICLES = 100;
-    private AbsoluteLayout rootLayout;
-    private FlexMenu menu;
-    private Panel body;
-    private FlexMenu footer;
-    
-    private ArticlesInfoView articlesInfoView;
+    private NewsView newsView;
 
 
     @Override
     protected void init(VaadinRequest request) {
         
         // Load new news
-        initMenu();
-        initBody();
-        initFooter();
-        
-        rootLayout = new AbsoluteLayout();
-        rootLayout.addComponent(body, "top:2cm");
-        rootLayout.addComponent(menu);
-        rootLayout.setHeight("1080px");
-        
-        setContent(rootLayout);
+        newsView = new NewsView();
+        setContent(newsView);
     }
 
-    private void initMenu() {
-        menu = new FlexMenu();
-        //menu.getSourcesComboBox().addSelectionListener(this);
-        //menu.getCategoryComboBox().addSelectionListener(this);
-        //menu.getLanguageComboBox().addSelectionListener(this);
-        //menu.setHeight("4cm");
+    public NewsView getNewsView() {
+        return newsView;
     }
 
-    private void initBody() {
-        articlesInfoView = new ArticlesInfoView();        
-        body = new Panel(null, articlesInfoView);
-        body.setSizeFull();
-        body.setStyleName(ValoTheme.PANEL_BORDERLESS);
-        
-        /* World News tab */
-        /* Full-size CSS Layout root component */
-
-
-    }
-
-    private void initFooter() {
-        footer = new FlexMenu();
-        footer.setHeight("1.5cm");
-        footer.setWidth("100%");
-    }
 
 
 
