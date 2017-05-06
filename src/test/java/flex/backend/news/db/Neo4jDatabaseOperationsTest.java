@@ -5,83 +5,163 @@
  */
 package flex.backend.news.db;
 
+import com.tngtech.java.junit.dataprovider.DataProvider;
+import com.tngtech.java.junit.dataprovider.DataProviderRunner;
+import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import flex.backend.news.Neo4jSessionFactory;
 import java.util.HashMap;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.neo4j.ogm.session.Session;
 
 /**
  *
  * @author zua
  */
+@RunWith(DataProviderRunner.class)
 public class Neo4jDatabaseOperationsTest extends Neo4jTest {
     
     
+    
+    @DataProvider
+    public static Object[][] articlesProvider() {
+        NewsArticle article1 = new NewsArticle();
+        NewsArticle article2 = new NewsArticle("title", "description", "url", "imageUrl", "publishedAt");
+        return new Object[][] {
+            {article1},
+            {article2}
+        };
+    }
+    @DataProvider
+    public static Object[][] sourcesProvider() {
+        NewsSource source1 = new NewsSource();
+        NewsSource source2 = new NewsSource("sourceId", "name", "description", "url", "category", "language", "country");
+        return new Object[][] {
+            {source1},
+            {source2}
+        };
+    }
+    @DataProvider
+    public static Object[][] authorsProvider() {
+        NewsAuthor author1 = new NewsAuthor();
+        author1.setName("name1");        
+        NewsAuthor author2 = new NewsAuthor();
+        author2.setName("name2");
+        return new Object[][] {
+            {author1},
+            {author2}
+        };
+    }
+    
+    @DataProvider
+    public static Object[][] publishesProvider() {
+        NewsSource source1 = new NewsSource();
+        source1.setName("source1");
+        
+        NewsSource source2 = new NewsSource();
+        source2.setName("source2");
+        
+        NewsAuthor author1 = new NewsAuthor("name1");
+        NewsAuthor author2 = new NewsAuthor("name2");
+        
+        Publishes p1 = new Publishes(source1, author1);
+        Publishes p2 = new Publishes(source1, author2);
+
+        Publishes p3 = new Publishes(source2, author1);
+        Publishes p4 = new Publishes(source2, author2);
+
+        return new Object[][] {
+            {p1},
+            //{p2},
+            //{p3},
+            //{p4}
+        };
+    }
+
     @Test
-    public void createNewsArticle() {
+    @UseDataProvider("articlesProvider")
+    public void createNewsArticle(NewsArticle article) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
         String query = "MATCH (n:NewsArticle) RETURN n";
 
         NewsArticle dbArticle1 = session.queryForObject(NewsArticle.class, query, new HashMap<>());
         assertNull(dbArticle1);
 
-        session.save(new NewsArticle());
+        assertNull(article.getId());
+        session.save(article);
 
-        NewsArticle dbArticle = session.queryForObject(NewsArticle.class, query, new HashMap<>());
-        assertNotNull(dbArticle);
+        NewsArticle dbArticle2 = session.queryForObject(NewsArticle.class, query, new HashMap<>());
+        assertNotNull(dbArticle2);
         
-        session.deleteAll(NewsArticle.class);
+        assertNotNull(dbArticle2.getId());
+        assertEquals(dbArticle2, article);
     }
 
     @Test
-    public void createNewsSource() {
+    @UseDataProvider("sourcesProvider")
+    public void createNewsSource(NewsSource source) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
         String query = "MATCH (n:NewsSource) RETURN n";
 
         NewsSource dbSource1 = session.queryForObject(NewsSource.class, query, new HashMap<>());
         assertNull(dbSource1);
 
-        session.save(new NewsSource());
+        assertNull(source.getId());
+        session.save(source);
 
         NewsSource dbSource = session.queryForObject(NewsSource.class, query, new HashMap<>());
         assertNotNull(dbSource);
         
-        session.deleteAll(NewsSource.class);
+        assertNotNull(dbSource.getId());
+        assertEquals(dbSource, source);
     }
 
     @Test
-    public void createNewsAuthor() {
+    @UseDataProvider("authorsProvider")
+    public void createNewsAuthor(NewsAuthor author) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
         String query = "MATCH (n:NewsAuthor) RETURN n";
 
         NewsAuthor dbAuthor1 = session.queryForObject(NewsAuthor.class, query, new HashMap<>());
         assertNull(dbAuthor1);
 
-        session.save(new NewsAuthor());
+        assertNull(author.getId());
+        session.save(author);
 
         NewsAuthor dbAuthor = session.queryForObject(NewsAuthor.class, query, new HashMap<>());
         assertNotNull(dbAuthor);
         
-        session.deleteAll(NewsAuthor.class);
+        assertEquals(dbAuthor, author);
+        assertNotNull(dbAuthor.getId());
     }
 
 
     @Test
-    public void createPublishes() {
+    @UseDataProvider("publishesProvider")
+    public void createPublishes(Publishes publishes) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        String query = "MATCH (n)-[r:PUBLISHES]->(m) RETURN r";
 
-        Publishes dbPublishes1 = session.queryForObject(Publishes.class, query, new HashMap<>());
-        assertNull(dbPublishes1);
-
-        session.save(new Publishes(new NewsSource(), new NewsAuthor()));
+        String query = "MATCH ()-[r:PUBLISHES]->() RETURN r";
 
         Publishes dbPublishes = session.queryForObject(Publishes.class, query, new HashMap<>());
+        assertNull(dbPublishes);
+
+        assertNull(publishes.getId());
+        assertNotNull(publishes.getSource());
+        assertNotNull(publishes.getAuthor());
+        session.save(publishes, 1);
+
+        dbPublishes = session.queryForObject(Publishes.class, query, new HashMap<>());
         assertNotNull(dbPublishes);
+        assertNotNull(dbPublishes.getAuthor());
+        assertNotNull(dbPublishes.getSource());
         
-        session.deleteAll(Publishes.class);
+        /*assertEquals(1, session.countEntitiesOfType(Publishes.class));
+        assertEquals(1, session.countEntitiesOfType(NewsSource.class));
+        assertEquals(1, session.countEntitiesOfType(NewsAuthor.class));*/
     }
 
 

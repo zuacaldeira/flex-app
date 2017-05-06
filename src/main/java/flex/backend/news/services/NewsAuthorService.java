@@ -18,17 +18,17 @@ import org.neo4j.ogm.session.Session;
  */
 @Stateless
 @LocalBean
-public class NewsAuthorsService extends AbstractDBService<NewsAuthor> {
+public class NewsAuthorService extends AbstractDBService<NewsAuthor> {
 
     @Override
     protected Class<NewsAuthor> getClassType() {
         return NewsAuthor.class;
     }
     
-    public NewsAuthor find(String name) {
+    public NewsAuthor findAuthorByName(String name) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
         return session.queryForObject(NewsAuthor.class, 
-                Neo4jQueries.findSourceBySourceId(name), 
+                Neo4jQueries.findAuthorByName(name), 
                 new HashMap<>()); 
     }
 

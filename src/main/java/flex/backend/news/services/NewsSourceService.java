@@ -25,7 +25,7 @@ public class NewsSourceService extends AbstractDBService<NewsSource> {
         return NewsSource.class;
     }
     
-    public NewsSource find(String sourceId) {
+    public NewsSource findSourceBySourceId(String sourceId) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
         return session.queryForObject(NewsSource.class, 
                 Neo4jQueries.findSourceBySourceId(sourceId), 

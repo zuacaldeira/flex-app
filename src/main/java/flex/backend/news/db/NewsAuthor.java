@@ -9,10 +9,16 @@ import org.neo4j.ogm.annotation.NodeEntity;
 @NodeEntity
 public class NewsAuthor extends  GraphEntity implements Comparable<NewsAuthor>{
 
+    
     private String name;
     private String url;
     
     public NewsAuthor() {
+    }
+
+    public NewsAuthor(String name) {
+        this();
+        this.name = name;
     }
 
     public String getName() {
@@ -38,17 +44,20 @@ public class NewsAuthor extends  GraphEntity implements Comparable<NewsAuthor>{
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.name);
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof NewsAuthor)) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
         final NewsAuthor other = (NewsAuthor) obj;
@@ -57,6 +66,7 @@ public class NewsAuthor extends  GraphEntity implements Comparable<NewsAuthor>{
         }
         return true;
     }
+
 
     @Override
     public String toString() {

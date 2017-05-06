@@ -25,7 +25,7 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
         return NewsArticle.class;
     }
     
-    public NewsArticle find(String title) {
+    public NewsArticle findArticleByTitle(String title) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
         return session.queryForObject(NewsArticle.class, 
                 Neo4jQueries.findArticleByTitle(title), 

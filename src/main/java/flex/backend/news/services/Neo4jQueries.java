@@ -19,15 +19,18 @@ public class Neo4jQueries {
     }
     
     public static String findArticleByTitle(String title) {
-        return "MATCH (n:NewsArticle{" + "title:" + wrapString(title) + "}) RETURN n";
+        return "MATCH (n:NewsArticle{title:" + wrapString(title) + "}) RETURN n";
     }
     
+    public static String findAuthorByName(String name) {
+        return "MATCH (n:NewsAuthor{name:" + wrapString(name) + "}) RETURN n";
+    }
     public static String mergeQuery(NewsArticle article) {
-        return "MERGE (n:NewsArticle{" + "title:" + wrapString(article.getTitle()) + "}) RETURN n";
+        return "MERGE (n:NewsArticle{title:" + wrapString(article.getTitle()) + "}) RETURN n";
     }
 
     public static String mergeQuery(NewsSource source) {
-        return "MERGE (n:NewsSource{" + "sourceId:" + wrapString(source.getSourceId()) + "}) RETURN n";
+        return "MERGE (n:NewsSource{sourceId:" + wrapString(source.getSourceId()) + "}) RETURN n";
     }
 
     static String mergeQuery(String className, String property, String value) {

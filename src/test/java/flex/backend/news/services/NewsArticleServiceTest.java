@@ -33,7 +33,7 @@ public class NewsArticleServiceTest extends Neo4jTest {
     }
 
     /**
-     * Test of find method, of class NewsArticleService.
+     * Test of findArticleByTitle method, of class NewsArticleService.
      */
     @Test
     public void testFindById() throws Exception {
@@ -53,7 +53,7 @@ public class NewsArticleServiceTest extends Neo4jTest {
     }
 
     /**
-     * Test of find method, of class NewsArticleService.
+     * Test of findArticleByTitle method, of class NewsArticleService.
      */
     @Test
     public void testFindByTitle()  {
@@ -63,7 +63,7 @@ public class NewsArticleServiceTest extends Neo4jTest {
         
         instance.createOrUpdate(new NewsArticle("title", "description", "url", "imageUrl", "publishedAt"));        
         
-        NewsArticle article = instance.find("title");
+        NewsArticle article = instance.findArticleByTitle("title");
         assertNotNull(article);        
     }
 
@@ -78,12 +78,12 @@ public class NewsArticleServiceTest extends Neo4jTest {
         
         instance.createOrUpdate(new NewsArticle("title", "description", "url", "imageUrl", "publishedAt"));        
         
-        NewsArticle article = instance.find("title");
+        NewsArticle article = instance.findArticleByTitle("title");
         assertNotNull(article);        
         
         instance.delete(article.getId());
         
-        article = instance.find("title");
+        article = instance.findArticleByTitle("title");
         assertNull(article);                
     }
 
@@ -100,17 +100,17 @@ public class NewsArticleServiceTest extends Neo4jTest {
         instance.createOrUpdate(new NewsArticle("title", "description", "url", "imageUrl", "publishedAt"));        
         instance.createOrUpdate(new NewsArticle("title2", "description", "url", "imageUrl", "publishedAt"));        
         
-        NewsArticle article = instance.find("title");
+        NewsArticle article = instance.findArticleByTitle("title");
         assertNotNull(article);        
         
-        NewsArticle article2 = instance.find("title2");
+        NewsArticle article2 = instance.findArticleByTitle("title2");
         assertNotNull(article);        
 
         instance.delete(article.getId());
         instance.delete(article2.getId());
         
-        article = instance.find("title");
-        article2 = instance.find("title2");
+        article = instance.findArticleByTitle("title");
+        article2 = instance.findArticleByTitle("title2");
 
         assertNull(article);        
         assertNull(article2);        

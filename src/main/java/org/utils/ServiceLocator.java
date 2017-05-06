@@ -6,7 +6,7 @@
 package org.utils;
 
 import flex.backend.news.services.NewsArticleService;
-import flex.backend.news.services.NewsAuthorsService;
+import flex.backend.news.services.NewsAuthorService;
 import flex.backend.news.services.NewsSourceService;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -38,8 +38,8 @@ public class ServiceLocator {
         return (NewsSourceService) findService(NEWS_SOURCE_SERVICE);
     }
 
-    public static NewsAuthorsService findAuthorsService() {
-        return (NewsAuthorsService) findService(NEWS_AUTHOR_SERVICE);
+    public static NewsAuthorService findAuthorsService() {
+        return (NewsAuthorService) findService(NEWS_AUTHOR_SERVICE);
     }
 
 }
