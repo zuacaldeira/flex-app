@@ -56,31 +56,6 @@ public class Neo4jDatabaseOperationsTest extends Neo4jTest {
         };
     }
     
-    @DataProvider
-    public static Object[][] publishesProvider() {
-        NewsSource source1 = new NewsSource();
-        source1.setName("source1");
-        
-        NewsSource source2 = new NewsSource();
-        source2.setName("source2");
-        
-        NewsAuthor author1 = new NewsAuthor("name1");
-        NewsAuthor author2 = new NewsAuthor("name2");
-        
-        Publishes p1 = new Publishes(source1, author1);
-        Publishes p2 = new Publishes(source1, author2);
-
-        Publishes p3 = new Publishes(source2, author1);
-        Publishes p4 = new Publishes(source2, author2);
-
-        return new Object[][] {
-            {p1},
-            //{p2},
-            //{p3},
-            //{p4}
-        };
-    }
-
     @Test
     @UseDataProvider("articlesProvider")
     public void createNewsArticle(NewsArticle article) {
@@ -137,50 +112,4 @@ public class Neo4jDatabaseOperationsTest extends Neo4jTest {
         assertEquals(dbAuthor, author);
         assertNotNull(dbAuthor.getId());
     }
-
-
-    @Test
-    @UseDataProvider("publishesProvider")
-    public void createPublishes(Publishes publishes) {
-        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-
-        String query = "MATCH ()-[r:PUBLISHES]->() RETURN r";
-
-        Publishes dbPublishes = session.queryForObject(Publishes.class, query, new HashMap<>());
-        assertNull(dbPublishes);
-
-        assertNull(publishes.getId());
-        assertNotNull(publishes.getSource());
-        assertNotNull(publishes.getAuthor());
-        session.save(publishes, 1);
-
-        dbPublishes = session.queryForObject(Publishes.class, query, new HashMap<>());
-        assertNotNull(dbPublishes);
-        assertNotNull(dbPublishes.getAuthor());
-        assertNotNull(dbPublishes.getSource());
-        
-        /*assertEquals(1, session.countEntitiesOfType(Publishes.class));
-        assertEquals(1, session.countEntitiesOfType(NewsSource.class));
-        assertEquals(1, session.countEntitiesOfType(NewsAuthor.class));*/
-    }
-
-
-    @Test
-    public void createWrittenBy() {
-        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        String query = "MATCH (n)-[r:WRITTEN_BY]->(m) RETURN r";
-
-        WrittenBy dbWrittenBy1 = session.queryForObject(WrittenBy.class, query, new HashMap<>());
-        assertNull(dbWrittenBy1);
-
-        session.save(new WrittenBy(new NewsAuthor(), new NewsArticle()));
-
-        WrittenBy dbWrittenBy = session.queryForObject(WrittenBy.class, query, new HashMap<>());
-        assertNotNull(dbWrittenBy);
-        
-        session.deleteAll(WrittenBy.class);
-    }
-
-
-
 }

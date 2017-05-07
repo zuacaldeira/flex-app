@@ -33,6 +33,11 @@ public class LoginUI extends UI {
         layout.setComponentAlignment(loginView, Alignment.MIDDLE_CENTER);
         
     }
+
+    public LoginView getLoginView() {
+        return loginView;
+    }
+    
     
 	
     @WebServlet(value = "/*", asyncSupported = true)

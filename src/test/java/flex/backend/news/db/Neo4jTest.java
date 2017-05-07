@@ -9,6 +9,7 @@ import flex.backend.news.Neo4jSessionFactory;
 import java.util.HashMap;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
+import org.junit.Before;
 import org.neo4j.ogm.session.Session;
 
 /**
@@ -18,6 +19,7 @@ import org.neo4j.ogm.session.Session;
 public abstract class Neo4jTest {
     
     
+    @Before
     @After
     public void cleanDatabase() {
         String query = "MATCH (n) DETACH DELETE n";
@@ -27,5 +29,6 @@ public abstract class Neo4jTest {
         assertEquals(0, session.countEntitiesOfType(NewsAuthor.class));
         assertEquals(0, session.countEntitiesOfType(NewsSource.class));
     }
+    
 
 }

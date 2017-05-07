@@ -28,7 +28,17 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
     public NewsArticle findArticleByTitle(String title) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
         return session.queryForObject(NewsArticle.class, 
-                Neo4jQueries.findArticleByTitle(title), 
+                Neo4jQueries.findArticleByTitle(title),
                 new HashMap<>()); 
+    }
+
+    @Override
+    protected String getPropertyName() {
+        return "title";
+    }
+
+    @Override
+    protected String getPropertyValue(NewsArticle article) {
+        return article.getTitle();
     }
 }

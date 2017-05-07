@@ -1,7 +1,10 @@
 package flex.backend.news.db;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
 /**
  * Created by zua on 15/04/17.
@@ -11,9 +14,12 @@ public class NewsAuthor extends  GraphEntity implements Comparable<NewsAuthor>{
 
     
     private String name;
-    private String url;
+    
+    @Relationship(type = "AUTHORED", direction = Relationship.OUTGOING)
+    private Set<NewsArticle> articles;
     
     public NewsAuthor() {
+        articles = new HashSet<>();
     }
 
     public NewsAuthor(String name) {
@@ -27,14 +33,6 @@ public class NewsAuthor extends  GraphEntity implements Comparable<NewsAuthor>{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     @Override
@@ -75,6 +73,10 @@ public class NewsAuthor extends  GraphEntity implements Comparable<NewsAuthor>{
             builder.append(name);
         }
         return builder.toString();
+    }
+
+    public void addArticle(NewsArticle article) {
+        articles.add(article);
     }
 
     

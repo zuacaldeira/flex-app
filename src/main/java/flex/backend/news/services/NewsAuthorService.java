@@ -32,4 +32,14 @@ public class NewsAuthorService extends AbstractDBService<NewsAuthor> {
                 new HashMap<>()); 
     }
 
+    @Override
+    protected String getPropertyName() {
+        return "name";
+    }
+
+    @Override
+    protected String getPropertyValue(NewsAuthor author) {
+        return author.getName();
+    }
+
 }

@@ -2,6 +2,7 @@ package flex.backend.news.services;
 
 /**
  * Created by zua on 15/04/17.
+ * @param <T> The type of  managed domain entities
  */
 public interface DBService<T> {
 
@@ -11,6 +12,6 @@ public interface DBService<T> {
 
     public void delete(Long id);
 
-    public void createOrUpdate(T object);
+    public T save(T object);
 
 }

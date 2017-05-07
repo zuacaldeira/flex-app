@@ -13,29 +13,30 @@ import flex.frontend.ui.FlexButton;
 public class ArticleView extends VerticalLayout {
     private final NewsArticle article;
     private Label title;
-    private Label authorLabel;
+    private Label author;
     private Label content;
     private Image image;
-    private Link link;
+    private Link url;
     private VerticalLayout info;
     private HorizontalLayout controls;
     private FlexButton commentButton;
     private FlexButton shareButton;
-    private FlexButton time;
+    private FlexButton publishedAt;
 
     public ArticleView(NewsArticle article) {
         this.article = article;
+
         setSizeFull();
-        initInfo();
-        addComponent(info);
         setStyleName("article");
-        //addStyleName("category-"+source.getCategory().trim());
         setMargin(false);
+        initInfo();
+
+        addComponent(info);
     }
 
     private void initLink() {
-        this.link = new Link("Read Full Story", new ExternalResource(article.getUrl()));
-        link.setTargetName("_blank"); 
+        this.url = new Link("Read Full Story", new ExternalResource(article.getUrl()));
+        url.setTargetName("_blank"); 
     }
 
     public NewsArticle getArticle() {
@@ -47,7 +48,7 @@ public class ArticleView extends VerticalLayout {
     }
 
     public Label getAuthor() {
-        return authorLabel;
+        return author;
     }
 
     public Label getContent() {
@@ -79,6 +80,11 @@ public class ArticleView extends VerticalLayout {
     public Image getImage() {
         return image;
     }
+    
+    public void initAuthor() {
+        author = new Label(article.getAuthor().getName());
+        author.setSizeFull();
+    }
 
     private void initControls() {
         initTimeLabel();
@@ -90,17 +96,26 @@ public class ArticleView extends VerticalLayout {
 
     private void initInfo() {
         initTitle();
+        initAuthor();
         initContent();
         initLink();
         initImage();
         initControls();
-        info = new VerticalLayout(image, title, authorLabel, content, link, controls);
+        info = new VerticalLayout(image, title, author, content, url, controls);
         info.setWidth("100%"); 
     }
     
     public void initTimeLabel() {
         String t = article.getPublishedAt();
-        time = new FlexButton(t, VaadinIcons.CLOCK);
-        time.setEnabled(false);
+        publishedAt = new FlexButton(t, VaadinIcons.CLOCK);
+        publishedAt.setEnabled(false);
+    }
+
+    public Link getUrl() {
+        return url;
+    }
+
+    public FlexButton getPublishedAt() {
+        return publishedAt;
     }
 }

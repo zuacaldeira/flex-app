@@ -33,7 +33,6 @@ public class FlexComboBox<T> extends ComboBox<T>{
 
     private void init() {
         setSizeUndefined();
-        
         setStyleName(ValoTheme.COMBOBOX_SMALL);
     }
 

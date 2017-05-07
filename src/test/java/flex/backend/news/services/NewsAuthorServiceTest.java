@@ -27,7 +27,7 @@ public class NewsAuthorServiceTest extends Neo4jTest {
         System.out.println("findAll");
         NewsAuthorService instance = new NewsAuthorService();
         assertEquals(false, instance.findAll().iterator().hasNext());
-        instance.createOrUpdate(new NewsAuthor());
+        instance.save(new NewsAuthor("name"));
         assertEquals(true, instance.findAll().iterator().hasNext());
     }
 
@@ -40,7 +40,7 @@ public class NewsAuthorServiceTest extends Neo4jTest {
         NewsAuthorService instance = new NewsAuthorService();
         assertEquals(false, instance.findAll().iterator().hasNext());
         
-        instance.createOrUpdate(new NewsAuthor());        
+        instance.save(new NewsAuthor("name"));        
         
         NewsAuthor article = instance.findAll().iterator().next();
         assertNotNull(article);
@@ -61,7 +61,7 @@ public class NewsAuthorServiceTest extends Neo4jTest {
         assertEquals(false, instance.findAll().iterator().hasNext());
         
         NewsAuthor author = new NewsAuthor("name");
-        instance.createOrUpdate(author);        
+        instance.save(author);        
         
         NewsAuthor article = instance.findAuthorByName("name");
         assertNotNull(article);        
@@ -77,7 +77,7 @@ public class NewsAuthorServiceTest extends Neo4jTest {
         NewsAuthorService instance = new NewsAuthorService();
         assertEquals(false, instance.findAll().iterator().hasNext());
         
-        instance.createOrUpdate(new NewsAuthor("name"));        
+        instance.save(new NewsAuthor("name"));        
         
         NewsAuthor article = instance.findAuthorByName("name");
         assertNotNull(article);        
@@ -89,7 +89,7 @@ public class NewsAuthorServiceTest extends Neo4jTest {
     }
 
     /**
-     * Test of createOrUpdate method, of class NewsAuthorService.
+     * Test of save method, of class NewsAuthorService.
      */
     @Test
     public void testCreateOrUpdate() throws Exception {
@@ -97,8 +97,8 @@ public class NewsAuthorServiceTest extends Neo4jTest {
         NewsAuthorService instance = new NewsAuthorService();
         assertEquals(false, instance.findAll().iterator().hasNext());
         
-        instance.createOrUpdate(new NewsAuthor("name1"));        
-        instance.createOrUpdate(new NewsAuthor("name2"));        
+        instance.save(new NewsAuthor("name1"));        
+        instance.save(new NewsAuthor("name2"));        
         
         NewsAuthor article = instance.findAuthorByName("name1");
         assertNotNull(article);        

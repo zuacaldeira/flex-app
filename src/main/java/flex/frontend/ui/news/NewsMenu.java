@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package flex.frontend.ui;
+package flex.frontend.ui.news;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
@@ -11,6 +11,8 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
+import flex.frontend.ui.FlexButton;
+import flex.frontend.ui.FlexMenu;
 import flex.frontend.ui.news.ArticlesInfoView;
 import flex.frontend.ui.news.AuthorsInfoView;
 import flex.frontend.ui.news.NewsUI;
@@ -106,5 +108,31 @@ public class NewsMenu extends FlexMenu {
     private NewsView getNewsView() {
         return ((NewsUI) UI.getCurrent()).getNewsView();
     }
+
+    public FlexButton getHomeButton() {
+        return homeButton;
+    }
+
+    public FlexButton getSearchButton() {
+        return searchButton;
+    }
+
+    public FlexButton getSourcesButton() {
+        return sourcesButton;
+    }
+
+    public FlexButton getMenuButton() {
+        return menuButton;
+    }
+
+    public FlexButton getAuthorsButton() {
+        return authorsButton;
+    }
+
+    public FlexButton getArticlesButton() {
+        return articlesButton;
+    }
+    
+    
 
 }

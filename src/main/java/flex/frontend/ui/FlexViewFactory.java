@@ -12,6 +12,10 @@ import flex.frontend.ui.news.AuthorView;
  * Created by zua on 12/04/17.
  */
 public class FlexViewFactory {
+    
+    
+    private FlexViewFactory() {}
+    
     public static SourceView createSourceView(NewsSource source) {
         return new SourceView(source);
     }

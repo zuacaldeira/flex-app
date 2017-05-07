@@ -29,7 +29,8 @@ public class NewsSourceServiceTest extends Neo4jTest {
         
         assertFalse(instance.findAll().iterator().hasNext());
         NewsSource source = new NewsSource();
-        instance.createOrUpdate(source);
+        source.setSourceId("sourceId");
+        instance.save(source);
         assertTrue(instance.findAll().iterator().hasNext());
         
     }
@@ -46,7 +47,7 @@ public class NewsSourceServiceTest extends Neo4jTest {
         NewsSource source = new NewsSource();
         source.setSourceId("sourceId");
         
-        instance.createOrUpdate(source);
+        instance.save(source);
         
         NewsSource dbSource = instance.findSourceBySourceId(source.getSourceId());
         assertNotNull(dbSource);
@@ -67,7 +68,7 @@ public class NewsSourceServiceTest extends Neo4jTest {
         NewsSource source = new NewsSource();
         source.setSourceId("sourceId");
         
-        instance.createOrUpdate(source);
+        instance.save(source);
         
         NewsSource dbSource = instance.findSourceBySourceId(source.getSourceId());
         assertNotNull(dbSource);
@@ -82,7 +83,7 @@ public class NewsSourceServiceTest extends Neo4jTest {
     }
 
     /**
-     * Test of createOrUpdate method, of class NewsSourceService.
+     * Test of save method, of class NewsSourceService.
      */
     @Test
     public void testCreateOrUpdate() throws Exception {
@@ -93,7 +94,7 @@ public class NewsSourceServiceTest extends Neo4jTest {
         NewsSource source = new NewsSource();
         source.setSourceId("sourceId");
         
-        instance.createOrUpdate(source);
+        instance.save(source);
         
         NewsSource dbSource = instance.findSourceBySourceId(source.getSourceId());
         assertNotNull(dbSource);
@@ -114,7 +115,7 @@ public class NewsSourceServiceTest extends Neo4jTest {
         NewsSource source = new NewsSource();
         source.setSourceId("sourceId");
         
-        instance.createOrUpdate(source);
+        instance.save(source);
         
         NewsSource dbSource = instance.findSourceBySourceId(source.getSourceId());
         assertNotNull(dbSource);

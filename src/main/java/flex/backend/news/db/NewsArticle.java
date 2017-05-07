@@ -3,6 +3,7 @@ package flex.backend.news.db;
 
 import java.util.Objects;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
 /**
  * Created by zua on 13/04/17.
@@ -16,7 +17,10 @@ public class NewsArticle extends GraphEntity implements Comparable<NewsArticle>{
     private String imageUrl;
     private String publishedAt;
     private String sourceId;
-
+    
+    @Relationship(type = "AUTHORED", direction = Relationship.INCOMING)
+    private NewsAuthor author;
+    
     public NewsArticle(){
     }
 
@@ -76,6 +80,16 @@ public class NewsArticle extends GraphEntity implements Comparable<NewsArticle>{
     public void setSourceId(String sourceId) {
         this.sourceId = sourceId;
     }
+
+    public NewsAuthor getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(NewsAuthor author) {
+        this.author = author;
+    }
+    
+    
     
     @Override
     public int hashCode() {

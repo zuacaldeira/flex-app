@@ -67,52 +67,6 @@ public class NewsAuthorTest {
         };
     }
 
-    /**
-     * Test of getUrl method, of class NewsAuthor.
-     * @param author
-     * @param expected
-     */
-    @Test
-    @UseDataProvider("urlProvider")
-    public void testGetUrl(NewsAuthor author, String expected) {
-        System.out.println("getUrl");
-        assertEquals(expected, author.getUrl());
-    }
-    
-    @DataProvider
-    public static Object[][] urlProvider() {
-        NewsAuthor author1 = new NewsAuthor();
-        author1.setUrl("http://JohnA");
-        return new Object[][] {
-            {author1, "http://JohnA"},
-            {new NewsAuthor(), null},
-        };
-    }
-
-    @DataProvider
-    public static Object[][] urlProvider2() {
-        NewsAuthor author1 = new NewsAuthor();
-        author1.setUrl("http://JohnA");
-        return new Object[][] {
-            {author1, "http://JohnA", "http://JohnB"},
-            {new NewsAuthor(), null, "http://JohnB"},
-        };
-    }
-
-    /**
-     * Test of setUrl method, of class NewsAuthor.
-     * @param author
-     * @param oldUrl
-     * @param newUrl
-     */
-    @Test
-    @UseDataProvider("urlProvider2")
-    public void testSetUrl(NewsAuthor author, String oldUrl, String newUrl) {
-        System.out.println("setUrl");
-        assertEquals(oldUrl, author.getUrl());
-        author.setUrl(newUrl);
-        assertEquals(newUrl, author.getUrl());
-    }
 
     /**
      * Test of compareTo method, of class NewsAuthor.
@@ -131,11 +85,9 @@ public class NewsAuthorTest {
     @DataProvider
     public static Object[][] compareToProvider() {
         NewsAuthor author1 = new NewsAuthor();
-        author1.setUrl("http://JohnA");
         author1.setName("John A");
         
         NewsAuthor author2 = new NewsAuthor();
-        author2.setUrl("http://JohnB");
         author2.setName("John B");
         return new Object[][] {
             {author1, author2, -1},
@@ -174,11 +126,9 @@ public class NewsAuthorTest {
     @DataProvider
     public static Object[][] equalsProvider() {
         NewsAuthor author1 = new NewsAuthor();
-        author1.setUrl("http://JohnA");
         author1.setName("John A");
         
         NewsAuthor author2 = new NewsAuthor();
-        author2.setUrl("http://JohnB");
         author2.setName("John B");
         return new Object[][] {
             {author1, author2, false},
@@ -203,11 +153,9 @@ public class NewsAuthorTest {
     @DataProvider
     public static Object[][] toStringProvider() {
         NewsAuthor author1 = new NewsAuthor();
-        author1.setUrl("http://JohnA");
         author1.setName("John A");
         
         NewsAuthor author2 = new NewsAuthor();
-        author2.setUrl("http://JohnB");
         author2.setName("John B");
         return new Object[][] {
             {author1, "John A"},

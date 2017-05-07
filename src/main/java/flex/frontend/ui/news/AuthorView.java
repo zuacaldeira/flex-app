@@ -1,6 +1,5 @@
 package flex.frontend.ui.news;
 
-import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;
 import flex.backend.news.db.NewsAuthor;
 
@@ -11,14 +10,12 @@ import flex.backend.news.db.NewsAuthor;
 public class AuthorView extends VerticalLayout {
     private final NewsAuthor author;
     private Label name;
-    private Link facebookUrl;
     private VerticalLayout info;
     private HorizontalLayout controls;
 
     public AuthorView(NewsAuthor author) {
         this.author = author;
         initName();
-        initFacebookUrl();
         initInfo();
         initControls();
         setSizeFull();
@@ -33,25 +30,48 @@ public class AuthorView extends VerticalLayout {
         }
     }
 
-    private void initFacebookUrl() {
-        if(author.getUrl() != null) {
-            facebookUrl = new Link(author.getUrl(), new ExternalResource(author.getUrl()));
-            facebookUrl.setTargetName("_blank");
-        }
-    }
 
     private void initInfo() {
         info = new VerticalLayout();
         if(name != null) {
             info.addComponent(name);
         }
-        if(facebookUrl != null) {
-            info.addComponent(facebookUrl);
-        }
     }
 
     private void initControls() {
         controls = new HorizontalLayout();
     }
+
+    public Label getName() {
+        return name;
+    }
+
+    public void setName(Label name) {
+        this.name = name;
+    }
+
+    public VerticalLayout getInfo() {
+        return info;
+    }
+
+    public void setInfo(VerticalLayout info) {
+        this.info = info;
+    }
+
+    public HorizontalLayout getControls() {
+        return controls;
+    }
+
+    public void setControls(HorizontalLayout controls) {
+        this.controls = controls;
+    }
+
+    public NewsAuthor getAuthor() {
+        return author;
+    }
+    
+    
+    
+    
 
 }

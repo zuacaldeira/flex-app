@@ -1,6 +1,9 @@
 package flex.backend.news.db;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 /**
@@ -8,6 +11,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
  */
 @NodeEntity
 public class NewsSource extends GraphEntity implements Comparable<NewsSource> {
+    @Index(unique=true)
     private String sourceId;
     private String name;
     private String description;
@@ -16,7 +20,10 @@ public class NewsSource extends GraphEntity implements Comparable<NewsSource> {
     private String language;
     private String country;
     
+    private Set<NewsAuthor> correspondents;
+    
     public NewsSource() {
+        correspondents = new HashSet<>();
     }
 
     public NewsSource(String sourceId, String name, String description, String url, String category, String language, String country) {
@@ -120,5 +127,9 @@ public class NewsSource extends GraphEntity implements Comparable<NewsSource> {
         }
         return true;
     }    
+
+    public void addCorrespondent(NewsAuthor author) {
+        correspondents.add(author);
+    }
 
 }

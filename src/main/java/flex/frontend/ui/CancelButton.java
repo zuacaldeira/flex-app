@@ -5,7 +5,7 @@
  */
 package flex.frontend.ui;
 
-import com.vaadin.server.FontAwesome;
+import com.vaadin.icons.VaadinIcons;
 
 /**
  *
@@ -14,7 +14,7 @@ import com.vaadin.server.FontAwesome;
 public class CancelButton extends FlexButton {
 
     public CancelButton() {
-           super("Cancel", FontAwesome.TIMES);
+           super("Cancel", VaadinIcons.TIME_BACKWARD);
     }
     
 }

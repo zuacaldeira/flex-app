@@ -5,67 +5,40 @@
  */
 package flex.frontend.ui.news;
 
-import com.vaadin.ui.VerticalLayout;
 import flex.frontend.ui.FlexBody;
-import flex.frontend.ui.FlexMenu;
-import flex.frontend.ui.NewsMenu;
+import flex.frontend.ui.MainView;
 
 /**
  *
  * @author zua
  */
-public class NewsView extends VerticalLayout {
+public class NewsView extends MainView {
 
     public static final int MAX_ARTICLES = 100;
-    private FlexMenu menu;
-    private FlexBody body;
-    private FlexFooter footer;
     
     public NewsView() {        
         initMenu();
         initBody();
         initFooter();
-        
-        addComponents(menu, body);
-        setExpandRatio(menu, .1f);
-        setExpandRatio(body, .9f);
+        addComponents(getMenu(), getBody());
+        setExpandRatio(getMenu(), .1f);
+        setExpandRatio(getBody(), .9f);
         setWidth("100%");
     }
     
     private void initMenu() {
-        menu = new NewsMenu();
-        menu.setSizeFull();
+        NewsMenu menu = new NewsMenu();
+        setMenu(menu);
     }
 
     private void initBody() {
-        body = new ArticlesInfoView();        
+        FlexBody body = new ArticlesInfoView();
+        setBody(body);
     }
 
     private void initFooter() {
-        footer = new FlexFooter();
-        footer.setHeight("2cm");
-        footer.setWidth("100%");
-        footer.setSizeFull();
+        FlexFooter footer = new FlexFooter();
+        setFooter(footer);
     }
 
-    public FlexMenu getMenu() {
-        return menu;
-    }
-
-    public FlexBody getBody() {
-        return body;
-    }
-
-    public FlexFooter getFooter() {
-        return footer;
-    }
-
-    public void setBody(FlexBody flexBody) {
-        replaceComponent(body, flexBody);
-        body = flexBody;
-    }
-    
-    
-    
-    
 }

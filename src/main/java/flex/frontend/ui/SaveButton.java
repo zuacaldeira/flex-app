@@ -5,7 +5,7 @@
  */
 package flex.frontend.ui;
 
-import com.vaadin.server.FontAwesome;
+import com.vaadin.icons.VaadinIcons;
 
 /**
  *
@@ -14,7 +14,7 @@ import com.vaadin.server.FontAwesome;
 public class SaveButton extends FlexButton {
 
     public SaveButton() {
-        super("Save", FontAwesome.SAVE);
+        super("Save", VaadinIcons.CHECK);
     }
     
 }

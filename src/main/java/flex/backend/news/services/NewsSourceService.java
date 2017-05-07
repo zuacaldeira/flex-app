@@ -32,4 +32,14 @@ public class NewsSourceService extends AbstractDBService<NewsSource> {
                 new HashMap<>()); 
     }
 
+    @Override
+    protected String getPropertyName() {
+        return "sourceId";
+    }
+
+    @Override
+    protected String getPropertyValue(NewsSource source) {
+        return source.getSourceId();
+    }
+
 }

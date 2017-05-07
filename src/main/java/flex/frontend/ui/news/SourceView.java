@@ -12,6 +12,10 @@ public class SourceView extends VerticalLayout {
     private final NewsSource apiSource;
     private final Label name;
     private final Label desc;
+    private final Label category;
+    private final Label language;
+    private final Label country;
+    
 
     public SourceView(NewsSource apiSource) {
         setSizeFull();
@@ -24,6 +28,15 @@ public class SourceView extends VerticalLayout {
 
         desc = new Label(apiSource.getDescription());
         desc.setWidth("100%");
+        
+        category = new Label(apiSource.getCategory());
+        category.setWidth("100%");
+        
+        language = new Label(apiSource.getLanguage());
+        language.setWidth("100%");
+        
+        country = new Label(apiSource.getCountry());
+        country.setWidth("100%");
 
         addComponents(name, desc);
         setExpandRatio(name, 0.2f);
@@ -37,4 +50,26 @@ public class SourceView extends VerticalLayout {
     public NewsSource getApiSource() {
         return apiSource;
     }
+
+    public Label getName() {
+        return name;
+    }
+
+    public Label getDesc() {
+        return desc;
+    }
+
+    public Label getCategory() {
+        return category;
+    }
+
+    public Label getLanguage() {
+        return language;
+    }
+
+    public Label getCountry() {
+        return country;
+    }
+
+    
 }

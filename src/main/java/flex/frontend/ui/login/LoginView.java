@@ -9,14 +9,14 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.VerticalLayout;
 import flex.frontend.ui.FlexButton;
+import flex.frontend.ui.MainView;
 
 /**
  *
  * @author zua
  */
-public class LoginView extends VerticalLayout {
+public class LoginView extends MainView {
     private final FlexButton enter;
 
     public LoginView() {
