@@ -19,11 +19,11 @@ public abstract class FlexBody extends VerticalLayout {
     
     public FlexBody() {
         grid = new GridLayout(4, 1);
-        grid.setWidth("100%");  
-        grid.setHeightUndefined();
         grid.setSpacing(true);
-        addComponent(grid);
-        setStyleName("flex-body");
+        grid.setHeightUndefined();
+        this.addComponent(grid);
+        this.setStyleName("flex-body");
+        this.setSizeFull();
     }
 
     public GridLayout getGrid() {

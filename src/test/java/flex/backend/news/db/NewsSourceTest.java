@@ -17,9 +17,9 @@ import org.junit.runner.RunWith;
  * @author zua
  */
 @RunWith(DataProviderRunner.class)
-public class ApiSourceTest extends TestCase {
+public class NewsSourceTest extends TestCase {
     
-    public ApiSourceTest() {
+    public NewsSourceTest() {
     }
 
     /**

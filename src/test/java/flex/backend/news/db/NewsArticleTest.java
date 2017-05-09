@@ -17,10 +17,10 @@ import org.junit.runner.RunWith;
  * @author zua
  */
 @RunWith(DataProviderRunner.class)
-public class ApiArticleTest  extends TestCase {
+public class NewsArticleTest  extends TestCase {
     
     
-    public ApiArticleTest() {}
+    public NewsArticleTest() {}
 
     /**
      * Test of getTitle method, of class NewsArticle.

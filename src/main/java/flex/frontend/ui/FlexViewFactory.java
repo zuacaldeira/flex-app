@@ -1,11 +1,11 @@
 package flex.frontend.ui;
 
-import flex.frontend.ui.news.ArticleView;
-import flex.frontend.ui.news.SourceView;
+import flex.frontend.ui.news.article.ArticleView;
+import flex.frontend.ui.news.source.SourceView;
 import flex.backend.news.db.NewsArticle;
 import flex.backend.news.db.NewsSource;
 import flex.backend.news.db.NewsAuthor;
-import flex.frontend.ui.news.AuthorView;
+import flex.frontend.ui.news.author.AuthorView;
 
 
 /**

@@ -51,9 +51,20 @@ public class NewsApiService {
     @EJB
     private NewsAuthorService authorsService;
 
+    public void setSourcesService(NewsSourceService sourcesService) {
+        this.sourcesService = sourcesService;
+    }
 
-    @Schedule(hour = "*", minute = "*/2")
-    void loadData() {
+    public void setArticlesService(NewsArticleService articlesService) {
+        this.articlesService = articlesService;
+    }
+
+    public void setAuthorsService(NewsAuthorService authorsService) {
+        this.authorsService = authorsService;
+    }
+
+    @Schedule(hour = "*", minute = "*/10")
+    public void loadData() {
         System.out.println("===> Loading data from newsapi.org...");
         try {
             String query = createSourceQuery("", "", "");
@@ -66,6 +77,7 @@ public class NewsApiService {
                 
                 NewsSource source = createSource(obj);
                 loadArticles(source);
+                sourcesService.save(source);
             }
         } catch (IOException | JSONException e) {
             e.printStackTrace();
@@ -75,23 +87,22 @@ public class NewsApiService {
     }
 
     private void loadArticles(NewsSource source) {
-        System.out.println("LOADING ARTICLES FOR SOURCE " + source);
-        String query = createArticlesQuery(source.getSourceId(), "");
-        
-        //sourcesService.save(source);
-        //source = sourcesService.findSourceBySourceId(source.getSourceId());
         try {
+            String query = createArticlesQuery(source.getSourceId(), "");
+            
+            //sourcesService.save(source);
+            //source = sourcesService.findSourceBySourceId(source.getSourceId());
             JSONObject jsonObject = makeApiCall(query);
-
+            
             JSONArray allArticlesArray = jsonObject.getJSONArray("articles");
-
+            
             for(int i = 0; i < allArticlesArray.length(); i++) {
                 JSONObject obj = allArticlesArray.getJSONObject(i);
                 
                 NewsArticle article = new NewsArticle();
                 NewsAuthor author = null;
                 if(!obj.isNull("title")) {
-                    article.setTitle(obj.getString("title"));
+                    article.setTitle(normalize(obj.getString("title")));
                 }
                 if(!obj.isNull("description")) {
                     article.setDescription(obj.getString("description"));
@@ -108,22 +119,19 @@ public class NewsApiService {
                 
                 //articlesService.save(article);
                 //article = articlesService.findArticleByTitle(article.getTitle());
+                String authorName = null;
                 if(!obj.isNull("author")) {
-                    String authorString = obj.getString("author");
-                    author = new NewsAuthor(authorString);
-                    author.addArticle(article);
-                    source.addCorrespondent(author);
+                    authorName = obj.getString("author");
                 }
                 else {
-                    author = new NewsAuthor("Unknown");
-                    author.addArticle(article);
-                    source.addCorrespondent(author);
-                }                
+                    authorName = source.getName();
+                }
+                author = new NewsAuthor(authorName.trim());
+                author.addArticle(article);
+                source.addCorrespondent(author);
             }
-            source = sourcesService.save(source);
-            System.out.println("++++++++++ " + source.getId() + " ++++++++++");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | JSONException ex) {
+            throw new RuntimeException(ex);
         }
     }
     
@@ -214,6 +222,10 @@ public class NewsApiService {
         }
         
         return source;
+    }
+
+    private String normalize(String string) {
+        return string.replace("\"", "'");
     }
 
 }

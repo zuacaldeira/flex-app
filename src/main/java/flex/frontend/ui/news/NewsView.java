@@ -5,6 +5,8 @@
  */
 package flex.frontend.ui.news;
 
+import flex.frontend.ui.news.article.ArticlesBody;
+import flex.frontend.ui.FlexFooter;
 import flex.frontend.ui.FlexBody;
 import flex.frontend.ui.MainView;
 
@@ -20,10 +22,9 @@ public class NewsView extends MainView {
         initMenu();
         initBody();
         initFooter();
-        addComponents(getMenu(), getBody());
-        setExpandRatio(getMenu(), .1f);
-        setExpandRatio(getBody(), .9f);
-        setWidth("100%");
+        addComponents(getMenu(), getBody(), getFooter());
+        this.setExpandRatio(getMenu(), .1f);
+        this.setExpandRatio(getBody(), .9f);
     }
     
     private void initMenu() {
@@ -32,7 +33,7 @@ public class NewsView extends MainView {
     }
 
     private void initBody() {
-        FlexBody body = new ArticlesInfoView();
+        FlexBody body = new ArticlesBody();
         setBody(body);
     }
 

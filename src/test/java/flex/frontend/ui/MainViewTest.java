@@ -5,13 +5,14 @@
  */
 package flex.frontend.ui;
 
+import flex.frontend.ui.news.UITest;
 import org.junit.Test;
 
 /**
  *
  * @author zua
  */
-public abstract class MainViewTest {
+public abstract class MainViewTest extends UITest {
     
     public MainViewTest() {
     }

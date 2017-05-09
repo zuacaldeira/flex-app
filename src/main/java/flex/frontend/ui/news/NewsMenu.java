@@ -13,11 +13,9 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import flex.frontend.ui.FlexButton;
 import flex.frontend.ui.FlexMenu;
-import flex.frontend.ui.news.ArticlesInfoView;
-import flex.frontend.ui.news.AuthorsInfoView;
-import flex.frontend.ui.news.NewsUI;
-import flex.frontend.ui.news.NewsView;
-import flex.frontend.ui.news.SourcesInfoView;
+import flex.frontend.ui.news.article.ArticlesBody;
+import flex.frontend.ui.news.author.AuthorsBody;
+import flex.frontend.ui.news.source.SourcesBody;
 
 /**
  *
@@ -71,7 +69,7 @@ public class NewsMenu extends FlexMenu {
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 Notification.show("Sources clicked");
-                getNewsView().setBody(new SourcesInfoView());
+                getNewsView().replaceBody(new SourcesBody());
             }
         });
     }
@@ -83,7 +81,7 @@ public class NewsMenu extends FlexMenu {
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 Notification.show("Authors clicked");
-                getNewsView().setBody(new AuthorsInfoView());
+                getNewsView().replaceBody(new AuthorsBody());
             }
         });
     }
@@ -95,7 +93,7 @@ public class NewsMenu extends FlexMenu {
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 Notification.show("Articles clicked");
-                getNewsView().setBody(new ArticlesInfoView());
+                getNewsView().replaceBody(new ArticlesBody());
             }
         });
     }

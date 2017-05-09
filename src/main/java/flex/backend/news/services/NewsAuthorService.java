@@ -5,6 +5,7 @@
  */
 package flex.backend.news.services;
 
+import flex.backend.news.db.Neo4jQueries;
 import flex.backend.news.Neo4jSessionFactory;
 import flex.backend.news.db.NewsAuthor;
 import java.util.HashMap;
@@ -33,13 +34,14 @@ public class NewsAuthorService extends AbstractDBService<NewsAuthor> {
     }
 
     @Override
-    protected String getPropertyName() {
-        return "name";
-    }
-
-    @Override
-    protected String getPropertyValue(NewsAuthor author) {
-        return author.getName();
+    public NewsAuthor save(NewsAuthor object) {
+        NewsAuthor dbAuthor = findAuthorByName(object.getName());
+        if(dbAuthor == null) {
+           Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
+           session.save(object);
+           dbAuthor = findAuthorByName(object.getName());
+        }
+        return dbAuthor;
     }
 
 }

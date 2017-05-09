@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
 /**
  * Created by zua on 12/04/17.
@@ -20,6 +21,7 @@ public class NewsSource extends GraphEntity implements Comparable<NewsSource> {
     private String language;
     private String country;
     
+    @Relationship(type = "PUBLISHED", direction = Relationship.OUTGOING)
     private Set<NewsAuthor> correspondents;
     
     public NewsSource() {
@@ -130,6 +132,7 @@ public class NewsSource extends GraphEntity implements Comparable<NewsSource> {
 
     public void addCorrespondent(NewsAuthor author) {
         correspondents.add(author);
+        author.setSource(this);
     }
 
 }

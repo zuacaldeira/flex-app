@@ -2,6 +2,7 @@ package flex.backend.news.db;
 
 
 import java.util.Objects;
+import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
@@ -11,6 +12,7 @@ import org.neo4j.ogm.annotation.Relationship;
 @NodeEntity
 public class NewsArticle extends GraphEntity implements Comparable<NewsArticle>{
 
+    @Index(unique=true)
     private String title;
     private String description;
     private String url;

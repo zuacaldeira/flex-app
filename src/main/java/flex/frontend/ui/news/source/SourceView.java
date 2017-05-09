@@ -1,15 +1,15 @@
-package flex.frontend.ui.news;
+package flex.frontend.ui.news.source;
 
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.VerticalLayout;
 import flex.backend.news.db.NewsSource;
+import flex.frontend.ui.GraphEntityView;
 
 /**
  * Created by zua on 12/04/17.
  */
-public class SourceView extends VerticalLayout {
-    private final NewsSource apiSource;
+public class SourceView extends GraphEntityView {
+    private final NewsSource source;
     private final Label name;
     private final Label desc;
     private final Label category;
@@ -18,10 +18,8 @@ public class SourceView extends VerticalLayout {
     
 
     public SourceView(NewsSource apiSource) {
-        setSizeFull();
-        setHeightUndefined();
-
-        this.apiSource = apiSource;
+        setSizeUndefined();
+        this.source = apiSource;
 
         name = new Label(apiSource.getName());
         name.setWidth("100%");
@@ -47,8 +45,8 @@ public class SourceView extends VerticalLayout {
     }
 
 
-    public NewsSource getApiSource() {
-        return apiSource;
+    public NewsSource getSource() {
+        return source;
     }
 
     public Label getName() {

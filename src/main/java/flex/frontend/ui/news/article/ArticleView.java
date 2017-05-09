@@ -1,5 +1,6 @@
-package flex.frontend.ui.news;
+package flex.frontend.ui.news.article;
 
+import flex.frontend.ui.GraphEntityView;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;
@@ -10,7 +11,7 @@ import flex.frontend.ui.FlexButton;
 /**
  * Created by zua on 13/04/17.
  */
-public class ArticleView extends VerticalLayout {
+public class ArticleView extends GraphEntityView {
     private final NewsArticle article;
     private Label title;
     private Label author;
@@ -21,16 +22,11 @@ public class ArticleView extends VerticalLayout {
     private HorizontalLayout controls;
     private FlexButton commentButton;
     private FlexButton shareButton;
-    private FlexButton publishedAt;
+    private Label publishedAt;
 
     public ArticleView(NewsArticle article) {
         this.article = article;
-
-        setSizeFull();
-        setStyleName("article");
-        setMargin(false);
         initInfo();
-
         addComponent(info);
     }
 
@@ -81,7 +77,7 @@ public class ArticleView extends VerticalLayout {
         return image;
     }
     
-    public void initAuthor() {
+    private void initAuthor() {
         author = new Label(article.getAuthor().getName());
         author.setSizeFull();
     }
@@ -101,21 +97,39 @@ public class ArticleView extends VerticalLayout {
         initLink();
         initImage();
         initControls();
-        info = new VerticalLayout(image, title, author, content, url, controls);
+        initTimeLabel();
+        info = new VerticalLayout(image, title, author, publishedAt, content, url, controls);
         info.setWidth("100%"); 
     }
     
-    public void initTimeLabel() {
+    private void initTimeLabel() {
         String t = article.getPublishedAt();
-        publishedAt = new FlexButton(t, VaadinIcons.CLOCK);
-        publishedAt.setEnabled(false);
+        publishedAt = new Label(t);
     }
 
     public Link getUrl() {
         return url;
     }
 
-    public FlexButton getPublishedAt() {
+    public Label getPublishedAt() {
         return publishedAt;
     }
+
+    public VerticalLayout getInfo() {
+        return info;
+    }
+
+    public HorizontalLayout getControls() {
+        return controls;
+    }
+
+    public FlexButton getCommentButton() {
+        return commentButton;
+    }
+
+    public FlexButton getShareButton() {
+        return shareButton;
+    }
+    
+    
 }

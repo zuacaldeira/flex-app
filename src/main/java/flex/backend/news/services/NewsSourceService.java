@@ -5,6 +5,7 @@
  */
 package flex.backend.news.services;
 
+import flex.backend.news.db.Neo4jQueries;
 import flex.backend.news.Neo4jSessionFactory;
 import flex.backend.news.db.NewsSource;
 import java.util.HashMap;
@@ -32,14 +33,16 @@ public class NewsSourceService extends AbstractDBService<NewsSource> {
                 new HashMap<>()); 
     }
 
-    @Override
-    protected String getPropertyName() {
-        return "sourceId";
-    }
 
     @Override
-    protected String getPropertyValue(NewsSource source) {
-        return source.getSourceId();
+    public NewsSource save(NewsSource object) {
+        NewsSource dbSource = findSourceBySourceId(object.getSourceId());
+        if(dbSource == null) {
+           Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
+           session.save(object);
+           dbSource = findSourceBySourceId(object.getSourceId());
+        }
+        return dbSource;
     }
 
 }

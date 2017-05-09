@@ -1,13 +1,14 @@
-package flex.frontend.ui.news;
+package flex.frontend.ui.news.author;
 
 import com.vaadin.ui.*;
 import flex.backend.news.db.NewsAuthor;
+import flex.frontend.ui.GraphEntityView;
 
 
 /**
  * Created by zua on 13/04/17.
  */
-public class AuthorView extends VerticalLayout {
+public class AuthorView extends GraphEntityView {
     private final NewsAuthor author;
     private Label name;
     private VerticalLayout info;
@@ -46,24 +47,12 @@ public class AuthorView extends VerticalLayout {
         return name;
     }
 
-    public void setName(Label name) {
-        this.name = name;
-    }
-
     public VerticalLayout getInfo() {
         return info;
     }
 
-    public void setInfo(VerticalLayout info) {
-        this.info = info;
-    }
-
     public HorizontalLayout getControls() {
         return controls;
-    }
-
-    public void setControls(HorizontalLayout controls) {
-        this.controls = controls;
     }
 
     public NewsAuthor getAuthor() {

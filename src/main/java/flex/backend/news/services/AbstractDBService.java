@@ -7,7 +7,6 @@ package flex.backend.news.services;
 
 import flex.backend.news.Neo4jSessionFactory;
 import flex.backend.news.db.GraphEntity;
-import java.util.HashMap;
 import org.neo4j.ogm.session.Session;
 
 /**
@@ -36,17 +35,13 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
     }
 
     @Override
-    public T save(T object) {
+    public abstract T save(T object);
+    
+    @Override
+    public long count() {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        T dbObject = session.queryForObject(getClassType(), Neo4jQueries.findQuery(object), new HashMap<>());
-        if(dbObject != null) {
-            session.delete(dbObject);
-        }
-        session.save(object);
-        return session.queryForObject(getClassType(), Neo4jQueries.findQuery(object), new HashMap<>());
+        return session.countEntitiesOfType(getClassType());
     }
     
     protected abstract Class<T> getClassType();
-    protected abstract String getPropertyName();
-    protected abstract String getPropertyValue(T object);
 }

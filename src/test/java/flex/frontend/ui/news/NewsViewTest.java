@@ -5,6 +5,8 @@
  */
 package flex.frontend.ui.news;
 
+import flex.frontend.ui.news.article.ArticlesBody;
+import flex.frontend.ui.FlexFooter;
 import flex.frontend.ui.MainViewTest;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -50,7 +52,7 @@ public class NewsViewTest extends MainViewTest {
         NewsView instance = new NewsView();
         assertNotNull(instance.getBody());
         
-        ArticlesInfoView body = new ArticlesInfoView();
+        ArticlesBody body = new ArticlesBody();
         instance.setBody(body);
         
         assertTrue(instance.getComponentIndex(body) >= 0);
@@ -65,7 +67,7 @@ public class NewsViewTest extends MainViewTest {
         NewsView instance = new NewsView();
         assertNotNull(instance.getBody());
         
-        ArticlesInfoView body = new ArticlesInfoView();
+        ArticlesBody body = new ArticlesBody();
         instance.setBody(body);
         
         assertTrue(instance.getComponentIndex(body) >= 0);

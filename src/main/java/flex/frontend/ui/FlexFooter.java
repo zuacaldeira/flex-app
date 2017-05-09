@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package flex.frontend.ui.news;
+package flex.frontend.ui;
 
 import com.vaadin.ui.HorizontalLayout;
 

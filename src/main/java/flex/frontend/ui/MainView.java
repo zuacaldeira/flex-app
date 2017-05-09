@@ -6,7 +6,6 @@
 package flex.frontend.ui;
 
 import com.vaadin.ui.VerticalLayout;
-import flex.frontend.ui.news.FlexFooter;
 
 /**
  *
@@ -24,19 +23,32 @@ public abstract class MainView extends VerticalLayout {
     }
 
     public void setBody(FlexBody flexBody) {
-        replaceComponent(body, flexBody);
         body = flexBody;
     }
 
     public void setMenu(FlexMenu menu) {
-        replaceComponent(this.menu, menu);
         this.menu = menu;
     }
     
     
     public void setFooter(FlexFooter footer) {
-        replaceComponent(this.footer, footer);
         this.footer = footer;
+    }
+
+    public void replaceBody(FlexBody flexBody) {
+        replaceComponent(body, flexBody);
+        setBody(flexBody);
+    }
+
+    public void replaceMenu(FlexMenu menu) {
+        replaceComponent(this.menu, menu);
+        setMenu(menu);
+    }
+    
+    
+    public void replaceFooter(FlexFooter footer) {
+        replaceComponent(this.footer, footer);
+        setFooter(footer);
     }
 
     public FlexMenu getMenu() {

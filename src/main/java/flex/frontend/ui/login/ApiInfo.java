@@ -1,4 +1,4 @@
-package flex.frontend.ui.news;
+package flex.frontend.ui.login;
 
 
 import org.scribe.builder.api.Api;
@@ -49,19 +49,41 @@ public class ApiInfo {
             "6a36b0992e5e2b00a38c44c21a6e0dc8ae01d83b",
             "https://api.github.com/user");
 
-    public final String name;
-    public final Class<? extends Api> scribeApi;
-    public final String apiKey;
-    public final String apiSecret;
-    public final String exampleGetRequest;
+    private final String name;
+    private final Class<? extends Api> scribeApi;
+    private final String apiKey;
+    private final String apiSecret;
+    private final String url;
 
     public ApiInfo(String name, Class<? extends Api> scribeApi,
-            String apiKey, String apiSecret, String exampleGetRequest) {
+            String apiKey, String apiSecret, String url) {
         super();
         this.name = name;
         this.scribeApi = scribeApi;
         this.apiKey = apiKey;
         this.apiSecret = apiSecret;
-        this.exampleGetRequest = exampleGetRequest;
+        this.url = url;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public Class<? extends Api> getScribeApi() {
+        return scribeApi;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public String getApiSecret() {
+        return apiSecret;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    
 }

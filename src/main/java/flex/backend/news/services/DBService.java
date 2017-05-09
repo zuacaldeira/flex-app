@@ -13,5 +13,7 @@ public interface DBService<T> {
     public void delete(Long id);
 
     public T save(T object);
+    
+    public long count();
 
 }

@@ -3,6 +3,7 @@ package flex.backend.news.db;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
@@ -12,12 +13,17 @@ import org.neo4j.ogm.annotation.Relationship;
 @NodeEntity
 public class NewsAuthor extends  GraphEntity implements Comparable<NewsAuthor>{
 
-    
+    public static NewsAuthor UNKNOWN = new NewsAuthor("Unknown");
+
+    @Index(unique = true)
     private String name;
     
     @Relationship(type = "AUTHORED", direction = Relationship.OUTGOING)
     private Set<NewsArticle> articles;
     
+    @Relationship(type = "PUBLISHED", direction = Relationship.INCOMING)
+    private NewsSource source;
+
     public NewsAuthor() {
         articles = new HashSet<>();
     }
@@ -34,6 +40,16 @@ public class NewsAuthor extends  GraphEntity implements Comparable<NewsAuthor>{
     public void setName(String name) {
         this.name = name;
     }
+
+    public Set<NewsArticle> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(Set<NewsArticle> articles) {
+        this.articles = articles;
+    }
+    
+    
 
     @Override
     public int compareTo(NewsAuthor o) {
@@ -77,6 +93,11 @@ public class NewsAuthor extends  GraphEntity implements Comparable<NewsAuthor>{
 
     public void addArticle(NewsArticle article) {
         articles.add(article);
+        article.setAuthor(this);
+    }
+
+    public void setSource(NewsSource aThis) {
+        this.source = source;
     }
 
     

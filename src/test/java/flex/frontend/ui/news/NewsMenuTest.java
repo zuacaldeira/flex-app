@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package flex.frontend.ui;
+package flex.frontend.ui.news;
 
 import flex.frontend.ui.news.NewsMenu;
 import static org.junit.Assert.assertNotNull;

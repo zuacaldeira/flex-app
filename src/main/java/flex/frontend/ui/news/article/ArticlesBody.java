@@ -1,4 +1,4 @@
-package flex.frontend.ui.news;
+package flex.frontend.ui.news.article;
 
 import flex.backend.news.db.NewsArticle;
 import flex.frontend.ui.FlexBody;
@@ -9,23 +9,23 @@ import org.utils.ServiceLocator;
 /**
  * Created by zua on 13/04/17.
  */
-public class ArticlesInfoView extends FlexBody {
-
-    public ArticlesInfoView() {
+public class ArticlesBody extends FlexBody {
+    
+    public ArticlesBody() {
         initArticles();
     }
 
     private void initArticles() {
-        ServiceLocator.findNewsArticleService().findAll()
+        ServiceLocator.findArticlesService().findAll()
             .forEach((article) -> {
-                getGrid().addComponent(FlexViewFactory.createArticleView(article));
+                addView(FlexViewFactory.createArticleView(article));
             }
         );
     }
 
     public void addArticles(Collection<NewsArticle> articles) {
         articles.stream().forEach((article) -> {
-            getGrid().addComponent(FlexViewFactory.createArticleView(article));
+            addView(FlexViewFactory.createArticleView(article));
         });
     }
 }

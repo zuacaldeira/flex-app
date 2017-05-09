@@ -1,4 +1,4 @@
-package flex.frontend.ui.news;
+package flex.frontend.ui.news.source;
 
 import flex.backend.news.db.NewsSource;
 import flex.frontend.ui.FlexBody;
@@ -8,16 +8,16 @@ import org.utils.ServiceLocator;
 /**
  * Created by zua on 12/04/17.
  */
-public class SourcesInfoView extends FlexBody {
+public class SourcesBody extends FlexBody {
 
-    public SourcesInfoView() {
+    public SourcesBody() {
         super();
         initSources();
     }
 
     private void initSources() {
         System.out.println("Initializing sources...");
-        Iterable<NewsSource> data = ServiceLocator.findNewsSourceService().findAll();
+        Iterable<NewsSource> data = ServiceLocator.findSourcesService().findAll();
         data.forEach(s -> {
             addView(FlexViewFactory.createSourceView(s));        
         });

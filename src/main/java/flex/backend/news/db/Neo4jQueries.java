@@ -3,12 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package flex.backend.news.services;
-
-import flex.backend.news.db.GraphEntity;
-import flex.backend.news.db.NewsArticle;
-import flex.backend.news.db.NewsAuthor;
-import flex.backend.news.db.NewsSource;
+package flex.backend.news.db;
 
 /**
  *
@@ -81,7 +76,4 @@ public class Neo4jQueries {
     private static String mergeQuery(String className, String property, String value) {
         return "MERGE (n:" + className + "{" + property + ":" + wrapString(value) + "}) RETURN n";
     }
-
-
-
 }

@@ -1,5 +1,5 @@
 
-package flex.frontend.ui.news;
+package flex.frontend.ui.news.author;
 
 import flex.backend.news.db.NewsAuthor;
 import flex.frontend.ui.FlexBody;
@@ -9,12 +9,10 @@ import org.utils.ServiceLocator;
 /**
  * Created by zua on 13/04/17.
  */
-public class AuthorsInfoView extends FlexBody {
+public class AuthorsBody extends FlexBody {
 
-    public AuthorsInfoView() {
-        getGrid().setColumns(2);
+    public AuthorsBody() {
         initAuthors();
-        
     }
 
     private void initAuthors() {
@@ -23,7 +21,7 @@ public class AuthorsInfoView extends FlexBody {
 
     public void addAuthors(Iterable<NewsAuthor> authors) {
         authors.forEach((author) -> {
-            getGrid().addComponent(FlexViewFactory.createAuthorView(author));
+            addView(FlexViewFactory.createAuthorView(author));
         });
     }
 }
