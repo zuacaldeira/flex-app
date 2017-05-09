@@ -10,8 +10,6 @@ import flex.backend.news.db.NewsAuthor;
 import flex.frontend.ui.news.UITest;
 import java.util.LinkedList;
 import java.util.List;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.utils.ServiceLocator;
 
@@ -33,8 +31,6 @@ public class ArticlesBodyTest extends UITest {
         ServiceLocator.findNewsApiService().loadData();
         
         ArticlesBody body = new ArticlesBody();
-        assertNotNull(body.getGrid());
-        assertTrue(body.getGrid().getRows() > 0);
         
         List<NewsArticle> articles = new LinkedList<>();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", "publishedAt");

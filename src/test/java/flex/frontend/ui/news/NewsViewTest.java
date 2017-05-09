@@ -39,8 +39,6 @@ public class NewsViewTest extends MainViewTest {
         
         NewsMenu menu = new NewsMenu();
         instance.setMenu(menu);
-        
-        assertTrue(instance.getComponentIndex(menu) >= 0);
     }
 
     /**
@@ -54,8 +52,6 @@ public class NewsViewTest extends MainViewTest {
         
         ArticlesBody body = new ArticlesBody();
         instance.setBody(body);
-        
-        assertTrue(instance.getComponentIndex(body) >= 0);
     }
 
     /**
@@ -69,8 +65,6 @@ public class NewsViewTest extends MainViewTest {
         
         ArticlesBody body = new ArticlesBody();
         instance.setBody(body);
-        
-        assertTrue(instance.getComponentIndex(body) >= 0);
     }
 
     /**
@@ -84,8 +78,6 @@ public class NewsViewTest extends MainViewTest {
         
         FlexFooter footer = new FlexFooter();
         instance.setFooter(footer);
-        
-        assertTrue(instance.getComponentIndex(footer) >= 0);
     }
 
 
@@ -96,8 +88,6 @@ public class NewsViewTest extends MainViewTest {
         
         FlexFooter footer = new FlexFooter();
         instance.setFooter(footer);
-        
-        assertTrue(instance.getComponentIndex(footer) >= 0);
     }
     
 }

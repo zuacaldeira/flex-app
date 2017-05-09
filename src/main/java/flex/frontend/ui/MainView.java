@@ -5,21 +5,44 @@
  */
 package flex.frontend.ui;
 
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.AbsoluteLayout;
 
 /**
  *
  * @author zua
  */
-public abstract class MainView extends VerticalLayout {
+public abstract class MainView extends AbsoluteLayout {
     
     private FlexMenu menu;
     private FlexBody body;
     private FlexFooter footer;
 
     public MainView() {
+        initMenu();
+        initBody();
+        initFooter();
         setStyleName("main-view");
         setSizeFull();
+        addComponent(footer, "bottom:0%");
+        addComponent(body, "top:5%");
+        addComponent(menu, "top:0%");
+    }
+
+    private void initMenu() {
+        setMenu(createMenu());
+        menu.setWidth("100%");
+        menu.setHeight("1cm");
+    }
+
+    private void initBody() {
+        setBody(createBody());
+        body.setHeight("90%");
+    }
+
+    private void initFooter() {
+        setFooter(createFooter());
+        footer.setWidth("100%");
+        footer.setHeight("1cm");
     }
 
     public void setBody(FlexBody flexBody) {
@@ -63,6 +86,7 @@ public abstract class MainView extends VerticalLayout {
         return footer;
     }
 
-
-    
+    protected abstract FlexMenu createMenu();
+    protected abstract FlexBody createBody();
+    protected abstract FlexFooter createFooter();
 }

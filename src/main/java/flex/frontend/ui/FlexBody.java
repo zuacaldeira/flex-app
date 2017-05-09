@@ -7,31 +7,28 @@ package flex.frontend.ui;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.GridLayout;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Panel;
 
 /**
  *
  * @author zua
  */
-public abstract class FlexBody extends VerticalLayout {
-
-    private GridLayout grid;
+public abstract class FlexBody extends Panel {
     
+    private GridLayout base;
+
     public FlexBody() {
-        grid = new GridLayout(4, 1);
-        grid.setSpacing(true);
-        grid.setHeightUndefined();
-        this.addComponent(grid);
         this.setStyleName("flex-body");
-        this.setSizeFull();
+        setSizeFull();
+        base = new GridLayout(4, 1);
+        base.setWidth("100%");
+        base.setHeightUndefined();
+        base.setSpacing(true);
+        setContent(base);
     }
 
-    public GridLayout getGrid() {
-        return grid;
-    }
-    
     protected void addView(Component component) {
-        grid.addComponent(component);
+        base.addComponent(component);
     }
     
 }

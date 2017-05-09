@@ -5,10 +5,11 @@
  */
 package flex.frontend.ui.news;
 
-import flex.frontend.ui.news.article.ArticlesBody;
-import flex.frontend.ui.FlexFooter;
 import flex.frontend.ui.FlexBody;
+import flex.frontend.ui.FlexFooter;
+import flex.frontend.ui.FlexMenu;
 import flex.frontend.ui.MainView;
+import flex.frontend.ui.news.article.ArticlesBody;
 
 /**
  *
@@ -19,27 +20,22 @@ public class NewsView extends MainView {
     public static final int MAX_ARTICLES = 100;
     
     public NewsView() {        
-        initMenu();
-        initBody();
-        initFooter();
-        addComponents(getMenu(), getBody(), getFooter());
-        this.setExpandRatio(getMenu(), .1f);
-        this.setExpandRatio(getBody(), .9f);
+    }
+
+    @Override
+    protected FlexMenu createMenu() {
+        return new NewsMenu();
+    }
+
+    @Override
+    protected FlexBody createBody() {
+        return new ArticlesBody();
+    }
+
+    @Override
+    protected FlexFooter createFooter() {
+        return new FlexFooter();
     }
     
-    private void initMenu() {
-        NewsMenu menu = new NewsMenu();
-        setMenu(menu);
-    }
-
-    private void initBody() {
-        FlexBody body = new ArticlesBody();
-        setBody(body);
-    }
-
-    private void initFooter() {
-        FlexFooter footer = new FlexFooter();
-        setFooter(footer);
-    }
 
 }

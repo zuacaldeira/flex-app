@@ -5,11 +5,9 @@
  */
 package flex.frontend.ui.login;
 
-import com.vaadin.icons.VaadinIcons;
-import com.vaadin.server.Page;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import flex.frontend.ui.FlexButton;
+import flex.frontend.ui.FlexBody;
+import flex.frontend.ui.FlexFooter;
+import flex.frontend.ui.FlexMenu;
 import flex.frontend.ui.MainView;
 
 /**
@@ -17,22 +15,24 @@ import flex.frontend.ui.MainView;
  * @author zua
  */
 public class LoginView extends MainView {
-    private final FlexButton enter;
 
     public LoginView() {
         setStyleName("login-view");
+    }
 
-        enter = new FlexButton("Enter", VaadinIcons.PLAY_CIRCLE);
-        enter.setSizeUndefined();
-        enter.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                Page.getCurrent().setLocation("/flex-app/news");
-            }
-        });
-        
-        addComponent(enter);
-        setComponentAlignment(enter, Alignment.MIDDLE_CENTER);
+    @Override
+    protected FlexMenu createMenu() {
+        return new FlexMenu() {};
+    }
+
+    @Override
+    protected FlexBody createBody() {
+        return new LoginBody();
+    }
+
+    @Override
+    protected FlexFooter createFooter() {
+        return new FlexFooter();
     }
     
 }

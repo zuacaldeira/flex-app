@@ -7,8 +7,6 @@ package flex.frontend.ui.news.source;
 
 import flex.frontend.ui.news.UITest;
 import javax.naming.NamingException;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.utils.ServiceLocator;
 
@@ -26,8 +24,6 @@ public class SourcesBodyTest extends UITest {
         ServiceLocator.findNewsApiService().loadData();
         
         SourcesBody body = new SourcesBody();        
-        assertNotNull(body.getGrid());
-        assertTrue(body.getGrid().getRows() > 0);
     }
     
 }
