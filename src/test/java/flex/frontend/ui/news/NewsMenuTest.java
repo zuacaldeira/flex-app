@@ -5,7 +5,6 @@
  */
 package flex.frontend.ui.news;
 
-import flex.frontend.ui.news.NewsMenu;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
@@ -29,4 +28,40 @@ public class NewsMenuTest {
         assertNotNull(menu.getSourcesButton());        
     }
     
+    @Test(expected = Exception.class)
+    public void testClickHome() {
+        NewsMenu menu = new NewsMenu();
+        menu.getHomeButton().click();
+    }
+
+    @Test(expected = Exception.class)
+    public void testClickArticles() {
+        NewsMenu menu = new NewsMenu();
+        menu.getArticlesButton().click();
+    }
+
+    @Test(expected = Exception.class)
+    public void testClickSources() {
+        NewsMenu menu = new NewsMenu();
+        menu.getSourcesButton().click();
+    }
+
+    @Test(expected = Exception.class)
+    public void testClickAuthors() {
+        NewsMenu menu = new NewsMenu();
+        menu.getAuthorsButton().click();
+    }
+
+    @Test
+    public void testClickSearch() {
+        NewsMenu menu = new NewsMenu();
+        menu.getSearchButton().click();
+    }
+
+    @Test
+    public void testClickMenu() {
+        NewsMenu menu = new NewsMenu();
+        menu.getMenuButton().click();
+    }
+
 }

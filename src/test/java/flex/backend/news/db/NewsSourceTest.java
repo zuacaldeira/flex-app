@@ -428,11 +428,11 @@ public class NewsSourceTest extends TestCase {
     public static Object[][] equalsProvider() {
         NewsSource source1 = new NewsSource("sourceId1", "name1", "description1", "url1", "category1", "language1", "country1");
         NewsSource source2 = new NewsSource("sourceId2", "name2", "description2", "url2", "category2", "language2", "country2");
+        NewsSource source3 = new NewsSource("sourceId1", "name2", "description1", "url1", "category1", "language1", "country1");
         return new Object[][] {
             {source1, source1, true},
-            {source2, source2, true},
-            {source1, source2, false},
-            {source2, source1, false}
+            {source1, source3, true},
+            {source2, source2, true}
         };
     }
 
@@ -446,7 +446,32 @@ public class NewsSourceTest extends TestCase {
     @UseDataProvider("equalsProvider")
     public void testEquals(NewsSource source, NewsSource other, boolean expected) {
         System.out.println("equals");
-        assertEquals(expected, source.equals(other));
+        assertTrue(source.equals(other));
     }
     
+    /**
+     * Test of equals method, of class NewsSource.
+     * @param source
+     * @param other
+     * @param expected
+     */
+    @Test
+    @UseDataProvider("equalsNegativeProvider")
+    public void testEqualsNegative(NewsSource source, Object other, boolean expected) {
+        System.out.println("equals");
+        assertFalse(source.equals(other));
+    }
+    
+        @DataProvider
+    public static Object[][] equalsNegativeProvider() {
+        NewsSource source1 = new NewsSource("sourceId1", "name", "description", "url", "category", "language", "country");
+        NewsSource source2 = new NewsSource("sourceId2", "name", "description", "url", "category", "language", "country");
+        return new Object[][] {
+            {source1, source2,                  false},
+            {source1, null,                     false},
+            {source1, new NewsAuthor("author"), false}
+        };
+    }
+
+
 }

@@ -44,4 +44,13 @@ public class NewsApiOrgTest {
         assertTrue(result.keySet().contains("apiKey"));
     }
     
+    @Test
+    public void testGetInstance() {
+        NewsApiOrg nao = NewsApiOrg.getInstance();
+        assertNotNull(nao);
+        
+        NewsApiOrg nao2 = NewsApiOrg.getInstance();
+        assertTrue(nao == nao2);
+    }
+    
 }

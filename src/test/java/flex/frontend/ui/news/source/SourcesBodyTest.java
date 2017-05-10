@@ -6,7 +6,6 @@
 package flex.frontend.ui.news.source;
 
 import flex.frontend.ui.news.UITest;
-import javax.naming.NamingException;
 import org.junit.Test;
 import org.utils.ServiceLocator;
 
@@ -20,9 +19,8 @@ public class SourcesBodyTest extends UITest {
     }
 
     @Test
-    public void testSomeMethod() throws NamingException {
-        ServiceLocator.findNewsApiService().loadData();
-        
+    public void testSomeMethod() {
+        ServiceLocator.getInstance().findNewsApiService().loadData();
         SourcesBody body = new SourcesBody();        
     }
     

@@ -6,6 +6,8 @@
 package flex.frontend.ui.login;
 
 import com.vaadin.server.VaadinRequest;
+import flex.frontend.ui.login.LoginUI.Servlet;
+import flex.frontend.ui.news.UITest;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.mockito.Mockito;
@@ -14,7 +16,7 @@ import org.mockito.Mockito;
  *
  * @author zua
  */
-public class LoginUITest {
+public class LoginUITest extends UITest {
     
     public LoginUITest() {
     }
@@ -30,6 +32,16 @@ public class LoginUITest {
         assertNull(instance.getLoginView());
         instance.init(request);
         assertNotNull(instance.getLoginView());
+    }
+    
+    @Test
+    public void testServlet() {
+        Servlet instance = new LoginUI.Servlet();
+        assertNotNull(instance);
+        /*assertNotNull(instance.getServletConfig());
+        assertNotNull(instance.getServletContext());
+        assertNotNull(instance.getServletInfo());
+        assertNotNull(instance.getServletName());*/
     }
     
 }

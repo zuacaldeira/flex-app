@@ -28,7 +28,7 @@ public class ArticlesBodyTest extends UITest {
     @Test
     public void testAddArticles()  {
         System.out.println("addArticles");
-        ServiceLocator.findNewsApiService().loadData();
+        ServiceLocator.getInstance().findNewsApiService().loadData();
         
         ArticlesBody body = new ArticlesBody();
         

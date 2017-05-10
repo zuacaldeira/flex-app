@@ -5,7 +5,9 @@
  */
 package flex.frontend.ui;
 
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 
 /**
  *
@@ -13,4 +15,11 @@ import com.vaadin.ui.HorizontalLayout;
  */
 public class FlexFooter extends HorizontalLayout {
     
+    private Label copyright;
+    
+    public FlexFooter() {
+        copyright = new Label("Pirigrino");
+        copyright.setIcon(VaadinIcons.COPYRIGHT);
+        addComponent(copyright);
+    }
 }

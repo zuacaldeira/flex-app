@@ -5,7 +5,7 @@
  */
 package org.utils;
 
-import javax.naming.NamingException;
+import flex.frontend.ui.news.UITest;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  *
  * @author zua
  */
-public class ServiceLocatorTest {
+public class ServiceLocatorTest extends UITest {
     
     public ServiceLocatorTest() {
     }
@@ -22,33 +22,27 @@ public class ServiceLocatorTest {
      * Test of findArticlesService method, of class ServiceLocator.
      */
     @Test
-    public void testFindNewsArticleService() throws NamingException {
+    public void testFindNewsArticleService() {
         System.out.println("findNewsArticleService");
-        MockInitialContext mockContext = new MockInitialContext();
-        ServiceLocator.setInitialContext(mockContext);
-        assertNotNull(ServiceLocator.findArticlesService());
+        assertNotNull(ServiceLocator.getInstance().findArticlesService());
     }
 
     /**
      * Test of findSourcesService method, of class ServiceLocator.
      */
     @Test
-    public void testFindNewsSourceService() throws NamingException {
+    public void testFindNewsSourceService() {
         System.out.println("findNewsSourceService");
-        MockInitialContext mockContext = new MockInitialContext();
-        ServiceLocator.setInitialContext(mockContext);
-        assertNotNull(ServiceLocator.findSourcesService());
+        assertNotNull(ServiceLocator.getInstance().findSourcesService());
     }
 
     /**
      * Test of findAuthorsService method, of class ServiceLocator.
      */
     @Test
-    public void testFindAuthorsService() throws NamingException {
+    public void testFindAuthorsService() {
         System.out.println("findAuthorsService");
-        MockInitialContext mockContext = new MockInitialContext();
-        ServiceLocator.setInitialContext(mockContext);
-        assertNotNull(ServiceLocator.findAuthorsService());
+        assertNotNull(ServiceLocator.getInstance().findAuthorsService());
     }
     
 }

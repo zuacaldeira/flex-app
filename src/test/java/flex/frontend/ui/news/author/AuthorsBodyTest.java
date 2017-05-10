@@ -25,7 +25,7 @@ public class AuthorsBodyTest extends UITest {
     public void testAddAuthors() {
         System.out.println("addAuthors");
 
-        ServiceLocator.findNewsApiService().loadData();
+        ServiceLocator.getInstance().findNewsApiService().loadData();
 
         AuthorsBody body = new AuthorsBody();
     }

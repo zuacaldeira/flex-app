@@ -7,7 +7,6 @@ package flex.frontend.ui.login;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import flex.frontend.ui.FlexBody;
 import flex.frontend.ui.FlexButton;
@@ -30,8 +29,14 @@ public class LoginBody extends FlexBody {
             }
         });
         
-        addComponent(enter);
-        setComponentAlignment(enter, Alignment.MIDDLE_CENTER);
+        super.addView(enter);
+        //setComponentAlignment(enter, Alignment.MIDDLE_CENTER);
     }
+
+    public FlexButton getEnter() {
+        return enter;
+    }
+    
+    
     
 }

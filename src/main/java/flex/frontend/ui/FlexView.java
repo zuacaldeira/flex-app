@@ -11,13 +11,13 @@ import com.vaadin.ui.AbsoluteLayout;
  *
  * @author zua
  */
-public abstract class MainView extends AbsoluteLayout {
+public abstract class FlexView extends AbsoluteLayout {
     
     private FlexMenu menu;
     private FlexBody body;
     private FlexFooter footer;
 
-    public MainView() {
+    public FlexView() {
         initMenu();
         initBody();
         initFooter();
@@ -31,12 +31,12 @@ public abstract class MainView extends AbsoluteLayout {
     private void initMenu() {
         setMenu(createMenu());
         menu.setWidth("100%");
-        menu.setHeight("1cm");
+        menu.setHeight("1in");
     }
 
     private void initBody() {
         setBody(createBody());
-        body.setHeight("90%");
+        body.setSizeFull();
     }
 
     private void initFooter() {
@@ -58,22 +58,6 @@ public abstract class MainView extends AbsoluteLayout {
         this.footer = footer;
     }
 
-    public void replaceBody(FlexBody flexBody) {
-        replaceComponent(body, flexBody);
-        setBody(flexBody);
-    }
-
-    public void replaceMenu(FlexMenu menu) {
-        replaceComponent(this.menu, menu);
-        setMenu(menu);
-    }
-    
-    
-    public void replaceFooter(FlexFooter footer) {
-        replaceComponent(this.footer, footer);
-        setFooter(footer);
-    }
-
     public FlexMenu getMenu() {
         return menu;
     }
@@ -85,6 +69,12 @@ public abstract class MainView extends AbsoluteLayout {
     public FlexFooter getFooter() {
         return footer;
     }
+    public void replaceBody(FlexBody flexBody) {
+        replaceComponent(body, flexBody);
+        setBody(flexBody);
+    }
+    
+
 
     protected abstract FlexMenu createMenu();
     protected abstract FlexBody createBody();

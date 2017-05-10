@@ -10,6 +10,10 @@ import java.util.Map;
  */
 public class NewsApiOrg {
 
+    private static NewsApiOrg instance;
+    
+    private NewsApiOrg() {}
+
     public static Map<String, String> getSourceParams() {
         Map<String, String> params = new HashMap<>();
 
@@ -48,6 +52,13 @@ public class NewsApiOrg {
                 "popular\tRequests a list of the source's current most popular or currently trending headlines.");
 
         return params;
+    }
+
+    public static NewsApiOrg getInstance() {
+        if(instance == null) {
+            instance = new NewsApiOrg();
+        }
+        return instance;
     }
     
 }

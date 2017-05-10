@@ -10,9 +10,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
@@ -28,8 +25,8 @@ import org.json.JSONObject;
 @Singleton
 public class NewsApiService {
     private static final String apiKey = "5b4e00f3046843138d8368211777a4f2";
-    private static String sourcesUrl = "http://newsapi.org/v1/sources?";
-    private static String articlesUrl = "http://newsapi.org/v1/articles?";
+    private static final String sourcesUrl = "http://newsapi.org/v1/sources?";
+    private static final String articlesUrl = "http://newsapi.org/v1/articles?";
 
 /*    static {
         String certificatesTrustStorePath = "/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home/jre/lib/security/cacerts";
@@ -80,7 +77,7 @@ public class NewsApiService {
                 sourcesService.save(source);
             }
         } catch (IOException | JSONException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         
         System.out.println("<=== Data loaded.");
@@ -135,20 +132,6 @@ public class NewsApiService {
         }
     }
     
-    
-    private Set<NewsAuthor> extractAuthors(String value) {
-        Set<NewsAuthor> authors = new HashSet<>();
-
-        String[] parts = value.split(",");
-        Set<String> allParts = new HashSet<>(Arrays.asList(parts));
-        for(String part: allParts) {
-            System.out.println("Processing author... " + part.trim());
-            authors.add(new NewsAuthor(part.trim()));
-        }
-        
-        return authors;
-    }
-
     private String createSourceQuery(String category, String language2Letter, String country) {
         String query = sourcesUrl;
         

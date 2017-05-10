@@ -16,16 +16,16 @@ public class ArticlesBody extends FlexBody {
     }
 
     private void initArticles() {
-        ServiceLocator.findArticlesService().findAll()
+        ServiceLocator.getInstance().findArticlesService().findAll()
             .forEach((article) -> {
-                addView(FlexViewFactory.createArticleView(article));
+                addView(FlexViewFactory.getInstance().createArticleView(article));
             }
         );
     }
 
     public void addArticles(Collection<NewsArticle> articles) {
         articles.stream().forEach((article) -> {
-            addView(FlexViewFactory.createArticleView(article));
+            addView(FlexViewFactory.getInstance().createArticleView(article));
         });
     }
 }

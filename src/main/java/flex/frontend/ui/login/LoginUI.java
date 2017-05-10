@@ -22,10 +22,8 @@ public class LoginUI extends UI {
     @Override
     protected void init(VaadinRequest request) {
         AbstractOrderedLayout layout = new HorizontalLayout();
-        layout.setSizeFull();
         layout.setMargin(true);
         layout.setSpacing(true);
-        layout.setSizeFull();
         setContent(layout);
 
         loginView = new LoginView();

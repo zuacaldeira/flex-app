@@ -21,11 +21,11 @@ public abstract class UITest extends Neo4jTest {
     @BeforeClass
     public static void mock() throws NamingException {
         MockInitialContext mockContext = new MockInitialContext();
-        ServiceLocator.setInitialContext(mockContext);
+        ServiceLocator.getInstance().setInitialContext(mockContext);
     }
     
     @AfterClass
     public static void unmock() {
-        ServiceLocator.setInitialContext(null);
+        ServiceLocator.getInstance().setInitialContext(null);
     }
 }

@@ -12651,9 +12651,9 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .v-ui {
-	background-color: black;
-	background-image: -webkit-linear-gradient(bottom, black, lightblue);
-	background-image: linear-gradient(to top,black, lightblue);
+	background-color: darkorchid;
+	background-image: -webkit-linear-gradient(top left, darkorchid, #1156a8);
+	background-image: linear-gradient(to bottom right,darkorchid, #1156a8);
 }
 
 .mytheme .v-label-huge {
@@ -12678,6 +12678,7 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme .flex-menu {
 	background: transparent;
 	color: white;
+	font-variant: small-caps;
 }
 
 .mytheme .flex-logo {
@@ -12691,6 +12692,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .article {
 	background: white;
+	opacity: 0.5;
 	font-family: serif;
 }
 

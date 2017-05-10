@@ -12,19 +12,29 @@ import flex.frontend.ui.news.author.AuthorView;
  * Created by zua on 12/04/17.
  */
 public class FlexViewFactory {
+
+    private static FlexViewFactory instance;
     
     
     private FlexViewFactory() {}
     
-    public static SourceView createSourceView(NewsSource source) {
+    public  SourceView createSourceView(NewsSource source) {
         return new SourceView(source);
     }
 
-    public static ArticleView createArticleView(NewsArticle article) {
+    public  ArticleView createArticleView(NewsArticle article) {
         return new ArticleView(article);
     }
 
-    public static AuthorView createAuthorView(NewsAuthor author) {
+    public  AuthorView createAuthorView(NewsAuthor author) {
         return new AuthorView(author);
+    }
+    
+    public static  FlexViewFactory getInstance() {
+        if(instance == null) {
+            instance = new FlexViewFactory();
+        }
+        
+        return instance;
     }
 }

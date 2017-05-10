@@ -8,6 +8,8 @@ package flex.backend.news.db;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
@@ -123,6 +125,13 @@ public class NewsAuthorTest {
         assertEquals(expected, author.equals(other));
     }
     
+    @Test
+    @UseDataProvider("equalsNegativeProvider")
+    public void testEqualsNegative(NewsAuthor author, Object other, boolean expected) {
+        System.out.println("equals");
+        assertEquals(expected, author.equals(other));
+    }
+
     @DataProvider
     public static Object[][] equalsProvider() {
         NewsAuthor author1 = new NewsAuthor();
@@ -137,6 +146,24 @@ public class NewsAuthorTest {
             {author2, author2, true}
         };
     }
+
+    @DataProvider
+    public static Object[][] equalsNegativeProvider() {
+        NewsAuthor author1 = new NewsAuthor();
+        author1.setName("John A");
+        
+        NewsAuthor author2 = new NewsAuthor();
+        author2.setName("John B");
+        return new Object[][] {
+            {author1, author2, false},
+            {author2, author1, false},
+            {author1, null, false},
+            {author2, new NewsArticle(), false}
+        };
+    }
+
+
+
 
     /**
      * Test of toString method, of class NewsAuthor.
@@ -163,6 +190,33 @@ public class NewsAuthorTest {
             {new NewsAuthor(), ""},
         };
     }
-    
-    
+
+    /**
+     * Test of getArticles method, of class NewsAuthor.
+     */
+    @Test
+    public void testGetArticles() {
+        System.out.println("getArticles");
+        NewsAuthor instance = new NewsAuthor();
+        Set<NewsArticle> result = instance.getArticles();
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    /**
+     * Test of setArticles method, of class NewsAuthor.
+     */
+    @Test
+    public void testSetArticles() {
+        System.out.println("setArticles");
+        NewsAuthor instance = new NewsAuthor();
+        assertTrue(instance.getArticles().isEmpty());
+
+        Set<NewsArticle> articles = new HashSet<>();
+        articles.add(new NewsArticle());
+        instance.setArticles(articles);
+        
+        assertFalse(instance.getArticles().isEmpty());
+        
+    }
 }

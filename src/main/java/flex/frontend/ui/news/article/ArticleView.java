@@ -23,6 +23,8 @@ public class ArticleView extends GraphEntityView {
     private FlexButton commentButton;
     private FlexButton shareButton;
     private Label publishedAt;
+    private FlexButton readButton;
+    private FlexButton youtubeButton;
 
     public ArticleView(NewsArticle article) {
         this.article = article;
@@ -84,9 +86,19 @@ public class ArticleView extends GraphEntityView {
 
     private void initControls() {
         initTimeLabel();
-        commentButton = new FlexButton("Comment", VaadinIcons.COMMENT);
-        shareButton = new FlexButton(("Share"), VaadinIcons.SHARE_SQUARE);
-        controls = new HorizontalLayout(commentButton, shareButton);
+        commentButton = new FlexButton("", VaadinIcons.COMMENT);
+        commentButton.setDescription("Comment");
+        
+        shareButton = new FlexButton((""), VaadinIcons.CONNECT);
+        shareButton.setDescription("Share");
+        
+        readButton = new FlexButton((""), VaadinIcons.EYE);
+        readButton.setDescription("Mark as read");
+        
+        youtubeButton = new FlexButton((""), VaadinIcons.YOUTUBE);
+        youtubeButton.setDescription("Add YouTube video link");
+
+        controls = new HorizontalLayout(commentButton, shareButton, readButton, youtubeButton);
         controls.setSizeFull();
     }
 
@@ -129,6 +141,14 @@ public class ArticleView extends GraphEntityView {
 
     public FlexButton getShareButton() {
         return shareButton;
+    }
+
+    public FlexButton getReadButton() {
+        return readButton;
+    }
+
+    public FlexButton getYoutubeButton() {
+        return youtubeButton;
     }
     
     

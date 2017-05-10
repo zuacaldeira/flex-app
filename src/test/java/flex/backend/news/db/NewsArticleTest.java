@@ -249,6 +249,18 @@ public class NewsArticleTest  extends TestCase {
         };
     }
 
+    @DataProvider
+    public static Object[][] equalsNegativeProvider() {
+        NewsArticle article1 = new NewsArticle("title1", "description", "url", "imageUrl", "publishedAt");
+        NewsArticle article2 = new NewsArticle("title2", "description", "url", "imageUrl", "publishedAt");
+        return new Object[][] {
+            {new NewsArticle(), article1, false},
+            {article1, article2, false},
+            {article1, null, false},
+            {article1, new NewsAuthor(), false}
+        };
+    }
+
     /**
      * Test of equals method, of class NewsArticle.
      * @param first
@@ -258,6 +270,13 @@ public class NewsArticleTest  extends TestCase {
     @Test
     @UseDataProvider("equalsProvider")
     public void testEquals(NewsArticle first, NewsArticle second, boolean expected) {
+        System.out.println("equals");
+        assertEquals(expected, first.equals(second));
+    }
+
+    @Test
+    @UseDataProvider("equalsNegativeProvider")
+    public void testEqualsNegative(NewsArticle first, Object second, boolean expected) {
         System.out.println("equals");
         assertEquals(expected, first.equals(second));
     }
@@ -289,15 +308,27 @@ public class NewsArticleTest  extends TestCase {
     /**
      * Test of compareTo method, of class NewsArticle.
      */
-    public void testCompareTo() {
+    @Test
+    @UseDataProvider("compareToProvider")
+    public void testCompareTo(NewsArticle first, NewsArticle second, int expected) {
         System.out.println("compareTo");
-        NewsArticle o = null;
-        NewsArticle instance = new NewsArticle();
-        int expResult = 0;
-        int result = instance.compareTo(o);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expected, first.compareTo(second));
+    }
+    
+    
+    @DataProvider
+    public static Object[][] compareToProvider() {
+        NewsArticle article1 = new NewsArticle("title1", "description", "url", "imageUrl", "publishedAt");
+        NewsArticle article2 = new NewsArticle("title2", "description", "url", "imageUrl", "publishedAt");
+        return new Object[][] {
+            {new NewsArticle(), new NewsArticle(), 0},
+            {new NewsArticle(), article1, 1},
+            {article1, new NewsArticle(), -1},
+            {article1, article1, 0},
+            {article2, article2, 0},
+            {article1, article2, -1},
+            {article2, article1, 1}
+        };
     }
     
 }

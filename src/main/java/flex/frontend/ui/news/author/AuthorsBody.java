@@ -16,12 +16,12 @@ public class AuthorsBody extends FlexBody {
     }
 
     private void initAuthors() {
-        addAuthors(ServiceLocator.findAuthorsService().findAll());
+        addAuthors(ServiceLocator.getInstance().findAuthorsService().findAll());
     }
 
     public void addAuthors(Iterable<NewsAuthor> authors) {
         authors.forEach((author) -> {
-            addView(FlexViewFactory.createAuthorView(author));
+            addView(FlexViewFactory.getInstance().createAuthorView(author));
         });
     }
 }

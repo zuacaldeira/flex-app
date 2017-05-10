@@ -8,14 +8,14 @@ package flex.frontend.ui.news;
 import flex.frontend.ui.FlexBody;
 import flex.frontend.ui.FlexFooter;
 import flex.frontend.ui.FlexMenu;
-import flex.frontend.ui.MainView;
+import flex.frontend.ui.FlexView;
 import flex.frontend.ui.news.article.ArticlesBody;
 
 /**
  *
  * @author zua
  */
-public class NewsView extends MainView {
+public class NewsView extends FlexView {
 
     public static final int MAX_ARTICLES = 100;
     
@@ -36,6 +36,5 @@ public class NewsView extends MainView {
     protected FlexFooter createFooter() {
         return new FlexFooter();
     }
-    
 
 }

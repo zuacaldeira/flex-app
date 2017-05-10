@@ -37,7 +37,7 @@
 
     // Insert your own theme rules here
     .v-ui{
-        @include linear-gradient(to top, black, lightblue);
+        @include linear-gradient(to bottom right, darkorchid, #1156a8);
     }
 
     .v-label-huge {
@@ -76,6 +76,7 @@
 
     .article{
         background: white;
+        opacity: .5;
         font-family: serif;
         
         .article-title {
@@ -93,7 +94,7 @@
             opacity: 1;
             font-size: 12pt;
         }
-        .controls{
+        .controls {
             opacity: 1;
             color: tomato;
         }

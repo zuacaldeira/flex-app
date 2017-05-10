@@ -47,4 +47,11 @@ public class NewsUITest extends UITest {
         assertNotNull(instance.getNewsView());
     }
     
+    
+    @Test
+    public void testServlet() {
+        NewsUI.NewsUIServlet servlet = new NewsUI.NewsUIServlet();
+        assertNotNull(servlet);
+    }
+    
 }

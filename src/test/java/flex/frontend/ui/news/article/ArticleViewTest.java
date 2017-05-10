@@ -108,4 +108,16 @@ public class ArticleViewTest {
         assertEquals(expectedArticle.getPublishedAt(), view.getPublishedAt().getValue());
     }
     
+    
+    
+    
+    @Test
+    @UseDataProvider("articlesProvider")
+    public void testControls(ArticleView view, NewsArticle expectedArticle) {
+        assertNotNull(view.getReadButton());
+        assertNotNull(view.getCommentButton());
+        assertNotNull(view.getShareButton());
+        assertNotNull(view.getYoutubeButton());
+    }
+    
 }

@@ -117,4 +117,10 @@ public class Neo4jQueriesTest {
         assertEquals(query, result);
     }
     
+    
+    @Test
+    public void testGetInstance() {
+        assertNotNull(Neo4jQueries.getInstance());
+    }
+    
 }

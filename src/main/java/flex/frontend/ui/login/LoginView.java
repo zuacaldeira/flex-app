@@ -8,13 +8,13 @@ package flex.frontend.ui.login;
 import flex.frontend.ui.FlexBody;
 import flex.frontend.ui.FlexFooter;
 import flex.frontend.ui.FlexMenu;
-import flex.frontend.ui.MainView;
+import flex.frontend.ui.FlexView;
 
 /**
  *
  * @author zua
  */
-public class LoginView extends MainView {
+public class LoginView extends FlexView {
 
     public LoginView() {
         setStyleName("login-view");

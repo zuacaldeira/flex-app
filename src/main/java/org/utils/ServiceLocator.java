@@ -25,9 +25,18 @@ public class ServiceLocator {
     
     private static InitialContext context;
 
+    private static ServiceLocator instance;
+    
     private ServiceLocator() {}
     
-    private static Object findService(String name) {
+    public static ServiceLocator getInstance() {
+        if(instance == null) {
+            instance = new ServiceLocator();
+        }
+        return instance;
+    }
+    
+    private Object findService(String name) {
         try {
             if(context == null) {
                 context = new InitialContext();
@@ -38,23 +47,23 @@ public class ServiceLocator {
         }
     }
   
-    public static NewsArticleService findArticlesService() {
+    public NewsArticleService findArticlesService() {
         return (NewsArticleService) findService(NEWS_ARTICLE_SERVICE);
     }
 
-    public static NewsSourceService findSourcesService() {
+    public NewsSourceService findSourcesService() {
         return (NewsSourceService) findService(NEWS_SOURCE_SERVICE);
     }
 
-    public static NewsAuthorService findAuthorsService() {
+    public NewsAuthorService findAuthorsService() {
         return (NewsAuthorService) findService(NEWS_AUTHOR_SERVICE);
     }
     
-    public static NewsApiService findNewsApiService() {
+    public NewsApiService findNewsApiService() {
         return (NewsApiService) findService(NEWS_API_SERVICE);
     }
     
-    public static void setInitialContext(InitialContext aContext) {
+    public void setInitialContext(InitialContext aContext) {
         context = aContext;
     }
 

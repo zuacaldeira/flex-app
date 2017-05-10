@@ -36,7 +36,7 @@ public class FlexViewFactoryTest {
     @UseDataProvider("sourcesProvider")
     public void testCreateSourceView(NewsSource source) {
         System.out.println("createSourceView");
-        SourceView view = FlexViewFactory.createSourceView(source);
+        SourceView view = FlexViewFactory.getInstance().createSourceView(source);
         assertEquals(source, view.getSource());
         assertEquals(source.getName(), view.getName().getValue());
         assertEquals(source.getCategory(), view.getCategory().getValue());
@@ -60,7 +60,7 @@ public class FlexViewFactoryTest {
     @UseDataProvider("articlesProvider")
     public void testCreateArticleView(NewsArticle article) {
         System.out.println("createArticleView");
-        ArticleView view = FlexViewFactory.createArticleView(article);
+        ArticleView view = FlexViewFactory.getInstance().createArticleView(article);
         assertEquals(article, view.getArticle());
         assertEquals(article.getDescription(), view.getContent().getValue());
         assertEquals(article.getImageUrl(), ((ExternalResource)view.getImage().getSource()).getURL());
@@ -87,7 +87,7 @@ public class FlexViewFactoryTest {
     @UseDataProvider("authorsProvider")
     public void testCreateAuthorView(NewsAuthor author) {
         System.out.println("createAuthorView");
-        AuthorView view = FlexViewFactory.createAuthorView(author);
+        AuthorView view = FlexViewFactory.getInstance().createAuthorView(author);
         assertEquals(author, view.getAuthor());
     }
     

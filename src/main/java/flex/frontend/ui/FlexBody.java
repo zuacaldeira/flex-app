@@ -8,6 +8,7 @@ package flex.frontend.ui;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.themes.ValoTheme;
 
 /**
  *
@@ -25,6 +26,7 @@ public abstract class FlexBody extends Panel {
         base.setHeightUndefined();
         base.setSpacing(true);
         setContent(base);
+        addStyleName(ValoTheme.PANEL_BORDERLESS);
     }
 
     protected void addView(Component component) {

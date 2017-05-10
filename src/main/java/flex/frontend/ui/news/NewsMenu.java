@@ -9,7 +9,6 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import flex.frontend.ui.FlexButton;
 import flex.frontend.ui.FlexMenu;
@@ -68,7 +67,7 @@ public class NewsMenu extends FlexMenu {
         sourcesButton.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                Notification.show("Sources clicked");
+                //Notification.show("Sources clicked");
                 getNewsView().replaceBody(new SourcesBody());
             }
         });
@@ -80,7 +79,7 @@ public class NewsMenu extends FlexMenu {
         authorsButton.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                Notification.show("Authors clicked");
+                //Notification.show("Authors clicked");
                 getNewsView().replaceBody(new AuthorsBody());
             }
         });
@@ -92,7 +91,7 @@ public class NewsMenu extends FlexMenu {
         articlesButton.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                Notification.show("Articles clicked");
+                //Notification.show("Articles clicked");
                 getNewsView().replaceBody(new ArticlesBody());
             }
         });

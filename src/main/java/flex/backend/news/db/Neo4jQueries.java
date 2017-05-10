@@ -11,6 +11,18 @@ package flex.backend.news.db;
  */
 public class Neo4jQueries {
     
+    private static Neo4jQueries instance;
+    
+    private Neo4jQueries() {}
+    
+    
+    public static Neo4jQueries getInstance() {
+        if(instance == null) {
+            instance = new Neo4jQueries();
+        }
+        return instance;
+    }
+    
     public static <T extends GraphEntity> String findQuery(T object) {
         if(object instanceof NewsSource) {
             return findNewsSourceQuery((NewsSource) object);
@@ -73,7 +85,4 @@ public class Neo4jQueries {
         return "MATCH (n:" + className + "{" + property + ":" + value + "}) RETURN n";
     }
 
-    private static String mergeQuery(String className, String property, String value) {
-        return "MERGE (n:" + className + "{" + property + ":" + wrapString(value) + "}) RETURN n";
-    }
 }

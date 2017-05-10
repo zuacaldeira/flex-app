@@ -17,9 +17,9 @@ public class SourcesBody extends FlexBody {
 
     private void initSources() {
         System.out.println("Initializing sources...");
-        Iterable<NewsSource> data = ServiceLocator.findSourcesService().findAll();
+        Iterable<NewsSource> data = ServiceLocator.getInstance().findSourcesService().findAll();
         data.forEach(s -> {
-            addView(FlexViewFactory.createSourceView(s));        
+            addView(FlexViewFactory.getInstance().createSourceView(s));        
         });
     }
 
