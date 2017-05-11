@@ -29,19 +29,35 @@ public class NewsSourceService extends AbstractDBService<NewsSource> {
     public NewsSource findSourceBySourceId(String sourceId) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
         return session.queryForObject(NewsSource.class, 
-                Neo4jQueries.findSourceBySourceId(sourceId), 
+                Neo4jQueries.getInstance().findSourceBySourceId(sourceId), 
                 new HashMap<>()); 
     }
 
 
     @Override
-    public NewsSource save(NewsSource object) {
-        NewsSource dbSource = findSourceBySourceId(object.getSourceId());
-        if(dbSource == null) {
-           Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-           session.save(object);
-           dbSource = findSourceBySourceId(object.getSourceId());
+    public NewsSource save(NewsSource source) {
+        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
+        NewsSource dbSource = findSourceBySourceId(source.getSourceId());
+        if(dbSource != null) {
+            dbSource = update(dbSource, source);
         }
+        else {
+            dbSource = source;
+        }
+        session.save(dbSource, 3);
+        return findSourceBySourceId(source.getSourceId());
+    }
+    
+    private NewsSource update(NewsSource dbSource, NewsSource source) {
+        dbSource.setSourceId(source.getSourceId());
+        dbSource.setDescription(source.getDescription());
+        dbSource.setCategory(source.getCategory());
+        dbSource.setCountry(source.getCountry());
+        dbSource.setCorrespondents(source.getCorrespondents());
+        dbSource.setUrl(source.getUrl());
+        dbSource.setLanguage(source.getLanguage());
+        dbSource.setName(source.getName());
+        
         return dbSource;
     }
 

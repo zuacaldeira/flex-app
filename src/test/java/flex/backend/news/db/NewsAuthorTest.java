@@ -219,4 +219,20 @@ public class NewsAuthorTest {
         assertFalse(instance.getArticles().isEmpty());
         
     }
+    
+    @Test
+    public void testAddAuthorWithArticle() {
+        NewsArticle article = new NewsArticle();
+        article.setTitle("title");
+        
+        NewsAuthor author = NewsAuthor.UNKNOWN;        
+        author.addArticle(article);
+        
+        
+        assertNotNull(article.getAuthor());
+        assertFalse(author.getArticles().isEmpty());
+        assertTrue(author.getArticles().contains(article));
+        
+    }
+    
 }

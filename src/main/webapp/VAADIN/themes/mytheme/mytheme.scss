@@ -60,7 +60,11 @@
     }            
     
     .flex-menu {
-        background: transparent;
+        background: black;
+        opacity: 0.9;
+        .flex-button{
+            opacity: 1;
+        }
         color: white;
         font-variant: small-caps;
     }
@@ -74,10 +78,9 @@
         opacity: 1;
     }
 
-    .article{
-        background: white;
-        opacity: .5;
+    .article {
         font-family: serif;
+        color:white;
         
         .article-title {
             opacity: 1;

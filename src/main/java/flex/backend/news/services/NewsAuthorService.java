@@ -29,19 +29,30 @@ public class NewsAuthorService extends AbstractDBService<NewsAuthor> {
     public NewsAuthor findAuthorByName(String name) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
         return session.queryForObject(NewsAuthor.class, 
-                Neo4jQueries.findAuthorByName(name), 
+                Neo4jQueries.getInstance().findAuthorByName(name), 
                 new HashMap<>()); 
     }
 
     @Override
-    public NewsAuthor save(NewsAuthor object) {
-        NewsAuthor dbAuthor = findAuthorByName(object.getName());
-        if(dbAuthor == null) {
-           Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-           session.save(object);
-           dbAuthor = findAuthorByName(object.getName());
+    public NewsAuthor save(NewsAuthor author) {
+        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
+        NewsAuthor dbAuthor = findAuthorByName(author.getName());
+        if(dbAuthor != null) {
+            dbAuthor = update(dbAuthor, author);
         }
+        else {
+            dbAuthor = author;
+        }
+        session.save(dbAuthor, 2);
+        return findAuthorByName(author.getName());
+    }
+    
+    private NewsAuthor update(NewsAuthor dbAuthor, NewsAuthor author) {
+        dbAuthor.setName(author.getName());
+        dbAuthor.setSource(author.getSource());
+        dbAuthor.setArticles(author.getArticles());
         return dbAuthor;
     }
+
 
 }

@@ -9,7 +9,6 @@ import flex.backend.news.db.Neo4jTest;
 import flex.backend.news.db.NewsArticle;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
@@ -95,8 +94,7 @@ public class NewsArticleServiceTest extends Neo4jTest {
      * Test of save method, of class NewsArticleService.
      */
     @Test
-    @Ignore
-    public void testCreateOrUpdate() throws Exception {
+    public void testSave() throws Exception {
         System.out.println("createOrUpdate");
         NewsArticleService instance = new NewsArticleService();
         assertEquals(false, instance.findAll().iterator().hasNext());
@@ -119,6 +117,21 @@ public class NewsArticleServiceTest extends Neo4jTest {
         assertNull(article);        
         assertNull(article2);        
     }
-
     
+    @Test
+    public void testSaveTwice() throws Exception {
+        System.out.println("createOrUpdate");
+        NewsArticleService instance = new NewsArticleService();
+        assertEquals(false, instance.findAll().iterator().hasNext());
+        
+        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", "publishedAt");
+        article = instance.save(article);        
+        assertNotNull(article);
+        assertEquals("title", article.getTitle());
+
+        article.setTitle("title1");
+        article = instance.save(article);        
+        assertNotNull(article);                
+        assertEquals("title1", article.getTitle());
+    }
 }

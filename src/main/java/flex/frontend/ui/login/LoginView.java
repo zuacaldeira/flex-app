@@ -17,12 +17,11 @@ import flex.frontend.ui.FlexView;
 public class LoginView extends FlexView {
 
     public LoginView() {
-        setStyleName("login-view");
     }
 
     @Override
     protected FlexMenu createMenu() {
-        return new FlexMenu() {};
+        return new LoginMenu();
     }
 
     @Override

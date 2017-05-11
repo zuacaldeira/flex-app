@@ -1,6 +1,7 @@
 package flex.frontend.ui.news.article;
 
 import flex.backend.news.db.NewsArticle;
+import flex.backend.news.services.NewsArticleService;
 import flex.frontend.ui.FlexBody;
 import flex.frontend.ui.FlexViewFactory;
 import java.util.Collection;
@@ -16,7 +17,8 @@ public class ArticlesBody extends FlexBody {
     }
 
     private void initArticles() {
-        ServiceLocator.getInstance().findArticlesService().findAll()
+        NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
+        service.findAll()
             .forEach((article) -> {
                 addView(FlexViewFactory.getInstance().createArticleView(article));
             }

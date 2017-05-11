@@ -7,7 +7,6 @@ package flex.frontend.ui.news;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.UI;
 import flex.frontend.ui.FlexButton;
@@ -31,9 +30,6 @@ public class NewsMenu extends FlexMenu {
     
     
     public NewsMenu() {
-        setSizeFull();
-        setSpacing(false);
-        setStyleName("flex-menu");
         initHomeButton();
         initSearchButton();
         initSourcesButton();
@@ -42,11 +38,10 @@ public class NewsMenu extends FlexMenu {
         initMenuButton();
 
         addComponents(homeButton, sourcesButton, authorsButton, articlesButton, searchButton, menuButton);
-        setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
     }
 
     private void initHomeButton() {
-        homeButton = new FlexButton("Home", VaadinIcons.HOME);
+        homeButton = new FlexButton(VaadinIcons.HOME);
         homeButton.setSizeUndefined();
         homeButton.addClickListener(new Button.ClickListener() {
             @Override
@@ -57,12 +52,12 @@ public class NewsMenu extends FlexMenu {
     }
 
     private void initSearchButton() {
-        searchButton = new FlexButton("Search", VaadinIcons.SEARCH);
+        searchButton = new FlexButton(VaadinIcons.SEARCH);
         searchButton.setSizeUndefined();
     }
 
     private void initSourcesButton() {
-        sourcesButton = new FlexButton("Sources", VaadinIcons.BUILDING);
+        sourcesButton = new FlexButton("Sources");
         sourcesButton.setSizeUndefined();
         sourcesButton.addClickListener(new Button.ClickListener() {
             @Override
@@ -74,7 +69,7 @@ public class NewsMenu extends FlexMenu {
     }
 
     private void initAuthorsButton() {
-        authorsButton = new FlexButton("Authors", VaadinIcons.USER_CARD);
+        authorsButton = new FlexButton("Authors");
         authorsButton.setSizeUndefined();
         authorsButton.addClickListener(new Button.ClickListener() {
             @Override
@@ -86,7 +81,7 @@ public class NewsMenu extends FlexMenu {
     }
 
     private void initArticlesButton() {
-        articlesButton = new FlexButton("Articles", VaadinIcons.NOTEBOOK);
+        articlesButton = new FlexButton("Articles");
         articlesButton.setSizeUndefined();
         articlesButton.addClickListener(new Button.ClickListener() {
             @Override

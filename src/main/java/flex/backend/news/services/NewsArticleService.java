@@ -29,18 +29,32 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
     public NewsArticle findArticleByTitle(String title) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
         return session.queryForObject(NewsArticle.class, 
-                Neo4jQueries.findArticleByTitle(title),
+                Neo4jQueries.getInstance().findArticleByTitle(title),
                 new HashMap<>()); 
     }
 
     @Override
-    public NewsArticle save(NewsArticle object) {
-        NewsArticle dbArticle = findArticleByTitle(object.getTitle());
-        if(dbArticle == null) {
-           Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-           session.save(object);
-           dbArticle = findArticleByTitle(object.getTitle());
+    public NewsArticle save(NewsArticle article) {
+        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
+        NewsArticle dbArticle = findArticleByTitle(article.getTitle());
+        if(dbArticle != null) {
+            dbArticle = update(dbArticle, article);
         }
+        else {
+            dbArticle = article;
+        }
+        session.save(dbArticle, 1);
+        return findArticleByTitle(article.getTitle());
+    }
+
+    private NewsArticle update(NewsArticle dbArticle, NewsArticle article) {
+        dbArticle.setAuthor(article.getAuthor());
+        dbArticle.setDescription(article.getDescription());
+        dbArticle.setImageUrl(article.getImageUrl());
+        dbArticle.setPublishedAt(article.getPublishedAt());
+        dbArticle.setSourceId(article.getSourceId());
+        dbArticle.setTitle(article.getTitle());
+        dbArticle.setUrl(article.getUrl());
         return dbArticle;
     }
 }

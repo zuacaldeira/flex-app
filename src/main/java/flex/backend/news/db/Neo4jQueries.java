@@ -23,7 +23,7 @@ public class Neo4jQueries {
         return instance;
     }
     
-    public static <T extends GraphEntity> String findQuery(T object) {
+    public  <T extends GraphEntity> String findQuery(T object) {
         if(object instanceof NewsSource) {
             return findNewsSourceQuery((NewsSource) object);
         }
@@ -38,25 +38,25 @@ public class Neo4jQueries {
         }
     }
     
-    public static <T extends GraphEntity> String findByIdQuery(T object) {
+    public  <T extends GraphEntity> String findByIdQuery(T object) {
         return findQuery(object.getClass().getSimpleName(), "id", object.getId());
     }
     
 
     
-    public static String findSourceBySourceId(String sourceId) {
+    public  String findSourceBySourceId(String sourceId) {
         return findQuery(NewsSource.class.getSimpleName(), "sourceId", sourceId);
     }
     
-    public static String findArticleByTitle(String title) {
+    public  String findArticleByTitle(String title) {
         return findQuery(NewsArticle.class.getSimpleName(), "title", title);
     }
     
-    public static String findAuthorByName(String name) {
+    public  String findAuthorByName(String name) {
         return findQuery(NewsAuthor.class.getSimpleName(), "name", name);
     }
     
-    private static String wrapString(String value) {
+    private  String wrapString(String value) {
         if(value != null) {
             return "\"" + value + "\"";
         }
@@ -65,23 +65,23 @@ public class Neo4jQueries {
         }
     }
 
-    private static String findNewsSourceQuery(NewsSource newsSource) {
+    private  String findNewsSourceQuery(NewsSource newsSource) {
         return findSourceBySourceId(newsSource.getSourceId());
     }
 
-    private static String findNewsAuthorQuery(NewsAuthor newsAuthor) {
+    private  String findNewsAuthorQuery(NewsAuthor newsAuthor) {
         return findAuthorByName(newsAuthor.getName());
     }
     
-    private static String findNewsArticleQuery(NewsArticle newsArticle) {
+    private  String findNewsArticleQuery(NewsArticle newsArticle) {
         return findArticleByTitle(newsArticle.getTitle());
     }
 
-    private static String findQuery(String className, String property, String value) {
+    private  String findQuery(String className, String property, String value) {
         return "MATCH (n:" + className + "{" + property + ":" + wrapString(value) + "}) RETURN n";
     }
 
-    private static String findQuery(String className, String property, Long value) {
+    private  String findQuery(String className, String property, Long value) {
         return "MATCH (n:" + className + "{" + property + ":" + value + "}) RETURN n";
     }
 

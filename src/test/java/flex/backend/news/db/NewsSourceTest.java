@@ -472,6 +472,21 @@ public class NewsSourceTest extends TestCase {
             {source1, new NewsAuthor("author"), false}
         };
     }
-
-
+    
+    
+    
+    @Test
+    public void testAddSourceWithAuthor() {
+        NewsSource source = new NewsSource();
+        source.setSourceId("sourceId");
+        
+        NewsAuthor author = NewsAuthor.UNKNOWN;
+        source.addCorrespondent(author);
+        
+        assertNotNull(author.getSource());
+        assertNotNull(source.getCorrespondents());
+        assertFalse(source.getCorrespondents().isEmpty());
+        assertTrue(source.getCorrespondents().contains(author));
+        
+    }
 }

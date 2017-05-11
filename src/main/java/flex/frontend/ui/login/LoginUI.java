@@ -8,9 +8,6 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.AbstractOrderedLayout;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 
 @Push
@@ -21,14 +18,8 @@ public class LoginUI extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
-        AbstractOrderedLayout layout = new HorizontalLayout();
-        layout.setMargin(true);
-        layout.setSpacing(true);
-        setContent(layout);
-
         loginView = new LoginView();
-        layout.addComponent(loginView);
-        layout.setComponentAlignment(loginView, Alignment.MIDDLE_CENTER);
+        setContent(loginView);
         
     }
 

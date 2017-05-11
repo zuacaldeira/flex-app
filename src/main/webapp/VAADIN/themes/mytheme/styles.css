@@ -12676,9 +12676,14 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-menu {
-	background: transparent;
+	background: black;
+	opacity: 0.9;
 	color: white;
 	font-variant: small-caps;
+}
+
+.mytheme .flex-menu .flex-button {
+	opacity: 1;
 }
 
 .mytheme .flex-logo {
@@ -12691,9 +12696,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .article {
-	background: white;
-	opacity: 0.5;
 	font-family: serif;
+	color: white;
 }
 
 .mytheme .article .article-title {

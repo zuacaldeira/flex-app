@@ -16,21 +16,26 @@ import com.vaadin.ui.themes.ValoTheme;
  */
 public abstract class FlexBody extends Panel {
     
-    private GridLayout base;
+    private GridLayout layout;
 
     public FlexBody() {
         this.setStyleName("flex-body");
         setSizeFull();
-        base = new GridLayout(4, 1);
-        base.setWidth("100%");
-        base.setHeightUndefined();
-        base.setSpacing(true);
-        setContent(base);
+        layout = new GridLayout(4, 1);
+        layout.setWidth("100%");
+        layout.setHeightUndefined();
+        layout.setSpacing(true);
+        layout.setMargin(true);
+        setContent(layout);
+
         addStyleName(ValoTheme.PANEL_BORDERLESS);
     }
 
     protected void addView(Component component) {
-        base.addComponent(component);
+        layout.addComponent(component);
     }
-    
+
+    public GridLayout getLayout() {
+        return layout;
+    }
 }

@@ -69,7 +69,7 @@ public class Neo4jQueriesTest {
     @UseDataProvider("queryProvider")
     public void testFindQuery(GraphEntity entity, String query) {
         System.out.println("findQuery");
-        String result = Neo4jQueries.findQuery(entity);
+        String result = Neo4jQueries.getInstance().findQuery(entity);
         assertEquals(query, result);
     }
 
@@ -80,7 +80,7 @@ public class Neo4jQueriesTest {
     @UseDataProvider("idQueryProvider")
     public void testFindByIdQuery(GraphEntity entity, String query) {
         System.out.println("findByIdQuery");
-        String result = Neo4jQueries.findByIdQuery(entity);
+        String result = Neo4jQueries.getInstance().findByIdQuery(entity);
         assertEquals(query, result);
     }
 
@@ -91,7 +91,7 @@ public class Neo4jQueriesTest {
     @UseDataProvider("sourceProvider")
     public void testFindSourceBySourceId(NewsSource entity, String query) {
         System.out.println("findSourceBySourceId");
-        String result = Neo4jQueries.findSourceBySourceId(entity.getSourceId());
+        String result = Neo4jQueries.getInstance().findSourceBySourceId(entity.getSourceId());
         assertEquals(query, result);
     }
 
@@ -102,7 +102,7 @@ public class Neo4jQueriesTest {
     @UseDataProvider("articleProvider")
     public void testFindArticleByTitle(NewsArticle entity, String query) {
         System.out.println("findArticleByTitle");
-        String result = Neo4jQueries.findArticleByTitle(entity.getTitle());
+        String result = Neo4jQueries.getInstance().findArticleByTitle(entity.getTitle());
         assertEquals(query, result);
     }
 
@@ -113,7 +113,7 @@ public class Neo4jQueriesTest {
     @UseDataProvider("authorProvider")
     public void testFindAuthorByName(NewsAuthor entity, String query) {
         System.out.println("findAuthorByName");
-        String result = Neo4jQueries.findAuthorByName(entity.getName());
+        String result = Neo4jQueries.getInstance().findAuthorByName(entity.getName());
         assertEquals(query, result);
     }
     

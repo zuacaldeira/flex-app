@@ -17,8 +17,6 @@ import org.neo4j.ogm.session.Session;
  * @author zua
  */
 public abstract class Neo4jTest {
-    
-    
     @Before
     @After
     public void cleanDatabase() {
@@ -29,6 +27,4 @@ public abstract class Neo4jTest {
         assertEquals(0, session.countEntitiesOfType(NewsAuthor.class));
         assertEquals(0, session.countEntitiesOfType(NewsSource.class));
     }
-    
-
 }

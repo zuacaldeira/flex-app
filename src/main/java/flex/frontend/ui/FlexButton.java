@@ -16,20 +16,30 @@ import com.vaadin.ui.themes.ValoTheme;
 public class FlexButton extends Button {
 
     public FlexButton() {
+        setStyleName(ValoTheme.BUTTON_BORDERLESS);
+        addStyleName("flex-button");
+        setSizeUndefined();
     }
 
     public FlexButton(String caption) {
         super(caption);
+        setStyleName(ValoTheme.BUTTON_BORDERLESS);
+        addStyleName("flex-button");
+        setSizeUndefined();
     }
 
     public FlexButton(Resource icon) {
         super(icon);
+        setStyleName(ValoTheme.BUTTON_BORDERLESS);
+        addStyleName("flex-button");
+        setSizeUndefined();
     }
     
     
     public FlexButton(String caption, Resource icon) {
         super(caption, icon);
-        setStyleName(ValoTheme.BUTTON_QUIET + " " + ValoTheme.BUTTON_BORDERLESS);
+        setStyleName(ValoTheme.BUTTON_BORDERLESS);
+        addStyleName("flex-button");
         setSizeUndefined();
     }
 }

@@ -5,6 +5,7 @@
  */
 package flex.frontend.ui;
 
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 
 /**
@@ -12,5 +13,12 @@ import com.vaadin.ui.HorizontalLayout;
  * @author zua
  */
 public abstract class FlexMenu extends HorizontalLayout {
+
+    public FlexMenu() {
+        setSizeFull();
+        setSpacing(false);
+        setStyleName("flex-menu");
+        setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+    }
     
 }

@@ -6,9 +6,12 @@
 package flex.backend.news.services;
 
 import flex.backend.news.db.Neo4jTest;
+import flex.backend.news.db.NewsArticle;
+import flex.backend.news.db.NewsAuthor;
 import flex.backend.news.db.NewsSource;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -123,5 +126,47 @@ public class NewsSourceServiceTest extends Neo4jTest {
         assertNotNull(instance.find(dbSource.getId()));
         assertEquals(dbSource, source);
     }
+
+
+    @Test
+    @Ignore
+    public void testSavePathFromSource() throws Exception {
+        System.out.println("savePathFromSource");
+        NewsSourceService instance = new NewsSourceService();
+        assertFalse(instance.findAll().iterator().hasNext());
+        
+        NewsArticle article = new NewsArticle();
+        article.setTitle("title");
+        
+        NewsAuthor author = new NewsAuthor("name");        
+        author.addArticle(article);
+        
+        assertNotNull(article.getAuthor());
+        assertNotNull(author.getArticles());
+        assertFalse(author.getArticles().isEmpty());
+        assertTrue(author.getArticles().contains(article));
+        
+        
+        NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "language", "country");
+        source.addCorrespondent(author);
+        
+        assertNotNull(source.getCorrespondents());
+        assertFalse(source.getCorrespondents().isEmpty());
+        assertTrue(source.getCorrespondents().contains(author));
+        
+                
+        NewsSource dbSource = instance.save(source);
+
+        assertNotNull(source.getCorrespondents());
+        assertNotNull(dbSource.getCorrespondents());
+
+        assertFalse(source.getCorrespondents().isEmpty());
+        assertFalse(dbSource.getCorrespondents().isEmpty());
+
+        assertTrue(source.getCorrespondents().contains(author));
+        assertTrue(dbSource.getCorrespondents().contains(author));        
+    }
+    
+    
     
 }

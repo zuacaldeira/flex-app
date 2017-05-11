@@ -4,6 +4,7 @@ import flex.frontend.ui.GraphEntityView;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
 import flex.backend.news.db.NewsArticle;
 import flex.frontend.ui.FlexButton;
 
@@ -25,6 +26,7 @@ public class ArticleView extends GraphEntityView {
     private Label publishedAt;
     private FlexButton readButton;
     private FlexButton youtubeButton;
+    private Label sourceName;
 
     public ArticleView(NewsArticle article) {
         this.article = article;
@@ -103,6 +105,7 @@ public class ArticleView extends GraphEntityView {
     }
 
     private void initInfo() {
+        initSourceName();
         initTitle();
         initAuthor();
         initContent();
@@ -110,10 +113,20 @@ public class ArticleView extends GraphEntityView {
         initImage();
         initControls();
         initTimeLabel();
-        info = new VerticalLayout(image, title, author, publishedAt, content, url, controls);
+        info = new VerticalLayout(sourceName, image, title, publishedAt, author, content, url, controls);
         info.setWidth("100%"); 
     }
     
+    private void initSourceName() {
+        if(article.getAuthor().getSource() != null) {
+            sourceName = new Label(article.getAuthor().getSource().toString());
+        }
+        else {
+            sourceName = new Label("Uknown");
+            sourceName.setStyleName(ValoTheme.LABEL_FAILURE);
+        }
+    }
+
     private void initTimeLabel() {
         String t = article.getPublishedAt();
         publishedAt = new Label(t);

@@ -19,19 +19,19 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
     @Override
     public Iterable<T> findAll() {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        return session.loadAll(getClassType());
+        return session.loadAll(getClassType(), 2);
     }
 
     @Override
     public T find(Long id) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        return session.load(getClassType(), id);
+        return session.load(getClassType(), id, 2);
     }
 
     @Override
     public void delete(Long id) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        session.delete(session.load(getClassType(), id));
+        session.delete(find(id));
     }
 
     @Override
