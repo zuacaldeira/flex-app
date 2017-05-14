@@ -35,7 +35,15 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
     }
 
     @Override
-    public abstract T save(T object);
+    public T save(T object) {
+        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
+        try {
+            session.save(object);
+        } catch(Exception e) {
+            return object;
+        }
+        return find(session.resolveGraphIdFor(object));
+    }
     
     @Override
     public long count() {

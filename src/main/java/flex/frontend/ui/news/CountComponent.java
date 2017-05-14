@@ -5,9 +5,9 @@
  */
 package flex.frontend.ui.news;
 
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.themes.ValoTheme;
 
 /**
  *
@@ -19,12 +19,15 @@ public class CountComponent extends VerticalLayout {
     private Label number;
     
     public CountComponent(String caption, long number) {
-        this.label = new Label(caption);
-        this.label.setStyleName(ValoTheme.LABEL_H1);
-        this.number = new Label(String.valueOf(number));
-        this.number.setStyleName(ValoTheme.LABEL_H2);
-        setStyleName("count");
-        setSizeFull();
+        initLabel(caption);
+        initNumber(number);
+        
+        super.setStyleName("count");
+        super.setSizeFull();
+        super.setSpacing(false);
+        super.addComponents(this.number, label);
+        super.setComponentAlignment(this.number, Alignment.MIDDLE_CENTER);
+        super.setComponentAlignment(this.label, Alignment.MIDDLE_CENTER);
     }
 
     public Label getLabel() {
@@ -33,6 +36,18 @@ public class CountComponent extends VerticalLayout {
 
     public Label getNumber() {
         return number;
+    }
+
+    private void initLabel(String caption) {
+        this.label = new Label(caption);
+        this.label.setStyleName("label");
+        this.label.setSizeUndefined();
+    }
+
+    private void initNumber(long number) {
+        this.number = new Label(String.valueOf(number));
+        this.number.setStyleName("number");
+        this.number.setSizeUndefined();
     }
     
     

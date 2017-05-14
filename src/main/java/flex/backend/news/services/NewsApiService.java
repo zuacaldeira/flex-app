@@ -119,13 +119,10 @@ public class NewsApiService {
                 String authorName = null;
                 if(!obj.isNull("author")) {
                     authorName = obj.getString("author");
+                    author = new NewsAuthor(authorName.trim());
+                    author.addArticle(article);
+                    source.addCorrespondent(author);
                 }
-                else {
-                    authorName = source.getName();
-                }
-                author = new NewsAuthor(authorName.trim());
-                author.addArticle(article);
-                source.addCorrespondent(author);
             }
         } catch (IOException | JSONException ex) {
             throw new RuntimeException(ex);

@@ -12,7 +12,7 @@ import org.neo4j.ogm.annotation.Relationship;
 @NodeEntity
 public class NewsArticle extends GraphEntity implements Comparable<NewsArticle>{
 
-    @Index(unique=true)
+    @Index
     private String title;
     private String description;
     private String url;

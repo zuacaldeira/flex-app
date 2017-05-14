@@ -6,8 +6,8 @@
 package flex.frontend.ui.news.author;
 
 import flex.frontend.ui.news.UITest;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
-import org.utils.ServiceLocator;
 
 /**
  *
@@ -24,9 +24,8 @@ public class AuthorsBodyTest extends UITest {
     @Test
     public void testAddAuthors() {
         System.out.println("addAuthors");
-
-        ServiceLocator.getInstance().findNewsApiService().loadData();
-
         AuthorsBody body = new AuthorsBody();
+        assertNotNull(body.getLayout());
+        
     }
 }

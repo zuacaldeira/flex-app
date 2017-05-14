@@ -48,9 +48,13 @@
     }
     
     .login-view {
+        background: black;
         color: white;        
     }
     
+    .flex-view {
+    }
+
     .welcome-message {
         font-size: xx-large;
     }            
@@ -61,12 +65,20 @@
     
     .flex-menu {
         background: black;
-        opacity: 0.9;
-        .flex-button{
-            opacity: 1;
-        }
+        opacity: 0.8;
         color: white;
         font-variant: small-caps;
+        .flex-button {
+            opacity: 1;
+            font-weight: bolder;            
+            .selected{
+                background: white;
+                color: black;
+            }
+            .unselected{
+                color: #1156a8;
+            }
+        }
     }
     
     .flex-logo {
@@ -75,38 +87,70 @@
     }
 
     .flex-body {
-        opacity: 1;
-    }
-
-    .article {
-        font-family: serif;
-        color:white;
-        
-        .article-title {
-            opacity: 1;
-            font-size: larger;
-            font-weight: bolder;
-        }
-        .article-author {
-            opacity: 1;
-            font-size: 10pt;
-            font-style: italic;
+        background: gainsboro;
+        color: black;
+        .v-panel-caption{
+            background: black;
+            color: white;
+            font-variant: small-caps;
             font-weight: bold;
-        }
-        .article-content {
-            opacity: 1;
-            font-size: 12pt;
-        }
-        .controls {
-            opacity: 1;
-            color: tomato;
+            font-size: 120%;
         }
     }
 
+    .articles {
+        .summaries{
+            background: transparent;
+            .article-maximized {
+                background: white;
+                color:black;
+                opacity: 1;
+                font-family: serif;
+                border-radius: 1%;        
+                .info{
+                    .article-title {
+                        font-weight: bold;
+                    }
+                    .article-author {
+                        font-size: 8pt;
+                        font-style: italic;
+                    }
+                    .article-content {
+                    }
+                    .controls {
+                    }
+                }
+            }
+
+            .article-minimized  {
+                font-family: serif;
+                background: gainsboro;
+                color:black;
+                border-radius: 1%;
+                font-size: smaller;
+                .info{
+                    opacity: 1;
+                    .article-title {
+                    }
+                    .article-author {
+                        font-size: smaller;
+                        font-style: italic;
+                    }
+                    .article-content {
+                    }
+                    .controls {
+                    }
+                }
+            }
+        }
+    }
+
+    
     .sources {
-        opacity: 1;      
+        opacity: 1;
         .source {}      
     }
+    
     
     .category-general {
         background: #00ace0;
@@ -153,6 +197,13 @@
         opacity: 1;
     }
 
-
-
+    .count {
+        font-size: 200%;
+        .label{
+        }
+        .number{
+            font-size: 300%;
+        }
+    }
+    
 }

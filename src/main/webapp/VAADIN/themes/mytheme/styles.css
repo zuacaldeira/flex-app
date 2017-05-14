@@ -12664,6 +12664,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .login-view {
+	background: black;
 	color: white;
 }
 
@@ -12677,13 +12678,23 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .flex-menu {
 	background: black;
-	opacity: 0.9;
+	opacity: 0.8;
 	color: white;
 	font-variant: small-caps;
 }
 
 .mytheme .flex-menu .flex-button {
 	opacity: 1;
+	font-weight: bolder;
+}
+
+.mytheme .flex-menu .flex-button .selected {
+	background: white;
+	color: black;
+}
+
+.mytheme .flex-menu .flex-button .unselected {
+	color: #1156a8;
 }
 
 .mytheme .flex-logo {
@@ -12692,35 +12703,54 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-body {
-	opacity: 1;
+	background: gainsboro;
+	color: black;
 }
 
-.mytheme .article {
-	font-family: serif;
+.mytheme .flex-body .v-panel-caption {
+	background: black;
 	color: white;
+	font-variant: small-caps;
+	font-weight: bold;
+	font-size: 120%;
 }
 
-.mytheme .article .article-title {
-	opacity: 1;
-	font-size: larger;
-	font-weight: bolder;
+.mytheme .articles .summaries {
+	background: transparent;
 }
 
-.mytheme .article .article-author {
+.mytheme .articles .summaries .article-maximized {
+	background: white;
+	color: black;
 	opacity: 1;
-	font-size: 10pt;
-	font-style: italic;
+	font-family: serif;
+	border-radius: 1%;
+}
+
+.mytheme .articles .summaries .article-maximized .info .article-title {
 	font-weight: bold;
 }
 
-.mytheme .article .article-content {
-	opacity: 1;
-	font-size: 12pt;
+.mytheme .articles .summaries .article-maximized .info .article-author {
+	font-size: 8pt;
+	font-style: italic;
 }
 
-.mytheme .article .controls {
+.mytheme .articles .summaries .article-minimized {
+	font-family: serif;
+	background: transparent;
+	color: black;
+	border-radius: 1%;
+	font-size: smaller;
+}
+
+.mytheme .articles .summaries .article-minimized .info {
 	opacity: 1;
-	color: tomato;
+}
+
+.mytheme .articles .summaries .article-minimized .info .article-author {
+	font-size: smaller;
+	font-style: italic;
 }
 
 .mytheme .sources {
@@ -12770,4 +12800,12 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme .category-gaming {
 	background: yellowgreen;
 	opacity: 1;
+}
+
+.mytheme .count {
+	font-size: 200%;
+}
+
+.mytheme .count .number {
+	font-size: 300%;
 }

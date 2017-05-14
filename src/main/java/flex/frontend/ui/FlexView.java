@@ -21,9 +21,9 @@ public abstract class FlexView extends AbsoluteLayout {
         initMenu();
         initBody();
         initFooter();
-        setStyleName("main-view");
+        setStyleName("flex-view");
         setSizeFull();
-        addComponent(body, "top:2cm; bottom:2cm");
+        addComponent(body, "top:2cm; bottom:1cm");
         addComponent(footer, "bottom:0%");
         addComponent(menu, "top:0%");
     }
@@ -36,13 +36,13 @@ public abstract class FlexView extends AbsoluteLayout {
 
     private void initBody() {
         setBody(createBody());
-        body.setWidth("100%");
+        body.setSizeFull();
     }
 
     private void initFooter() {
         setFooter(createFooter());
         footer.setWidth("100%");
-        footer.setHeight("2cm");
+        footer.setHeight("1cm");
     }
 
     public void setBody(FlexBody flexBody) {

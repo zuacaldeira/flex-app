@@ -6,8 +6,8 @@
 package flex.frontend.ui.news.source;
 
 import flex.frontend.ui.news.UITest;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
-import org.utils.ServiceLocator;
 
 /**
  *
@@ -20,8 +20,8 @@ public class SourcesBodyTest extends UITest {
 
     @Test
     public void testSomeMethod() {
-        ServiceLocator.getInstance().findNewsApiService().loadData();
         SourcesBody body = new SourcesBody();        
+        assertNotNull(body.getLayout());
     }
     
 }

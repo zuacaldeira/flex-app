@@ -12,6 +12,7 @@ import org.neo4j.ogm.annotation.Relationship;
  */
 @NodeEntity
 public class NewsSource extends GraphEntity implements Comparable<NewsSource> {
+
     @Index(unique=true)
     private String sourceId;
     private String name;
@@ -108,27 +109,6 @@ public class NewsSource extends GraphEntity implements Comparable<NewsSource> {
         return sourceId.compareTo(o.getSourceId());
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 23 * hash + Objects.hashCode(this.sourceId);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final NewsSource other = (NewsSource) obj;
-        if (!Objects.equals(this.sourceId, other.sourceId)) {
-            return false;
-        }
-        return true;
-    }    
 
     public void addCorrespondent(NewsAuthor author) {
         correspondents.add(author);
@@ -145,6 +125,34 @@ public class NewsSource extends GraphEntity implements Comparable<NewsSource> {
             addCorrespondent(author);
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.sourceId);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final NewsSource other = (NewsSource) obj;
+        if (!Objects.equals(this.sourceId, other.sourceId)) {
+            return false;
+        }
+        return true;
+    }
+
+    
+    
     
     
 

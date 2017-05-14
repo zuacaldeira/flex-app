@@ -13,30 +13,33 @@ import flex.frontend.ui.FlexButton;
  * Created by zua on 13/04/17.
  */
 public class ArticleView extends GraphEntityView {
+    // The associated article
     private final NewsArticle article;
+
+    // The two main layout parts: info and control
+    private VerticalLayout info;
+    private HorizontalLayout controls;
+
+    // Info components
     private Label title;
+    private Label sourceName;
     private Label author;
     private Label content;
     private Image image;
-    private Link url;
-    private VerticalLayout info;
-    private HorizontalLayout controls;
+    private Label publishedAt;
+    
+    // Control buttons
     private FlexButton commentButton;
     private FlexButton shareButton;
-    private Label publishedAt;
-    private FlexButton readButton;
     private FlexButton youtubeButton;
-    private Label sourceName;
 
     public ArticleView(NewsArticle article) {
         this.article = article;
         initInfo();
-        addComponent(info);
-    }
-
-    private void initLink() {
-        this.url = new Link("Read Full Story", new ExternalResource(article.getUrl()));
-        url.setTargetName("_blank"); 
+        super.addComponent(info);
+        super.setSizeFull();
+        super.setMargin(false);
+        super.setStyleName("article-minimized");
     }
 
     public NewsArticle getArticle() {
@@ -70,7 +73,11 @@ public class ArticleView extends GraphEntityView {
     private void initImage() {
         if(article.getImageUrl() != null) {
             this.image = new Image("", new ExternalResource(article.getImageUrl()));
-            this.image.setWidth("100%");
+            if(this.image.getWidth() >= this.image.getHeight()) {
+                this.image.setWidth("100%");
+            } else {
+                this.image.setHeight("100%");
+            }
         }
         else {
             this.image = new Image();
@@ -84,6 +91,7 @@ public class ArticleView extends GraphEntityView {
     private void initAuthor() {
         author = new Label(article.getAuthor().getName());
         author.setSizeFull();
+        author.setStyleName("article-author");
     }
 
     private void initControls() {
@@ -94,14 +102,12 @@ public class ArticleView extends GraphEntityView {
         shareButton = new FlexButton((""), VaadinIcons.CONNECT);
         shareButton.setDescription("Share");
         
-        readButton = new FlexButton((""), VaadinIcons.EYE);
-        readButton.setDescription("Mark as read");
-        
         youtubeButton = new FlexButton((""), VaadinIcons.YOUTUBE);
         youtubeButton.setDescription("Add YouTube video link");
 
-        controls = new HorizontalLayout(commentButton, shareButton, readButton, youtubeButton);
+        controls = new HorizontalLayout(commentButton, shareButton, youtubeButton);
         controls.setSizeFull();
+        controls.setStyleName("controls");
     }
 
     private void initInfo() {
@@ -109,17 +115,19 @@ public class ArticleView extends GraphEntityView {
         initTitle();
         initAuthor();
         initContent();
-        initLink();
         initImage();
-        initControls();
         initTimeLabel();
-        info = new VerticalLayout(sourceName, image, title, publishedAt, author, content, url, controls);
-        info.setWidth("100%"); 
+        initControls();
+        info = new VerticalLayout(title, author, image, content, controls);
+        info.setStyleName("info");
+        info.setSpacing(false);
+        info.setMargin(false);
+        minimizeInfo();
     }
     
     private void initSourceName() {
         if(article.getAuthor().getSource() != null) {
-            sourceName = new Label(article.getAuthor().getSource().toString());
+            sourceName = new Label(article.getAuthor().getSource().getName());
         }
         else {
             sourceName = new Label("Uknown");
@@ -130,10 +138,6 @@ public class ArticleView extends GraphEntityView {
     private void initTimeLabel() {
         String t = article.getPublishedAt();
         publishedAt = new Label(t);
-    }
-
-    public Link getUrl() {
-        return url;
     }
 
     public Label getPublishedAt() {
@@ -156,13 +160,30 @@ public class ArticleView extends GraphEntityView {
         return shareButton;
     }
 
-    public FlexButton getReadButton() {
-        return readButton;
-    }
-
     public FlexButton getYoutubeButton() {
         return youtubeButton;
     }
-    
-    
+
+    public void minimizeInfo() {
+        // No controls
+        controls.setVisible(false);
+        
+        // Only title and authors are left visible
+        content.setVisible(false);
+        image.setVisible(false);
+        publishedAt.setVisible(false);
+        setStyleName("article-minimized");
+    }
+
+    public void maximizeInfo() {
+        // No controls
+        controls.setVisible(true);
+        
+        // Only title and authors are left visible
+        content.setVisible(true);
+        image.setVisible(true);
+        publishedAt.setVisible(true);   
+        setStyleName("article-maximized");
+    }
+
 }

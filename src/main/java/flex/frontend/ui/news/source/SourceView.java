@@ -18,7 +18,6 @@ public class SourceView extends GraphEntityView {
     
 
     public SourceView(NewsSource apiSource) {
-        setWidth("100%");
         this.source = apiSource;
 
         name = new Label(apiSource.getName());

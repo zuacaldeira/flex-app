@@ -28,6 +28,7 @@ public class NewsMenu extends FlexMenu {
     private FlexButton authorsButton;
     private FlexButton articlesButton;
     
+    private FlexButton selected;
     
     public NewsMenu() {
         initHomeButton();
@@ -47,8 +48,20 @@ public class NewsMenu extends FlexMenu {
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 Page.getCurrent().setLocation("/flex-app");
+                updateSelected(homeButton);
             }
+
         });
+    }
+
+    private void updateSelected(FlexButton flexButton) {
+        if(selected != null) {
+            selected.setEnabled(true);
+            selected.setStyleName(flexButton.getStyleName());
+        }
+        selected = flexButton;
+        selected.setEnabled(false);
+        selected.setStyleName("selected");
     }
 
     private void initSearchButton() {
@@ -64,6 +77,7 @@ public class NewsMenu extends FlexMenu {
             public void buttonClick(Button.ClickEvent event) {
                 //Notification.show("Sources clicked");
                 getNewsView().replaceBody(new SourcesBody());
+                updateSelected(sourcesButton);
             }
         });
     }
@@ -76,6 +90,7 @@ public class NewsMenu extends FlexMenu {
             public void buttonClick(Button.ClickEvent event) {
                 //Notification.show("Authors clicked");
                 getNewsView().replaceBody(new AuthorsBody());
+                updateSelected(authorsButton);
             }
         });
     }
@@ -88,6 +103,7 @@ public class NewsMenu extends FlexMenu {
             public void buttonClick(Button.ClickEvent event) {
                 //Notification.show("Articles clicked");
                 getNewsView().replaceBody(new ArticlesBody());
+                updateSelected(articlesButton);
             }
         });
     }

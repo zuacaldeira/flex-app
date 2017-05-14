@@ -14,8 +14,7 @@ import com.vaadin.ui.VerticalLayout;
 public abstract class GraphEntityView extends VerticalLayout {
 
     public GraphEntityView() {
-        setStyleName("article");
-        setMargin(false);
+        super.setSizeFull();
     }
     
     

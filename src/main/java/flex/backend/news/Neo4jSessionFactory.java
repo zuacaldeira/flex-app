@@ -30,7 +30,7 @@ public class Neo4jSessionFactory {
     
     private Neo4jSessionFactory() {
         Configuration.Builder builder = new Configuration.Builder();
-        configuration = builder.uri(defaultURL).credentials(username, password).build();
+        configuration = builder.uri(defaultURL).credentials(username, password).autoIndex("assert").build();
         sessionFactory = new SessionFactory(configuration, "flex.backend.news.db");
     }
     

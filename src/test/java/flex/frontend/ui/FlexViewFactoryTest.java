@@ -67,7 +67,6 @@ public class FlexViewFactoryTest {
         // @TODO: assertEquals(article.getPublishedAt(), view.getPublishedAt().getCaption());
         assertEquals(article.getSourceId(), view.getArticle().getSourceId());
         assertEquals(article.getTitle(), view.getTitle().getValue());
-        assertEquals(article.getUrl(), ((ExternalResource) view.getUrl().getResource()).getURL());
     }
     
     @DataProvider

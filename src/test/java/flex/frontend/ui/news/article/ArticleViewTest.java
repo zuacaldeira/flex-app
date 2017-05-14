@@ -89,16 +89,6 @@ public class ArticleViewTest {
 
 
     /**
-     * Test of getUrl method, of class ArticleView.
-     */
-    @Test
-    @UseDataProvider("articlesProvider")
-    public void testGetUrl(ArticleView view, NewsArticle expectedArticle) {
-        System.out.println("getUrl");
-        assertEquals(expectedArticle.getUrl(), ((ExternalResource)view.getUrl().getResource()).getURL());
-    }
-
-    /**
      * Test of getPublishedAt method, of class ArticleView.
      */
     @Test
@@ -114,7 +104,6 @@ public class ArticleViewTest {
     @Test
     @UseDataProvider("articlesProvider")
     public void testControls(ArticleView view, NewsArticle expectedArticle) {
-        assertNotNull(view.getReadButton());
         assertNotNull(view.getCommentButton());
         assertNotNull(view.getShareButton());
         assertNotNull(view.getYoutubeButton());

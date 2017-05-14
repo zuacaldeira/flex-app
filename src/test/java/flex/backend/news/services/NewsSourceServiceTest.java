@@ -129,7 +129,7 @@ public class NewsSourceServiceTest extends Neo4jTest {
 
 
     @Test
-    @Ignore
+    //@Ignore
     public void testSavePathFromSource() throws Exception {
         System.out.println("savePathFromSource");
         NewsSourceService instance = new NewsSourceService();

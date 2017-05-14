@@ -42,7 +42,7 @@ public class NewsAuthorTest {
         author1.setName("John");
         return new Object[][] {
             {author1, "John"},
-            {new NewsAuthor(), null},
+            {new NewsAuthor(), NewsAuthor.UNKNOWN.getName()},
         };
     }
 
@@ -65,7 +65,7 @@ public class NewsAuthorTest {
         author1.setName("John A");
         return new Object[][] {
             {author1, "John A", "John B"},
-            {new NewsAuthor(), null, "John B"},
+            {new NewsAuthor(), NewsAuthor.UNKNOWN.getName(), "John B"},
         };
     }
 
@@ -187,7 +187,7 @@ public class NewsAuthorTest {
         return new Object[][] {
             {author1, "John A"},
             {author2, "John B"},
-            {new NewsAuthor(), ""},
+            {new NewsAuthor(), NewsAuthor.UNKNOWN.getName()},
         };
     }
 

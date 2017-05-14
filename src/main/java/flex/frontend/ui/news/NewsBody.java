@@ -42,15 +42,18 @@ public class NewsBody extends FlexBody {
     private void initSourcesCount() {
         long nSources = ServiceLocator.getInstance().findSourcesService().count();
         sourcesCount = new CountComponent("Sources", nSources);
+        sourcesCount.setSizeUndefined();
     }
 
     private void initAuthorsCount() {
         long nAuthors = ServiceLocator.getInstance().findAuthorsService().count();
         authorsCount = new CountComponent("Authors", nAuthors);
+        authorsCount.setSizeUndefined();
     }
 
     private void initArticlesCount() {
         long nArticles = ServiceLocator.getInstance().findArticlesService().count();
         articlesCount = new CountComponent("Articles", nArticles);
+        articlesCount.setSizeUndefined();
     }
 }

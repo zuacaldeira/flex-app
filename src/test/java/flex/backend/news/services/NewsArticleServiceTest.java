@@ -126,11 +126,13 @@ public class NewsArticleServiceTest extends Neo4jTest {
         
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", "publishedAt");
         article = instance.save(article);        
+        
         assertNotNull(article);
         assertEquals("title", article.getTitle());
 
         article.setTitle("title1");
-        article = instance.save(article);        
+        article = instance.save(article);     
+        
         assertNotNull(article);                
         assertEquals("title1", article.getTitle());
     }
