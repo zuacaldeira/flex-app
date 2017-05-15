@@ -25,6 +25,7 @@ public abstract class FlexBody extends FlexPanel {
         layout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
         super.setContent(layout);
         super.addStyleName("flex-body");
+        super.setSizeFull();
         
     }
 

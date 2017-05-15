@@ -10,7 +10,6 @@ import flex.backend.news.db.NewsAuthor;
 import flex.frontend.ui.news.UITest;
 import java.util.LinkedList;
 import java.util.List;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -26,7 +25,6 @@ public class ArticlesBodyTest extends UITest {
      * Test of addArticles method, of class ArticlesBody.
      */
     @Test
-    @Ignore
     public void testAddArticles()  {
         System.out.println("addArticles");
         ArticlesBody body = new ArticlesBody();

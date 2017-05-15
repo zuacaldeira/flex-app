@@ -22,9 +22,10 @@ public class NewsBody extends FlexBody {
         initSourcesCount();
         initAuthorsCount();
         initArticlesCount();
-        addView(sourcesCount);
-        addView(authorsCount);
-        addView(articlesCount);
+        super.addView(sourcesCount);
+        super.addView(authorsCount);
+        super.addView(articlesCount);
+        super.setWidthUndefined();
     }
 
     public CountComponent getSourcesCount() {

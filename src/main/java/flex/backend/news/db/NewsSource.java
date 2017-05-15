@@ -151,9 +151,4 @@ public class NewsSource extends GraphEntity implements Comparable<NewsSource> {
         return true;
     }
 
-    
-    
-    
-    
-
 }

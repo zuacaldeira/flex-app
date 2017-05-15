@@ -97,6 +97,8 @@ public class Neo4jDatabaseOperationsTest extends Neo4jTest {
     @Test
     @UseDataProvider("authorsProvider")
     public void createNewsAuthor(NewsAuthor author) {
+        Neo4jSessionFactory.prepareForTest();
+        
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
         String query = "MATCH (n:NewsAuthor) RETURN n";
 

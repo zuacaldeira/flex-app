@@ -3,6 +3,9 @@ package flex.frontend.ui.news.article;
 import com.vaadin.event.LayoutEvents;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.BrowserFrame;
+import com.vaadin.ui.HorizontalSplitPanel;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.VerticalLayout;
 import flex.backend.news.db.NewsArticle;
 import flex.backend.news.services.NewsArticleService;
 import flex.frontend.ui.FlexBody;
@@ -12,23 +15,27 @@ import org.utils.ServiceLocator;
 /**
  * Created by zua on 13/04/17.
  */
-public class ArticlesBody extends FlexBody {
+public class ArticlesSplitPanel extends FlexBody {
 
-    private SummariesLayout summaries;
+    private HorizontalSplitPanel splitPanel;
+    private Panel summaries;
     private BrowserFrame browserFrame;
     private ArticleView selected;
     
-    public ArticlesBody() {
+    public ArticlesSplitPanel() {
         initSummaries();
         initBrowserFrame();
-        super.getLayout().addComponents(summaries, browserFrame);
-        super.getLayout().setExpandRatio(summaries, .2f);
-        super.getLayout().setExpandRatio(browserFrame, .8f);
+        initSplitPanel();
+        super.getLayout().addComponent(splitPanel);
         super.addStyleName("articles");
     }
 
     private void initSummaries() {
-        summaries = new ArticleSummaries();
+        VerticalLayout panelContent = new VerticalLayout();
+        panelContent.setSpacing(true);
+
+        summaries = new FlexPanel("Latest News", panelContent);
+        summaries.setStyleName("summaries");
 
         NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
         Iterable<NewsArticle> articles = service.findAll();
@@ -45,7 +52,7 @@ public class ArticlesBody extends FlexBody {
             if(selected == null) {
                 updateSelected(articleView);
             }
-            summaries.addComponent(articleView);
+            panelContent.addComponents(articleView, new FlexDiv());
             
         });
     }
@@ -64,8 +71,14 @@ public class ArticlesBody extends FlexBody {
         }
         selected = articleView;
         selected.maximizeInfo();
-        
         //summaries.setScrollTop();
+    }
+
+    
+    private void initSplitPanel() {
+        splitPanel = new HorizontalSplitPanel(summaries, browserFrame);
+        splitPanel.setSizeFull();
+        splitPanel.setSplitPosition(25f);
     }
 
 }

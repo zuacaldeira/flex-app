@@ -24,6 +24,7 @@ public class CountComponent extends VerticalLayout {
         
         super.setStyleName("count");
         super.setSizeFull();
+        super.setHeightUndefined();
         super.setSpacing(false);
         super.addComponents(this.number, label);
         super.setComponentAlignment(this.number, Alignment.MIDDLE_CENTER);

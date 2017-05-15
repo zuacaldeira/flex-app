@@ -15,7 +15,7 @@ import com.vaadin.ui.HorizontalLayout;
 public abstract class FlexMenu extends HorizontalLayout {
 
     public FlexMenu() {
-        setSizeFull();
+        setSizeUndefined();
         setSpacing(false);
         setStyleName("flex-menu");
         setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);

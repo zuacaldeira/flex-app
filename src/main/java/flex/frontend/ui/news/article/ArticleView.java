@@ -3,6 +3,7 @@ package flex.frontend.ui.news.article;
 import flex.frontend.ui.GraphEntityView;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ExternalResource;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import flex.backend.news.db.NewsArticle;
@@ -38,7 +39,8 @@ public class ArticleView extends GraphEntityView {
         initInfo();
         super.addComponent(info);
         super.setSizeFull();
-        super.setMargin(false);
+        super.setMargin(true);
+        super.setMargin(new MarginInfo(true, true, false, true));
         super.setStyleName("article-minimized");
     }
 
@@ -90,7 +92,8 @@ public class ArticleView extends GraphEntityView {
     
     private void initAuthor() {
         author = new Label(article.getAuthor().getName());
-        author.setSizeFull();
+        author.setHeightUndefined();
+        author.setWidth("100%");
         author.setStyleName("article-author");
     }
 
@@ -122,6 +125,7 @@ public class ArticleView extends GraphEntityView {
         info.setStyleName("info");
         info.setSpacing(false);
         info.setMargin(false);
+        info.setComponentAlignment(image, Alignment.MIDDLE_CENTER);
         minimizeInfo();
     }
     

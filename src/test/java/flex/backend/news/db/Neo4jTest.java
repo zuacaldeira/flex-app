@@ -17,10 +17,16 @@ import org.neo4j.ogm.session.Session;
  * @author zua
  */
 public abstract class Neo4jTest {
+    
+    public Neo4jTest() {
+        Neo4jSessionFactory.prepareForTest();
+    }
+    
     @Before
     @After
     public void cleanDatabase() {
         String query = "MATCH (n) DETACH DELETE n";
+        Neo4jSessionFactory.prepareForTest();
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
         session.query(query, new HashMap<>());
         assertEquals(0, session.countEntitiesOfType(NewsArticle.class));

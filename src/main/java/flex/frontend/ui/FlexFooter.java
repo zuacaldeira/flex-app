@@ -17,16 +17,16 @@ import com.vaadin.ui.Label;
  */
 public class FlexFooter extends HorizontalLayout {
     
-    private Label copyright;
+    private final Label copyright;
     
     public FlexFooter() {
         copyright = new Label(VaadinIcons.COPYRIGHT.getHtml() + " Pirigrino"
                 + " <peregrino.do.piri@gmail.com>", ContentMode.HTML);
         copyright.setSizeUndefined();
-        addComponent(copyright);
-        setSizeFull();
-        setSpacing(false);
-        setStyleName("flex-menu");
-        setComponentAlignment(copyright, Alignment.MIDDLE_CENTER);
+        super.addComponent(copyright);
+        super.setSizeFull();
+        super.setSpacing(false);
+        super.setStyleName("flex-footer");
+        super.setComponentAlignment(copyright, Alignment.MIDDLE_CENTER);
     }
 }

@@ -12,8 +12,6 @@ import com.vaadin.ui.UI;
 import flex.frontend.ui.FlexButton;
 import flex.frontend.ui.FlexMenu;
 import flex.frontend.ui.news.article.ArticlesBody;
-import flex.frontend.ui.news.author.AuthorsBody;
-import flex.frontend.ui.news.source.SourcesBody;
 
 /**
  *
@@ -23,9 +21,6 @@ public class NewsMenu extends FlexMenu {
 
     private FlexButton homeButton;
     private FlexButton searchButton;
-    private FlexButton sourcesButton;
-    private FlexButton menuButton;
-    private FlexButton authorsButton;
     private FlexButton articlesButton;
     
     private FlexButton selected;
@@ -33,12 +28,9 @@ public class NewsMenu extends FlexMenu {
     public NewsMenu() {
         initHomeButton();
         initSearchButton();
-        initSourcesButton();
-        initAuthorsButton();
         initArticlesButton();
-        initMenuButton();
-
-        addComponents(homeButton, sourcesButton, authorsButton, articlesButton, searchButton, menuButton);
+        super.addComponents(homeButton, articlesButton, searchButton);
+        super.setWidthUndefined();
     }
 
     private void initHomeButton() {
@@ -69,32 +61,6 @@ public class NewsMenu extends FlexMenu {
         searchButton.setSizeUndefined();
     }
 
-    private void initSourcesButton() {
-        sourcesButton = new FlexButton("Sources");
-        sourcesButton.setSizeUndefined();
-        sourcesButton.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                //Notification.show("Sources clicked");
-                getNewsView().replaceBody(new SourcesBody());
-                updateSelected(sourcesButton);
-            }
-        });
-    }
-
-    private void initAuthorsButton() {
-        authorsButton = new FlexButton("Authors");
-        authorsButton.setSizeUndefined();
-        authorsButton.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                //Notification.show("Authors clicked");
-                getNewsView().replaceBody(new AuthorsBody());
-                updateSelected(authorsButton);
-            }
-        });
-    }
-
     private void initArticlesButton() {
         articlesButton = new FlexButton("Articles");
         articlesButton.setSizeUndefined();
@@ -108,11 +74,6 @@ public class NewsMenu extends FlexMenu {
         });
     }
     
-    private void initMenuButton() {
-        menuButton = new FlexButton("Menu", VaadinIcons.MENU);
-        menuButton.setSizeUndefined();
-    }
-
     private NewsView getNewsView() {
         return ((NewsUI) UI.getCurrent()).getNewsView();
     }
@@ -125,17 +86,6 @@ public class NewsMenu extends FlexMenu {
         return searchButton;
     }
 
-    public FlexButton getSourcesButton() {
-        return sourcesButton;
-    }
-
-    public FlexButton getMenuButton() {
-        return menuButton;
-    }
-
-    public FlexButton getAuthorsButton() {
-        return authorsButton;
-    }
 
     public FlexButton getArticlesButton() {
         return articlesButton;

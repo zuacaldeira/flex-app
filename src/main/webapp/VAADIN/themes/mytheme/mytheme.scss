@@ -37,7 +37,7 @@
 
     // Insert your own theme rules here
     .v-ui{
-        @include linear-gradient(to bottom right, darkorchid, #1156a8);
+        @include linear-gradient(to bottom right, black, silver);
     }
 
     .v-label-huge {
@@ -64,8 +64,8 @@
     }            
     
     .flex-menu {
-        background: black;
-        opacity: 0.8;
+        //background: black;
+        //opacity: 0.5;
         color: white;
         font-variant: small-caps;
         .flex-button {
@@ -87,32 +87,37 @@
     }
 
     .flex-body {
-        background: gainsboro;
-        color: black;
-        .v-panel-caption{
-            background: black;
+        color: white;
+        .v-panel-caption {
+            background: transparent;
             color: white;
             font-variant: small-caps;
             font-weight: bold;
-            font-size: 120%;
+            font-size: 150%;
         }
+        .v-panel-borderless{
+            border: transparent;
+        }
+    }
+    
+    .flex-footer{
+        color:white;
     }
 
     .articles {
         .summaries{
-            background: transparent;
+            background: white;
             .article-maximized {
                 background: white;
                 color:black;
                 opacity: 1;
                 font-family: serif;
-                border-radius: 1%;        
+                border-radius: 0%;        
                 .info{
                     .article-title {
                         font-weight: bold;
                     }
                     .article-author {
-                        font-size: 8pt;
                         font-style: italic;
                     }
                     .article-content {
@@ -126,14 +131,15 @@
                 font-family: serif;
                 background: gainsboro;
                 color:black;
-                border-radius: 1%;
+                border-radius: 0%;
                 font-size: smaller;
                 .info{
                     opacity: 1;
                     .article-title {
+                        color: royalblue;
+                        font-weight: bold;
                     }
                     .article-author {
-                        font-size: smaller;
                         font-style: italic;
                     }
                     .article-content {

@@ -15,7 +15,7 @@ public class NewsAuthor extends  GraphEntity implements Comparable<NewsAuthor>{
 
     public static NewsAuthor UNKNOWN = new NewsAuthor("Unknown");
 
-    @Index
+    @Index(unique=true)
     private String name;
     
     @Relationship(type = "AUTHORED", direction = Relationship.OUTGOING)

@@ -14,9 +14,9 @@ import static org.junit.Assert.*;
  *
  * @author zua
  */
-public class NewsArticleServiceTest extends Neo4jTest {
+public class NewsArticleServiceTestIT extends Neo4jTest {
     
-    public NewsArticleServiceTest() {
+    public NewsArticleServiceTestIT() {
     }
 
     /**

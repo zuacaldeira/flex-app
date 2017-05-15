@@ -5,19 +5,15 @@
  */
 package flex.frontend.ui.news.article;
 
-import com.vaadin.shared.ui.ContentMode;
-import com.vaadin.ui.Label;
-
 /**
  *
  * @author zua
  */
-public class FlexDiv extends Label {
+public class ArticleSummaries extends SummariesLayout {
 
-    public FlexDiv() {
-        super("<hr />", ContentMode.HTML);
-        super.setWidth("100%");
-        super.setHeightUndefined();
+    public ArticleSummaries() {
+        super();
+        //setCaption("Latest News");
     }
     
 }

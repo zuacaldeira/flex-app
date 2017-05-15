@@ -12651,9 +12651,9 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .v-ui {
-	background-color: darkorchid;
-	background-image: -webkit-linear-gradient(top left, darkorchid, #1156a8);
-	background-image: linear-gradient(to bottom right,darkorchid, #1156a8);
+	background-color: black;
+	background-image: -webkit-linear-gradient(top left, black, silver);
+	background-image: linear-gradient(to bottom right,black, silver);
 }
 
 .mytheme .v-label-huge {
@@ -12677,8 +12677,6 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-menu {
-	background: black;
-	opacity: 0.8;
 	color: white;
 	font-variant: small-caps;
 }
@@ -12703,20 +12701,27 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-body {
-	background: gainsboro;
-	color: black;
+	color: white;
 }
 
 .mytheme .flex-body .v-panel-caption {
-	background: black;
+	background: transparent;
 	color: white;
 	font-variant: small-caps;
 	font-weight: bold;
-	font-size: 120%;
+	font-size: 150%;
+}
+
+.mytheme .flex-body .v-panel-borderless {
+	border: transparent;
+}
+
+.mytheme .flex-footer {
+	color: white;
 }
 
 .mytheme .articles .summaries {
-	background: transparent;
+	background: white;
 }
 
 .mytheme .articles .summaries .article-maximized {
@@ -12724,7 +12729,7 @@ div.v-layout.v-horizontal.v-widget {
 	color: black;
 	opacity: 1;
 	font-family: serif;
-	border-radius: 1%;
+	border-radius: 0%;
 }
 
 .mytheme .articles .summaries .article-maximized .info .article-title {
@@ -12732,15 +12737,14 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .articles .summaries .article-maximized .info .article-author {
-	font-size: 8pt;
 	font-style: italic;
 }
 
 .mytheme .articles .summaries .article-minimized {
 	font-family: serif;
-	background: transparent;
+	background: gainsboro;
 	color: black;
-	border-radius: 1%;
+	border-radius: 0%;
 	font-size: smaller;
 }
 
@@ -12748,8 +12752,12 @@ div.v-layout.v-horizontal.v-widget {
 	opacity: 1;
 }
 
+.mytheme .articles .summaries .article-minimized .info .article-title {
+	color: royalblue;
+	font-weight: bold;
+}
+
 .mytheme .articles .summaries .article-minimized .info .article-author {
-	font-size: smaller;
 	font-style: italic;
 }
 

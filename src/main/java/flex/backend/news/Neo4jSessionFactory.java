@@ -16,26 +16,40 @@ import org.neo4j.ogm.session.SessionFactory;
  */
 public class Neo4jSessionFactory {
 
-    private static Neo4jSessionFactory factory = new Neo4jSessionFactory();
-    private static final String defaultURL="http://localhost:7474";
-    private static final String username ="neo4j";
-    private static final String password ="unicidade";
+    private static String DATABASE_URL;
+    private static final String USERNAME ="neo4j";
+    private static final String PASSWORD ="Existencia&Unicidade";
+
+    private static Neo4jSessionFactory factory;
 
     private Configuration configuration;
     private SessionFactory sessionFactory;
-    
-    public static Neo4jSessionFactory getInstance() {
-	return factory;
-    }
+    private Environment environment;
     
     private Neo4jSessionFactory() {
+        if(DATABASE_URL == null) {
+            DATABASE_URL = "http://localhost:7474";
+        }
         Configuration.Builder builder = new Configuration.Builder();
-        configuration = builder.uri(defaultURL).credentials(username, password).autoIndex("assert").build();
+        configuration = builder.uri(DATABASE_URL).credentials(USERNAME, PASSWORD).build();
         sessionFactory = new SessionFactory(configuration, "flex.backend.news.db");
+    }
+    
+    public static Neo4jSessionFactory getInstance() {
+        if(factory == null) {
+            factory = new Neo4jSessionFactory();
+        }
+	return factory;
     }
     
     public Session getNeo4jSession() {
 	return sessionFactory.openSession();
     }
 
+    public static void prepareForTest() {
+        Neo4jSessionFactory.DATABASE_URL = "http://localhost:8486";
+    }
+
+    
+    
 }

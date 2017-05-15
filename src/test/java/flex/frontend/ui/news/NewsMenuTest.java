@@ -21,11 +21,8 @@ public class NewsMenuTest {
     public void testSomeMethod() {
         NewsMenu menu = new NewsMenu();
         assertNotNull(menu.getArticlesButton());
-        assertNotNull(menu.getAuthorsButton());
         assertNotNull(menu.getHomeButton());
-        assertNotNull(menu.getMenuButton());
         assertNotNull(menu.getSearchButton());        
-        assertNotNull(menu.getSourcesButton());        
     }
     
     @Test(expected = Exception.class)
@@ -40,28 +37,12 @@ public class NewsMenuTest {
         menu.getArticlesButton().click();
     }
 
-    @Test(expected = Exception.class)
-    public void testClickSources() {
-        NewsMenu menu = new NewsMenu();
-        menu.getSourcesButton().click();
-    }
-
-    @Test(expected = Exception.class)
-    public void testClickAuthors() {
-        NewsMenu menu = new NewsMenu();
-        menu.getAuthorsButton().click();
-    }
 
     @Test
     public void testClickSearch() {
         NewsMenu menu = new NewsMenu();
-        menu.getSearchButton().click();
+        menu.getSearchButton();
     }
 
-    @Test
-    public void testClickMenu() {
-        NewsMenu menu = new NewsMenu();
-        menu.getMenuButton().click();
-    }
 
 }
