@@ -12722,6 +12722,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .articles .summaries {
 	background: white;
+	overflow-y: auto;
 }
 
 .mytheme .articles .summaries .article-maximized {

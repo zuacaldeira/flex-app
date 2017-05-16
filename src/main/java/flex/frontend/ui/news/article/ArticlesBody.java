@@ -68,4 +68,18 @@ public class ArticlesBody extends FlexBody {
         //summaries.setScrollTop();
     }
 
+    public SummariesLayout getSummaries() {
+        return summaries;
+    }
+
+    public BrowserFrame getBrowserFrame() {
+        return browserFrame;
+    }
+
+    public ArticleView getSelected() {
+        return selected;
+    }
+    
+    
+
 }

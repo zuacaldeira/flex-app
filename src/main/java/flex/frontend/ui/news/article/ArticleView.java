@@ -8,6 +8,8 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import flex.backend.news.db.NewsArticle;
 import flex.frontend.ui.FlexButton;
+import java.util.Set;
+import org.utils.FlexUtils;
 
 
 /**
@@ -24,7 +26,6 @@ public class ArticleView extends GraphEntityView {
     // Info components
     private Label title;
     private Label sourceName;
-    private Label author;
     private Label content;
     private Image image;
     private Label publishedAt;
@@ -33,6 +34,7 @@ public class ArticleView extends GraphEntityView {
     private FlexButton commentButton;
     private FlexButton shareButton;
     private FlexButton youtubeButton;
+    private AbstractOrderedLayout authors;
 
     public ArticleView(NewsArticle article) {
         this.article = article;
@@ -52,8 +54,8 @@ public class ArticleView extends GraphEntityView {
         return title;
     }
 
-    public Label getAuthor() {
-        return author;
+    public AbstractOrderedLayout getAuthors() {
+        return authors;
     }
 
     public Label getContent() {
@@ -91,10 +93,35 @@ public class ArticleView extends GraphEntityView {
     }
     
     private void initAuthor() {
-        author = new Label(article.getAuthor().getName());
-        author.setHeightUndefined();
-        author.setWidth("100%");
-        author.setStyleName("article-author");
+        authors = new VerticalLayout();
+        authors.setSizeFull();
+        authors.setMargin(false);
+        authors.setSpacing(false);
+        
+        if(article.getAuthor() != null) {
+            Set<String> allAuthorsNames = FlexUtils.getInstance().extractAuthorsNames(article.getAuthor().getName());
+            for(String authorName: allAuthorsNames) {
+                //author.setStyleName("article-author");
+                Component author = null;
+                if(FlexUtils.getInstance().isUrl(authorName)) {
+                    author = new FlexButton(FlexUtils.getInstance().extractNameFromUrl(authorName), VaadinIcons.USER);
+                    author.setSizeUndefined();
+                    author.setStyleName(ValoTheme.BUTTON_LINK);
+                    ((FlexButton)author).addClickListener(event -> {
+                        ArticlesBody body = getArticlesBody();
+                        body.getBrowserFrame().setSource(new ExternalResource(authorName));
+                    });
+                }
+                else {
+                    System.out.println("Not an url... " + authorName);
+                    author = new Label(authorName);
+                    author.setSizeUndefined();
+                    //author.setStyleName(ValoTheme.BUTTON_LINK);
+                }
+                authors.addComponent(author);
+                authors.setComponentAlignment(author, Alignment.MIDDLE_LEFT);
+            }
+        }
     }
 
     private void initControls() {
@@ -121,7 +148,7 @@ public class ArticleView extends GraphEntityView {
         initImage();
         initTimeLabel();
         initControls();
-        info = new VerticalLayout(title, author, image, content, controls);
+        info = new VerticalLayout(title, authors, image, content, controls);
         info.setStyleName("info");
         info.setSpacing(false);
         info.setMargin(false);
@@ -188,6 +215,22 @@ public class ArticleView extends GraphEntityView {
         image.setVisible(true);
         publishedAt.setVisible(true);   
         setStyleName("article-maximized");
+    }
+
+    private ArticlesBody getArticlesBody() {
+        return getArticlesBody(this);
+    }
+
+    private ArticlesBody getArticlesBody(Component component) {
+        if(component == null) {
+            throw new IllegalArgumentException("Component cannot be null");
+        }
+        else if(component instanceof ArticlesBody) {
+            return (ArticlesBody) component;
+        }
+        else {
+            return getArticlesBody(component.getParent());
+        }
     }
 
 }

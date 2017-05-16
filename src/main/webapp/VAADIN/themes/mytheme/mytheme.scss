@@ -107,6 +107,7 @@
     .articles {
         .summaries{
             background: white;
+            overflow-y: auto; 
             .article-maximized {
                 background: white;
                 color:black;
