@@ -5,27 +5,26 @@
  */
 package flex.frontend.ui.news;
 
-import flex.frontend.ui.FlexBody;
+import com.vaadin.ui.HorizontalLayout;
 import org.utils.ServiceLocator;
 
 /**
  *
  * @author zua
  */
-public class NewsBody extends FlexBody {
+public class ArticlesCount extends HorizontalLayout {
 
     private CountComponent sourcesCount;
     private CountComponent authorsCount;
     private CountComponent articlesCount;
 
-    public NewsBody() {
+    public ArticlesCount() {
         initSourcesCount();
         initAuthorsCount();
         initArticlesCount();
-        super.addView(sourcesCount);
-        super.addView(authorsCount);
-        super.addView(articlesCount);
-        super.setWidthUndefined();
+        super.addComponent(sourcesCount);
+        super.addComponent(authorsCount);
+        super.addComponent(articlesCount);
     }
 
     public CountComponent getSourcesCount() {

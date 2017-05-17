@@ -14,9 +14,9 @@ import org.utils.ServiceLocator;
  *
  * @author zua
  */
-public class NewsApiServiceTestIT extends UITest {
+public class NewsApiServiceTest extends UITest {
     
-    public NewsApiServiceTestIT() {
+    public NewsApiServiceTest() {
     }
 
     @Test

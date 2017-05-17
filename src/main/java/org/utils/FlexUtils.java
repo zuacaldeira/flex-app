@@ -75,15 +75,15 @@ public class FlexUtils {
         parts = parts[0].split("-");
 
         StringBuilder builder = new StringBuilder();
-        String r0 = toNameCase(parts[0]);
-
-        String r1 = toNameCase(parts[1]);
-        r1 = r1.replace(r1.charAt(0), Character.toUpperCase(r1.charAt(0)));
-
-        builder.append(r0);
-        builder.append(" ");
-        builder.append(r1);
-
+        if(parts.length >= 1 && parts[0] != null) {
+            String r0 = toNameCase(parts[0]);
+            builder.append(r0);
+            if(parts.length >= 2 && parts[1] != null) {
+                String r1 = toNameCase(parts[1]);
+                builder.append(" ");
+                builder.append(r1);
+            }
+        }
         return builder.toString();
     }
 

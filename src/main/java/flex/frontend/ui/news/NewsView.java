@@ -9,6 +9,7 @@ import flex.frontend.ui.FlexBody;
 import flex.frontend.ui.FlexFooter;
 import flex.frontend.ui.FlexMenu;
 import flex.frontend.ui.FlexView;
+import flex.frontend.ui.news.article.ArticlesBody;
 
 /**
  *
@@ -28,7 +29,7 @@ public class NewsView extends FlexView {
 
     @Override
     protected FlexBody createBody() {
-        return new NewsBody();
+        return new ArticlesBody();
     }
 
     @Override

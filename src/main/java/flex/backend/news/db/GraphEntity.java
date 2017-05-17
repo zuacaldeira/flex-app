@@ -21,5 +21,7 @@ public abstract class GraphEntity {
         this.id = id;
     }
     
+    public abstract String getPropertyName();
+    public abstract String getPropertyValue();
     
 }

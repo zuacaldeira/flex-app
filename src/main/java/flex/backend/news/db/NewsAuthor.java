@@ -108,7 +108,16 @@ public class NewsAuthor extends  GraphEntity implements Comparable<NewsAuthor>{
         return source;
     }
 
-    
+    @Override
+    public String getPropertyName() {
+        return "name";
+    }
+
+    @Override
+    public String getPropertyValue() {
+        return name;
+    }
+
     
 
 }

@@ -12739,6 +12739,9 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .articles .summaries .article-maximized .info .article-author {
 	font-style: italic;
+	text-align: left;
+	font-variant: small-caps;
+	color: gray;
 }
 
 .mytheme .articles .summaries .article-minimized {
@@ -12756,10 +12759,6 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme .articles .summaries .article-minimized .info .article-title {
 	color: royalblue;
 	font-weight: bold;
-}
-
-.mytheme .articles .summaries .article-minimized .info .article-author {
-	font-style: italic;
 }
 
 .mytheme .sources {

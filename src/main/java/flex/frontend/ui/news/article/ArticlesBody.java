@@ -22,14 +22,13 @@ public class ArticlesBody extends FlexBody {
         initSummaries();
         initBrowserFrame();
         super.getLayout().addComponents(summaries, browserFrame);
-        super.getLayout().setExpandRatio(summaries, .2f);
-        super.getLayout().setExpandRatio(browserFrame, .8f);
+        super.getLayout().setExpandRatio(summaries, .25f);
+        super.getLayout().setExpandRatio(browserFrame, .75f);
         super.addStyleName("articles");
     }
 
     private void initSummaries() {
         summaries = new ArticleSummaries();
-
         NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
         Iterable<NewsArticle> articles = service.findAll();
         

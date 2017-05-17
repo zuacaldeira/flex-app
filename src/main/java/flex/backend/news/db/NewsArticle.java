@@ -14,6 +14,7 @@ public class NewsArticle extends GraphEntity implements Comparable<NewsArticle>{
 
     @Index(unique=true)
     private String title;
+    
     private String description;
     private String url;
     private String imageUrl;
@@ -147,5 +148,15 @@ public class NewsArticle extends GraphEntity implements Comparable<NewsArticle>{
         else {
             return 0;
         }
+    }
+
+    @Override
+    public String getPropertyName() {
+        return "title";
+    }
+
+    @Override
+    public String getPropertyValue() {
+        return title;
     }
 }

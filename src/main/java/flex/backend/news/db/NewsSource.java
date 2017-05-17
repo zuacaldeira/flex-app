@@ -150,5 +150,15 @@ public class NewsSource extends GraphEntity implements Comparable<NewsSource> {
         }
         return true;
     }
+    
+    @Override
+    public String getPropertyName() {
+        return "sourceId";
+    }
+
+    @Override
+    public String getPropertyValue() {
+        return sourceId;
+    }
 
 }

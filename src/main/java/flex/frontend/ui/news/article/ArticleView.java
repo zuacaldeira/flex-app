@@ -3,7 +3,6 @@ package flex.frontend.ui.news.article;
 import flex.frontend.ui.GraphEntityView;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ExternalResource;
-import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import flex.backend.news.db.NewsArticle;
@@ -41,8 +40,7 @@ public class ArticleView extends GraphEntityView {
         initInfo();
         super.addComponent(info);
         super.setSizeFull();
-        super.setMargin(true);
-        super.setMargin(new MarginInfo(true, true, false, true));
+        super.setSpacing(false);
         super.setStyleName("article-minimized");
     }
 
@@ -104,13 +102,12 @@ public class ArticleView extends GraphEntityView {
                 //author.setStyleName("article-author");
                 Component author = null;
                 if(FlexUtils.getInstance().isUrl(authorName)) {
-                    author = new FlexButton(FlexUtils.getInstance().extractNameFromUrl(authorName), VaadinIcons.USER);
+                    author = new Label(FlexUtils.getInstance().extractNameFromUrl(authorName));
                     author.setSizeUndefined();
-                    author.setStyleName(ValoTheme.BUTTON_LINK);
-                    ((FlexButton)author).addClickListener(event -> {
+                    /*((Label)author).addClickListener(event -> {
                         ArticlesBody body = getArticlesBody();
                         body.getBrowserFrame().setSource(new ExternalResource(authorName));
-                    });
+                    });*/
                 }
                 else {
                     System.out.println("Not an url... " + authorName);
@@ -148,7 +145,7 @@ public class ArticleView extends GraphEntityView {
         initImage();
         initTimeLabel();
         initControls();
-        info = new VerticalLayout(title, authors, image, content, controls);
+        info = new VerticalLayout(title, image, content, authors, controls);
         info.setStyleName("info");
         info.setSpacing(false);
         info.setMargin(false);
@@ -198,11 +195,11 @@ public class ArticleView extends GraphEntityView {
     public void minimizeInfo() {
         // No controls
         controls.setVisible(false);
-        
         // Only title and authors are left visible
-        content.setVisible(false);
         image.setVisible(false);
         publishedAt.setVisible(false);
+        authors.setVisible(false);
+        image.setVisible(false);
         setStyleName("article-minimized");
     }
 
@@ -214,6 +211,9 @@ public class ArticleView extends GraphEntityView {
         content.setVisible(true);
         image.setVisible(true);
         publishedAt.setVisible(true);   
+        authors.setVisible(true);
+        image.setVisible(true);
+        content.setVisible(true);
         setStyleName("article-maximized");
     }
 

@@ -19,6 +19,7 @@ public abstract class SummariesLayout extends VerticalLayout {
     public SummariesLayout() {
         layout = new VerticalLayout();
         layout.setHeightUndefined();
+        layout.setWidth("100%");
         layout.setMargin(false);
         layout.setSpacing(false);
         super.setStyleName("summaries");

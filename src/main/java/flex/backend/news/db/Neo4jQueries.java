@@ -66,6 +66,7 @@ public class Neo4jQueries {
     }
 
     private  String findNewsSourceQuery(NewsSource newsSource) {
+        System.out.println("Source ID = " + newsSource.getSourceId());
         return findSourceBySourceId(newsSource.getSourceId());
     }
 
@@ -78,7 +79,9 @@ public class Neo4jQueries {
     }
 
     private  String findQuery(String className, String property, String value) {
-        return "MATCH (n:" + className + "{" + property + ":" + wrapString(value) + "}) RETURN n";
+        String query = "MATCH (n:" + className + "{" + property + ":" + wrapString(value) + "}) RETURN n";
+        System.out.println(query);
+        return query;
     }
 
     private  String findQuery(String className, String property, Long value) {

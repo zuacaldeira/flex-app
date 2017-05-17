@@ -40,6 +40,16 @@ public class GraphEntityTest {
     }
 
     public class GraphEntityImpl extends GraphEntity {
+
+        @Override
+        public String getPropertyName() {
+            return "name";
+        }
+
+        @Override
+        public String getPropertyValue() {
+            return "value";
+        }
     }
     
 }

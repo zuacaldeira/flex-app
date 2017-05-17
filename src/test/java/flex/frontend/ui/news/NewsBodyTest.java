@@ -22,25 +22,25 @@ public class NewsBodyTest extends UITest {
     @Test
     public void testGetBaseLayout() {
         System.out.println("getBaseLayout");
-        NewsBody body = new NewsBody();
+        ArticlesCount body = new ArticlesCount();
         assertTrue(body instanceof FlexBody);
     }
     
     @Test
     public void testGetSourcesCount() {
-        NewsBody body = new NewsBody();
+        ArticlesCount body = new ArticlesCount();
         assertNotNull(body.getSourcesCount());
     }
     
     @Test
     public void testGetAuthorsCount() {
-        NewsBody body = new NewsBody();
+        ArticlesCount body = new ArticlesCount();
         assertNotNull(body.getAuthorsCount());
     }
 
     @Test
     public void testGetArticlesCount() {
-        NewsBody body = new NewsBody();
+        ArticlesCount body = new ArticlesCount();
         assertNotNull(body.getArticlesCount());
     }
 

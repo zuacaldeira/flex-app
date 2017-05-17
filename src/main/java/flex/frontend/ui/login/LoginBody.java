@@ -9,8 +9,9 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.FormLayout;
 import flex.frontend.ui.FlexBody;
-import flex.frontend.ui.FlexButton;
+import flex.frontend.ui.news.FlexTextField;
 
 /**
  *
@@ -18,17 +19,13 @@ import flex.frontend.ui.FlexButton;
  */
 public class LoginBody extends FlexBody implements ClickListener {
 
-    private final FlexButton enter;
+    private final FormLayout formLayout;
 
     public LoginBody() {
-        enter = new FlexButton("Enter", VaadinIcons.PLAY_CIRCLE);
-        enter.setSizeUndefined();
-        enter.addClickListener(this);        
-        super.addView(enter);
-    }
-
-    public FlexButton getEnter() {
-        return enter;
+        formLayout = new FormLayout();
+        FlexTextField username = new FlexTextField(VaadinIcons.USER);
+        FlexTextField password = new FlexTextField(VaadinIcons.LOCK);
+        formLayout.addComponents(username, password);
     }
 
     @Override

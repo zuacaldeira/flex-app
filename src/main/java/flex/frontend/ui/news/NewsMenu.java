@@ -8,10 +8,10 @@ package flex.frontend.ui.news;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 import flex.frontend.ui.FlexButton;
 import flex.frontend.ui.FlexMenu;
-import flex.frontend.ui.news.article.ArticlesBody;
 
 /**
  *
@@ -21,16 +21,15 @@ public class NewsMenu extends FlexMenu {
 
     private FlexButton homeButton;
     private FlexButton searchButton;
-    private FlexButton articlesButton;
     
     private FlexButton selected;
     
     public NewsMenu() {
         initHomeButton();
         initSearchButton();
-        initArticlesButton();
-        super.addComponents(homeButton, articlesButton, searchButton);
-        super.setWidthUndefined();
+        HorizontalLayout actions = new HorizontalLayout(homeButton, searchButton);
+        super.addComponent(actions);
+        super.setSizeUndefined();
     }
 
     private void initHomeButton() {
@@ -61,19 +60,6 @@ public class NewsMenu extends FlexMenu {
         searchButton.setSizeUndefined();
     }
 
-    private void initArticlesButton() {
-        articlesButton = new FlexButton("Articles");
-        articlesButton.setSizeUndefined();
-        articlesButton.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                //Notification.show("Articles clicked");
-                getNewsView().replaceBody(new ArticlesBody());
-                updateSelected(articlesButton);
-            }
-        });
-    }
-    
     private NewsView getNewsView() {
         return ((NewsUI) UI.getCurrent()).getNewsView();
     }
@@ -86,11 +72,5 @@ public class NewsMenu extends FlexMenu {
         return searchButton;
     }
 
-
-    public FlexButton getArticlesButton() {
-        return articlesButton;
-    }
-    
-    
 
 }

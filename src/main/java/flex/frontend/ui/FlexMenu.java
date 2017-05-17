@@ -15,10 +15,10 @@ import com.vaadin.ui.HorizontalLayout;
 public abstract class FlexMenu extends HorizontalLayout {
 
     public FlexMenu() {
-        setSizeUndefined();
+        setWidthUndefined();
         setSpacing(false);
         setStyleName("flex-menu");
-        setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        setDefaultComponentAlignment(Alignment.MIDDLE_RIGHT);
     }
     
 }

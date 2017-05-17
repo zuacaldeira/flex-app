@@ -22,7 +22,6 @@ public class CountComponent extends VerticalLayout {
         initLabel(caption);
         initNumber(number);
         
-        super.setStyleName("count");
         super.setSizeFull();
         super.setHeightUndefined();
         super.setSpacing(false);

@@ -7,6 +7,7 @@ package flex.frontend.ui.login;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
+import com.vaadin.ui.HorizontalLayout;
 import flex.frontend.ui.FlexButton;
 import flex.frontend.ui.FlexMenu;
 
@@ -24,7 +25,7 @@ public class LoginMenu extends FlexMenu {
         initNewsButton();
         initBantusButton();
         initAboutMeButton();
-        addComponents(newsButton, bantusButton, aboutMeButton);
+        super.addComponents(new HorizontalLayout(newsButton, bantusButton, aboutMeButton));
     }
 
     private void initNewsButton() {

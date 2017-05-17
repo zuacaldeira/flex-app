@@ -11,7 +11,6 @@ import flex.backend.news.db.NewsAuthor;
 import flex.backend.news.db.NewsSource;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
@@ -157,14 +156,13 @@ public class NewsSourceServiceTest extends Neo4jTest {
                 
         NewsSource dbSource = instance.save(source);
 
-        assertNotNull(source.getCorrespondents());
         assertNotNull(dbSource.getCorrespondents());
-
-        assertFalse(source.getCorrespondents().isEmpty());
         assertFalse(dbSource.getCorrespondents().isEmpty());
+        assertTrue(dbSource.getCorrespondents().contains(author));
 
-        assertTrue(source.getCorrespondents().contains(author));
-        assertTrue(dbSource.getCorrespondents().contains(author));        
+        NewsAuthor dbAuthor = dbSource.getCorrespondents().iterator().next();
+        assertFalse(dbAuthor.getArticles().isEmpty());        
+        assertTrue(dbAuthor.getArticles().contains(article));        
     }
     
     

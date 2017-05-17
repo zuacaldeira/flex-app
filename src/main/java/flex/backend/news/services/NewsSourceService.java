@@ -22,7 +22,7 @@ import org.neo4j.ogm.session.Session;
 public class NewsSourceService extends AbstractDBService<NewsSource> {
 
     @Override
-    protected Class<NewsSource> getClassType() {
+    public Class<NewsSource> getClassType() {
         return NewsSource.class;
     }
     
@@ -32,4 +32,32 @@ public class NewsSourceService extends AbstractDBService<NewsSource> {
                 Neo4jQueries.getInstance().findSourceBySourceId(sourceId), 
                 new HashMap<>()); 
     }
+
+    @Override
+    protected NewsSource update(NewsSource dbEntity, NewsSource newEntity) {
+        if(newEntity.getCategory() != null) {
+            dbEntity.setCategory(newEntity.getCategory());
+        }
+        if(newEntity.getCorrespondents() != null) {
+            dbEntity.getCorrespondents().addAll(newEntity.getCorrespondents());
+        }
+        if(newEntity.getCountry() != null) {
+            dbEntity.setCountry(newEntity.getCountry());
+        }
+        if(newEntity.getDescription() != null) {
+            dbEntity.setDescription(newEntity.getDescription());
+        }
+        if(newEntity.getLanguage()!= null) {
+            dbEntity.setLanguage(newEntity.getLanguage());
+        }
+        if(newEntity.getSourceId() != null) {
+            dbEntity.setSourceId(newEntity.getSourceId());
+        }
+        if(newEntity.getUrl() != null) {
+            dbEntity.setUrl(newEntity.getUrl());
+        }
+        
+        return dbEntity;
+    }
+
 }

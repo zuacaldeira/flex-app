@@ -74,9 +74,11 @@ public class NewsApiService {
                 
                 NewsSource source = createSource(obj);
                 loadArticles(source);
-                sourcesService.save(source);
+                try{                
+                    sourcesService.save(source); 
+                } catch(Exception e) {}
             }
-        } catch (IOException | JSONException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         

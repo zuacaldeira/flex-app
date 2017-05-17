@@ -9,11 +9,16 @@ public interface DBService<T> {
     public Iterable<T> findAll();
 
     public T find(Long id);
+    
+    public T find(T object);
 
     public void delete(Long id);
 
     public T save(T object);
     
     public long count();
+    
+    public Class<T> getClassType();
+
 
 }
