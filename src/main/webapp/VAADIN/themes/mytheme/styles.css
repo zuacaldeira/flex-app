@@ -12677,22 +12677,21 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-menu {
-	color: white;
-	font-variant: small-caps;
+	background-color: transparent;
+	background-image: -webkit-linear-gradient(left, transparent, white);
+	background-image: linear-gradient(to right,transparent, white);
 }
 
 .mytheme .flex-menu .flex-button {
+	font-variant: small-caps;
 	opacity: 1;
-	font-weight: bolder;
+	color: red;
+	font-weight: 150%;
 }
 
 .mytheme .flex-menu .flex-button .selected {
-	background: white;
-	color: black;
-}
-
-.mytheme .flex-menu .flex-button .unselected {
-	color: #1156a8;
+	color: white;
+	background: red;
 }
 
 .mytheme .flex-logo {

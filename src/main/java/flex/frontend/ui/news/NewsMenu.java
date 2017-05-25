@@ -7,11 +7,14 @@ package flex.frontend.ui.news;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
+import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.Window;
 import flex.frontend.ui.FlexButton;
 import flex.frontend.ui.FlexMenu;
+import flex.frontend.ui.news.article.SingleFieldDialog;
 
 /**
  *
@@ -23,13 +26,16 @@ public class NewsMenu extends FlexMenu {
     private FlexButton searchButton;
     
     private FlexButton selected;
+    private final AbstractOrderedLayout actions;
     
     public NewsMenu() {
         initHomeButton();
         initSearchButton();
-        HorizontalLayout actions = new HorizontalLayout(homeButton, searchButton);
+        actions = new HorizontalLayout(homeButton, searchButton);
+        actions.setSizeUndefined();
+        actions.setMargin(false);
+        actions.setSpacing(false);
         super.addComponent(actions);
-        super.setSizeUndefined();
     }
 
     private void initHomeButton() {
@@ -38,8 +44,8 @@ public class NewsMenu extends FlexMenu {
         homeButton.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                Page.getCurrent().setLocation("/flex-app");
                 updateSelected(homeButton);
+                Page.getCurrent().setLocation("/flex-app");
             }
 
         });
@@ -47,17 +53,20 @@ public class NewsMenu extends FlexMenu {
 
     private void updateSelected(FlexButton flexButton) {
         if(selected != null) {
-            selected.setEnabled(true);
-            selected.setStyleName(flexButton.getStyleName());
+            selected.removeStyleName("selected");
         }
         selected = flexButton;
-        selected.setEnabled(false);
-        selected.setStyleName("selected");
+        selected.addStyleName("selected");
     }
 
     private void initSearchButton() {
         searchButton = new FlexButton(VaadinIcons.SEARCH);
         searchButton.setSizeUndefined();
+        searchButton.addClickListener(event -> {
+            SingleFieldDialog dialog = new SingleFieldDialog("Search");
+            Window w = new FlexWindow("Search", dialog);
+            UI.getCurrent().addWindow(w);
+        });
     }
 
     private NewsView getNewsView() {

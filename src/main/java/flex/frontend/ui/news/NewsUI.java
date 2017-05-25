@@ -1,6 +1,7 @@
 package flex.frontend.ui.news;
 
 
+import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -20,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 
 @Theme("mytheme")
 @Push
+@PreserveOnRefresh
 public class NewsUI extends UI {
     private NewsView newsView;
 

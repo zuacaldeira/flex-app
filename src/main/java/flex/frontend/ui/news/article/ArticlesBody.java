@@ -7,6 +7,7 @@ import flex.backend.news.db.NewsArticle;
 import flex.backend.news.services.NewsArticleService;
 import flex.frontend.ui.FlexBody;
 import flex.frontend.ui.FlexViewFactory;
+import flex.frontend.ui.news.ArticlesCount;
 import org.utils.ServiceLocator;
 
 /**
@@ -29,6 +30,7 @@ public class ArticlesBody extends FlexBody {
 
     private void initSummaries() {
         summaries = new ArticleSummaries();
+        summaries.setCaption( (new ArticlesCount()).toString() );
         NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
         Iterable<NewsArticle> articles = service.findAll();
         

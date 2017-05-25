@@ -6,6 +6,7 @@
 package flex.frontend.ui;
 
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.ui.themes.ValoTheme;
 
 /**
  *
@@ -15,6 +16,7 @@ public class SaveButton extends FlexButton {
 
     public SaveButton() {
         super("Save", VaadinIcons.CHECK);
+        setStyleName(ValoTheme.BUTTON_PRIMARY);
     }
     
 }

@@ -7,6 +7,7 @@ package flex.frontend.ui.login;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
+import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.HorizontalLayout;
 import flex.frontend.ui.FlexButton;
 import flex.frontend.ui.FlexMenu;
@@ -20,16 +21,23 @@ public class LoginMenu extends FlexMenu {
     private FlexButton newsButton;
     private FlexButton bantusButton;
     private FlexButton aboutMeButton;
-
+    private AbstractOrderedLayout actions;
+    private FlexButton loginButton;
+    
     public LoginMenu() {
         initNewsButton();
         initBantusButton();
         initAboutMeButton();
-        super.addComponents(new HorizontalLayout(newsButton, bantusButton, aboutMeButton));
+        initLoginButton();
+        actions = new HorizontalLayout(newsButton, bantusButton, aboutMeButton, loginButton);
+        actions.setSizeUndefined();
+        actions.setMargin(false);
+        actions.setSpacing(false);
+        super.addComponents(actions);
     }
 
     private void initNewsButton() {
-        newsButton = new FlexButton("News", VaadinIcons.NEWSPAPER);
+        newsButton = new FlexButton("News");
         newsButton.setSizeUndefined();
         newsButton.addClickListener(event -> {
             Page.getCurrent().setLocation("/flex-app/news");
@@ -37,7 +45,7 @@ public class LoginMenu extends FlexMenu {
     }
 
     private void initBantusButton() {
-        bantusButton = new FlexButton("Bantu", VaadinIcons.GLOBE);
+        bantusButton = new FlexButton("Bantu");
         bantusButton.setSizeUndefined();
         bantusButton.addClickListener(event -> {
             Page.getCurrent().setLocation("/flex-app/bantus");
@@ -45,10 +53,18 @@ public class LoginMenu extends FlexMenu {
     }
 
     private void initAboutMeButton() {
-        aboutMeButton = new FlexButton("About Me", VaadinIcons.INFO_CIRCLE_O);
+        aboutMeButton = new FlexButton("About Me");
         aboutMeButton.setSizeUndefined();
         aboutMeButton.addClickListener(event -> {
             ((LoginUI)getUI()).getLoginView().replaceBody(new AboutMeView());
+        });
+    }
+
+    private void initLoginButton() {
+        loginButton = new FlexButton("Login", VaadinIcons.SIGN_IN);
+        loginButton.setSizeUndefined();
+        loginButton.addClickListener(event -> {
+            ((LoginUI)getUI()).getLoginView().replaceBody(new LoginBody());
         });
     }
 

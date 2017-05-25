@@ -20,6 +20,8 @@ import org.neo4j.ogm.session.Session;
  */
 public abstract class AbstractDBService<T extends GraphEntity> implements DBService<T> {
 
+    
+    
     @Override
     public final Iterable<T> findAll() {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
@@ -43,11 +45,12 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
                                     getClassType(),
                                     new Filters().add(filter),
                                     2);
-        if(collection.isEmpty()) {
+        if(collection != null && !collection.isEmpty() ) {
+            return collection.iterator().next();
+        }
+        else {
             return null;
         }
-        
-        return collection.iterator().next();
     }
     
     @Override
@@ -68,6 +71,25 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
         return session.countEntitiesOfType(getClassType());
     }
+
+    @Override
+    public boolean contains(T object) {
+        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
+        Filter filter = new Filter(object.getPropertyName(), ComparisonOperator.EQUALS, object.getPropertyValue());
+        return !session.loadAll(getClassType(),
+                               new Filters().add(filter), 
+                               2).isEmpty();
+    }
+
+    @Override
+    public T update(T object) {
+        if(object.getId() == null) {
+            throw new IllegalArgumentException("Cannot update object not in db. Use save() to store the object in the database");
+        }
+        return save(update(find(object), object));
+    }
+    
+    
     
     protected abstract T update(T dbEntity, T newEntity);
 

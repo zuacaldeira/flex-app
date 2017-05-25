@@ -64,19 +64,16 @@
     }            
     
     .flex-menu {
-        //background: black;
+        @include linear-gradient(to right, transparent, white);
         //opacity: 0.5;
-        color: white;
-        font-variant: small-caps;
         .flex-button {
+            font-variant: small-caps;
             opacity: 1;
-            font-weight: bolder;            
+            color: red;
+            font-weight: 150%;
             .selected{
-                background: white;
-                color: black;
-            }
-            .unselected{
-                color: #1156a8;
+                color: white;
+                background: red;
             }
         }
     }
@@ -208,5 +205,5 @@
             font-size: 300%;
         }
     }
-    
+        
 }

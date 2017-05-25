@@ -5,9 +5,7 @@
  */
 package flex.frontend.ui.news;
 
-import flex.frontend.ui.FlexBody;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -23,7 +21,6 @@ public class NewsBodyTest extends UITest {
     public void testGetBaseLayout() {
         System.out.println("getBaseLayout");
         ArticlesCount body = new ArticlesCount();
-        assertTrue(body instanceof FlexBody);
     }
     
     @Test

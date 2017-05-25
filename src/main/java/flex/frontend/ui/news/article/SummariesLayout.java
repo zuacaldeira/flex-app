@@ -21,7 +21,7 @@ public abstract class SummariesLayout extends VerticalLayout {
         layout.setHeightUndefined();
         layout.setWidth("100%");
         layout.setMargin(false);
-        layout.setSpacing(false);
+        layout.setSpacing(true);
         super.setStyleName("summaries");
         super.setMargin(false);
         super.setSizeFull();

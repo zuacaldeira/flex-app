@@ -5,7 +5,6 @@
  */
 package flex.frontend.ui.login;
 
-import flex.frontend.ui.FlexButton;
 import flex.frontend.ui.FlexView;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -25,11 +24,9 @@ public class LoginViewTest {
         assertTrue(loginView instanceof FlexView);
     }
     
-    @Test(expected = Exception.class)
-    public void testClickEnter() {
+    @Test
+    public void testExistenceOfFormlayout() {
         LoginView loginView = new LoginView();
-        FlexButton button = ((LoginBody)loginView.getBody()).getEnter();
-        assertNotNull(button);
-        button.click();
+        assertNotNull(((LoginBody)loginView.getBody()).getFormLayout());
     }
 }

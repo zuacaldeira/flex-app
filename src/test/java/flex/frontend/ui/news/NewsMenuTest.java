@@ -20,7 +20,6 @@ public class NewsMenuTest {
     @Test
     public void testSomeMethod() {
         NewsMenu menu = new NewsMenu();
-        assertNotNull(menu.getArticlesButton());
         assertNotNull(menu.getHomeButton());
         assertNotNull(menu.getSearchButton());        
     }
@@ -29,12 +28,6 @@ public class NewsMenuTest {
     public void testClickHome() {
         NewsMenu menu = new NewsMenu();
         menu.getHomeButton().click();
-    }
-
-    @Test(expected = Exception.class)
-    public void testClickArticles() {
-        NewsMenu menu = new NewsMenu();
-        menu.getArticlesButton().click();
     }
 
 

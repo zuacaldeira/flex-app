@@ -23,14 +23,23 @@ public class LoginBody extends FlexBody implements ClickListener {
 
     public LoginBody() {
         formLayout = new FormLayout();
-        FlexTextField username = new FlexTextField(VaadinIcons.USER);
-        FlexTextField password = new FlexTextField(VaadinIcons.LOCK);
+        FlexTextField username = new FlexTextField("Username", VaadinIcons.USER);
+        FlexTextField password = new FlexTextField("Password", VaadinIcons.LOCK);
         formLayout.addComponents(username, password);
+        formLayout.setWidth("200px");
+        formLayout.setHeightUndefined();
+        addView(formLayout);
     }
 
     @Override
     public void buttonClick(Button.ClickEvent event) {
         Page.getCurrent().setLocation("/flex-app/news");
     }
+
+    public FormLayout getFormLayout() {
+        return formLayout;
+    }
+    
+    
     
 }

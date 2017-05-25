@@ -23,7 +23,7 @@ public abstract class FlexView extends AbsoluteLayout {
         initFooter();
         setStyleName("flex-view");
         setSizeFull();
-        addComponent(body, "top:2cm; bottom:1cm");
+        addComponent(body, "top:1cm; bottom:0cm");
         addComponent(footer, "bottom:0%");
         addComponent(menu, "top:0%");
     }
@@ -31,7 +31,7 @@ public abstract class FlexView extends AbsoluteLayout {
     private void initMenu() {
         setMenu(createMenu());
         menu.setWidth("100%");
-        menu.setHeight("2cm");
+        menu.setHeightUndefined();
     }
 
     private void initBody() {

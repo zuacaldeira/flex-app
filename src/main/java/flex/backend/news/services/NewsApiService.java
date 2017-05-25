@@ -74,9 +74,13 @@ public class NewsApiService {
                 
                 NewsSource source = createSource(obj);
                 loadArticles(source);
-                try{                
-                    sourcesService.save(source); 
-                } catch(Exception e) {}
+                if(!sourcesService.contains(source)) {
+                    try{sourcesService.save(source);}
+                    catch(Exception e){e.printStackTrace();}
+                } else {
+                    try{sourcesService.update(source);}
+                    catch(Exception e){e.printStackTrace();}
+                }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

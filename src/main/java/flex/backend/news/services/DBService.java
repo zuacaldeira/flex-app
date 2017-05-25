@@ -7,6 +7,8 @@ package flex.backend.news.services;
 public interface DBService<T> {
 
     public Iterable<T> findAll();
+    
+    public boolean contains(T object);
 
     public T find(Long id);
     
@@ -15,6 +17,8 @@ public interface DBService<T> {
     public void delete(Long id);
 
     public T save(T object);
+    
+    public T update(T object);
     
     public long count();
     

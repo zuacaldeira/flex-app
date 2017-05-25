@@ -17,6 +17,9 @@ public class ArticlesCount extends HorizontalLayout {
     private CountComponent sourcesCount;
     private CountComponent authorsCount;
     private CountComponent articlesCount;
+    private long nSources;
+    private long nAuthors;
+    private long nArticles;
 
     public ArticlesCount() {
         initSourcesCount();
@@ -40,20 +43,27 @@ public class ArticlesCount extends HorizontalLayout {
     }
 
     private void initSourcesCount() {
-        long nSources = ServiceLocator.getInstance().findSourcesService().count();
+        nSources = ServiceLocator.getInstance().findSourcesService().count();
         sourcesCount = new CountComponent("Sources", nSources);
         sourcesCount.setSizeUndefined();
     }
 
     private void initAuthorsCount() {
-        long nAuthors = ServiceLocator.getInstance().findAuthorsService().count();
+        nAuthors = ServiceLocator.getInstance().findAuthorsService().count();
         authorsCount = new CountComponent("Authors", nAuthors);
         authorsCount.setSizeUndefined();
     }
 
     private void initArticlesCount() {
-        long nArticles = ServiceLocator.getInstance().findArticlesService().count();
+        nArticles = ServiceLocator.getInstance().findArticlesService().count();
         articlesCount = new CountComponent("Articles", nArticles);
         articlesCount.setSizeUndefined();
+    }
+
+    @Override
+    public String toString() {
+        return nSources + " sources, "  + 
+                nAuthors + " authors, " + 
+                nArticles + " articles";
     }
 }

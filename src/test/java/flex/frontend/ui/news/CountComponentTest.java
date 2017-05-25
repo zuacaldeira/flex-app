@@ -42,7 +42,8 @@ public class CountComponentTest {
     @Test
     public void testStyleName() {
         CountComponent instance = new CountComponent("Source", 100);
-        assertTrue(instance.getStyleName().contains("count"));
+        assertNotNull(instance.getLabel());
+        assertNotNull(instance.getNumber());
     }
     
 }

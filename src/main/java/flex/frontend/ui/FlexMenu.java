@@ -6,19 +6,20 @@
 package flex.frontend.ui;
 
 import com.vaadin.ui.Alignment;
-import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  *
  * @author zua
  */
-public abstract class FlexMenu extends HorizontalLayout {
+public abstract class FlexMenu extends VerticalLayout {
 
     public FlexMenu() {
-        setWidthUndefined();
-        setSpacing(false);
-        setStyleName("flex-menu");
-        setDefaultComponentAlignment(Alignment.MIDDLE_RIGHT);
+        super.setSizeUndefined();
+        super.setMargin(false);
+        super.setSpacing(false);
+        super.setStyleName("flex-menu");
+        super.setDefaultComponentAlignment(Alignment.MIDDLE_RIGHT);
     }
     
 }

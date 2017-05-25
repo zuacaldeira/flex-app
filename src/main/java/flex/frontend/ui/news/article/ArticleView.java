@@ -1,12 +1,16 @@
 package flex.frontend.ui.news.article;
 
+import com.vaadin.event.LayoutEvents;
 import flex.frontend.ui.GraphEntityView;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ExternalResource;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 import flex.backend.news.db.NewsArticle;
 import flex.frontend.ui.FlexButton;
+import flex.frontend.ui.news.FlexWindow;
 import java.util.Set;
 import org.utils.FlexUtils;
 
@@ -14,7 +18,7 @@ import org.utils.FlexUtils;
 /**
  * Created by zua on 13/04/17.
  */
-public class ArticleView extends GraphEntityView {
+public class ArticleView extends GraphEntityView implements ClickListener, LayoutEvents.LayoutClickListener {
     // The associated article
     private final NewsArticle article;
 
@@ -41,6 +45,8 @@ public class ArticleView extends GraphEntityView {
         super.addComponent(info);
         super.setSizeFull();
         super.setSpacing(false);
+        super.setMargin(true);
+        super.setMargin(new MarginInfo(false, true, true, true));
         super.setStyleName("article-minimized");
     }
 
@@ -77,12 +83,15 @@ public class ArticleView extends GraphEntityView {
             this.image = new Image("", new ExternalResource(article.getImageUrl()));
             if(this.image.getWidth() >= this.image.getHeight()) {
                 this.image.setWidth("100%");
+                this.image.setHeightUndefined();
             } else {
                 this.image.setHeight("100%");
+                this.image.setWidthUndefined();
             }
         }
         else {
             this.image = new Image();
+            this.image.setSizeUndefined();
         }
     }
 
@@ -91,10 +100,11 @@ public class ArticleView extends GraphEntityView {
     }
     
     private void initAuthor() {
-        authors = new VerticalLayout();
+        authors = new HorizontalLayout();
         authors.setSizeFull();
         authors.setMargin(false);
         authors.setSpacing(false);
+        authors.addLayoutClickListener((LayoutEvents.LayoutClickListener) this);
         
         if(article.getAuthor() != null) {
             Set<String> allAuthorsNames = FlexUtils.getInstance().extractAuthorsNames(article.getAuthor().getName());
@@ -103,11 +113,9 @@ public class ArticleView extends GraphEntityView {
                 Component author = null;
                 if(FlexUtils.getInstance().isUrl(authorName)) {
                     author = new Label(FlexUtils.getInstance().extractNameFromUrl(authorName));
+                    ((Label)author).setData(authorName);
                     author.setSizeUndefined();
-                    /*((Label)author).addClickListener(event -> {
-                        ArticlesBody body = getArticlesBody();
-                        body.getBrowserFrame().setSource(new ExternalResource(authorName));
-                    });*/
+                    author.setStyleName(ValoTheme.LABEL_COLORED);
                 }
                 else {
                     System.out.println("Not an url... " + authorName);
@@ -131,6 +139,7 @@ public class ArticleView extends GraphEntityView {
         
         youtubeButton = new FlexButton((""), VaadinIcons.YOUTUBE);
         youtubeButton.setDescription("Add YouTube video link");
+        youtubeButton.addClickListener((Button.ClickListener) this);
 
         controls = new HorizontalLayout(commentButton, shareButton, youtubeButton);
         controls.setSizeFull();
@@ -145,7 +154,7 @@ public class ArticleView extends GraphEntityView {
         initImage();
         initTimeLabel();
         initControls();
-        info = new VerticalLayout(title, image, content, authors, controls);
+        info = new VerticalLayout(image, title, content, authors, controls);
         info.setStyleName("info");
         info.setSpacing(false);
         info.setMargin(false);
@@ -196,10 +205,8 @@ public class ArticleView extends GraphEntityView {
         // No controls
         controls.setVisible(false);
         // Only title and authors are left visible
-        image.setVisible(false);
         publishedAt.setVisible(false);
         authors.setVisible(false);
-        image.setVisible(false);
         setStyleName("article-minimized");
     }
 
@@ -232,5 +239,29 @@ public class ArticleView extends GraphEntityView {
             return getArticlesBody(component.getParent());
         }
     }
+
+    @Override
+    public void buttonClick(Button.ClickEvent event) {
+        if(event.getButton() == youtubeButton) {
+            SingleFieldDialog dialog = new SingleFieldDialog("Youtube Url");
+            Window w = new  FlexWindow("Adding a video url", dialog);
+            UI.getCurrent().addWindow(w);
+        }
+    }
+
+    @Override
+    public void layoutClick(LayoutEvents.LayoutClickEvent event) {
+        if(event.getClickedComponent() instanceof Label) {
+            Label label = (Label) event.getClickedComponent();
+            String url = (String) label.getData();
+            if(url != null) {
+                getArticlesBody().getBrowserFrame().setSource(new ExternalResource(url));
+                label.setStyleName(ValoTheme.LABEL_SUCCESS);
+            }
+        }
+    }
+    
+    
+    
 
 }
