@@ -16,9 +16,9 @@ import org.mockito.Mockito;
  *
  * @author zua
  */
-public class LoginUITest extends UITest {
+public class LoginUITestIT extends UITest {
     
-    public LoginUITest() {
+    public LoginUITestIT() {
     }
 
     /**

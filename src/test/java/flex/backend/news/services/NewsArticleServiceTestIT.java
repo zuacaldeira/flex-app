@@ -7,6 +7,7 @@ package flex.backend.news.services;
 
 import flex.backend.news.db.Neo4jTest;
 import flex.backend.news.db.NewsArticle;
+import java.util.Date;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -14,9 +15,9 @@ import static org.junit.Assert.*;
  *
  * @author zua
  */
-public class NewsArticleServiceTest extends Neo4jTest {
+public class NewsArticleServiceTestIT extends Neo4jTest {
     
-    public NewsArticleServiceTest() {
+    public NewsArticleServiceTestIT() {
     }
 
     /**
@@ -64,7 +65,7 @@ public class NewsArticleServiceTest extends Neo4jTest {
         NewsArticleService instance = new NewsArticleService();
         assertEquals(false, instance.findAll().iterator().hasNext());
         
-        instance.save(new NewsArticle("title", "description", "url", "imageUrl", "publishedAt"));        
+        instance.save(new NewsArticle("title", "description", "url", "imageUrl", new Date()));        
         
         NewsArticle article = instance.findArticleByTitle("title");
         assertNotNull(article);        
@@ -79,7 +80,7 @@ public class NewsArticleServiceTest extends Neo4jTest {
         NewsArticleService instance = new NewsArticleService();
         assertEquals(false, instance.findAll().iterator().hasNext());
         
-        instance.save(new NewsArticle("title", "description", "url", "imageUrl", "publishedAt"));        
+        instance.save(new NewsArticle("title", "description", "url", "imageUrl", new Date()));        
         
         NewsArticle article = instance.findArticleByTitle("title");
         assertNotNull(article);        
@@ -99,8 +100,8 @@ public class NewsArticleServiceTest extends Neo4jTest {
         NewsArticleService instance = new NewsArticleService();
         assertEquals(false, instance.findAll().iterator().hasNext());
         
-        instance.save(new NewsArticle("title", "description", "url", "imageUrl", "publishedAt"));        
-        instance.save(new NewsArticle("title2", "description", "url", "imageUrl", "publishedAt"));        
+        instance.save(new NewsArticle("title", "description", "url", "imageUrl", new Date()));        
+        instance.save(new NewsArticle("title2", "description", "url", "imageUrl", new Date()));        
         
         NewsArticle article = instance.findArticleByTitle("title");
         assertNotNull(article);        
@@ -124,7 +125,7 @@ public class NewsArticleServiceTest extends Neo4jTest {
         NewsArticleService instance = new NewsArticleService();
         assertEquals(false, instance.findAll().iterator().hasNext());
         
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", "publishedAt");
+        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date());
         article = instance.save(article);        
         
         assertNotNull(article);

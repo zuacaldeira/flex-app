@@ -8,49 +8,29 @@ package flex.frontend.ui.news;
 import flex.frontend.ui.FlexBody;
 import flex.frontend.ui.FlexFooter;
 import flex.frontend.ui.FlexMenu;
-import flex.frontend.ui.FlexMainView;
 
 /**
  *
  * @author zua
  */
-public class NewsView extends FlexMainView {
+public class NewsAuthorsView extends NewsView {
 
-    public static final int MAX_ARTICLES = 100;
-    
-    public NewsView() {        
+    public NewsAuthorsView() {
     }
 
     @Override
     protected FlexMenu createMenu() {
-        return new NewsMenu();
+        return new NewsAuthorsMenu();
     }
 
     @Override
     protected FlexBody createBody() {
-        return new NewsBody();
+        return new NewsAuthorsBody();
     }
 
     @Override
     protected FlexFooter createFooter() {
         return new FlexFooter();
     }
-
-    @Override
-    public FlexFooter getFooter() {
-        return super.getFooter(); 
-    }
-
-    @Override
-    public NewsBody getBody() {
-        return (NewsBody) super.getBody(); 
-    }
-
-    @Override
-    public NewsMenu getMenu() {
-        return (NewsMenu) super.getMenu();
-    }
     
-    
-
 }

@@ -1,6 +1,7 @@
 package flex.backend.news.db;
 
 
+import java.util.Date;
 import java.util.Objects;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -18,7 +19,7 @@ public class NewsArticle extends GraphEntity implements Comparable<NewsArticle>{
     private String description;
     private String url;
     private String imageUrl;
-    private String publishedAt;
+    private Date publishedAt;
     private String sourceId;
     
     @Relationship(type = "AUTHORED", direction = Relationship.INCOMING)
@@ -27,7 +28,7 @@ public class NewsArticle extends GraphEntity implements Comparable<NewsArticle>{
     public NewsArticle(){
     }
 
-    public NewsArticle(String title, String description, String url, String imageUrl, String publishedAt) {
+    public NewsArticle(String title, String description, String url, String imageUrl, Date publishedAt) {
         this();
         this.title = title;
         this.description = description;
@@ -52,7 +53,7 @@ public class NewsArticle extends GraphEntity implements Comparable<NewsArticle>{
         return imageUrl;
     }
 
-    public String getPublishedAt() {
+    public Date getPublishedAt() {
         return publishedAt;
     }
 
@@ -72,7 +73,7 @@ public class NewsArticle extends GraphEntity implements Comparable<NewsArticle>{
         this.imageUrl = imageUrl;
     }
 
-    public void setPublishedAt(String publishedAt) {
+    public void setPublishedAt(Date publishedAt) {
         this.publishedAt = publishedAt;
     }
 

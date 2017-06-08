@@ -10,6 +10,7 @@ import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
 
 
+
 /**
  *
  * @author zua
@@ -17,8 +18,8 @@ import org.neo4j.ogm.session.SessionFactory;
 public class Neo4jSessionFactory {
 
     private static String DATABASE_URL;
-    private static final String USERNAME ="neo4j";
-    private static final String PASSWORD ="unicidade";
+    private static String USERNAME;
+    private static String PASSWORD;
 
     private static Neo4jSessionFactory factory;
 
@@ -28,7 +29,16 @@ public class Neo4jSessionFactory {
     private Neo4jSessionFactory() {
         if(DATABASE_URL == null) {
             DATABASE_URL = "http://localhost:7474";
+
+            if(USERNAME == null) {
+                USERNAME = "neo4j";
+            }
+
+            if(PASSWORD == null) {
+                PASSWORD = "unicidade";
+            }
         }
+
         Configuration.Builder builder = new Configuration.Builder();
         configuration = builder.uri(DATABASE_URL).credentials(USERNAME, PASSWORD).autoIndex("validate").build();
         sessionFactory = new SessionFactory(configuration, "flex.backend.news.db");
@@ -45,8 +55,10 @@ public class Neo4jSessionFactory {
 	return sessionFactory.openSession();
     }
 
-    public static void prepareForTest() {
-        Neo4jSessionFactory.DATABASE_URL = "http://localhost:7474";
+    public static void prepareForTest(String url) {
+        DATABASE_URL = url;
+        USERNAME = "neo4j";
+        PASSWORD = "password";
     }
 
     

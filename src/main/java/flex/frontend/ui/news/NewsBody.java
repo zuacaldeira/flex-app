@@ -1,4 +1,4 @@
-package flex.frontend.ui.news.article;
+package flex.frontend.ui.news;
 
 import com.vaadin.event.LayoutEvents;
 import com.vaadin.server.ExternalResource;
@@ -6,23 +6,36 @@ import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 import flex.backend.news.db.NewsArticle;
 import flex.backend.news.services.NewsArticleService;
 import flex.frontend.ui.FlexBody;
 import flex.frontend.ui.FlexViewFactory;
+import flex.frontend.ui.news.article.ArticleView;
+import flex.frontend.ui.news.article.FlexPanel;
 import org.utils.ServiceLocator;
 
 /**
  * Created by zua on 13/04/17.
  */
-public class ArticlesSplitPanel extends FlexBody {
+public class NewsBody extends FlexBody {
 
     private HorizontalSplitPanel splitPanel;
     private Panel summaries;
     private BrowserFrame browserFrame;
     private ArticleView selected;
+    private Object myData;
     
-    public ArticlesSplitPanel() {
+    public NewsBody() {
+        initSummaries();
+        initBrowserFrame();
+        initSplitPanel();
+        super.getLayout().addComponent(splitPanel);
+        super.addStyleName("articles");
+    }
+
+    public NewsBody(Object data) {
+        this.myData = data;
         initSummaries();
         initBrowserFrame();
         initSplitPanel();
@@ -33,12 +46,12 @@ public class ArticlesSplitPanel extends FlexBody {
     private void initSummaries() {
         VerticalLayout panelContent = new VerticalLayout();
         panelContent.setSpacing(true);
+        panelContent.setMargin(false);
 
-        summaries = new FlexPanel("Latest News", panelContent);
-        summaries.setStyleName("summaries");
+        summaries = new FlexPanel(null, panelContent);
+        summaries.setStyleName(ValoTheme.PANEL_BORDERLESS + " " + "summaries");
 
-        NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
-        Iterable<NewsArticle> articles = service.findAll();
+        Iterable<NewsArticle> articles = loadArticles();
         
         articles.forEach(article -> {
             ArticleView articleView = FlexViewFactory.getInstance().createArticleView(article);
@@ -52,8 +65,7 @@ public class ArticlesSplitPanel extends FlexBody {
             if(selected == null) {
                 updateSelected(articleView);
             }
-            panelContent.addComponents(articleView, new FlexDiv());
-            
+            panelContent.addComponents(articleView);
         });
     }
 
@@ -67,11 +79,12 @@ public class ArticlesSplitPanel extends FlexBody {
 
     private void updateSelected(ArticleView articleView) {
         if(selected != null) {
-            selected.minimizeInfo();
+            selected.setStyleName("article-maximized");
         }
-        selected = articleView;
-        selected.maximizeInfo();
-        //summaries.setScrollTop();
+        if(articleView != null) {
+            articleView.setStyleName("article-minimized");
+            selected = articleView;
+        }
     }
 
     
@@ -81,4 +94,21 @@ public class ArticlesSplitPanel extends FlexBody {
         splitPanel.setSplitPosition(25f);
     }
 
+    public Iterable<NewsArticle> loadArticles() {
+        NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
+        return service.findAll();
+    }
+
+    public Object getMyData() {
+        return myData;
+    }
+
+    public BrowserFrame getBrowserFrame() {
+        return browserFrame;
+    }
+    
+    
+    
+
+    
 }

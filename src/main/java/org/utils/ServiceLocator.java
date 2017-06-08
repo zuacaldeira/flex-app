@@ -5,6 +5,7 @@
  */
 package org.utils;
 
+import flex.backend.news.services.FlexUserService;
 import flex.backend.news.services.NewsApiService;
 import flex.backend.news.services.NewsArticleService;
 import flex.backend.news.services.NewsAuthorService;
@@ -22,6 +23,7 @@ public class ServiceLocator {
     public static final String NEWS_ARTICLE_SERVICE = PREFIX + NewsArticleService.class.getSimpleName();
     public static final String NEWS_SOURCE_SERVICE  = PREFIX + NewsSourceService.class.getSimpleName();
     public static final String NEWS_AUTHOR_SERVICE  = PREFIX + NewsAuthorService.class.getSimpleName();
+    public static final String FLEX_USER_SERVICE    = PREFIX + FlexUserService.class.getSimpleName();
     
     private static InitialContext context;
 
@@ -63,8 +65,13 @@ public class ServiceLocator {
         return (NewsApiService) findService(NEWS_API_SERVICE);
     }
     
+    public FlexUserService findUserService() {
+        return (FlexUserService) findService(FLEX_USER_SERVICE);
+    }
+
     public void setInitialContext(InitialContext aContext) {
         context = aContext;
     }
+
 
 }

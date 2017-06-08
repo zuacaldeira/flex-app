@@ -12,9 +12,11 @@ import com.vaadin.server.ExternalResource;
 import flex.backend.news.db.NewsArticle;
 import flex.backend.news.db.NewsAuthor;
 import flex.backend.news.db.NewsSource;
+import flex.frontend.ui.news.UITest;
 import flex.frontend.ui.news.article.ArticleView;
 import flex.frontend.ui.news.author.AuthorView;
 import flex.frontend.ui.news.source.SourceView;
+import java.util.Date;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
@@ -24,9 +26,9 @@ import org.junit.runner.RunWith;
  * @author zua
  */
 @RunWith(DataProviderRunner.class)
-public class FlexViewFactoryTest {
+public class FlexViewFactoryTestIT extends UITest {
     
-    public FlexViewFactoryTest() {
+    public FlexViewFactoryTestIT() {
     }
 
     /**
@@ -71,7 +73,7 @@ public class FlexViewFactoryTest {
     
     @DataProvider
     public static Object[][] articlesProvider() {
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", "publishedAt");
+        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date());
         article.setAuthor(new NewsAuthor("name"));
         return new Object[][] {
             {article}
@@ -93,7 +95,7 @@ public class FlexViewFactoryTest {
     @DataProvider
     public static Object[][] authorsProvider() {
         NewsAuthor author = new NewsAuthor("name");
-        author.addArticle(new NewsArticle("title", "description", "url", "imageUrl", "publishedAt"));
+        author.addArticle(new NewsArticle("title", "description", "url", "imageUrl", new Date()));
         
         return new Object[][] {
             {author}

@@ -1,14 +1,15 @@
 package flex.frontend.ui.news;
 
 
-import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import flex.frontend.ui.FlexMainView;
 
-import com.vaadin.ui.*;
+import flex.frontend.ui.bantu.SecuredUI;
 import javax.servlet.annotation.WebServlet;
 
 /**
@@ -21,26 +22,35 @@ import javax.servlet.annotation.WebServlet;
 
 @Theme("mytheme")
 @Push
-@PreserveOnRefresh
-public class NewsUI extends UI {
-    private NewsView newsView;
-
+public class NewsUI extends SecuredUI {
 
     @Override
-    protected void init(VaadinRequest request) {
-        
-        // Load new news
-        newsView = new NewsView();
-        setContent(newsView);
+    protected String getPageLocation() {
+        return "/flex-app/news";
     }
 
-    public NewsView getNewsView() {
-        return newsView;
+    @Override
+    protected FlexMainView createMainView() {
+        String currentLocation = Page.getCurrent().getLocation().getPath();
+        System.out.println("currentLocation -> " + currentLocation);
+        if(currentLocation.endsWith("categories")) {
+            return new NewsCategoriesView();
+        }
+        else if(currentLocation.endsWith("publishers")) {
+            return new NewsPublishersView();
+        }
+        else if(currentLocation.endsWith("authors")) {
+            return new NewsAuthorsView();
+        }
+        else {
+            return new NewsView();
+        }
     }
 
-
-
-
+    @Override
+    public NewsView getContent() {
+        return (NewsView) super.getContent();
+    }
 
     @WebServlet(urlPatterns = "/news/*", name = "NewsUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = NewsUI.class, productionMode = false)

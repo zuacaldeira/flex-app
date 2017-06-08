@@ -8,6 +8,7 @@ package flex.backend.news.db;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.util.Date;
 import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -95,10 +96,10 @@ public class NewsArticleTest  extends TestCase {
         NewsArticle instance = new NewsArticle();
         assertNull(instance.getPublishedAt());
         
-        String expResult = "";
+        Date expResult = new Date();
         instance.setPublishedAt(expResult);
         
-        String result = instance.getPublishedAt();
+        Date result = instance.getPublishedAt();
         assertEquals(expResult, result);
     }
 
@@ -127,12 +128,19 @@ public class NewsArticleTest  extends TestCase {
         };    
     }
 
+    @DataProvider
+    public static Object[][] datesProvider() {
+        return new Object[][] {
+            {new Date()}
+        };    
+    }
+
     /**
      * Test of setDescription method, of class NewsArticle.
      * @param description
      */
     @Test
-    @DataProvider("titlesProvider")
+    @UseDataProvider("titlesProvider")
     public void testSetDescription(String description) {
         System.out.println("setDescription");
 
@@ -148,7 +156,7 @@ public class NewsArticleTest  extends TestCase {
      * @param url
      */
     @Test
-    @DataProvider("titlesProvider")
+    @UseDataProvider("titlesProvider")
     public void testSetUrl(String url) {
         System.out.println("setUrl");
         
@@ -164,7 +172,7 @@ public class NewsArticleTest  extends TestCase {
      * @param imageUrl
      */
     @Test
-    @DataProvider("titlesProvider")
+    @UseDataProvider("titlesProvider")
     // TODO: Test is a link
     public void testSetImageUrl(String imageUrl) {
         System.out.println("setImageUrl");
@@ -181,9 +189,9 @@ public class NewsArticleTest  extends TestCase {
      * @param publishedAt
      */
     @Test
-    @DataProvider("titlesProvider")
+    @UseDataProvider("datesProvider")
     // TODO: Test is a date
-    public void testSetPublishedAt(String publishedAt) {
+    public void testSetPublishedAt(Date publishedAt) {
         System.out.println("setPublishedAt");
         
         NewsArticle instance = new NewsArticle();
@@ -198,7 +206,7 @@ public class NewsArticleTest  extends TestCase {
      * @param sourceId
      */
     @Test
-    @DataProvider("titlesProvider")
+    @UseDataProvider("titlesProvider")
     public void testGetSourceId(String sourceId) {
         System.out.println("getSourceId");
         
@@ -214,7 +222,7 @@ public class NewsArticleTest  extends TestCase {
      * @param sourceId
      */
     @Test
-    @DataProvider("titlesProvider")
+    @UseDataProvider("titlesProvider")
     public void testSetSourceId(String sourceId) {
         System.out.println("setSourceId");
 
@@ -240,8 +248,8 @@ public class NewsArticleTest  extends TestCase {
     
     @DataProvider
     public static Object[][] equalsProvider() {
-        NewsArticle article1 = new NewsArticle("title", "description", "url", "imageUrl", "publishedAt");
-        NewsArticle article2 = new NewsArticle("title", "description", "url", "imageUrl", "publishedAt");
+        NewsArticle article1 = new NewsArticle("title", "description", "url", "imageUrl", new Date());
+        NewsArticle article2 = new NewsArticle("title", "description", "url", "imageUrl", new Date());
         return new Object[][] {
             {new NewsArticle(), new NewsArticle(), true},
             {article1, article1, true},
@@ -251,8 +259,8 @@ public class NewsArticleTest  extends TestCase {
 
     @DataProvider
     public static Object[][] equalsNegativeProvider() {
-        NewsArticle article1 = new NewsArticle("title1", "description", "url", "imageUrl", "publishedAt");
-        NewsArticle article2 = new NewsArticle("title2", "description", "url", "imageUrl", "publishedAt");
+        NewsArticle article1 = new NewsArticle("title1", "description", "url", "imageUrl", new Date());
+        NewsArticle article2 = new NewsArticle("title2", "description", "url", "imageUrl", new Date());
         return new Object[][] {
             {new NewsArticle(), article1, false},
             {article1, article2, false},
@@ -295,8 +303,8 @@ public class NewsArticleTest  extends TestCase {
     
      @DataProvider
     public static Object[][] toStringProvider() {
-        NewsArticle article1 = new NewsArticle("title1", "description", "url", "imageUrl", "publishedAt");
-        NewsArticle article2 = new NewsArticle("title2", "description", "url", "imageUrl", "publishedAt");
+        NewsArticle article1 = new NewsArticle("title1", "description", "url", "imageUrl", new Date());
+        NewsArticle article2 = new NewsArticle("title2", "description", "url", "imageUrl", new Date());
         return new Object[][] {
             {new NewsArticle(), ""},
             {article1, "title1"},
@@ -318,8 +326,8 @@ public class NewsArticleTest  extends TestCase {
     
     @DataProvider
     public static Object[][] compareToProvider() {
-        NewsArticle article1 = new NewsArticle("title1", "description", "url", "imageUrl", "publishedAt");
-        NewsArticle article2 = new NewsArticle("title2", "description", "url", "imageUrl", "publishedAt");
+        NewsArticle article1 = new NewsArticle("title1", "description", "url", "imageUrl", new Date());
+        NewsArticle article2 = new NewsArticle("title2", "description", "url", "imageUrl", new Date());
         return new Object[][] {
             {new NewsArticle(), new NewsArticle(), 0},
             {new NewsArticle(), article1, 1},

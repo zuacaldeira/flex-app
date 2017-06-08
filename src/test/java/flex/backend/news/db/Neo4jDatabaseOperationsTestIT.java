@@ -9,6 +9,7 @@ import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import flex.backend.news.Neo4jSessionFactory;
+import java.util.Date;
 import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -22,14 +23,14 @@ import org.neo4j.ogm.session.Session;
  * @author zua
  */
 @RunWith(DataProviderRunner.class)
-public class Neo4jDatabaseOperationsTest extends Neo4jTest {
+public class Neo4jDatabaseOperationsTestIT extends Neo4jTest {
     
     
     
     @DataProvider
     public static Object[][] articlesProvider() {
         NewsArticle article1 = new NewsArticle();
-        NewsArticle article2 = new NewsArticle("title", "description", "url", "imageUrl", "publishedAt");
+        NewsArticle article2 = new NewsArticle("title", "description", "url", "imageUrl", new Date());
         return new Object[][] {
             {article1},
             {article2}
@@ -97,8 +98,6 @@ public class Neo4jDatabaseOperationsTest extends Neo4jTest {
     @Test
     @UseDataProvider("authorsProvider")
     public void createNewsAuthor(NewsAuthor author) {
-        Neo4jSessionFactory.prepareForTest();
-        
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
         String query = "MATCH (n:NewsAuthor) RETURN n";
 

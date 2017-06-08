@@ -13,9 +13,9 @@ import org.junit.Test;
  *
  * @author zua
  */
-public class AuthorsBodyTest extends UITest {
+public class AuthorsBodyTestIT extends UITest {
     
-    public AuthorsBodyTest() {
+    public AuthorsBodyTestIT() {
     }
 
     /**

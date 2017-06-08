@@ -8,13 +8,13 @@ package flex.frontend.ui.login;
 import flex.frontend.ui.FlexBody;
 import flex.frontend.ui.FlexFooter;
 import flex.frontend.ui.FlexMenu;
-import flex.frontend.ui.FlexView;
+import flex.frontend.ui.FlexMainView;
 
 /**
  *
  * @author zua
  */
-public class LoginView extends FlexView {
+public class LoginView extends FlexMainView {
 
     public LoginView() {
     }
@@ -26,7 +26,7 @@ public class LoginView extends FlexView {
 
     @Override
     protected FlexBody createBody() {
-        return new LoginBody();
+        return new WelcomeView();
     }
 
     @Override

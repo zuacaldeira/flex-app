@@ -5,7 +5,6 @@
  */
 package flex.frontend.ui.news;
 
-import flex.frontend.ui.news.article.ArticlesBody;
 import flex.frontend.ui.FlexFooter;
 import flex.frontend.ui.MainViewTest;
 import org.junit.Test;
@@ -15,9 +14,9 @@ import static org.junit.Assert.*;
  *
  * @author zua
  */
-public class NewsViewTest extends MainViewTest {
+public class NewsViewTestIT extends MainViewTest {
     
-    public NewsViewTest() {
+    public NewsViewTestIT() {
     }
 
     /**
@@ -50,7 +49,7 @@ public class NewsViewTest extends MainViewTest {
         NewsView instance = new NewsView();
         assertNotNull(instance.getBody());
         
-        ArticlesBody body = new ArticlesBody();
+        NewsBody body = new NewsBody();
         instance.setBody(body);
     }
 
@@ -63,7 +62,7 @@ public class NewsViewTest extends MainViewTest {
         NewsView instance = new NewsView();
         assertNotNull(instance.getBody());
         
-        ArticlesBody body = new ArticlesBody();
+        NewsBody body = new NewsBody();
         instance.setBody(body);
     }
 

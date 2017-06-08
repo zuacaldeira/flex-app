@@ -65,8 +65,13 @@ public class FlexUtils {
 
     private String toNameCase(String name) {
         String lowerCaseName = name.toLowerCase();
-        String c = lowerCaseName.substring(0, 1);
-        return lowerCaseName.replaceFirst(c, c.toUpperCase());
+        if(lowerCaseName.length() > 1) {
+            String c = lowerCaseName.substring(0, 1);
+            return lowerCaseName.replaceFirst(c, c.toUpperCase());
+        }
+        else {
+            return lowerCaseName;
+        }
     }
 
     private String extractNameFromAbcNews(String authorName) {

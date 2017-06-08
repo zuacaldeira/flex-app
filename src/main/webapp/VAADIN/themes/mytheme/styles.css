@@ -12676,22 +12676,82 @@ div.v-layout.v-horizontal.v-widget {
 	font-size: 200%;
 }
 
+.mytheme .welcome .flex-menu {
+	background-color: yellow;
+	background-image: -webkit-linear-gradient(top, yellow, transparent);
+	background-image: linear-gradient(to bottom,yellow, transparent);
+	font-variant: small-caps;
+	font-family: Verdana;
+	opacity: 1;
+	font-weight: 900;
+}
+
+.mytheme .welcome .flex-menu .flex-button {
+	color: #000;
+}
+
+.mytheme .welcome .flex-menu .inverted {
+	background: yellow;
+	color: orangered;
+}
+
+.mytheme .welcome .flex-menu .flex-button:hover {
+	color: orangered;
+}
+
+.mytheme .welcome .flex-menu .flex-button:active {
+	color: orangered;
+}
+
 .mytheme .flex-menu {
-	background-color: transparent;
-	background-image: -webkit-linear-gradient(left, transparent, white);
-	background-image: linear-gradient(to right,transparent, white);
+	background-color: yellow;
+	background-image: -webkit-linear-gradient(top, yellow, transparent);
+	background-image: linear-gradient(to bottom,yellow, transparent);
+	font-variant: small-caps;
+	font-family: Verdana;
+	opacity: 1;
+	font-weight: 900;
 }
 
 .mytheme .flex-menu .flex-button {
-	font-variant: small-caps;
-	opacity: 1;
-	color: red;
-	font-weight: 150%;
+	color: #000;
 }
 
-.mytheme .flex-menu .flex-button .selected {
-	color: white;
-	background: red;
+.mytheme .flex-menu .inverted {
+	background: yellow;
+	color: orangered;
+}
+
+.mytheme .flex-menu .flex-button:hover {
+	color: orangered;
+}
+
+.mytheme .flex-menu .flex-button:active {
+	color: orangered;
+}
+
+.mytheme .sub-menu {
+	visibility: hidden;
+}
+
+.mytheme .sub-menu .flex-button {
+	color: #000;
+}
+
+.mytheme .sub-menu .flex-button:hover {
+	color: orangered;
+}
+
+.mytheme .sub-menu:hover {
+	visibility: visible;
+}
+
+.mytheme .sub-menu:hover .flex-button {
+	color: #000;
+}
+
+.mytheme .sub-menu:hover .flex-button:hover {
+	color: orangered;
 }
 
 .mytheme .flex-logo {
@@ -12720,8 +12780,14 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .articles .summaries {
-	background: white;
+	background: transparent;
 	overflow-y: auto;
+	font-size: smaller;
+}
+
+.mytheme .articles .summaries .source-name {
+	color: lightcoral;
+	font-family: monospace;
 }
 
 .mytheme .articles .summaries .article-maximized {
@@ -12744,11 +12810,9 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .articles .summaries .article-minimized {
-	font-family: serif;
-	background: gainsboro;
+	background: yellow;
 	color: black;
 	border-radius: 0%;
-	font-size: smaller;
 }
 
 .mytheme .articles .summaries .article-minimized .info {
@@ -12756,7 +12820,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .articles .summaries .article-minimized .info .article-title {
-	color: royalblue;
+	color: black;
 	font-weight: bold;
 }
 

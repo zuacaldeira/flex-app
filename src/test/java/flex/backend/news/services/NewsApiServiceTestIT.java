@@ -7,6 +7,7 @@ package flex.backend.news.services;
 
 import flex.frontend.ui.news.UITest;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.utils.ServiceLocator;
 
@@ -14,9 +15,9 @@ import org.utils.ServiceLocator;
  *
  * @author zua
  */
-public class NewsApiServiceTest extends UITest {
+public class NewsApiServiceTestIT extends UITest {
     
-    public NewsApiServiceTest() {
+    public NewsApiServiceTestIT() {
     }
 
     @Test
@@ -36,8 +37,8 @@ public class NewsApiServiceTest extends UITest {
         long countAuthors2 = ServiceLocator.getInstance().findAuthorsService().count();
         long countArticles2 = ServiceLocator.getInstance().findArticlesService().count();
         
-        assertEquals(countSources1, countSources2);
-        assertEquals(countAuthors1, countAuthors2);
-        assertEquals(countArticles1, countArticles2);
+        assertTrue(countSources1 <= countSources2);
+        assertTrue(countAuthors1 <= countAuthors2);
+        assertTrue(countArticles1 <= countArticles2);
     }
 }

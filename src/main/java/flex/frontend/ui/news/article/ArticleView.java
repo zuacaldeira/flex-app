@@ -1,16 +1,17 @@
 package flex.frontend.ui.news.article;
 
+import flex.frontend.ui.news.NewsBody;
 import com.vaadin.event.LayoutEvents;
 import flex.frontend.ui.GraphEntityView;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ExternalResource;
-import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 import flex.backend.news.db.NewsArticle;
 import flex.frontend.ui.FlexButton;
 import flex.frontend.ui.news.FlexWindow;
+import java.text.SimpleDateFormat;
 import java.util.Set;
 import org.utils.FlexUtils;
 
@@ -45,8 +46,8 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
         super.addComponent(info);
         super.setSizeFull();
         super.setSpacing(false);
-        super.setMargin(true);
-        super.setMargin(new MarginInfo(false, true, true, true));
+        //super.setMargin(true);
+        //super.setMargin(new MarginInfo(false, true, true, true));
         super.setStyleName("article-minimized");
     }
 
@@ -89,10 +90,6 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
                 this.image.setWidthUndefined();
             }
         }
-        else {
-            this.image = new Image();
-            this.image.setSizeUndefined();
-        }
     }
 
     public Image getImage() {
@@ -130,7 +127,6 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
     }
 
     private void initControls() {
-        initTimeLabel();
         commentButton = new FlexButton("", VaadinIcons.COMMENT);
         commentButton.setDescription("Comment");
         
@@ -154,27 +150,47 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
         initImage();
         initTimeLabel();
         initControls();
-        info = new VerticalLayout(image, title, content, authors, controls);
+        info = new VerticalLayout();
+        if(title != null) {
+            info.addComponent(title);
+        }
+        if(publishedAt != null) {
+            info.addComponent(new HorizontalLayout(publishedAt, new Label("|"), sourceName));
+        }
+        if(image != null) {
+            info.addComponent(image);
+            info.setComponentAlignment(image, Alignment.MIDDLE_CENTER);
+        }
+        if(content != null) {
+            info.addComponent(content);
+        }
+        if(authors != null && authors.getComponentCount() > 0) {
+            info.addComponent(authors);
+        }
+        if(controls != null && controls.getComponentCount() > 0) {
+            info.addComponent(controls);
+        }
         info.setStyleName("info");
         info.setSpacing(false);
         info.setMargin(false);
-        info.setComponentAlignment(image, Alignment.MIDDLE_CENTER);
         minimizeInfo();
     }
     
     private void initSourceName() {
-        if(article.getAuthor().getSource() != null) {
+        if(article.getAuthor() != null && article.getAuthor().getSource() != null) {
             sourceName = new Label(article.getAuthor().getSource().getName());
         }
         else {
             sourceName = new Label("Uknown");
-            sourceName.setStyleName(ValoTheme.LABEL_FAILURE);
         }
+        sourceName.setStyleName(ValoTheme.LABEL_BOLD);
     }
 
     private void initTimeLabel() {
-        String t = article.getPublishedAt();
+        SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yy, HH:mm");
+        String t = format.format(article.getPublishedAt());
         publishedAt = new Label(t);
+        publishedAt.setSizeUndefined();
     }
 
     public Label getPublishedAt() {
@@ -202,38 +218,23 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
     }
 
     public void minimizeInfo() {
-        // No controls
-        controls.setVisible(false);
-        // Only title and authors are left visible
-        publishedAt.setVisible(false);
-        authors.setVisible(false);
         setStyleName("article-minimized");
     }
 
     public void maximizeInfo() {
-        // No controls
-        controls.setVisible(true);
-        
-        // Only title and authors are left visible
-        content.setVisible(true);
-        image.setVisible(true);
-        publishedAt.setVisible(true);   
-        authors.setVisible(true);
-        image.setVisible(true);
-        content.setVisible(true);
         setStyleName("article-maximized");
     }
 
-    private ArticlesBody getArticlesBody() {
+    private NewsBody getArticlesBody() {
         return getArticlesBody(this);
     }
 
-    private ArticlesBody getArticlesBody(Component component) {
+    private NewsBody getArticlesBody(Component component) {
         if(component == null) {
             throw new IllegalArgumentException("Component cannot be null");
         }
-        else if(component instanceof ArticlesBody) {
-            return (ArticlesBody) component;
+        else if(component instanceof NewsBody) {
+            return (NewsBody) component;
         }
         else {
             return getArticlesBody(component.getParent());
@@ -256,7 +257,7 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
             String url = (String) label.getData();
             if(url != null) {
                 getArticlesBody().getBrowserFrame().setSource(new ExternalResource(url));
-                label.setStyleName(ValoTheme.LABEL_SUCCESS);
+                maximizeInfo();
             }
         }
     }

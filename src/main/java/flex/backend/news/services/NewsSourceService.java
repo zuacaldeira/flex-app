@@ -5,12 +5,18 @@
  */
 package flex.backend.news.services;
 
-import flex.backend.news.db.Neo4jQueries;
 import flex.backend.news.Neo4jSessionFactory;
 import flex.backend.news.db.NewsSource;
-import java.util.HashMap;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import org.neo4j.ogm.cypher.ComparisonOperator;
+import org.neo4j.ogm.cypher.Filter;
+import org.neo4j.ogm.cypher.Filters;
+import org.neo4j.ogm.cypher.query.SortOrder;
 import org.neo4j.ogm.session.Session;
 
 /**
@@ -28,13 +34,18 @@ public class NewsSourceService extends AbstractDBService<NewsSource> {
     
     public NewsSource findSourceBySourceId(String sourceId) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        return session.queryForObject(NewsSource.class, 
-                Neo4jQueries.getInstance().findSourceBySourceId(sourceId), 
-                new HashMap<>()); 
+        Filter filter = new Filter("sourceId", ComparisonOperator.EQUALS, sourceId);
+        Collection<NewsSource> collection = session.loadAll(getClassType(), new Filters().add(filter), 2);
+        if(!collection.isEmpty()) {
+            return collection.iterator().next();
+        }
+        else{
+            return null;
+        }
     }
 
     @Override
-    protected NewsSource update(NewsSource dbEntity, NewsSource newEntity) {
+    public NewsSource update(NewsSource dbEntity, NewsSource newEntity) {
         if(newEntity.getCategory() != null) {
             dbEntity.setCategory(newEntity.getCategory());
         }
@@ -58,6 +69,23 @@ public class NewsSourceService extends AbstractDBService<NewsSource> {
         }
         
         return dbEntity;
+    }
+    
+    @Override
+    public SortOrder getSortOrder() {
+        return new SortOrder().add("name");
+    }
+
+    public Collection<String> findCategories() {
+        Set<String> categories = new TreeSet<>();
+        Iterator<NewsSource> it = findAll().iterator();
+        while(it.hasNext()) {
+            NewsSource source = it.next();
+            if(source.getCategory() != null) {
+                categories.add(source.getCategory());
+            }
+        }
+        return categories;
     }
 
 }

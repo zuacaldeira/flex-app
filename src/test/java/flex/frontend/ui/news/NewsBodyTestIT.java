@@ -12,9 +12,9 @@ import org.junit.Test;
  *
  * @author zua
  */
-public class NewsBodyTest extends UITest {
+public class NewsBodyTestIT extends UITest {
     
-    public NewsBodyTest() {
+    public NewsBodyTestIT() {
     }
 
     @Test

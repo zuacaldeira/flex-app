@@ -11,13 +11,13 @@ import com.vaadin.ui.AbsoluteLayout;
  *
  * @author zua
  */
-public abstract class FlexView extends AbsoluteLayout {
+public abstract class FlexMainView extends AbsoluteLayout {
     
     private FlexMenu menu;
     private FlexBody body;
     private FlexFooter footer;
 
-    public FlexView() {
+    public FlexMainView() {
         initMenu();
         initBody();
         initFooter();

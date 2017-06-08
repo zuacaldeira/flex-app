@@ -11,6 +11,7 @@ import flex.backend.news.db.NewsAuthor;
 import java.util.HashMap;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import org.neo4j.ogm.cypher.query.SortOrder;
 import org.neo4j.ogm.session.Session;
 
 /**
@@ -34,7 +35,7 @@ public class NewsAuthorService extends AbstractDBService<NewsAuthor> {
     }
 
     @Override
-    protected NewsAuthor update(NewsAuthor dbEntity, NewsAuthor newEntity) {
+    public NewsAuthor update(NewsAuthor dbEntity, NewsAuthor newEntity) {
         if(newEntity.getName() != null && !newEntity.getName().equals(dbEntity.getName())) {
             dbEntity.setName(newEntity.getName());
         }
@@ -49,6 +50,11 @@ public class NewsAuthorService extends AbstractDBService<NewsAuthor> {
         
         return dbEntity;
         
+    }
+
+    @Override
+    public SortOrder getSortOrder() {
+        return new SortOrder().add("name");
     }
 
 }

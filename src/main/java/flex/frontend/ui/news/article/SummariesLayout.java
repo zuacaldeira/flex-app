@@ -34,5 +34,21 @@ public abstract class SummariesLayout extends VerticalLayout {
         layout.addComponent(c);
     }
 
-        
+    @Override
+    public int getComponentCount() {
+        return layout.getComponentCount();
+    }
+
+    @Override
+    public Component getComponent(int index) throws IndexOutOfBoundsException {
+        return layout.getComponent(index);
+    }
+
+    @Override
+    public void removeComponent(Component c) {
+        layout.removeComponent(c);
+        markAsDirty();
+    }
+
+   
 }

@@ -63,21 +63,85 @@
         font-size: 200%;
     }            
     
+    .welcome {
     .flex-menu {
-        @include linear-gradient(to right, transparent, white);
+        @include linear-gradient(to bottom, yellow, transparent);
         //opacity: 0.5;
+        font-variant: small-caps;
+        font-family: Verdana;
+        opacity: 1;
+        font-weight: 900;
         .flex-button {
-            font-variant: small-caps;
-            opacity: 1;
-            color: red;
-            font-weight: 150%;
-            .selected{
-                color: white;
-                background: red;
-            }
+            color: #000;
+        }
+        .inverted {
+            background: yellow;
+            color: orangered;
+        }
+        .flex-button:hover {
+            color: orangered;
+        }
+        .flex-button:active {
+            color: orangered;
+        }
+    }
+    }
+    
+    .news{
+        
+    }
+    
+    .bantus{
+        
+    }
+    
+    .development{
+        
+    }
+    
+    .flex-menu {
+        @include linear-gradient(to bottom, yellow, transparent);
+        //opacity: 0.5;
+        font-variant: small-caps;
+        font-family: Verdana;
+        opacity: 1;
+        font-weight: 900;
+        .flex-button {
+            color: #000;
+        }
+        .inverted {
+            background: yellow;
+            color: orangered;
+        }
+        .flex-button:hover {
+            color: orangered;
+        }
+        .flex-button:active {
+            color: orangered;
         }
     }
     
+
+        .sub-menu{
+            .flex-button {
+                color: #000;
+            }
+            .flex-button:hover {
+                color: orangered;
+            }
+            visibility: hidden;
+        }
+
+        .sub-menu:hover{
+            .flex-button {
+                color: #000;
+            }
+            .flex-button:hover {
+                color: orangered;
+            }
+            visibility: visible;
+        }
+
     .flex-logo {
         font-weight: lighter;
         color: white;
@@ -103,14 +167,20 @@
 
     .articles {
         .summaries{
-            background: white;
+            background: transparent;
             overflow-y: auto; 
+            font-size: smaller;
+            .source-name{
+                color: lightcoral;
+                font-family: monospace;
+            }
             .article-maximized {
                 background: white;
                 color:black;
                 opacity: 1;
                 font-family: serif;
-                border-radius: 0%;        
+                border-radius: 0%;
+                
                 .info{
                     .article-title {
                         font-weight: bold;
@@ -129,15 +199,14 @@
             }
 
             .article-minimized  {
-                font-family: serif;
-                background: gainsboro;
+                //font-family: serif;
+                background: yellow;
                 color:black;
                 border-radius: 0%;
-                font-size: smaller;
                 .info{
                     opacity: 1;
                     .article-title {
-                        color: royalblue;
+                        color: black;
                         font-weight: bold;
                     }
                 }

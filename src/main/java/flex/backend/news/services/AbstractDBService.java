@@ -11,6 +11,8 @@ import java.util.Collection;
 import org.neo4j.ogm.cypher.ComparisonOperator;
 import org.neo4j.ogm.cypher.Filter;
 import org.neo4j.ogm.cypher.Filters;
+import org.neo4j.ogm.cypher.query.Pagination;
+import org.neo4j.ogm.cypher.query.SortOrder;
 import org.neo4j.ogm.session.Session;
 
 /**
@@ -25,7 +27,7 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
     @Override
     public final Iterable<T> findAll() {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        return session.loadAll(getClassType(), 2);
+        return session.loadAll(getClassType(), getSortOrder(), new Pagination(0, 100), 2);
     }
 
     @Override
@@ -91,6 +93,7 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
     
     
     
-    protected abstract T update(T dbEntity, T newEntity);
+    public abstract T update(T dbEntity, T newEntity);
+    public abstract SortOrder getSortOrder();
 
 }

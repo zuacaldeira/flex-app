@@ -13,9 +13,9 @@ import static org.junit.Assert.*;
  *
  * @author zua
  */
-public class ServiceLocatorTest extends UITest {
+public class ServiceLocatorTestIT extends UITest {
     
-    public ServiceLocatorTest() {
+    public ServiceLocatorTestIT() {
     }
 
     /**

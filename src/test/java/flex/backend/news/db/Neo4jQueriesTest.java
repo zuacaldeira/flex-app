@@ -8,6 +8,7 @@ package flex.backend.news.db;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.util.Date;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
@@ -25,7 +26,7 @@ public class Neo4jQueriesTest {
     @DataProvider
     public static Object[][] queryProvider() {
         return new Object[][] {
-            {new NewsArticle("title", "description", "url", "imageUrl", "publishedAt"), "MATCH (n:NewsArticle{title:\"title\"}) RETURN n"},
+            {new NewsArticle("title", "description", "url", "imageUrl", new Date()), "MATCH (n:NewsArticle{title:\"title\"}) RETURN n"},
             {new NewsSource("sourceId", "name", "description", "url", "category", "language", "country"), "MATCH (n:NewsSource{sourceId:\"sourceId\"}) RETURN n"},
             {new NewsAuthor("name"), "MATCH (n:NewsAuthor{name:\"name\"}) RETURN n"}
         };
@@ -33,7 +34,7 @@ public class Neo4jQueriesTest {
 
     @DataProvider
     public static Object[][] idQueryProvider() {
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", "publishedAt");
+        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date());
         article.setId(100L);
         return new Object[][] {
             {article,
@@ -44,7 +45,7 @@ public class Neo4jQueriesTest {
     @DataProvider
     public static Object[][] articleProvider() {
         return new Object[][] {
-            {new NewsArticle("title", "description", "url", "imageUrl", "publishedAt"), "MATCH (n:NewsArticle{title:\"title\"}) RETURN n"}
+            {new NewsArticle("title", "description", "url", "imageUrl", new Date()), "MATCH (n:NewsArticle{title:\"title\"}) RETURN n"}
         };
     }
 

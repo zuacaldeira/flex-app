@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package flex.frontend.ui.news;
+package flex.frontend.ui.bantu;
 
 import flex.frontend.ui.FlexBody;
 import flex.frontend.ui.FlexFooter;
@@ -14,43 +14,26 @@ import flex.frontend.ui.FlexMainView;
  *
  * @author zua
  */
-public class NewsView extends FlexMainView {
+public class BantuMainView extends FlexMainView {
 
-    public static final int MAX_ARTICLES = 100;
-    
-    public NewsView() {        
+    public BantuMainView() {
     }
 
     @Override
     protected FlexMenu createMenu() {
-        return new NewsMenu();
+        return new BantuMenu();
     }
 
     @Override
     protected FlexBody createBody() {
-        return new NewsBody();
+        return new BantuBody();
     }
 
     @Override
     protected FlexFooter createFooter() {
-        return new FlexFooter();
-    }
-
-    @Override
-    public FlexFooter getFooter() {
-        return super.getFooter(); 
-    }
-
-    @Override
-    public NewsBody getBody() {
-        return (NewsBody) super.getBody(); 
-    }
-
-    @Override
-    public NewsMenu getMenu() {
-        return (NewsMenu) super.getMenu();
+        return new BantuFooter();
     }
     
     
-
+    
 }
