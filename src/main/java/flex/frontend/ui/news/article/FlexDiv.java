@@ -17,7 +17,7 @@ public class FlexDiv extends Label {
     public FlexDiv() {
         super("<hr />", ContentMode.HTML);
         super.setWidth("100%");
-        super.setHeightUndefined();
+        super.setHeight("4px");
     }
     
 }

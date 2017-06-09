@@ -63,7 +63,6 @@
         font-size: 200%;
     }            
     
-    .welcome {
     .flex-menu {
         @include linear-gradient(to bottom, yellow, transparent);
         //opacity: 0.5;
@@ -84,7 +83,6 @@
         .flex-button:active {
             color: orangered;
         }
-    }
     }
     
     .news{
@@ -100,7 +98,7 @@
     }
     
     .flex-menu {
-        @include linear-gradient(to bottom, yellow, transparent);
+        @include linear-gradient(to right, yellow, transparent);
         //opacity: 0.5;
         font-variant: small-caps;
         font-family: Verdana;
@@ -109,14 +107,7 @@
         .flex-button {
             color: #000;
         }
-        .inverted {
-            background: yellow;
-            color: orangered;
-        }
         .flex-button:hover {
-            color: orangered;
-        }
-        .flex-button:active {
             color: orangered;
         }
     }
@@ -167,48 +158,55 @@
 
     .articles {
         .summaries{
-            background: transparent;
-            overflow-y: auto; 
+            @include linear-gradient(to bottom, yellow, transparent);
+            border-radius: 0%;
+            color:black;
+            font-family: serif;
             font-size: smaller;
-            .source-name{
-                color: lightcoral;
-                font-family: monospace;
-            }
-            .article-maximized {
-                background: white;
-                color:black;
-                opacity: 1;
-                font-family: serif;
-                border-radius: 0%;
-                
-                .info{
-                    .article-title {
-                        font-weight: bold;
-                    }
-                    .article-author {
-                        font-style: italic;
-                        text-align: left;
-                        font-variant: small-caps;
-                        color: gray;
-                    }
-                    .article-content {
-                    }
-                    .controls {
-                    }
+            opacity: 1;
+            
+            .article {
+                .source {
+                    color: lightgray;
+                    font-family: monospace;
+                    font-variant: small-caps;
+                    font-size: 125%;
                 }
             }
 
-            .article-minimized  {
-                //font-family: serif;
-                background: yellow;
-                color:black;
-                border-radius: 0%;
-                .info{
-                    opacity: 1;
-                    .article-title {
-                        color: black;
-                        font-weight: bold;
-                    }
+            .article:hover {
+                background: gainsboro;
+                .source {
+                    color: black;
+                    font-family: monospace;
+                    font-variant: small-caps;
+                    font-size: 125%;
+                }
+                .title {
+                    font-weight: bold;
+                    color: black;
+                }
+                .image {
+                    visibility: visible;
+                }
+            }
+            
+            .article-selected {
+                background: white;
+                .source {
+                    color: lightgray;
+                    font-family: monospace;
+                    font-variant: small-caps;
+                    font-size: 125%;
+                }
+                .title {
+                    font-weight: bold;
+                    color: black;
+                    font-size: 125%;
+                }
+                .controls {
+                    visibility: visible;
+                    color: yellow;
                 }
             }
         }

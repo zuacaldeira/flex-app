@@ -12676,33 +12676,6 @@ div.v-layout.v-horizontal.v-widget {
 	font-size: 200%;
 }
 
-.mytheme .welcome .flex-menu {
-	background-color: yellow;
-	background-image: -webkit-linear-gradient(top, yellow, transparent);
-	background-image: linear-gradient(to bottom,yellow, transparent);
-	font-variant: small-caps;
-	font-family: Verdana;
-	opacity: 1;
-	font-weight: 900;
-}
-
-.mytheme .welcome .flex-menu .flex-button {
-	color: #000;
-}
-
-.mytheme .welcome .flex-menu .inverted {
-	background: yellow;
-	color: orangered;
-}
-
-.mytheme .welcome .flex-menu .flex-button:hover {
-	color: orangered;
-}
-
-.mytheme .welcome .flex-menu .flex-button:active {
-	color: orangered;
-}
-
 .mytheme .flex-menu {
 	background-color: yellow;
 	background-image: -webkit-linear-gradient(top, yellow, transparent);
@@ -12727,6 +12700,24 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-menu .flex-button:active {
+	color: orangered;
+}
+
+.mytheme .flex-menu {
+	background-color: yellow;
+	background-image: -webkit-linear-gradient(left, yellow, transparent);
+	background-image: linear-gradient(to right,yellow, transparent);
+	font-variant: small-caps;
+	font-family: Verdana;
+	opacity: 1;
+	font-weight: 900;
+}
+
+.mytheme .flex-menu .flex-button {
+	color: #000;
+}
+
+.mytheme .flex-menu .flex-button:hover {
 	color: orangered;
 }
 
@@ -12780,48 +12771,63 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .articles .summaries {
-	background: transparent;
-	overflow-y: auto;
-	font-size: smaller;
-}
-
-.mytheme .articles .summaries .source-name {
-	color: lightcoral;
-	font-family: monospace;
-}
-
-.mytheme .articles .summaries .article-maximized {
-	background: white;
+	background-color: yellow;
+	background-image: -webkit-linear-gradient(top, yellow, transparent);
+	background-image: linear-gradient(to bottom,yellow, transparent);
+	border-radius: 0%;
 	color: black;
-	opacity: 1;
 	font-family: serif;
-	border-radius: 0%;
-}
-
-.mytheme .articles .summaries .article-maximized .info .article-title {
-	font-weight: bold;
-}
-
-.mytheme .articles .summaries .article-maximized .info .article-author {
-	font-style: italic;
-	text-align: left;
-	font-variant: small-caps;
-	color: gray;
-}
-
-.mytheme .articles .summaries .article-minimized {
-	background: yellow;
-	color: black;
-	border-radius: 0%;
-}
-
-.mytheme .articles .summaries .article-minimized .info {
+	font-size: smaller;
 	opacity: 1;
 }
 
-.mytheme .articles .summaries .article-minimized .info .article-title {
+.mytheme .articles .summaries .article .source {
+	color: lightgray;
+	font-family: monospace;
+	font-variant: small-caps;
+	font-size: 125%;
+}
+
+.mytheme .articles .summaries .article:hover {
+	background: gainsboro;
+}
+
+.mytheme .articles .summaries .article:hover .source {
 	color: black;
+	font-family: monospace;
+	font-variant: small-caps;
+	font-size: 125%;
+}
+
+.mytheme .articles .summaries .article:hover .title {
 	font-weight: bold;
+	color: black;
+}
+
+.mytheme .articles .summaries .article:hover .image {
+	visibility: visible;
+}
+
+.mytheme .articles .summaries .article-selected {
+	background: white;
+}
+
+.mytheme .articles .summaries .article-selected .source {
+	color: lightgray;
+	font-family: monospace;
+	font-variant: small-caps;
+	font-size: 125%;
+}
+
+.mytheme .articles .summaries .article-selected .title {
+	font-weight: bold;
+	color: black;
+	font-size: 125%;
+}
+
+.mytheme .articles .summaries .article-selected .controls {
+	visibility: visible;
+	color: yellow;
 }
 
 .mytheme .sources {

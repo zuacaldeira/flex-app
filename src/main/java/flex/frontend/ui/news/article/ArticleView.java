@@ -48,7 +48,7 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
         super.setSpacing(false);
         //super.setMargin(true);
         //super.setMargin(new MarginInfo(false, true, true, true));
-        super.setStyleName("article-minimized");
+        super.setStyleName("article");
     }
 
     public NewsArticle getArticle() {
@@ -69,19 +69,20 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
 
     private void initTitle() {
         this.title = new Label(article.getTitle());
-        this.title.setStyleName("article-title white-on-black");
+        this.title.setStyleName("title");
         this.title.setSizeFull();
     }
 
     private void initContent() {
         this.content = new Label(article.getDescription());
-        this.content.setStyleName("article-content");
+        this.content.setStyleName("content");
         this.content.setSizeFull();
     }
 
     private void initImage() {
         if(article.getImageUrl() != null) {
             this.image = new Image("", new ExternalResource(article.getImageUrl()));
+            this.image.setStyleName("image");
             if(this.image.getWidth() >= this.image.getHeight()) {
                 this.image.setWidth("100%");
                 this.image.setHeightUndefined();
@@ -106,7 +107,7 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
         article.getAuthors().forEach(a -> {
             Label author = new Label(a.getName());
             author.setSizeUndefined();
-            author.setStyleName(ValoTheme.LABEL_COLORED + " " + "article-author");
+            author.setStyleName("author");
             authors.addComponents(author);
             authors.setComponentAlignment(author, Alignment.MIDDLE_LEFT);
         });
@@ -137,15 +138,17 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
         initTimeLabel();
         initControls();
         info = new VerticalLayout();
-        if(title != null && publishedAt != null) {
-            info.addComponents(publishedAt, title);
+
+        if(sourceName != null) {
+            info.addComponent(sourceName);
         }
-        if(authors != null && sourceName != null) {
-            info.addComponent(new HorizontalLayout(authors, new Label("|"), sourceName));
+        
+        if(title != null) {
+            info.addComponent(title);
         }
+        
         if(image != null) {
             info.addComponent(image);
-            info.setComponentAlignment(image, Alignment.MIDDLE_CENTER);
         }
         if(content != null) {
             info.addComponent(content);
@@ -156,7 +159,6 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
         info.setStyleName("info");
         info.setSpacing(false);
         info.setMargin(false);
-        minimizeInfo();
     }
     
     private void initSourceName() {
@@ -167,11 +169,11 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
         else {
             sourceName = new Label("Uknown");
         }
-        sourceName.setStyleName(ValoTheme.LABEL_BOLD);
+        sourceName.setStyleName(ValoTheme.LABEL_LIGHT + " " + "source");
     }
 
     private void initTimeLabel() {
-        SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yy, HH:mm");
+        SimpleDateFormat format = new SimpleDateFormat("d MMM HH:mm");
         String t = format.format(article.getPublishedAt());
         publishedAt = new Label(t);
         publishedAt.setSizeUndefined();
@@ -201,12 +203,16 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
         return youtubeButton;
     }
 
-    public void minimizeInfo() {
-        setStyleName("article-minimized");
+    public void minimize() {
+        setStyleName("article");
+        content.setVisible(false);
+        controls.setVisible(false);
     }
 
     public void maximizeInfo() {
-        setStyleName("article-maximized");
+        setStyleName("article-selected");
+        content.setVisible(true);
+        controls.setVisible(true);
     }
 
     private NewsBody getArticlesBody() {

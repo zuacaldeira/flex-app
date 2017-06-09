@@ -45,7 +45,7 @@ public class NewsBody extends FlexBody {
 
     private void initSummaries() {
         VerticalLayout panelContent = new VerticalLayout();
-        panelContent.setSpacing(true);
+        panelContent.setSpacing(false);
         panelContent.setMargin(false);
 
         summaries = new FlexPanel(null, panelContent);
@@ -55,6 +55,7 @@ public class NewsBody extends FlexBody {
         
         articles.forEach(article -> {
             ArticleView articleView = FlexViewFactory.getInstance().createArticleView(article);
+            articleView.minimize();
             articleView.addLayoutClickListener((LayoutEvents.LayoutClickEvent event) -> {
                 if(article.getUrl() != null) {
                     browserFrame.setSource(new ExternalResource(article.getUrl()));
@@ -79,12 +80,10 @@ public class NewsBody extends FlexBody {
 
     private void updateSelected(ArticleView articleView) {
         if(selected != null) {
-            selected.setStyleName("article-maximized");
+            selected.minimize();
         }
-        if(articleView != null) {
-            articleView.setStyleName("article-minimized");
-            selected = articleView;
-        }
+        selected = articleView;
+        selected.maximizeInfo();
     }
 
     
