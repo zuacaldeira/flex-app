@@ -15,12 +15,29 @@ public class NewsAuthor extends  GraphEntity implements Comparable<NewsAuthor>{
 
     public static NewsAuthor UNKNOWN = new NewsAuthor("Unknown");
 
+    /**
+     * Author's name. 
+     * 
+     * Names are unique, and the db has a uniqueness constraint on this 
+     * property.
+     */
     @Index(unique=true)
     private String name;
     
+    /**
+     * Author's online presence url.
+     */
+    private String url;
+
+    /**
+     * The news articles authored or co-authored by this author.
+     */
     @Relationship(type = "AUTHORED", direction = Relationship.OUTGOING)
     private Set<NewsArticle> articles;
     
+    /**
+     * The organizations that published a writing belonging to this author.
+     */
     @Relationship(type = "PUBLISHED", direction = Relationship.INCOMING)
     private NewsSource source;
 
@@ -97,7 +114,7 @@ public class NewsAuthor extends  GraphEntity implements Comparable<NewsAuthor>{
 
     public void addArticle(NewsArticle article) {
         articles.add(article);
-        article.setAuthor(this);
+        article.getAuthors().add(this);
     }
 
     public void setSource(NewsSource source) {
@@ -117,6 +134,16 @@ public class NewsAuthor extends  GraphEntity implements Comparable<NewsAuthor>{
     public String getPropertyValue() {
         return name;
     }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+    
+    
 
     
 

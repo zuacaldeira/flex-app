@@ -31,15 +31,22 @@ public class FlexUtils {
         return instance;
     }
     
-    public  Set<NewsAuthor> extractAuthors(String value) {
+    public Set<NewsAuthor> extractAuthors(String value) {
         Set<NewsAuthor> authors = new HashSet<>();
 
-        String[] parts = value.split(",");
-        Set<String> allParts = new HashSet<>(Arrays.asList(parts));
-        for(String part: allParts) {
-            System.out.println("Processing author... " + part.trim());
-            authors.add(new NewsAuthor(part.trim()));
-        }        
+        Set<String> names = extractAuthorsNames(value);
+        names.forEach(name -> {
+            NewsAuthor author = null;
+            if(isUrl(name)) {
+                String justName = extractNameFromUrl(value);
+                author = new NewsAuthor(justName);
+                author.setUrl(name);
+            } else {
+                author = new NewsAuthor(name);
+            }
+            
+            authors.add(author);
+        });
         return authors;
     }
     

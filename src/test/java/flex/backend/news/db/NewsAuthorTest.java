@@ -229,7 +229,7 @@ public class NewsAuthorTest {
         author.addArticle(article);
         
         
-        assertNotNull(article.getAuthor());
+        assertNotNull(article.getAuthors());
         assertFalse(author.getArticles().isEmpty());
         assertTrue(author.getArticles().contains(article));
         

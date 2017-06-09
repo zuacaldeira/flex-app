@@ -11,6 +11,7 @@ import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Date;
+import java.util.Set;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
@@ -19,6 +20,7 @@ import javax.ejb.TimerService;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.utils.FlexUtils;
 
 /**
  * Created by zua on 15/04/17.
@@ -99,7 +101,6 @@ public class NewsApiService {
                 
                 NewsArticle article = new NewsArticle();
                 article.setSourceId(source.getSourceId());
-                NewsAuthor author = null;
                 if(!obj.isNull("title")) {
                     article.setTitle(normalize(obj.getString("title")));
                 }
@@ -121,18 +122,15 @@ public class NewsApiService {
                 
                 String authorName = null;
                 if(!obj.isNull("author")) {
-                    authorName = obj.getString("author");
-                    NewsAuthor tempAuthor = new NewsAuthor(authorName.trim());
-                    NewsAuthor dbAuthor = authorsService.find(tempAuthor);
-                    if(dbAuthor != null) {
-                        author = dbAuthor;
-                    } else {
-                        author = tempAuthor;
-                    }
-                    author.addArticle(article);
-                    source.addCorrespondent(author);
+                    authorName = obj.getString("author").trim();
+                    Set<NewsAuthor> authors = FlexUtils.getInstance().extractAuthors(authorName);
+                    authors.forEach(a -> {
+                        NewsAuthor dbAuthor = authorsService.find(a);
+                        NewsAuthor author = (dbAuthor == null)? a: dbAuthor;
+                        author.addArticle(article);
+                        source.addCorrespondent(author);
+                    });
                 }
-                
                 try {
                     if(!articlesService.contains(article)) {
                         articlesService.save(article);

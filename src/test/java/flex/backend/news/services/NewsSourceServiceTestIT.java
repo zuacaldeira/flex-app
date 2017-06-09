@@ -140,7 +140,7 @@ public class NewsSourceServiceTestIT extends Neo4jTest {
         NewsAuthor author = new NewsAuthor("name");        
         author.addArticle(article);
         
-        assertNotNull(article.getAuthor());
+        assertNotNull(article.getAuthors());
         assertNotNull(author.getArticles());
         assertFalse(author.getArticles().isEmpty());
         assertTrue(author.getArticles().contains(article));

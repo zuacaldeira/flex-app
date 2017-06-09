@@ -9,11 +9,11 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 import flex.backend.news.db.NewsArticle;
+import flex.backend.news.db.NewsSource;
 import flex.frontend.ui.FlexButton;
 import flex.frontend.ui.news.FlexWindow;
 import java.text.SimpleDateFormat;
-import java.util.Set;
-import org.utils.FlexUtils;
+import org.utils.ServiceLocator;
 
 
 /**
@@ -103,27 +103,13 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
         authors.setSpacing(false);
         authors.addLayoutClickListener((LayoutEvents.LayoutClickListener) this);
         
-        if(article.getAuthor() != null) {
-            Set<String> allAuthorsNames = FlexUtils.getInstance().extractAuthorsNames(article.getAuthor().getName());
-            for(String authorName: allAuthorsNames) {
-                //author.setStyleName("article-author");
-                Component author = null;
-                if(FlexUtils.getInstance().isUrl(authorName)) {
-                    author = new Label(FlexUtils.getInstance().extractNameFromUrl(authorName));
-                    ((Label)author).setData(authorName);
-                    author.setSizeUndefined();
-                    author.setStyleName(ValoTheme.LABEL_COLORED);
-                }
-                else {
-                    System.out.println("Not an url... " + authorName);
-                    author = new Label(authorName);
-                    author.setSizeUndefined();
-                    //author.setStyleName(ValoTheme.BUTTON_LINK);
-                }
-                authors.addComponent(author);
-                authors.setComponentAlignment(author, Alignment.MIDDLE_LEFT);
-            }
-        }
+        article.getAuthors().forEach(a -> {
+            Label author = new Label(a.getName());
+            author.setSizeUndefined();
+            author.setStyleName(ValoTheme.LABEL_COLORED + " " + "article-author");
+            authors.addComponents(author);
+            authors.setComponentAlignment(author, Alignment.MIDDLE_LEFT);
+        });
     }
 
     private void initControls() {
@@ -151,11 +137,11 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
         initTimeLabel();
         initControls();
         info = new VerticalLayout();
-        if(title != null) {
-            info.addComponent(title);
+        if(title != null && publishedAt != null) {
+            info.addComponents(publishedAt, title);
         }
-        if(publishedAt != null) {
-            info.addComponent(new HorizontalLayout(publishedAt, new Label("|"), sourceName));
+        if(authors != null && sourceName != null) {
+            info.addComponent(new HorizontalLayout(authors, new Label("|"), sourceName));
         }
         if(image != null) {
             info.addComponent(image);
@@ -163,9 +149,6 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
         }
         if(content != null) {
             info.addComponent(content);
-        }
-        if(authors != null && authors.getComponentCount() > 0) {
-            info.addComponent(authors);
         }
         if(controls != null && controls.getComponentCount() > 0) {
             info.addComponent(controls);
@@ -177,8 +160,9 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
     }
     
     private void initSourceName() {
-        if(article.getAuthor() != null && article.getAuthor().getSource() != null) {
-            sourceName = new Label(article.getAuthor().getSource().getName());
+        NewsSource source = ServiceLocator.getInstance().findSourcesService().findSourceBySourceId(article.getSourceId());
+        if(source != null) {
+            sourceName = new Label(source.getName());
         }
         else {
             sourceName = new Label("Uknown");

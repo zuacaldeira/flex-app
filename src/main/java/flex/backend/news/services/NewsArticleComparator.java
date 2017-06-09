@@ -12,7 +12,7 @@ import java.util.Comparator;
  *
  * @author zua
  */
-public class NewsArticlePublishedAtComparator implements Comparator<NewsArticle> {
+public class NewsArticleComparator implements Comparator<NewsArticle> {
 
     @Override
     public int compare(NewsArticle o1, NewsArticle o2) {

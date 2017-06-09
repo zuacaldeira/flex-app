@@ -44,8 +44,8 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
 
     @Override
     public NewsArticle update(NewsArticle dbEntity, NewsArticle newEntity) {
-        if(newEntity.getAuthor() != null && !newEntity.getAuthor().equals(dbEntity.getAuthor())) {
-            dbEntity.setAuthor(newEntity.getAuthor());
+        if(newEntity.getAuthors() != null && !newEntity.getAuthors().equals(dbEntity.getAuthors())) {
+            dbEntity.setAuthors(newEntity.getAuthors());
         }
         
         if(newEntity.getDescription() != null && newEntity.getDescription().equals(dbEntity.getDescription())) {
@@ -112,7 +112,7 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
     }
 
     private Set<NewsArticle> collectArticles(Collection<NewsSource> sources) {
-        Set<NewsArticle> articles = new TreeSet(new NewsArticlePublishedAtComparator());
+        Set<NewsArticle> articles = new TreeSet(new NewsArticleComparator());
         sources.forEach(s -> {
             s.getCorrespondents().forEach(author -> {
                 articles.addAll(author.getArticles());

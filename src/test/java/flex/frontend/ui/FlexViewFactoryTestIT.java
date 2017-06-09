@@ -17,6 +17,8 @@ import flex.frontend.ui.news.article.ArticleView;
 import flex.frontend.ui.news.author.AuthorView;
 import flex.frontend.ui.news.source.SourceView;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
@@ -74,7 +76,9 @@ public class FlexViewFactoryTestIT extends UITest {
     @DataProvider
     public static Object[][] articlesProvider() {
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date());
-        article.setAuthor(new NewsAuthor("name"));
+        Set<NewsAuthor> authors = new HashSet<>();
+        authors.add(new NewsAuthor("name"));
+        article.setAuthors(authors);
         return new Object[][] {
             {article}
         };

@@ -10,8 +10,10 @@ import flex.backend.news.db.NewsArticle;
 import flex.backend.news.db.NewsAuthor;
 import flex.frontend.ui.news.UITest;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import org.junit.Test;
 
 /**
@@ -32,7 +34,9 @@ public class ArticlesBodyTestIT extends UITest {
         NewsBody body = new NewsBody();
         List<NewsArticle> articles = new LinkedList<>();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date());
-        article.setAuthor(new NewsAuthor("name"));
+        Set<NewsAuthor> authors = new HashSet<>();
+        authors.add(new NewsAuthor("name"));
+        article.setAuthors(authors);
         articles.add(article);
     }
     
