@@ -1,0 +1,23 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package flex.frontend.ui.news.article;
+
+import com.vaadin.ui.Label;
+import java.util.Date;
+import org.utils.FlexUtils;
+
+/**
+ *
+ * @author zua
+ */
+public class DateLabel extends Label {
+
+    public DateLabel(Date date) {
+        super(FlexUtils.formatDate(date));
+        setStyleName("source");
+    }
+    
+}

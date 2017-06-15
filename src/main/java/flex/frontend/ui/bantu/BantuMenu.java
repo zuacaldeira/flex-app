@@ -6,6 +6,7 @@
 package flex.frontend.ui.bantu;
 
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.server.Page;
 import flex.frontend.ui.FlexButton;
 import flex.frontend.ui.FlexMenu;
 
@@ -46,36 +47,57 @@ public class BantuMenu extends FlexMenu {
 
     private void videosButton() {
         videosButton = new FlexButton("Videos", VaadinIcons.YOUTUBE);
+        videosButton.addClickListener(event -> {
+            Page.getCurrent().setLocation("bantus/videos");
+        });
         addComponent(videosButton);
     }
 
     private void documentsButton() {
         documentsButton = new FlexButton("Documents", VaadinIcons.PAPERCLIP);
+        documentsButton.addClickListener(event -> {
+            Page.getCurrent().setLocation("bantus/documents");
+        });
         addComponent(documentsButton);
     }
     
     private void booksButton() {
         booksButton = new FlexButton("Books", VaadinIcons.BOOK);
+        booksButton.addClickListener(event -> {
+            Page.getCurrent().setLocation("bantus/books");
+        });
         addComponent(booksButton);
     }
     
     private void nationsButton() {
         nationsButton = new FlexButton("Nations", VaadinIcons.MAP_MARKER);
+        nationsButton.addClickListener(event -> {
+            Page.getCurrent().setLocation("bantus/nations");
+        });
         addComponent(nationsButton);
     }
     
     private void tribesButton() {
         tribesButton = new FlexButton("Tribes", VaadinIcons.SHIELD);
+        tribesButton.addClickListener(event -> {
+            Page.getCurrent().setLocation("bantus/tribes");
+        });
         addComponent(tribesButton);
     }
 
     private void religionsButton() {
         religionsButton = new FlexButton("Religions", VaadinIcons.SHIELD);
+        religionsButton.addClickListener(event -> {
+            Page.getCurrent().setLocation("bantus/religions");
+        });
         addComponent(religionsButton);
     }
 
     private void timelineButton() {
         timelineButton = new FlexButton("Timeline", VaadinIcons.CALENDAR_CLOCK);
+        timelineButton.addClickListener(event -> {
+            Page.getCurrent().setLocation("bantus/timeline");
+        });
         addComponent(timelineButton);
     }
     

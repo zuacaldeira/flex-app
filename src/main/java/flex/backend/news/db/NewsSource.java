@@ -161,4 +161,9 @@ public class NewsSource extends GraphEntity implements Comparable<NewsSource> {
         return sourceId;
     }
 
+    @Override
+    public boolean hasUrl() {
+        return url != null;
+    }
+
 }

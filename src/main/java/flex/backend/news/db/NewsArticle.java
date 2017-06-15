@@ -163,4 +163,9 @@ public class NewsArticle extends GraphEntity implements Comparable<NewsArticle>{
     public String getPropertyValue() {
         return title;
     }
+
+    @Override
+    public boolean hasUrl() {
+        return url != null;
+    }
 }

@@ -11,8 +11,8 @@ import com.vaadin.server.Page;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.VerticalLayout;
 import flex.backend.news.db.FlexUser;
-import flex.frontend.ui.FlexBody;
 import flex.frontend.ui.news.FlexTextField;
 import org.utils.ServiceLocator;
 
@@ -20,7 +20,7 @@ import org.utils.ServiceLocator;
  *
  * @author zua
  */
-public class LoginForm extends FlexBody implements ClickListener {
+public class LoginForm extends VerticalLayout implements ClickListener {
 
     private final FormLayout formLayout;
     private final FlexTextField username;
@@ -33,7 +33,7 @@ public class LoginForm extends FlexBody implements ClickListener {
         formLayout.addComponents(username, password);
         formLayout.setWidth("200px");
         formLayout.setHeightUndefined();
-        addView(formLayout);
+        addComponent(formLayout);
     }
 
     @Override

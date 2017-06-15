@@ -25,7 +25,7 @@ public class AuthorsBodyTestIT extends UITest {
     public void testAddAuthors() {
         System.out.println("addAuthors");
         AuthorsBody body = new AuthorsBody();
-        assertNotNull(body.getLayout());
+        assertNotNull(body.getBrowserFrame());
         
     }
 }

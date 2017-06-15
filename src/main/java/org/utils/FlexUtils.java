@@ -6,7 +6,9 @@
 package org.utils;
 
 import flex.backend.news.db.NewsAuthor;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,6 +19,12 @@ import java.util.Set;
 public class FlexUtils {
     
     private static FlexUtils instance;
+
+    public static String formatDate(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        String t = format.format(date).toLowerCase();
+        return t;
+    }
 
     public boolean isUrl(String value) {
         return value.trim().toLowerCase().startsWith("http");
@@ -36,6 +44,7 @@ public class FlexUtils {
 
         Set<String> names = extractAuthorsNames(value);
         names.forEach(name -> {
+            name = name.trim();
             NewsAuthor author = null;
             if(isUrl(name)) {
                 String justName = extractNameFromUrl(value);
@@ -51,7 +60,7 @@ public class FlexUtils {
     }
     
     public  Set<String> extractAuthorsNames(String value) {
-        String[] parts = value.split(",");
+        String[] parts = value.split(", ");
         Set<String> allParts = new HashSet<>(Arrays.asList(parts));
         allParts.forEach((part) -> {
             part = part.trim();

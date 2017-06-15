@@ -26,7 +26,7 @@ public class LoginView extends FlexMainView {
 
     @Override
     protected FlexBody createBody() {
-        return new WelcomeView();
+        return new LoginBody();
     }
 
     @Override

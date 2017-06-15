@@ -23,5 +23,6 @@ public abstract class GraphEntity {
     
     public abstract String getPropertyName();
     public abstract String getPropertyValue();
-    
+    public abstract boolean hasUrl();
+    public abstract String getUrl();
 }

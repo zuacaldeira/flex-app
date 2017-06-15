@@ -5,9 +5,12 @@
  */
 package flex.frontend.ui.bantu;
 
+import flex.frontend.ui.SecuredUI;
+import flex.frontend.ui.bantu.videos.VideoMainView;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinServlet;
 import flex.frontend.ui.FlexMainView;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +35,11 @@ public class BantuUI extends SecuredUI {
     
     @Override
     protected FlexMainView createMainView() {
+        String currentLocation = Page.getCurrent().getLocation().getPath();
+        System.out.println("currentLocation -> " + currentLocation);
+        if(currentLocation.endsWith("videos")) {
+            return new VideoMainView();
+        }
         return new BantuMainView();
     }
     

@@ -41,7 +41,8 @@ public class SourceViewTest {
     @UseDataProvider("sourcesProvider")
     public void testGetNewsSource(SourceView view, NewsSource source) {
         System.out.println("getApiSource");
-        assertEquals(source, view.getSource());
+        assertNotNull(view.getItem());
+        assertEquals(source.getSourceId(), view.getItem().getSourceId());
     }
 
     /**

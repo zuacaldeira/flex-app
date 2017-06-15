@@ -17,21 +17,21 @@ public class FlexButton extends Button {
 
     public FlexButton() {
         setStyleName(ValoTheme.BUTTON_BORDERLESS);
-        addStyleName("flex-button");
+        addStyleName("flex-button action");
         setSizeFull();
     }
 
     public FlexButton(String caption) {
         super(caption);
         setStyleName(ValoTheme.BUTTON_BORDERLESS);
-        addStyleName("flex-button");
+        addStyleName("flex-button  action");
         setSizeFull();
     }
 
     public FlexButton(Resource icon) {
         super(icon);
         setStyleName(ValoTheme.BUTTON_BORDERLESS);
-        addStyleName("flex-button");
+        addStyleName("flex-button  action");
         setSizeFull();
     }
     
@@ -39,7 +39,7 @@ public class FlexButton extends Button {
     public FlexButton(String caption, Resource icon) {
         super(caption, icon);
         setStyleName(ValoTheme.BUTTON_BORDERLESS);
-        addStyleName("flex-button");
+        addStyleName("flex-button  action");
         setSizeFull();
     }
 }

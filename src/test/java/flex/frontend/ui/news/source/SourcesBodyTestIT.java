@@ -21,7 +21,7 @@ public class SourcesBodyTestIT extends UITest {
     @Test
     public void testSomeMethod() {
         SourcesBody body = new SourcesBody();        
-        assertNotNull(body.getLayout());
+        assertNotNull(body.getBrowserFrame());
     }
     
 }

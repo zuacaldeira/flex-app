@@ -12721,30 +12721,6 @@ div.v-layout.v-horizontal.v-widget {
 	color: orangered;
 }
 
-.mytheme .sub-menu {
-	visibility: hidden;
-}
-
-.mytheme .sub-menu .flex-button {
-	color: #000;
-}
-
-.mytheme .sub-menu .flex-button:hover {
-	color: orangered;
-}
-
-.mytheme .sub-menu:hover {
-	visibility: visible;
-}
-
-.mytheme .sub-menu:hover .flex-button {
-	color: #000;
-}
-
-.mytheme .sub-menu:hover .flex-button:hover {
-	color: orangered;
-}
-
 .mytheme .flex-logo {
 	font-weight: lighter;
 	color: white;
@@ -12770,7 +12746,7 @@ div.v-layout.v-horizontal.v-widget {
 	color: white;
 }
 
-.mytheme .articles .summaries {
+.mytheme .items .summaries {
 	background-color: yellow;
 	background-image: -webkit-linear-gradient(top, yellow, transparent);
 	background-image: linear-gradient(to bottom,yellow, transparent);
@@ -12781,57 +12757,69 @@ div.v-layout.v-horizontal.v-widget {
 	opacity: 1;
 }
 
-.mytheme .articles .summaries .article .source {
+.mytheme .items .summaries .item .source {
 	color: lightgray;
 	font-family: monospace;
 	font-variant: small-caps;
 	font-size: 125%;
 }
 
-.mytheme .articles .summaries .article:hover {
+.mytheme .items .summaries .item:hover {
 	background: gainsboro;
 }
 
-.mytheme .articles .summaries .article:hover .source {
+.mytheme .items .summaries .item:hover .source {
 	color: black;
 	font-family: monospace;
 	font-variant: small-caps;
 	font-size: 125%;
 }
 
-.mytheme .articles .summaries .article:hover .title {
+.mytheme .items .summaries .item:hover .title {
 	font-weight: bold;
 	color: black;
 }
 
-.mytheme .articles .summaries .article:hover .image {
+.mytheme .items .summaries .item:hover .image {
 	visibility: visible;
 }
 
-.mytheme .articles .summaries .article-selected {
+.mytheme .items .summaries .item-selected {
 	background: white;
 }
 
-.mytheme .articles .summaries .article-selected .source {
+.mytheme .items .summaries .item-selected .source {
 	color: lightgray;
 	font-family: monospace;
 	font-variant: small-caps;
 	font-size: 125%;
 }
 
-.mytheme .articles .summaries .article-selected .title {
+.mytheme .items .summaries .item-selected .title {
 	font-weight: bold;
 	color: black;
 	font-size: 125%;
 }
 
-.mytheme .articles .summaries .article-selected .controls {
+.mytheme .items .summaries .item-selected .controls {
 	visibility: visible;
 	color: yellow;
 }
 
-.mytheme .sources {
-	opacity: 1;
+.mytheme .action {
+	color: yellowgreen;
+	font-family: monospace;
+	font-variant: all-caps;
+	-webkit-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+}
+
+.mytheme .action:hover {
+	color: green;
+	font-family: monospace;
+	font-variant: all-caps;
+	font-size: larger;
+	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
 .mytheme .category-general {

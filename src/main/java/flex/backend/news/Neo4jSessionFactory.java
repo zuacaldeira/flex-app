@@ -41,7 +41,7 @@ public class Neo4jSessionFactory {
 
         Configuration.Builder builder = new Configuration.Builder();
         configuration = builder.uri(DATABASE_URL).credentials(USERNAME, PASSWORD).autoIndex("validate").build();
-        sessionFactory = new SessionFactory(configuration, "flex.backend.news.db");
+        sessionFactory = new SessionFactory(configuration, "flex.backend.news.db", "flex.backend.bantus.db");
     }
     
     public static Neo4jSessionFactory getInstance() {

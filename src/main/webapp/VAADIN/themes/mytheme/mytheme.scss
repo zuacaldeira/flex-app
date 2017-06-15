@@ -113,26 +113,6 @@
     }
     
 
-        .sub-menu{
-            .flex-button {
-                color: #000;
-            }
-            .flex-button:hover {
-                color: orangered;
-            }
-            visibility: hidden;
-        }
-
-        .sub-menu:hover{
-            .flex-button {
-                color: #000;
-            }
-            .flex-button:hover {
-                color: orangered;
-            }
-            visibility: visible;
-        }
-
     .flex-logo {
         font-weight: lighter;
         color: white;
@@ -156,7 +136,7 @@
         color:white;
     }
 
-    .articles {
+    .items {
         .summaries{
             @include linear-gradient(to bottom, yellow, transparent);
             border-radius: 0%;
@@ -165,7 +145,7 @@
             font-size: smaller;
             opacity: 1;
             
-            .article {
+            .item {
                 .source {
                     color: lightgray;
                     font-family: monospace;
@@ -174,7 +154,7 @@
                 }
             }
 
-            .article:hover {
+            .item:hover {
                 background: gainsboro;
                 .source {
                     color: black;
@@ -191,7 +171,7 @@
                 }
             }
             
-            .article-selected {
+            .item-selected {
                 background: white;
                 .source {
                     color: lightgray;
@@ -212,12 +192,20 @@
         }
     }
 
-    
-    .sources {
-        opacity: 1;
-        .source {}      
+    .action{
+        color: yellowgreen;
+        font-family: monospace;
+        font-variant: all-caps;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
     }
-    
+    .action:hover {
+        color: green;
+        font-family: monospace;
+        font-variant: all-caps;
+        font-size: larger;
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
     
     .category-general {
         background: #00ace0;
@@ -272,5 +260,6 @@
             font-size: 300%;
         }
     }
+    
         
 }

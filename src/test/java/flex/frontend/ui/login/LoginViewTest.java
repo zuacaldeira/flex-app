@@ -27,6 +27,6 @@ public class LoginViewTest {
     @Test
     public void testExistenceOfFormlayout() {
         LoginView loginView = new LoginView();
-        assertNotNull((WelcomeView)loginView.getBody());
+        assertNotNull(loginView.getBody());
     }
 }

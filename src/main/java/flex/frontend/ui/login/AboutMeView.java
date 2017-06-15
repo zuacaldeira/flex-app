@@ -15,9 +15,4 @@ public class AboutMeView extends FlexBody {
 
     public AboutMeView() {
     }
-    
-    
-    
-
-    
 }

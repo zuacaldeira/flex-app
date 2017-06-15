@@ -16,7 +16,7 @@ public class NewsArticleComparator implements Comparator<NewsArticle> {
 
     @Override
     public int compare(NewsArticle o1, NewsArticle o2) {
-        return o1.getPublishedAt().compareTo(o2.getPublishedAt());
+        return -o1.getPublishedAt().compareTo(o2.getPublishedAt());
     }
 
     

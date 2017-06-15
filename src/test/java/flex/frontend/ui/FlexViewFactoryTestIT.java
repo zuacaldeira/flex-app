@@ -41,7 +41,7 @@ public class FlexViewFactoryTestIT extends UITest {
     public void testCreateSourceView(NewsSource source) {
         System.out.println("createSourceView");
         SourceView view = FlexViewFactory.getInstance().createSourceView(source);
-        assertEquals(source, view.getSource());
+        assertEquals(source, view.getItem());
         assertEquals(source.getName(), view.getName().getValue());
         assertEquals(source.getCategory(), view.getCategory().getValue());
         assertEquals(source.getDescription(), view.getDesc().getValue());

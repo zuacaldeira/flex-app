@@ -2,26 +2,21 @@
 package flex.frontend.ui.news.author;
 
 import flex.backend.news.db.NewsAuthor;
-import flex.frontend.ui.FlexBody;
-import flex.frontend.ui.FlexViewFactory;
+import flex.backend.news.services.AbstractDBService;
+import flex.frontend.ui.crud.CrudBody;
 import org.utils.ServiceLocator;
 
 /**
  * Created by zua on 13/04/17.
  */
-public class AuthorsBody extends FlexBody {
+public class AuthorsBody extends CrudBody<NewsAuthor> {
 
     public AuthorsBody() {
-        initAuthors();
     }
 
-    private void initAuthors() {
-        addAuthors(ServiceLocator.getInstance().findAuthorsService().findAll());
+    @Override
+    protected AbstractDBService<NewsAuthor> getService() {
+        return ServiceLocator.getInstance().findAuthorsService();
     }
 
-    public void addAuthors(Iterable<NewsAuthor> authors) {
-        authors.forEach((author) -> {
-            addView(FlexViewFactory.getInstance().createAuthorView(author));
-        });
-    }
 }

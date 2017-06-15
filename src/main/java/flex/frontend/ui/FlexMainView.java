@@ -6,6 +6,7 @@
 package flex.frontend.ui;
 
 import com.vaadin.ui.AbsoluteLayout;
+import flex.backend.news.db.FlexUser;
 
 /**
  *
@@ -75,6 +76,9 @@ public abstract class FlexMainView extends AbsoluteLayout {
         setBody(flexBody);
     }
     
+    public FlexUser getFlexUser() {
+        return ((SecuredUI)getUI()).getFlexUser();
+    }
 
 
     protected abstract FlexMenu createMenu();

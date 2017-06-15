@@ -113,11 +113,15 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
 
     private Set<NewsArticle> collectArticles(Collection<NewsSource> sources) {
         Set<NewsArticle> articles = new TreeSet(new NewsArticleComparator());
-        sources.forEach(s -> {
-            s.getCorrespondents().forEach(author -> {
+        
+        for(NewsSource source: sources) {
+            source.getCorrespondents().forEach(author -> {
                 articles.addAll(author.getArticles());
             });
-        });
+            if(articles.size() >= 50) {
+                return articles;
+            }
+        }
         return articles;
     }
 }

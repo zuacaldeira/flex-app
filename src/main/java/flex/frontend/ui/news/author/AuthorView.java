@@ -8,59 +8,47 @@ import flex.frontend.ui.GraphEntityView;
 /**
  * Created by zua on 13/04/17.
  */
-public class AuthorView extends GraphEntityView {
-    private final NewsAuthor author;
+public class AuthorView extends GraphEntityView<NewsAuthor> {
     private Label name;
-    private VerticalLayout info;
-    private HorizontalLayout controls;
 
     public AuthorView(NewsAuthor author) {
-        this.author = author;
-        initName();
-        initInfo();
-        initControls();
-        setSizeFull();
-        addComponents(info);
-        setStyleName("article");
-        setMargin(false);
+        super(author);
     }
 
+    
     private void initName() {
-        if(author.getName() != null) {
-            name = new Label(author.getName());
+        if(getItem() != null && getItem().getName() != null) {
+            name = new Label(getItem().getName());
         }
-    }
-
-
-    private void initInfo() {
-        info = new VerticalLayout();
-        if(name != null) {
-            info.addComponent(name);
-        }
-    }
-
-    private void initControls() {
-        controls = new HorizontalLayout();
     }
 
     public Label getName() {
         return name;
     }
 
-    public VerticalLayout getInfo() {
-        return info;
-    }
-
-    public HorizontalLayout getControls() {
-        return controls;
-    }
 
     public NewsAuthor getAuthor() {
-        return author;
+        return getItem();
     }
-    
-    
-    
-    
+
+    @Override
+    public void minimize() {
+    }
+
+    @Override
+    public void maximize() {
+    }
+
+    @Override
+    public AbstractOrderedLayout createInfoHeader() {
+        initName();
+        return new HorizontalLayout(name);
+    }
+
+    @Override
+    public AbstractOrderedLayout createInfoBody() {
+        return new VerticalLayout();
+    }
+
 
 }

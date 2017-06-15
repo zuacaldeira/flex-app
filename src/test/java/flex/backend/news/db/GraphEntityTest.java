@@ -50,6 +50,16 @@ public class GraphEntityTest {
         public String getPropertyValue() {
             return "value";
         }
+
+        @Override
+        public boolean hasUrl() {
+            return false;
+        }
+
+        @Override
+        public String getUrl() {
+            return null;
+        }
     }
     
 }

@@ -40,7 +40,7 @@ public class AuthorViewTest {
     @UseDataProvider("authorsProvider")
     public void testGetInfo(AuthorView view, NewsAuthor author) {
         System.out.println("getInfo");
-        assertNotNull(view.getInfo());
+        assertNotNull(view.getInfoHeader());
     }
 
     /**
@@ -50,7 +50,7 @@ public class AuthorViewTest {
     @UseDataProvider("authorsProvider")
     public void testGetControls(AuthorView view, NewsAuthor author) {
         System.out.println("getControls");
-        assertNotNull(view.getControls());
+        assertNotNull(view.getInfoActions());
     }
 
     /**

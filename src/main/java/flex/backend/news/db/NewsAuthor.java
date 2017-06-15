@@ -142,6 +142,11 @@ public class NewsAuthor extends  GraphEntity implements Comparable<NewsAuthor>{
     public String getUrl() {
         return url;
     }
+
+    @Override
+    public boolean hasUrl() {
+        return url != null;
+    }
     
     
 

@@ -63,6 +63,16 @@ public class FlexUser extends GraphEntity{
     public boolean hasRead(NewsArticle article) {
         return read.contains(article);
     }
+
+    @Override
+    public boolean hasUrl() {
+        return false;
+    }
+
+    @Override
+    public String getUrl() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
     
     
