@@ -5,9 +5,9 @@
  */
 package flex.frontend.ui;
 
-import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 
@@ -17,35 +17,55 @@ import com.vaadin.ui.VerticalLayout;
  */
 public abstract class FlexMenu extends VerticalLayout {
 
-    private AbstractOrderedLayout topMenu;
+    private FlexButton selected;
+    private HorizontalLayout menu;
     
     public FlexMenu() {
         super.setSizeUndefined();
         super.setMargin(false);
         super.setSpacing(false);
         super.setStyleName("flex-menu");
-        super.setDefaultComponentAlignment(Alignment.MIDDLE_RIGHT);
-        this.initTopMenu();
+        super.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
+        this.initMenu();
         this.addActions();
     }
 
-    private void initTopMenu() {
-        topMenu = new HorizontalLayout();
-        topMenu.setSizeUndefined();
-        super.addComponent(topMenu);
+    private void initMenu() {
+        menu = new HorizontalLayout();
+        menu.setSizeUndefined();
+        super.addComponent(menu);
     }
 
     @Override
     public void addComponent(Component c) {
-        topMenu.addComponent(c);
+        menu.addComponent(c);
     }
 
-    public AbstractOrderedLayout getTopMenu() {
-        return topMenu;
+    public FlexMainView getMainView() {
+        return getMainView(getParent());
     }
-    
     
     
     protected abstract void addActions();
+
+    private FlexMainView getMainView(HasComponents parent) {
+        if(parent == null) {
+            return null;
+        }
+        if(parent instanceof FlexMainView) {
+            return (FlexMainView) parent;
+        }
+        else {
+            return getMainView(parent.getParent());
+        }
+    }
+    
+    public void setSelected(FlexButton button) {
+        if(selected != null) {
+            selected.unselect();
+        }
+        button.select();
+        selected = button;
+    }
     
 }

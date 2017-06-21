@@ -5,6 +5,7 @@
  */
 package flex.frontend.ui.bantu.videos;
 
+import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Notification;
@@ -87,7 +88,7 @@ public class VideoMainView extends CrudMainView<FlexVideo>  implements ClickList
             try{
                 FlexVideoService service = ServiceLocator.getInstance().findVideoService();
                 service.save(newVideo);
-                getBody().getSummaries().addComponent(FlexViewFactory.getInstance().createView(newVideo));
+                ((AbstractOrderedLayout) getBody().getContent()).addComponent(FlexViewFactory.getInstance().createView(newVideo));
             } catch(CypherException ce) {
                 Notification.show("Video already exists", Type.WARNING_MESSAGE);
             } finally {

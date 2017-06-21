@@ -8,11 +8,7 @@ package flex.backend.news.services;
 import flex.backend.news.db.Neo4jQueries;
 import flex.backend.news.Neo4jSessionFactory;
 import flex.backend.news.db.NewsArticle;
-import flex.backend.news.db.NewsSource;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Set;
-import java.util.TreeSet;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import org.neo4j.ogm.cypher.ComparisonOperator;
@@ -20,6 +16,7 @@ import org.neo4j.ogm.cypher.Filter;
 import org.neo4j.ogm.cypher.Filters;
 import org.neo4j.ogm.cypher.query.SortOrder;
 import org.neo4j.ogm.session.Session;
+import org.utils.FlexUtils;
 
 /**
  *
@@ -93,35 +90,23 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
     public SortOrder getSortOrder() {
         return new SortOrder().add(SortOrder.Direction.DESC, "publishedAt");
     }
-
-    public Set<NewsArticle> findAll(String category) {
-        Filter filter = new Filter("category", ComparisonOperator.EQUALS, category);
-
+    
+    
+    public Iterable<NewsArticle> findArticlesWithCategory(String category, int limit) {
+        String query = "MATCH (source:NewsSource)--(author:NewsAuthor)--(article:NewsArticle)";
+        query += " WHERE source.category=" + FlexUtils.getInstance().wrapUp(category);
+        query += " RETURN article ";
+        query += " ORDER BY article.publishedAt DESC LIMIT " + limit;
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        Collection<NewsSource> sources = session.loadAll(NewsSource.class, filter, getSortOrder(), 2);
-        return collectArticles(sources);
+        return session.query(getClassType(), query, new HashMap<>());
     }
 
-    public Set<NewsArticle> findAll(String category, String language) {
-        Filter filterCategory = new Filter("category", ComparisonOperator.EQUALS, category);
-        Filter filterLanguage = new Filter("language", ComparisonOperator.EQUALS, language);
-        Filters filters = new Filters(filterCategory, filterLanguage);
+    public Iterable<NewsArticle> findArticlesWithSource(String publisher) {
+        String query = "MATCH (source:NewsSource)--(author:NewsAuthor)--(article:NewsArticle)";
+        query += " WHERE source.name=" + FlexUtils.getInstance().wrapUp(publisher);
+        query += " RETURN article ";
+        query += " ORDER BY article.publishedAt DESC LIMIT " + MAX_SIZE;
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        Collection<NewsSource> sources = session.loadAll(NewsSource.class, filters, getSortOrder(), 2);
-        return collectArticles(sources);
-    }
-
-    private Set<NewsArticle> collectArticles(Collection<NewsSource> sources) {
-        Set<NewsArticle> articles = new TreeSet(new NewsArticleComparator());
-        
-        for(NewsSource source: sources) {
-            source.getCorrespondents().forEach(author -> {
-                articles.addAll(author.getArticles());
-            });
-            if(articles.size() >= 50) {
-                return articles;
-            }
-        }
-        return articles;
+        return session.query(getClassType(), query, new HashMap<>());
     }
 }

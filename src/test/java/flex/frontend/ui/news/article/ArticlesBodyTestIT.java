@@ -5,7 +5,6 @@
  */
 package flex.frontend.ui.news.article;
 
-import flex.frontend.ui.news.NewsBody;
 import flex.backend.news.db.NewsArticle;
 import flex.backend.news.db.NewsAuthor;
 import flex.frontend.ui.news.UITest;
@@ -31,7 +30,6 @@ public class ArticlesBodyTestIT extends UITest {
     @Test
     public void testAddArticles()  {
         System.out.println("addArticles");
-        NewsBody body = new NewsBody();
         List<NewsArticle> articles = new LinkedList<>();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date());
         Set<NewsAuthor> authors = new HashSet<>();

@@ -28,7 +28,9 @@ public class NewsView extends FlexMainView {
 
     @Override
     protected FlexBody createBody() {
-        return new NewsBody();
+        NewsBody myBody = new NewsBody();
+        //myBody.addItems();
+        return myBody;
     }
 
     @Override

@@ -14,5 +14,6 @@ import flex.frontend.ui.news.article.FlexPanel;
 public abstract class FlexBody extends FlexPanel {
     public FlexBody() {
         super.addStyleName("flex-body");
+        setSizeFull();
     }
 }

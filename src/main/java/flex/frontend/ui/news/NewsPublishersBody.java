@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package flex.frontend.ui.bantu.videos;
+package flex.frontend.ui.news;
 
-import flex.backend.bantus.db.FlexVideo;
-import flex.backend.news.services.AbstractDBService;
+import flex.backend.news.db.NewsSource;
+import flex.backend.news.services.NewsSourceService;
 import flex.frontend.ui.crud.CrudBody;
 import org.utils.ServiceLocator;
 
@@ -14,16 +14,15 @@ import org.utils.ServiceLocator;
  *
  * @author zua
  */
-public class VideoBody extends CrudBody<FlexVideo> {
+public class NewsPublishersBody extends CrudBody<NewsSource> {
 
-    public VideoBody() {
+    public NewsPublishersBody() {
         forceGrid();
     }
 
     @Override
-    protected AbstractDBService<FlexVideo> getService() {
-        return ServiceLocator.getInstance().findVideoService();
+    protected NewsSourceService getService() {
+        return ServiceLocator.getInstance().findSourcesService();
     }
-
     
 }

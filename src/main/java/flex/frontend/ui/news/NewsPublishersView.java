@@ -20,17 +20,17 @@ public class NewsPublishersView extends NewsView {
 
     @Override
     protected FlexMenu createMenu() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new NewsPublishersMenu();
     }
 
     @Override
     protected FlexBody createBody() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new NewsPublishersBody();
     }
 
     @Override
     protected FlexFooter createFooter() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return super.createFooter();
     }
     
 }

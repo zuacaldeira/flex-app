@@ -35,8 +35,8 @@ public class NewsUI extends SecuredUI {
     protected FlexMainView createMainView() {
         String currentLocation = Page.getCurrent().getLocation().getPath();
         System.out.println("currentLocation -> " + currentLocation);
-        if(currentLocation.endsWith("categories")) {
-            return new NewsCategoriesView();
+        if(currentLocation.contains("categories")) {
+            return new NewsCategoriesView();                
         }
         else if(currentLocation.endsWith("publishers")) {
             return new NewsPublishersView();
@@ -53,7 +53,7 @@ public class NewsUI extends SecuredUI {
     public NewsView getContent() {
         return (NewsView) super.getContent();
     }
-
+    
     @WebServlet(urlPatterns = "/news/*", name = "NewsUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = NewsUI.class, productionMode = false)
     public static class NewsUIServlet extends VaadinServlet {

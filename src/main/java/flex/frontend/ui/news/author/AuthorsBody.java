@@ -12,6 +12,7 @@ import org.utils.ServiceLocator;
 public class AuthorsBody extends CrudBody<NewsAuthor> {
 
     public AuthorsBody() {
+        forceSplit();
     }
 
     @Override

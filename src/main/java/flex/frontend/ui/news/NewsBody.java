@@ -12,6 +12,7 @@ public class NewsBody extends CrudBody<NewsArticle> {
 
     
     public NewsBody() {
+        forceSplit();
     }
 
     @Override

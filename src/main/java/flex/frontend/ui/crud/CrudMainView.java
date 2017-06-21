@@ -14,16 +14,15 @@ import flex.frontend.ui.FlexMainView;
  * @param <T>
  */
 public abstract class CrudMainView<T extends GraphEntity> extends FlexMainView {
-
  
     @Override
     public CrudBody<T> getBody() {
-        return (CrudBody<T>) super.getBody(); //To change body of generated methods, choose Tools | Templates.
+        return (CrudBody<T>) super.getBody();
     }
 
     @Override
     public CrudMenu getMenu() {
-        return (CrudMenu)super.getMenu(); //To change body of generated methods, choose Tools | Templates.
+        return (CrudMenu)super.getMenu();
     }
 
     

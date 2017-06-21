@@ -11,7 +11,7 @@ import org.utils.ServiceLocator;
 public class SourcesBody extends CrudBody<NewsSource> {
 
     public SourcesBody() {
-        super();
+        forceSplit();
     }
 
     @Override

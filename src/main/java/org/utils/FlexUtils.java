@@ -26,6 +26,10 @@ public class FlexUtils {
         return t;
     }
 
+    public String wrapUp(String category) {
+        return "\'" + category + "\'";
+    }
+
     public boolean isUrl(String value) {
         return value.trim().toLowerCase().startsWith("http");
     }

@@ -61,7 +61,7 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
         HorizontalLayout actions = new HorizontalLayout(commentButton, editButton, hideButton, deleteButton);
         actions.setSizeUndefined();
         actions.setStyleName("controls");
-        actions.setMargin(false);
+        actions.setMargin(new MarginInfo(false, false, true, false));
         actions.setSpacing(false);
         return actions;
     }

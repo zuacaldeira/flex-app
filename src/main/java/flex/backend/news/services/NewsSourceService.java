@@ -8,6 +8,7 @@ package flex.backend.news.services;
 import flex.backend.news.Neo4jSessionFactory;
 import flex.backend.news.db.NewsSource;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -87,5 +88,12 @@ public class NewsSourceService extends AbstractDBService<NewsSource> {
         }
         return categories;
     }
+
+    public Iterable<String> findNames() {
+        String query = "MATCH (s:NewsSource) RETURN s.name";
+        Session session = super.getSession();
+        return session.query(String.class, query, new HashMap());
+    }
+
 
 }

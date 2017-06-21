@@ -5,8 +5,13 @@
  */
 package flex.frontend.ui;
 
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+import akka.actor.Props;
 import com.vaadin.ui.AbsoluteLayout;
+import com.vaadin.ui.Notification;
 import flex.backend.news.db.FlexUser;
+import flex.frontend.ui.crud.MVCActor;
 
 /**
  *
@@ -17,22 +22,31 @@ public abstract class FlexMainView extends AbsoluteLayout {
     private FlexMenu menu;
     private FlexBody body;
     private FlexFooter footer;
+    private ActorSystem actorSystem;
+    private ActorRef actorRef;
+    
 
     public FlexMainView() {
+        initActorSystem();
         initMenu();
         initBody();
         initFooter();
         setStyleName("flex-view");
         setSizeFull();
-        addComponent(body, "top:1cm; bottom:0cm");
-        addComponent(footer, "bottom:0%");
-        addComponent(menu, "top:0%");
+        addComponent(body, getBodyStyle());
+        addComponent(footer, getFooterStyle());
+        addComponent(menu, getMenuStyle());
     }
 
+    private void initActorSystem() {
+        actorSystem = ActorSystem.create("TypeSystem_Flex");
+        actorRef = actorSystem.actorOf(Props.create(MVCActor.class));
+    }
+    
     private void initMenu() {
         setMenu(createMenu());
         menu.setWidth("100%");
-        menu.setHeightUndefined();
+        menu.setHeight(getTopPosition());
     }
 
     private void initBody() {
@@ -48,6 +62,26 @@ public abstract class FlexMainView extends AbsoluteLayout {
 
     public void setBody(FlexBody flexBody) {
         body = flexBody;
+    }
+    
+    private String getBodyStyle() {
+        return "top:" + getTopPosition() + "; " + "bottom:" + getBottomPosition();
+    }
+
+    private String getTopPosition() {
+        return "1.5cm";
+    }
+    
+    private String getBottomPosition() {
+        return "1cm";
+    }
+    
+    private String getFooterStyle() {
+        return "bottom:0%";
+    }
+    
+    private String getMenuStyle() {
+        return "top:0%";
     }
 
     public void setMenu(FlexMenu menu) {
@@ -74,14 +108,22 @@ public abstract class FlexMainView extends AbsoluteLayout {
     public void replaceBody(FlexBody flexBody) {
         replaceComponent(body, flexBody);
         setBody(flexBody);
+        Notification.show("Body Set");
     }
     
     public FlexUser getFlexUser() {
         return ((SecuredUI)getUI()).getFlexUser();
     }
 
+    public ActorRef getActorRef() {
+        return actorRef;
+    }
+    
+    
+
 
     protected abstract FlexMenu createMenu();
     protected abstract FlexBody createBody();
     protected abstract FlexFooter createFooter();
+
 }

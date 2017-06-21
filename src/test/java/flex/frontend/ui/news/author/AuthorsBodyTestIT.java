@@ -5,6 +5,7 @@
  */
 package flex.frontend.ui.news.author;
 
+import flex.frontend.ui.crud.MasterDetailView;
 import flex.frontend.ui.news.UITest;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
@@ -25,7 +26,6 @@ public class AuthorsBodyTestIT extends UITest {
     public void testAddAuthors() {
         System.out.println("addAuthors");
         AuthorsBody body = new AuthorsBody();
-        assertNotNull(body.getBrowserFrame());
-        
+        assertNotNull( ((MasterDetailView) body.getContent()).getBrowserFrame());
     }
 }

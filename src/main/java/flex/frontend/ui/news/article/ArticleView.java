@@ -1,7 +1,6 @@
 package flex.frontend.ui.news.article;
 
 import flex.frontend.ui.news.NewsBody;
-import com.vaadin.event.LayoutEvents;
 import flex.frontend.ui.GraphEntityView;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;
@@ -15,7 +14,7 @@ import org.utils.ServiceLocator;
 /**
  * Created by zua on 13/04/17.
  */
-public class ArticleView extends GraphEntityView implements ClickListener, LayoutEvents.LayoutClickListener {
+public class ArticleView extends GraphEntityView implements ClickListener {
     // Info components
     private Label title;
     private Label sourceName;
@@ -40,7 +39,13 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
         firstLine.setWidth("100%");
         firstLine.setComponentAlignment(sourceName, Alignment.MIDDLE_LEFT);
         firstLine.setComponentAlignment(publishedAt, Alignment.MIDDLE_RIGHT);
-        VerticalLayout view = new VerticalLayout(firstLine, title, image);
+        VerticalLayout view = new VerticalLayout(firstLine);
+        if(title != null) {
+            view.addComponent(title);
+        }
+        if(image != null) {
+            view.addComponent(image);
+        }
         view.setSpacing(false);
         view.setMargin(false);
         return view;
@@ -102,22 +107,6 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
         return image;
     }
     
-    private void initAuthor() {
-        authors = new HorizontalLayout();
-        authors.setSizeFull();
-        authors.setMargin(false);
-        authors.setSpacing(false);
-        authors.addLayoutClickListener((LayoutEvents.LayoutClickListener) this);
-        
-        getItem().getAuthors().forEach(a -> {
-            Label author = new Label(a.getName());
-            author.setSizeUndefined();
-            author.setStyleName("author");
-            authors.addComponents(author);
-            authors.setComponentAlignment(author, Alignment.MIDDLE_LEFT);
-        });
-    }
-
     private void initSourceName() {
         NewsSource source = ServiceLocator.getInstance().findSourcesService().findSourceBySourceId(getItem().getSourceId());
         if(source != null) {
@@ -164,17 +153,6 @@ public class ArticleView extends GraphEntityView implements ClickListener, Layou
     public void buttonClick(Button.ClickEvent event) {
     }
 
-    @Override
-    public void layoutClick(LayoutEvents.LayoutClickEvent event) {
-        if(event.getClickedComponent() instanceof Label) {
-            Label label = (Label) event.getClickedComponent();
-            String url = (String) label.getData();
-            if(url != null) {
-                getArticlesBody().getBrowserFrame().setSource(new ExternalResource(url));
-                maximize();
-            }
-        }
-    }
 
     @Override
     public void maximize() {

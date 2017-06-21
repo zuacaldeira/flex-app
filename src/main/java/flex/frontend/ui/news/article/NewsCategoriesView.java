@@ -5,11 +5,7 @@
  */
 package flex.frontend.ui.news.article;
 
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.Notification;
 import flex.frontend.ui.FlexBody;
-import flex.frontend.ui.FlexButton;
 import flex.frontend.ui.FlexFooter;
 import flex.frontend.ui.FlexMenu;
 import flex.frontend.ui.news.NewsView;
@@ -18,7 +14,7 @@ import flex.frontend.ui.news.NewsView;
  *
  * @author zua
  */
-public class NewsCategoriesView extends NewsView implements ClickListener {
+public class NewsCategoriesView extends NewsView {
 
     public NewsCategoriesView() {
     }
@@ -26,31 +22,17 @@ public class NewsCategoriesView extends NewsView implements ClickListener {
     @Override
     protected FlexMenu createMenu() {
         NewsCategoriesMenu menu = new NewsCategoriesMenu();
-        int n = menu.getTopMenu().getComponentCount();
-        for(int i = 0; i < n; i++) {
-            FlexButton button = (FlexButton) menu.getTopMenu().getComponent(i);
-            button.addClickListener(this);
-        }
         return menu;
     }
 
     @Override
     protected FlexBody createBody() {
-        return new NewsCategoriesBody(null);
+        NewsCategoriesBody myBody = new NewsCategoriesBody("general");
+        return myBody;
     }
 
     @Override
     protected FlexFooter createFooter() {
         return new FlexFooter();
     }
-
-    @Override
-    public void buttonClick(Button.ClickEvent event) {
-        FlexButton button = (FlexButton) event.getButton();
-            button.setStyleName("inverted");
-        
-        Notification.show("Clicked " + button.getCaption());
-        replaceBody(new NewsCategoriesBody(button.getCaption()));
-    }
-
 }

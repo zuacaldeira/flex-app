@@ -5,6 +5,7 @@
  */
 package flex.frontend.ui.news.source;
 
+import flex.frontend.ui.crud.MasterDetailView;
 import flex.frontend.ui.news.UITest;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class SourcesBodyTestIT extends UITest {
     @Test
     public void testSomeMethod() {
         SourcesBody body = new SourcesBody();        
-        assertNotNull(body.getBrowserFrame());
+        assertNotNull( ((MasterDetailView) body.getContent()).getBrowserFrame());
     }
     
 }
