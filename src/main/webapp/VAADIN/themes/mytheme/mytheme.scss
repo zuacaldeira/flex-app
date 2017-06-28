@@ -83,6 +83,9 @@
         font-variant: all-caps;
         font-family: Verdana;
         font-weight: bold;
+        .menu-bar{
+
+        }
     }
     
 
@@ -153,7 +156,7 @@
     }
 
     .action{
-        color: yellowgreen;
+        color: white;
         font-family: monospace;
         font-variant: all-caps;
         font-weight: bold;
@@ -171,12 +174,20 @@
       
     .selected {
         border: none;
-        background: transparent;
+        background: yellowgreen;
         color: white;
         font-family: monospace;
         font-variant: all-caps;
         font-weight: bold;
         box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+    
+
+    .yellow {
+        color: yellow;
+    }
+    .red {
+        color: red;
     }
 
     .category-general {

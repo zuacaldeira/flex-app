@@ -14,34 +14,34 @@ import org.mockito.Mockito;
  *
  * @author zua
  */
-public class NewsUITestIT extends UITest {
+public class FlexAppUITestIT extends UITest {
     
-    public NewsUITestIT() {
+    public FlexAppUITestIT() {
     }
 
     /**
-     * Test of init method, of class NewsUI.
+     * Test of init method, of class FlexAppUI.
      */
     @Test
     public void testInit() {
         System.out.println("init");
 
         VaadinRequest request = Mockito.mock(VaadinRequest.class);
-        NewsUI instance = new NewsUI();
+        FlexAppUI instance = new FlexAppUI();
         assertNull(instance.getContent());
         //instance.init(request);
         //assertNotNull(instance.getNewsView());
     }
 
     /**
-     * Test of getNewsView method, of class NewsUI.
+     * Test of getNewsView method, of class FlexAppUI.
      */
     @Test
     public void testGetNewsView() {
         System.out.println("getNewsView");
         
         VaadinRequest request = Mockito.mock(VaadinRequest.class);
-        NewsUI instance = new NewsUI();
+        FlexAppUI instance = new FlexAppUI();
         assertNull(instance.getContent());
         instance.init(request);
         //assertNotNull(instance.getNewsView());
@@ -50,7 +50,7 @@ public class NewsUITestIT extends UITest {
     
     @Test
     public void testServlet() {
-        NewsUI.NewsUIServlet servlet = new NewsUI.NewsUIServlet();
+        FlexAppUI.NewsUIServlet servlet = new FlexAppUI.NewsUIServlet();
         assertNotNull(servlet);
     }
     

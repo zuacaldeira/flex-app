@@ -13,6 +13,8 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Link;
 import com.vaadin.ui.VerticalLayout;
 import flex.backend.bantus.db.FlexVideo;
+import flex.backend.bantus.services.FlexVideoService;
+import flex.backend.news.services.AbstractDBService;
 import flex.frontend.ui.GraphEntityView;
 import flex.frontend.ui.TitleLabel;
 import java.text.SimpleDateFormat;
@@ -108,6 +110,11 @@ public class FlexVideoView extends GraphEntityView<FlexVideo> {
         videoDescription = new Label(getItem().getDescription());
         videoDescription.setWidth("100%");
         videoDescription.setHeightUndefined();
+    }
+
+    @Override
+    public AbstractDBService<FlexVideo> getService() {
+        return new FlexVideoService();
     }
 
 }

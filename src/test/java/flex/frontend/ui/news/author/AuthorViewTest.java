@@ -35,6 +35,8 @@ public class AuthorViewTest {
 
     /**
      * Test of getInfo method, of class AuthorView.
+     * @param view
+     * @param author
      */
     @Test
     @UseDataProvider("authorsProvider")

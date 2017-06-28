@@ -1,20 +1,20 @@
 package flex.frontend.ui.news.article;
 
-import flex.frontend.ui.news.NewsBody;
 import flex.frontend.ui.GraphEntityView;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 import flex.backend.news.db.NewsArticle;
 import flex.backend.news.db.NewsSource;
+import flex.backend.news.services.NewsArticleService;
+import flex.frontend.ui.FlexBody;
 import org.utils.ServiceLocator;
 
 
 /**
  * Created by zua on 13/04/17.
  */
-public class ArticleView extends GraphEntityView implements ClickListener {
+public class ArticleView extends GraphEntityView<NewsArticle>  {
     // Info components
     private Label title;
     private Label sourceName;
@@ -35,11 +35,7 @@ public class ArticleView extends GraphEntityView implements ClickListener {
         initTimeLabel();
         initTitle();
         initImage();
-        HorizontalLayout firstLine = new HorizontalLayout(sourceName, publishedAt);
-        firstLine.setWidth("100%");
-        firstLine.setComponentAlignment(sourceName, Alignment.MIDDLE_LEFT);
-        firstLine.setComponentAlignment(publishedAt, Alignment.MIDDLE_RIGHT);
-        VerticalLayout view = new VerticalLayout(firstLine);
+        VerticalLayout view = new VerticalLayout(sourceName, publishedAt);
         if(title != null) {
             view.addComponent(title);
         }
@@ -133,16 +129,16 @@ public class ArticleView extends GraphEntityView implements ClickListener {
     }
 
     
-    private NewsBody getArticlesBody() {
+    private FlexBody getArticlesBody() {
         return getArticlesBody(this);
     }
 
-    private NewsBody getArticlesBody(Component component) {
+    private FlexBody getArticlesBody(Component component) {
         if(component == null) {
             throw new IllegalArgumentException("Component cannot be null");
         }
-        else if(component instanceof NewsBody) {
-            return (NewsBody) component;
+        else if(component instanceof FlexBody) {
+            return (FlexBody) component;
         }
         else {
             return getArticlesBody(component.getParent());
@@ -150,9 +146,9 @@ public class ArticleView extends GraphEntityView implements ClickListener {
     }
 
     @Override
-    public void buttonClick(Button.ClickEvent event) {
+    public NewsArticleService getService() {
+        return ServiceLocator.getInstance().findArticlesService();
     }
-
 
     @Override
     public void maximize() {
@@ -161,7 +157,7 @@ public class ArticleView extends GraphEntityView implements ClickListener {
 
     @Override
     public void minimize() {
-        super.minimize(); 
+        super.minimize();
     }
 
     

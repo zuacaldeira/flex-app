@@ -3,21 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package flex.frontend.ui.bantu.videos;
+package flex.frontend.ui;
 
-import flex.backend.bantus.db.FlexVideo;
-import flex.frontend.ui.crud.CrudMenu;
+import com.vaadin.icons.VaadinIcons;
 
 /**
  *
  * @author zua
  */
-public class VideoMenu extends CrudMenu<FlexVideo> {
+public class FavoriteButton extends FlexButton {
 
-    public VideoMenu() {
+    public FavoriteButton() {
+        super("Favorite", VaadinIcons.STAR);
     }
-
-    
-    
     
 }

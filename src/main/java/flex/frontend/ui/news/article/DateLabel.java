@@ -6,6 +6,7 @@
 package flex.frontend.ui.news.article;
 
 import com.vaadin.ui.Label;
+import com.vaadin.ui.themes.ValoTheme;
 import java.util.Date;
 import org.utils.FlexUtils;
 
@@ -17,7 +18,7 @@ public class DateLabel extends Label {
 
     public DateLabel(Date date) {
         super(FlexUtils.formatDate(date));
-        setStyleName("source");
+        setStyleName(ValoTheme.LABEL_TINY);
     }
     
 }

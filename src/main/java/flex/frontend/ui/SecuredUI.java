@@ -26,9 +26,8 @@ public abstract class SecuredUI extends UI {
     @Override
     public void init(VaadinRequest request) {
         if(getSession() != null && getSession().getAttribute("username") != null) {
-            FlexMainView mainView = createMainView();
+            FlexMainView mainView = new FlexMainView();
             setContent(mainView);
-            mainView.getActorRef().tell("load", null);
         }        
         else {
             login();
@@ -66,8 +65,6 @@ public abstract class SecuredUI extends UI {
     }
     
     protected abstract String getPageLocation();
-
-    protected abstract FlexMainView createMainView();
 
     public FlexUser getFlexUser() {
         return flexUser;

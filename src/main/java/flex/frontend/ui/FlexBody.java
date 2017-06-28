@@ -5,15 +5,32 @@
  */
 package flex.frontend.ui;
 
+import flex.backend.news.db.GraphEntity;
+import flex.frontend.ui.crud.MasterDetailView;
 import flex.frontend.ui.news.article.FlexPanel;
 
 /**
  *
  * @author zua
  */
-public abstract class FlexBody extends FlexPanel {
+public class FlexBody extends FlexPanel {
+    
     public FlexBody() {
         super.addStyleName("flex-body");
         setSizeFull();
+        setContent(new MasterDetailView());
     }
+
+    public MasterDetailView getContent() {
+        return(MasterDetailView) super.getContent();
+    }
+    public void addItemView(GraphEntity item) {
+        if(getUI() != null) {
+            getUI().access(() -> {
+                getContent().addComponent(FlexViewFactory.getInstance().createView(item));
+            });
+        }
+    }
+
+
 }

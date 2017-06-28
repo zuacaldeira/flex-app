@@ -9,9 +9,6 @@ import flex.backend.news.Neo4jSessionFactory;
 import flex.backend.news.db.NewsSource;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import org.neo4j.ogm.cypher.ComparisonOperator;
@@ -77,19 +74,17 @@ public class NewsSourceService extends AbstractDBService<NewsSource> {
         return new SortOrder().add("name");
     }
 
-    public Collection<String> findCategories() {
-        Set<String> categories = new TreeSet<>();
-        Iterator<NewsSource> it = findAll().iterator();
-        while(it.hasNext()) {
-            NewsSource source = it.next();
-            if(source.getCategory() != null) {
-                categories.add(source.getCategory());
-            }
-        }
-        return categories;
+    public Iterable<String> findCategories() {
+        System.out.println("FIND_CATEGORIES");
+        
+        String query = "MATCH (s:NewsSource) RETURN DISTINCT s.category";
+        Session session = super.getSession();
+        return session.query(String.class, query, new HashMap());
     }
 
     public Iterable<String> findNames() {
+        System.out.println("FIND_NAMES");
+        
         String query = "MATCH (s:NewsSource) RETURN s.name";
         Session session = super.getSession();
         return session.query(String.class, query, new HashMap());

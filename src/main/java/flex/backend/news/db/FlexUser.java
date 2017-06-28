@@ -18,10 +18,14 @@ public class FlexUser extends GraphEntity{
 
     private String username;
     private String password;
-    private Set<NewsArticle> read;
+    private Set<GraphEntity> read;
+    private Set<GraphEntity> favorite;
+    private Set<GraphEntity> fake;
 
     public FlexUser() {
         read = new HashSet<>();
+        favorite = new HashSet<>();
+        fake = new HashSet<>();
     }
 
     public FlexUser(String username, String password) {
@@ -56,12 +60,28 @@ public class FlexUser extends GraphEntity{
         this.password = password;
     }
 
-    public void read(NewsArticle article) {
+    public void read(GraphEntity article) {
         read.add(article);
     }
 
-    public boolean hasRead(NewsArticle article) {
+    public boolean hasRead(GraphEntity article) {
         return read.contains(article);
+    }
+
+    public void favorite(GraphEntity article) {
+        favorite.add(article);
+    }
+
+    public boolean hasFavorite(GraphEntity article) {
+        return favorite.contains(article);
+    }
+
+    public void fake(GraphEntity article) {
+        fake.add(article);
+    }
+
+    public boolean hasFake(GraphEntity article) {
+        return fake.contains(article);
     }
 
     @Override

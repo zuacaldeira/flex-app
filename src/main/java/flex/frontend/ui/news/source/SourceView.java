@@ -5,7 +5,9 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import flex.backend.news.db.NewsSource;
+import flex.backend.news.services.AbstractDBService;
 import flex.frontend.ui.GraphEntityView;
+import org.utils.ServiceLocator;
 
 /**
  * Created by zua on 12/04/17.
@@ -80,5 +82,10 @@ public class SourceView extends GraphEntityView<NewsSource> {
     private void initDesc() {
         desc = new Label(getItem().getDescription());
         desc.setWidth("100%");        
+    }
+
+    @Override
+    public AbstractDBService<NewsSource> getService() {
+        return ServiceLocator.getInstance().findSourcesService();
     }
 }

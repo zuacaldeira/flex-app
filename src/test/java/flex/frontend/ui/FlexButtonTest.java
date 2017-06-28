@@ -39,7 +39,7 @@ public class FlexButtonTest {
     @Test
     @UseDataProvider("buttonsProvider")
     public void testContructors(FlexButton button, String expectedCaption, Resource expectedIcon) {
-        assertEquals(expectedCaption, button.getCaption());
+        assertEquals(expectedCaption, button.getDescription());
         assertEquals(expectedIcon, button.getIcon());
     }
     

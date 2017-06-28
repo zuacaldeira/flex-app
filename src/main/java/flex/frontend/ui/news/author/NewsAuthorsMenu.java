@@ -16,7 +16,6 @@ public class NewsAuthorsMenu extends FlexMenu {
     public NewsAuthorsMenu() {
     }
 
-    @Override
     protected void addActions() {
         
     }

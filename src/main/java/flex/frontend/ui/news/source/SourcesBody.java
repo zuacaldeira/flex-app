@@ -1,22 +1,13 @@
 package flex.frontend.ui.news.source;
 
-import flex.backend.news.db.NewsSource;
-import flex.backend.news.services.AbstractDBService;
-import flex.frontend.ui.crud.CrudBody;
-import org.utils.ServiceLocator;
+import flex.frontend.ui.FlexBody;
 
 /**
  * Created by zua on 12/04/17.
  */
-public class SourcesBody extends CrudBody<NewsSource> {
+public class SourcesBody extends FlexBody {
 
     public SourcesBody() {
-        forceSplit();
-    }
-
-    @Override
-    protected AbstractDBService<NewsSource> getService() {
-        return ServiceLocator.getInstance().findSourcesService();
     }
 
 }

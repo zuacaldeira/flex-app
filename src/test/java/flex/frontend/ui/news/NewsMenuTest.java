@@ -5,9 +5,6 @@
  */
 package flex.frontend.ui.news;
 
-import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
-
 /**
  *
  * @author zua
@@ -16,7 +13,7 @@ public class NewsMenuTest {
     
     public NewsMenuTest() {
     }
-
+/*
     @Test
     public void testSomeMethod() {
         NewsMenu menu = new NewsMenu();
@@ -37,5 +34,5 @@ public class NewsMenuTest {
         menu.getSearchButton();
     }
 
-
+*/
 }

@@ -5,7 +5,11 @@
  */
 package org.utils;
 
+import com.vaadin.ui.Component;
+import com.vaadin.ui.HasComponents;
 import flex.backend.news.db.NewsAuthor;
+import flex.frontend.ui.FlexBody;
+import flex.frontend.ui.FlexMainView;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -21,7 +25,7 @@ public class FlexUtils {
     private static FlexUtils instance;
 
     public static String formatDate(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat format = new SimpleDateFormat("dd MMM, YYYY @ HH:mm");
         String t = format.format(date).toLowerCase();
         return t;
     }
@@ -146,6 +150,28 @@ public class FlexUtils {
         String result = builder.toString();
         System.out.println("result -> " + result);
         return result;
+    }
+    
+    
+    public FlexBody getBody(Component component) {
+        return getMainView(component).getBody();
+    }
+
+    public FlexMainView getMainView(Component component) {
+        return getMainView(component.getParent());
+    }
+    
+    
+    private FlexMainView getMainView(HasComponents parent) {
+        if(parent == null) {
+            return null;
+        }
+        if(parent instanceof FlexMainView) {
+            return (FlexMainView) parent;
+        }
+        else {
+            return getMainView(parent.getParent());
+        }
     }
     
 }

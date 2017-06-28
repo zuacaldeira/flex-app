@@ -7,16 +7,22 @@ package flex.frontend.ui;
 
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.AbstractOrderedLayout;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
+import flex.backend.news.db.FlexUser;
 import flex.backend.news.db.GraphEntity;
+import flex.backend.news.services.AbstractDBService;
+import org.utils.FlexUtils;
 
 /**
  *
  * @author zua
  * @param <T>
  */
-public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLayout {
+public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLayout implements ClickListener {
 
     private final T graphEntity;
     
@@ -29,10 +35,10 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
         infoHeader = this.createInfoHeader();
         infoBody = this.createInfoBody();
         infoActions = this.createInfoActions();
-        this.addComponents(infoHeader, infoBody, infoActions);
-        this.setSizeUndefined();
+        this.addComponents(new VerticalLayout(infoHeader, infoBody, infoActions));
+        this.setSizeFull();
         this.setSpacing(false);
-        this.setMargin(new MarginInfo(false));
+        this.setMargin(new MarginInfo(true));
         this.setStyleName("item");
     }
 
@@ -54,11 +60,30 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
     
     public  AbstractOrderedLayout createInfoActions() {
         FlexButton commentButton = new CommentButton();
-        FlexButton editButton = new EditButton();
-        FlexButton deleteButton = new DeleteButton();
-        FlexButton hideButton = new HideButton();
+        commentButton.addClickListener(this);
 
-        HorizontalLayout actions = new HorizontalLayout(commentButton, editButton, hideButton, deleteButton);
+        FlexButton favoriteButton = new FavoriteButton();
+        favoriteButton.addClickListener(this);
+        if(getUser() != null && getUser().hasFavorite(getItem())) {
+            favoriteButton.addStyleName("yellow");
+        }
+
+        FlexButton fakeButton = new FakeButton();
+        fakeButton.addClickListener(this);
+        if(getUser() != null && getUser().hasFake(getItem())) {
+            fakeButton.addStyleName("red");
+        }
+
+        FlexButton hideButton = new HideButton();
+        hideButton.addClickListener(this);
+        if(getUser() != null && getUser().hasFake(getItem())) {
+            fakeButton.addStyleName("yellow");
+        }
+
+        FlexButton editButton = new EditButton();
+        editButton.addClickListener(this);
+
+        HorizontalLayout actions = new HorizontalLayout(commentButton, favoriteButton, fakeButton, hideButton, editButton);
         actions.setSizeUndefined();
         actions.setStyleName("controls");
         actions.setMargin(new MarginInfo(false, false, true, false));
@@ -66,6 +91,17 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
         return actions;
     }
     
+    @Override
+    public SecuredUI getUI() {
+        return (SecuredUI) super.getUI();
+    }
+    
+    public FlexUser getUser() {
+        if(getUI() != null) {
+            return getUI().getFlexUser();
+        }
+        else return null;
+    }
     
     public T getItem() {
         return graphEntity;
@@ -83,6 +119,29 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
         infoBody.setVisible(true);
     }
 
-    
-    
+        @Override
+    public void buttonClick(Button.ClickEvent event) {
+        String username = getUsername();
+        if(event.getButton() instanceof HideButton) {
+            Notification.show("Hide me!");
+            getService().hide(username, this.getItem());
+            FlexUtils.getInstance().getBody(this).getContent().getSummaries().removeComponent(this);
+        }
+        else if(event.getButton() instanceof FavoriteButton) {
+            Notification.show("Favorite");
+            getService().favorite(username, this.getItem());
+            event.getButton().addStyleName("yellow");
+        }
+        else if(event.getButton() instanceof FakeButton) {
+            Notification.show("Fake");
+            getService().fake(username, this.getItem());
+            event.getButton().addStyleName("red");
+        }
+    }
+
+    public abstract AbstractDBService<T> getService();
+
+    private String getUsername() {
+        return (String) getSession().getAttribute("username");
+    }
 }

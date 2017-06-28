@@ -6,12 +6,15 @@
 package flex.backend.news.services;
 
 import flex.backend.news.Neo4jSessionFactory;
+import flex.backend.news.db.FlexUser;
 import flex.backend.news.db.GraphEntity;
 import java.util.HashMap;
+import javax.ejb.EJB;
 import org.neo4j.ogm.cypher.ComparisonOperator;
 import org.neo4j.ogm.cypher.Filter;
 import org.neo4j.ogm.cypher.Filters;
 import org.neo4j.ogm.cypher.query.Pagination;
+import org.neo4j.ogm.cypher.query.SortOrder;
 import org.neo4j.ogm.session.Session;
 import org.utils.FlexUtils;
 
@@ -24,6 +27,8 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
 
     public final int MAX_SIZE = 25;
 
+    @EJB
+    private FlexUserService userService;
     
     
     @Override
@@ -33,8 +38,17 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
 
     @Override
     public final Iterable<T> findAll(int limit) {
+        return findAll(limit, getSortOrder());
+    }
+
+    public final Iterable<T> findAll(int limit, SortOrder sortOrder) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        return session.loadAll(getClassType(), getSortOrder(), new Pagination(0, limit), 2);
+        return session.loadAll(getClassType(), sortOrder, new Pagination(0, limit), 2);
+    }
+
+    public final Iterable<T> findAll(int limit, Filter filter, SortOrder sortOrder) {
+        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
+        return session.loadAll(getClassType(), filter, sortOrder, new Pagination(0, limit), 2);
     }
 
     @Override
@@ -65,7 +79,7 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
         query += " WHERE n." + object.getPropertyName() + "=" + FlexUtils.getInstance().wrapUp(object.getPropertyValue());
         query += " RETURN n";
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        return (T) session.queryForObject(getClassType(), query, new HashMap());
+        return find( ((T) session.queryForObject(getClassType(), query, new HashMap())).getId() );
     }
     
     @Override
@@ -107,4 +121,24 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
     protected Session getSession() {
         return Neo4jSessionFactory.getInstance().getNeo4jSession();
     }
+    
+    public void hide(String username, T entity) {
+        FlexUser user = userService.find(new FlexUser(username, null));
+        user.read(entity);
+        userService.save(user);
+    }
+
+    public void favorite(String username, T entity) {
+        FlexUser user = userService.find(new FlexUser(username, null));
+        user.favorite(entity);
+        userService.save(user);
+    }
+
+    public void fake(String username, T entity) {
+        FlexUser user = userService.find(new FlexUser(username, null));
+        user.fake(entity);
+        userService.save(user);
+    }
+
+
 }

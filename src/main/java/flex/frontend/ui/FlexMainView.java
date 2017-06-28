@@ -5,29 +5,24 @@
  */
 package flex.frontend.ui;
 
-import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
-import akka.actor.Props;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Notification;
 import flex.backend.news.db.FlexUser;
-import flex.frontend.ui.crud.MVCActor;
+import flex.backend.news.db.NewsArticle;
+import org.utils.ServiceLocator;
 
 /**
  *
  * @author zua
  */
-public abstract class FlexMainView extends AbsoluteLayout {
+public class FlexMainView extends AbsoluteLayout {
     
     private FlexMenu menu;
     private FlexBody body;
     private FlexFooter footer;
-    private ActorSystem actorSystem;
-    private ActorRef actorRef;
     
 
     public FlexMainView() {
-        initActorSystem();
         initMenu();
         initBody();
         initFooter();
@@ -38,31 +33,23 @@ public abstract class FlexMainView extends AbsoluteLayout {
         addComponent(menu, getMenuStyle());
     }
 
-    private void initActorSystem() {
-        actorSystem = ActorSystem.create("TypeSystem_Flex");
-        actorRef = actorSystem.actorOf(Props.create(MVCActor.class));
-    }
-    
     private void initMenu() {
-        setMenu(createMenu());
+        menu = new FlexMenu();
         menu.setWidth("100%");
         menu.setHeight(getTopPosition());
     }
 
     private void initBody() {
-        setBody(createBody());
+        body = new FlexBody();
         body.setSizeFull();
     }
 
     private void initFooter() {
-        setFooter(createFooter());
+        footer = new FlexFooter();
         footer.setWidth("100%");
         footer.setHeight("1cm");
     }
 
-    public void setBody(FlexBody flexBody) {
-        body = flexBody;
-    }
     
     private String getBodyStyle() {
         return "top:" + getTopPosition() + "; " + "bottom:" + getBottomPosition();
@@ -107,23 +94,15 @@ public abstract class FlexMainView extends AbsoluteLayout {
 
     public void replaceBody(FlexBody flexBody) {
         replaceComponent(body, flexBody);
-        setBody(flexBody);
+        this.body  = flexBody;
         Notification.show("Body Set");
     }
     
     public FlexUser getFlexUser() {
-        return ((SecuredUI)getUI()).getFlexUser();
+        if(getUI() instanceof SecuredUI) {
+            return ((SecuredUI) getUI()).getFlexUser();
+        }
+        return null;
     }
-
-    public ActorRef getActorRef() {
-        return actorRef;
-    }
-    
-    
-
-
-    protected abstract FlexMenu createMenu();
-    protected abstract FlexBody createBody();
-    protected abstract FlexFooter createFooter();
 
 }

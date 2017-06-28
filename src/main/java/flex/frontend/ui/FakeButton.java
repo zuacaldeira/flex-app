@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package flex.frontend.ui.login;
+package flex.frontend.ui;
+
+import com.vaadin.icons.VaadinIcons;
 
 /**
  *
  * @author zua
  */
-public class LoginBody extends flex.frontend.ui.FlexBody {
+public class FakeButton extends FlexButton {
 
-    public LoginBody() {
+    public FakeButton() {
+        super("Fake", VaadinIcons.DEL);
     }
     
 }
