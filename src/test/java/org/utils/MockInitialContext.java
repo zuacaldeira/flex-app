@@ -5,10 +5,11 @@
  */
 package org.utils;
 
-import flex.backend.news.services.NewsApiService;
-import flex.backend.news.services.NewsArticleService;
-import flex.backend.news.services.NewsAuthorService;
-import flex.backend.news.services.NewsSourceService;
+import utils.ServiceLocator;
+import services.news.NewsApiService;
+import services.news.NewsArticleService;
+import services.news.NewsAuthorService;
+import services.news.NewsSourceService;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 

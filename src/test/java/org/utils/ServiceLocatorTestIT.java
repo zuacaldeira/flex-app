@@ -5,7 +5,8 @@
  */
 package org.utils;
 
-import flex.frontend.ui.news.UITest;
+import utils.ServiceLocator;
+import ui.news.UITest;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

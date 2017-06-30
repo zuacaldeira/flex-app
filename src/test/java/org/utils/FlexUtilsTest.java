@@ -5,7 +5,8 @@
  */
 package org.utils;
 
-import flex.backend.news.db.NewsAuthor;
+import utils.FlexUtils;
+import db.news.NewsAuthor;
 import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
