@@ -29,19 +29,13 @@ public class Neo4jSessionFactory {
     private Neo4jSessionFactory() {
         if(DATABASE_URL == null) {
             DATABASE_URL = "http://localhost:7474";
-
-            if(USERNAME == null) {
-                USERNAME = "neo4j";
-            }
-
-            if(PASSWORD == null) {
-                PASSWORD = "unicidade";
-            }
+            USERNAME = "neo4j";
+            PASSWORD = "unicidade";
         }
 
         Configuration.Builder builder = new Configuration.Builder();
         configuration = builder.uri(DATABASE_URL).credentials(USERNAME, PASSWORD).autoIndex("validate").build();
-        sessionFactory = new SessionFactory(configuration, "flex.backend.news.db", "flex.backend.bantus.db");
+        sessionFactory = new SessionFactory(configuration, "db");
     }
     
     public static Neo4jSessionFactory getInstance() {

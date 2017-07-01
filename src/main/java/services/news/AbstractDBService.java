@@ -79,7 +79,11 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
         query += " WHERE n." + object.getPropertyName() + "=" + FlexUtils.getInstance().wrapUp(object.getPropertyValue());
         query += " RETURN n";
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        return find( ((T) session.queryForObject(getClassType(), query, new HashMap())).getId() );
+        Iterable<T> dbObjects = session.query(getClassType(), query, new HashMap());
+        if(dbObjects.iterator().hasNext()) {
+            return dbObjects.iterator().next();
+        }
+        return null;
     }
     
     @Override
