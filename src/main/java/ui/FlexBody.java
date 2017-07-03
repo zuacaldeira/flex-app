@@ -24,7 +24,7 @@ public class FlexBody extends FlexPanel {
         return(MasterDetailView) super.getContent();
     }
     public void addItemView(GraphEntity item) {
-        if(getUI() != null) {
+        if(getUI() != null && getUI().isAttached()) {
             getUI().access(() -> {
                 getContent().addComponent(FlexViewFactory.getInstance().createView(item));
             });

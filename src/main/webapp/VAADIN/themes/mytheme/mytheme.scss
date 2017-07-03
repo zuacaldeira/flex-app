@@ -159,13 +159,14 @@
         color: white;
         font-family: monospace;
         font-variant: all-caps;
-        font-weight: bold;
+        font-weight: normal;
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
         border: none;
     }
     .action:hover {
         color: white;
+        background: primary;
         font-family: monospace;
         font-variant: all-caps;
         font-weight: bold;

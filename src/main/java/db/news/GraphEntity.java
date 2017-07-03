@@ -1,6 +1,7 @@
 package db.news;
 
 import java.io.Serializable;
+import java.util.Objects;
 import org.neo4j.ogm.annotation.GraphId;
 
 /**
@@ -26,4 +27,24 @@ public abstract class GraphEntity implements Serializable {
     public abstract String getPropertyValue();
     public abstract boolean hasUrl();
     public abstract String getUrl();
+    
+    @Override
+    public boolean equals(Object other) {
+        if(other instanceof GraphEntity) {
+            GraphEntity otherEntity = (GraphEntity) other;
+            return getPropertyName().equals(otherEntity.getPropertyName()) 
+                    && getPropertyValue().equals(otherEntity.getPropertyValue());
+        }
+        else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(getPropertyName());
+        hash = 23 * hash + Objects.hashCode(getPropertyValue());
+        return hash;
+    }
 }

@@ -13,6 +13,7 @@ import services.news.NewsAuthorService;
 import services.news.NewsSourceService;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import services.histories.FlexNoteService;
 
 /**
  *
@@ -25,7 +26,8 @@ public class ServiceLocator {
     public static final String NEWS_SOURCE_SERVICE  = PREFIX + NewsSourceService.class.getSimpleName();
     public static final String NEWS_AUTHOR_SERVICE  = PREFIX + NewsAuthorService.class.getSimpleName();
     public static final String FLEX_USER_SERVICE    = PREFIX + FlexUserService.class.getSimpleName();
-    public static final String FLEX_VIDEO_SERVICE    = PREFIX + FlexVideoService.class.getSimpleName();
+    public static final String FLEX_VIDEO_SERVICE   = PREFIX + FlexVideoService.class.getSimpleName();
+    public static final String FLEX_NOTE_SERVICE    = PREFIX + FlexNoteService.class.getSimpleName();
     
     private static InitialContext context;
 
@@ -75,9 +77,14 @@ public class ServiceLocator {
         return (FlexVideoService) findService(FLEX_VIDEO_SERVICE);
     }
 
+    public FlexNoteService findNotesService() {
+        return (FlexNoteService) findService(FLEX_NOTE_SERVICE);
+    }
+
     public void setInitialContext(InitialContext aContext) {
         context = aContext;
     }
+
 
 
 }

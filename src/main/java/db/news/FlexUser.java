@@ -7,6 +7,7 @@ package db.news;
 
 import java.util.HashSet;
 import java.util.Set;
+import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 /**
@@ -14,8 +15,9 @@ import org.neo4j.ogm.annotation.NodeEntity;
  * @author zua
  */
 @NodeEntity
-public class FlexUser extends GraphEntity{
+public class FlexUser extends GraphEntity {
 
+    @Index(unique = true)
     private String username;
     private String password;
     private Set<GraphEntity> read;

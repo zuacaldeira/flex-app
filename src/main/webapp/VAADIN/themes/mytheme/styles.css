@@ -12758,7 +12758,7 @@ div.v-layout.v-horizontal.v-widget {
 	color: white;
 	font-family: monospace;
 	font-variant: all-caps;
-	font-weight: bold;
+	font-weight: normal;
 	-webkit-transition-duration: 0.4s;
 	transition-duration: 0.4s;
 	border: none;
@@ -12766,6 +12766,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .action:hover {
 	color: white;
+	background: primary;
 	font-family: monospace;
 	font-variant: all-caps;
 	font-weight: bold;

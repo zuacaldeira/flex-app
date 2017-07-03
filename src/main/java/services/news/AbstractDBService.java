@@ -81,7 +81,7 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
         Iterable<T> dbObjects = session.query(getClassType(), query, new HashMap());
         if(dbObjects.iterator().hasNext()) {
-            return dbObjects.iterator().next();
+            return find(dbObjects.iterator().next().getId());
         }
         return null;
     }
@@ -126,19 +126,19 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
         return Neo4jSessionFactory.getInstance().getNeo4jSession();
     }
     
-    public void hide(String username, T entity) {
+    public void markAsRead(String username, T entity) {
         FlexUser user = userService.find(new FlexUser(username, null));
         user.read(entity);
         userService.save(user);
     }
 
-    public void favorite(String username, T entity) {
+    public void markAsFavorite(String username, T entity) {
         FlexUser user = userService.find(new FlexUser(username, null));
         user.favorite(entity);
         userService.save(user);
     }
 
-    public void fake(String username, T entity) {
+    public void markAsFake(String username, T entity) {
         FlexUser user = userService.find(new FlexUser(username, null));
         user.fake(entity);
         userService.save(user);

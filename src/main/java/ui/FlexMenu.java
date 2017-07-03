@@ -13,7 +13,10 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
+import db.histories.FlexNote;
+import db.news.FlexUser;
 import db.news.NewsArticle;
 import java.util.TreeSet;
 import utils.FlexUtils;
@@ -26,23 +29,30 @@ import utils.ServiceLocator;
 public class FlexMenu extends HorizontalLayout {
 
     private Thread runner;
+    
+    // Main Menu (top level)
     private MenuBar menuBar;
     private MenuItem news;
     private MenuItem history;
     private MenuItem timelines;
+    private MenuBar.Command command;
+    
+    // News related menu items
+    private MenuItem latest;
+    private MenuItem oldest;
     private MenuItem categories;
     private MenuItem publishers;
-    private MenuItem authors;
-    private MenuBar.Command command;
-    private MenuItem timely;
     private MenuItem settings;
-    private MenuItem status;
+    
+    // History related menu items
     private MenuItem notes;
     private MenuItem civilizations;
     private MenuItem languages;
     private MenuItem dna;
     private MenuItem humanRights;
     
+    // Logout button 
+    private LogoutButton logoutButton;
     
     public FlexMenu() {
         super.setSizeFull();
@@ -55,7 +65,8 @@ public class FlexMenu extends HorizontalLayout {
         menuBar.setAutoOpen(true);
         menuBar.setStyleName(ValoTheme.MENUBAR_BORDERLESS+ " " + ValoTheme.MENUBAR_SMALL);
         initMenuBar();
-        super.addComponent(menuBar);
+        logoutButton = new LogoutButton();
+        super.addComponents(menuBar, logoutButton);
     }
     
     
@@ -79,36 +90,20 @@ public class FlexMenu extends HorizontalLayout {
                 else if(selectedItem.getParent() == publishers) {
                     nodes = ServiceLocator.getInstance().findArticlesService().findArticlesWithSource(selectedItem.getText());
                 }
-                else if(selectedItem.getParent() == timely) {
-                    if(selectedItem.getText().equals("Latest")) {
-                        nodes = ServiceLocator.getInstance().findArticlesService().findArticlesLatest();
-                    }
-                    else if(selectedItem.getText().equals("Oldest")) {
-                        nodes = ServiceLocator.getInstance().findArticlesService().findArticlesOldest();
-                    }
-                    else if(selectedItem.getText().equals("Today")) {
-                        nodes = ServiceLocator.getInstance().findArticlesService().findArticlesToday();                        
-                    }
-                    else if(selectedItem.getText().equals("This Week")) {
-                        nodes = ServiceLocator.getInstance().findArticlesService().findArticlesThisWeek();                        
-                    }
-                    else if(selectedItem.getText().equals("This Month")) {
-                        nodes = ServiceLocator.getInstance().findArticlesService().findArticlesThisMonth();                        
-                    }
+                else if(selectedItem.getText().equals("Latest")) {
+                    nodes = ServiceLocator.getInstance().findArticlesService().findArticlesLatest();
                 }
-                else if(selectedItem.getParent() == status) {
-                    if(selectedItem.getText().equals("Read")) {
-                        nodes = ServiceLocator.getInstance().findArticlesService().findArticlesRead(getUsername());                        
-                    }
-                    else if(selectedItem.getText().equals("Unread")) {
-                        nodes = ServiceLocator.getInstance().findArticlesService().findArticlesUnread(getUsername());                        
-                    }
-                    else if(selectedItem.getText().equals("Favorite")) {
-                        nodes = ServiceLocator.getInstance().findArticlesService().findArticlesFavorite(getUsername());                        
-                    }
-                    else if(selectedItem.getText().equals("Fake")) {
-                        nodes = ServiceLocator.getInstance().findArticlesService().findArticlesFake(getUsername());                        
-                    }
+                else if(selectedItem.getText().equals("Oldest")) {
+                    nodes = ServiceLocator.getInstance().findArticlesService().findArticlesOldest();
+                }
+                else if(selectedItem.getText().equals("Read")) {
+                    nodes = ServiceLocator.getInstance().findArticlesService().findArticlesRead(getUsername());                        
+                }
+                else if(selectedItem.getText().equals("Favorite")) {
+                    nodes = ServiceLocator.getInstance().findArticlesService().findArticlesFavorite(getUsername());                        
+                }
+                else if(selectedItem.getText().equals("Fake")) {
+                    nodes = ServiceLocator.getInstance().findArticlesService().findArticlesFake(getUsername());                        
                 }
 
                 FlexUtils.getInstance().getMainView(FlexMenu.this).replaceBody(body);
@@ -123,6 +118,11 @@ public class FlexMenu extends HorizontalLayout {
                     ActorSystem as = ActorSystem.create();
                     ActorRef ref = as.actorOf(MVCActor.props());
                     ref.tell(message, null);
+                    getUI().access(() -> {
+                        if(logoutButton.getCaption() == null) {
+                            logoutButton.addUsername(FlexMenu.this.getUsername());
+                        }
+                    });
                 });
                 runner.start();
             }
@@ -135,6 +135,7 @@ public class FlexMenu extends HorizontalLayout {
         updateNewsPublisher();
         news.addSeparator();
         updateNewsByTime();
+        news.addSeparator();
         updateNewsByStatus();
         news.addSeparator();
         updateNewsSettings();
@@ -279,19 +280,13 @@ public class FlexMenu extends HorizontalLayout {
         }
     }
     private void updateNewsByTime() {
-        timely = news.addItem("When", null, command);
-        timely.addItem("Latest", command);
-        timely.addItem("Oldest", command);
-        /*timely.addSeparator();
-        timely.addItem("Today", command);
-        timely.addItem("This Week", command);
-        timely.addItem("This month", command);*/
+        latest = news.addItem("Latest", null, command);
+        oldest = news.addItem("Oldest", null, command);
     }
     private void updateNewsByStatus() {
-        status = news.addItem("Status", null, command);
-        status.addItem("Read", command);
-        status.addItem("Favorite", command);
-        status.addItem("Fake", command);
+        news.addItem("Read", command);
+        news.addItem("Favorite", command);
+        news.addItem("Fake", command);
     }
 
     private void updateNewsSettings() {
@@ -299,17 +294,39 @@ public class FlexMenu extends HorizontalLayout {
     }
     
     private String getUsername() {
-        return (String) getSession().getAttribute("username");
+        return getUser().getUsername();
+    }
+    
+    public SecuredUI getUI() {
+        return (SecuredUI) super.getUI();
+    }
+    
+    public FlexUser getUser() {
+        if(getUI() != null) {
+            return getUI().getFlexUser();
+        }
+        else {
+            return (FlexUser) getSession().getAttribute("user");
+        }
     }
 
-    private static class NewNoteCommand implements MenuBar.Command {
+    private class NewNoteCommand implements MenuBar.Command {
         public NewNoteCommand() {
         }
 
         @Override
         public void menuSelected(MenuItem selectedItem) {
             Notification.show("Selected menu Item " + selectedItem.getText());
-            //Window w = new Window("Create new note", new FlexNoteForm(new FlexNote()));
+            FlexNote note = new FlexNote();
+            note.setOwner(getUser());
+            Window w = new Window("Create new note", new FlexNoteForm(note));
+            w.setModal(true);
+            w.setWidth("50%");
+            w.setHeight("75%");
+            getUI().addWindow(w);
         }
     }
+
 }
+
+

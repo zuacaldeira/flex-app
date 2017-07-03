@@ -64,19 +64,21 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
 
         FlexButton favoriteButton = new FavoriteButton();
         favoriteButton.addClickListener(this);
-        if(getUser() != null && getUser().hasFavorite(getItem())) {
+        
+        FlexUser user = getUser();
+        if(user != null && user.hasFavorite(getItem())) {
             favoriteButton.addStyleName("yellow");
         }
 
         FlexButton fakeButton = new FakeButton();
         fakeButton.addClickListener(this);
-        if(getUser() != null && getUser().hasFake(getItem())) {
+        if(user != null && user.hasFake(getItem())) {
             fakeButton.addStyleName("red");
         }
 
         FlexButton hideButton = new HideButton();
         hideButton.addClickListener(this);
-        if(getUser() != null && getUser().hasFake(getItem())) {
+        if(user != null && user.hasFake(getItem())) {
             fakeButton.addStyleName("yellow");
         }
 
@@ -100,7 +102,12 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
         if(getUI() != null) {
             return getUI().getFlexUser();
         }
-        else return null;
+        else if(getSession() != null) {
+            return (FlexUser) getSession().getAttribute("user");
+        }
+        else {
+            return null;
+        }
     }
     
     public T getItem() {
@@ -124,17 +131,17 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
         String username = getUsername();
         if(event.getButton() instanceof HideButton) {
             Notification.show("Hide me!");
-            getService().hide(username, this.getItem());
+            getService().markAsRead(username, this.getItem());
             FlexUtils.getInstance().getBody(this).getContent().getSummaries().removeComponent(this);
         }
         else if(event.getButton() instanceof FavoriteButton) {
             Notification.show("Favorite");
-            getService().favorite(username, this.getItem());
+            getService().markAsFavorite(username, this.getItem());
             event.getButton().addStyleName("yellow");
         }
         else if(event.getButton() instanceof FakeButton) {
             Notification.show("Fake");
-            getService().fake(username, this.getItem());
+            getService().markAsFake(username, this.getItem());
             event.getButton().addStyleName("red");
         }
     }
@@ -142,6 +149,6 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
     public abstract AbstractDBService<T> getService();
 
     private String getUsername() {
-        return (String) getSession().getAttribute("username");
+        return getUI().getFlexUser().getUsername();
     }
 }

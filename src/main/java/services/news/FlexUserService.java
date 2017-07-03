@@ -6,7 +6,6 @@
 package services.news;
 
 import db.news.FlexUser;
-import db.news.NewsArticle;
 import javax.ejb.Stateless;
 import org.neo4j.ogm.cypher.query.SortOrder;
 
@@ -42,15 +41,18 @@ public class FlexUserService extends AbstractDBService<FlexUser> {
         return null;
     }
 
+    public FlexUser register(FlexUser user) {
+        FlexUser u = find(user);
+        if(u != null) {
+            return null;
+        }
+        
+        return save(user);
+    }
+
     @Override
     public SortOrder getSortOrder() {
         return new SortOrder().add("username");
-    }
-    
-    public void markAsRead(String username, NewsArticle article) {
-        FlexUser user = find(new FlexUser(username, null));
-        user.read(article);
-        save(user);
     }
     
 }

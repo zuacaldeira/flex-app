@@ -5,7 +5,9 @@
  */
 package db.histories;
 
+import db.news.FlexUser;
 import db.news.GraphEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
 /**
  *
@@ -14,6 +16,10 @@ import db.news.GraphEntity;
 public class FlexNote extends GraphEntity {
 
     private String title;
+    private String content;
+    
+    @Relationship(type = "OWNED_BY")
+    private FlexUser owner;
 
     public FlexNote() {
     }
@@ -37,5 +43,31 @@ public class FlexNote extends GraphEntity {
     public String getUrl() {
         throw new UnsupportedOperationException();
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public FlexUser getOwner() {
+        return owner;
+    }
+
+    public void setOwner(FlexUser owner) {
+        this.owner = owner;
+    }
+    
+    
     
 }
