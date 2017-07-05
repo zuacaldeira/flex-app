@@ -6,10 +6,7 @@
 package ui;
 
 import com.vaadin.ui.AbsoluteLayout;
-import com.vaadin.ui.Notification;
 import db.news.FlexUser;
-import db.news.NewsArticle;
-import utils.ServiceLocator;
 
 /**
  *
@@ -20,9 +17,10 @@ public class FlexMainView extends AbsoluteLayout {
     private FlexMenu menu;
     private FlexBody body;
     private FlexFooter footer;
-    
+    private FlexUser user;
 
-    public FlexMainView() {
+    public FlexMainView(FlexUser user) {
+        this.user = user;
         initMenu();
         initBody();
         initFooter();
@@ -34,20 +32,20 @@ public class FlexMainView extends AbsoluteLayout {
     }
 
     private void initMenu() {
-        menu = new FlexMenu();
+        menu = new FlexMenu(user);
         menu.setWidth("100%");
         menu.setHeight(getTopPosition());
     }
 
     private void initBody() {
-        body = new FlexBody();
+        body = new FlexBody(user);
         body.setSizeFull();
     }
 
     private void initFooter() {
-        footer = new FlexFooter();
+        footer = new FlexFooter(user);
         footer.setWidth("100%");
-        footer.setHeight("1cm");
+        footer.setHeight(getBottomPosition());
     }
 
     
@@ -56,7 +54,7 @@ public class FlexMainView extends AbsoluteLayout {
     }
 
     private String getTopPosition() {
-        return "1.5cm";
+        return "1cm";
     }
     
     private String getBottomPosition() {
@@ -96,12 +94,11 @@ public class FlexMainView extends AbsoluteLayout {
         replaceComponent(body, flexBody);
         this.body  = flexBody;
     }
-    
-    public FlexUser getFlexUser() {
-        if(getUI() instanceof SecuredUI) {
-            return ((SecuredUI) getUI()).getFlexUser();
-        }
-        return null;
-    }
 
+    public FlexUser getUser() {
+        return user;
+    }
+    
+    
+    
 }

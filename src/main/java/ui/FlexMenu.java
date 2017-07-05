@@ -12,11 +12,12 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
+import db.histories.FlexEvent;
 import db.histories.FlexNote;
 import db.news.FlexUser;
+import db.news.GraphEntity;
 import db.news.NewsArticle;
 import java.util.TreeSet;
 import utils.FlexUtils;
@@ -28,6 +29,7 @@ import utils.ServiceLocator;
  */
 public class FlexMenu extends HorizontalLayout {
 
+    private ActorSystem as = ActorSystem.create();
     private Thread runner;
     
     // Main Menu (top level)
@@ -53,36 +55,41 @@ public class FlexMenu extends HorizontalLayout {
     
     // Logout button 
     private LogoutButton logoutButton;
+    private FlexUser user;
     
-    public FlexMenu() {
+    public FlexMenu(FlexUser user) {
+        this.user = user;
         super.setSizeFull();
         super.setMargin(false);
         super.setSpacing(false);
         super.setStyleName("flex-menu");
-        super.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
-        menuBar = new MenuBar();
-        menuBar.setSizeFull();
-        menuBar.setAutoOpen(true);
-        menuBar.setStyleName(ValoTheme.MENUBAR_BORDERLESS+ " " + ValoTheme.MENUBAR_SMALL);
         initMenuBar();
         logoutButton = new LogoutButton();
+        logoutButton.addUsername(getUsername());
         super.addComponents(menuBar, logoutButton);
+        super.setComponentAlignment(menuBar, Alignment.MIDDLE_RIGHT);
+        super.setComponentAlignment(logoutButton, Alignment.MIDDLE_LEFT);
     }
     
     
     
     private void initMenuBar() {
+        menuBar = new MenuBar();
+        menuBar.setWidthUndefined();
+        menuBar.setHeightUndefined();
+        menuBar.setAutoOpen(true);
+        menuBar.setStyleName(ValoTheme.MENUBAR_BORDERLESS);
         initCommand();
         initMenuNews();
         initMenuHistory();
         initMenuTimelines();
+        //command.menuSelected(latest);
     }
     
     private void initCommand() {
         command = new MenuBar.Command() {
             @Override
             public void menuSelected(MenuItem selectedItem) {
-                FlexBody body = new FlexBody();
                 Iterable<NewsArticle> nodes = null;
                 if(selectedItem.getParent() == categories) {
                     nodes = ServiceLocator.getInstance().findArticlesService().findArticlesWithCategory(selectedItem.getText(), 100);
@@ -106,27 +113,19 @@ public class FlexMenu extends HorizontalLayout {
                     nodes = ServiceLocator.getInstance().findArticlesService().findArticlesFake(getUsername());                        
                 }
 
-                FlexUtils.getInstance().getMainView(FlexMenu.this).replaceBody(body);
-
-                final UpdateBodyMessage message = new UpdateBodyMessage(body, nodes);
-                
-                if(FlexMenu.this.runner != null && FlexMenu.this.runner.isAlive()) {
-                    FlexMenu.this.runner.interrupt();
-                }
-                
-                FlexMenu.this.runner = new Thread(() -> {
-                    ActorSystem as = ActorSystem.create();
-                    ActorRef ref = as.actorOf(MVCActor.props());
-                    ref.tell(message, null);
-                    getUI().access(() -> {
-                        if(logoutButton.getCaption() == null) {
-                            logoutButton.addUsername(FlexMenu.this.getUsername());
-                        }
-                    });
-                });
-                runner.start();
+                initAndUpdateBody(nodes);
             }
         };
+    }
+    
+    private <T extends GraphEntity> void initAndUpdateBody(Iterable<T> nodes) {
+        FlexBody body = new FlexBody(user);
+        FlexUtils.getInstance().getMainView(FlexMenu.this).replaceBody(body);
+        new Thread(() -> {
+            final UpdateBodyMessage message = new UpdateBodyMessage<T>(body, nodes);
+            ActorRef ref = as.actorOf(MVCActor.props());
+            ref.tell(message, null);
+        }).start();
     }
     
     private void initMenuNews() {
@@ -144,40 +143,32 @@ public class FlexMenu extends HorizontalLayout {
     private void initMenuHistory() {
         history = menuBar.addItem("History", null);
         
-        notes = history.addItem("My Notes", null);
-        notes.addItem("Today", command);
-        notes.addItem("All", command);
+        notes = history.addItem("New Event", null);
+        notes.addItem("All", new ShowUserEventsCommand());
         notes.addSeparator();
-        notes.addItem("New Note", VaadinIcons.PLUS, new NewNoteCommand());
+        notes.addItem("New Event", VaadinIcons.PLUS, new NewEventCommand());
         history.addSeparator();
         
-        dna = history.addItem("DNA Flow", null);
+        dna = history.addItem("DNA History", null);
         dna.addItem("Paternal Haplotypes", null);
         dna.addItem("Maternal Haplotypes", null);
         dna.addSeparator();
         dna.addItem("New Haplotype", VaadinIcons.PLUS, null);
         
-        civilizations = history.addItem("Civilizational Flow", null);
-        civilizations.addItem("New Civilization", VaadinIcons.PLUS, command);
+        civilizations = history.addItem("Human History", null);
+        civilizations.addItem("New Topic", VaadinIcons.PLUS, command);
         civilizations.addSeparator();
         civilizations.addItem("References", null);
         
-        languages = history.addItem("Linguistic Flow", null);
+        languages = history.addItem("Languages", null);
         languages.addItem("New Alphabet", VaadinIcons.PLUS, command);
         languages.addItem("New Language", VaadinIcons.PLUS, command);
-        languages.addSeparator();
-        languages.addItem("References", null);
         
-        humanRights = history.addItem("Human Rights", null);
+        humanRights = history.addItem("Human Rights and Conflicts", null);
         humanRights.addItem("Universal Declaration", command);
         humanRights.addItem("Reports and Statistics", command);
         humanRights.addSeparator();
-        humanRights.addItem("New Violations", VaadinIcons.PLUS, command);
-        humanRights.addSeparator();
-        humanRights.addItem("References", null);
-
-        history.addSeparator();
-        history.addItem("All References", null);
+        humanRights.addItem("Report Violations", VaadinIcons.ALARM, command);
     }
     
     private void initMenuTimelines() {
@@ -280,13 +271,13 @@ public class FlexMenu extends HorizontalLayout {
         }
     }
     private void updateNewsByTime() {
-        latest = news.addItem("Latest", null, command);
-        oldest = news.addItem("Oldest", null, command);
+        latest = news.addItem("Latest", VaadinIcons.ARROW_CIRCLE_DOWN, command);
+        oldest = news.addItem("Oldest", VaadinIcons.ARROW_CIRCLE_UP, command);
     }
     private void updateNewsByStatus() {
-        news.addItem("Read", command);
-        news.addItem("Favorite", command);
-        news.addItem("Fake", command);
+        news.addItem("Read", VaadinIcons.EYE_SLASH, command);
+        news.addItem("Favorite", VaadinIcons.STAR, command);
+        news.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, command);
     }
 
     private void updateNewsSettings() {
@@ -294,21 +285,41 @@ public class FlexMenu extends HorizontalLayout {
     }
     
     private String getUsername() {
-        return getUser().getUsername();
+        return user.getUsername();
     }
     
     public SecuredUI getUI() {
         return (SecuredUI) super.getUI();
     }
-    
-    public FlexUser getUser() {
-        if(getUI() != null) {
-            return getUI().getFlexUser();
+
+    private class ShowUserEventsCommand implements MenuBar.Command {
+
+        public ShowUserEventsCommand() {
         }
-        else {
-            return (FlexUser) getSession().getAttribute("user");
+
+        @Override
+        public void menuSelected(MenuItem selectedItem) {
+            initAndUpdateBody(ServiceLocator.getInstance().findEventService().findAll());
         }
     }
+
+    private class NewEventCommand implements MenuBar.Command {
+
+        public NewEventCommand() {
+        }
+
+        @Override
+        public void menuSelected(MenuItem selectedItem) {
+            FlexEvent event = new FlexEvent();
+            event.setOwner(user);
+            Window w = new FlexWindow("Create new event", new FlexEventForm(user, event));
+            w.setModal(true);
+            w.setWidth("50%");
+            w.setHeightUndefined();
+            getUI().addWindow(w);
+        }
+    }
+    
 
     private class NewNoteCommand implements MenuBar.Command {
         public NewNoteCommand() {
@@ -316,9 +327,8 @@ public class FlexMenu extends HorizontalLayout {
 
         @Override
         public void menuSelected(MenuItem selectedItem) {
-            Notification.show("Selected menu Item " + selectedItem.getText());
             FlexNote note = new FlexNote();
-            note.setOwner(getUser());
+            note.setOwner(user);
             Window w = new Window("Create new note", new FlexNoteForm(note));
             w.setModal(true);
             w.setWidth("50%");

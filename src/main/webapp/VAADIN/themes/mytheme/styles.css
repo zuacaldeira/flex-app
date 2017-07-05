@@ -12663,6 +12663,12 @@ div.v-layout.v-horizontal.v-widget {
 	font-family: serif;
 }
 
+.mytheme .flex-window {
+	background-color: yellowgreen;
+	background-image: -webkit-linear-gradient(top left, yellowgreen, yellow);
+	background-image: linear-gradient(to bottom right,yellowgreen, yellow);
+}
+
 .mytheme .login-view {
 	background: black;
 	color: white;
@@ -12702,9 +12708,7 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme .items .summaries {
 	border-radius: 0%;
 	color: black;
-	font-family: serif;
-	font-size: smaller;
-	opacity: 1;
+	background: transparent;
 }
 
 .mytheme .items .summaries .item .source {
@@ -12736,8 +12740,8 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .items .summaries .item-selected {
 	background-color: yellowgreen;
-	background-image: -webkit-linear-gradient(top, yellowgreen, silver);
-	background-image: linear-gradient(to bottom,yellowgreen, silver);
+	background-image: -webkit-linear-gradient(top left, yellowgreen, yellow);
+	background-image: linear-gradient(to bottom right,yellowgreen, yellow);
 	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -12755,7 +12759,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .action {
-	color: white;
+	color: yellowgreen;
 	font-family: monospace;
 	font-variant: all-caps;
 	font-weight: normal;
@@ -12765,12 +12769,14 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .action:hover {
+	background-color: yellowgreen;
+	background-image: -webkit-linear-gradient(top left, yellowgreen, tomato);
+	background-image: linear-gradient(to bottom right,yellowgreen, tomato);
 	color: white;
-	background: primary;
 	font-family: monospace;
 	font-variant: all-caps;
 	font-weight: bold;
-	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+	box-shadow: 12px 12px 16px 12px rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
 .mytheme .selected {
@@ -12780,7 +12786,7 @@ div.v-layout.v-horizontal.v-widget {
 	font-family: monospace;
 	font-variant: all-caps;
 	font-weight: bold;
-	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+	box-shadow: 12px 12px 16px 12px rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
 .mytheme .yellow {
@@ -12789,6 +12795,10 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .red {
 	color: red;
+}
+
+.mytheme .purple {
+	color: purple;
 }
 
 .mytheme .category-general {
@@ -12842,4 +12852,10 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .count .number {
 	font-size: 300%;
+}
+
+.mytheme .v-menubar-menuitem-selected {
+	background-color: yellowgreen;
+	background-image: -webkit-linear-gradient(top left, yellowgreen, yellow);
+	background-image: linear-gradient(to bottom right,yellowgreen, yellow);
 }

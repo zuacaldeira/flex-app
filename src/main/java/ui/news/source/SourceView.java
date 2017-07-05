@@ -4,6 +4,7 @@ import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
+import db.news.FlexUser;
 import db.news.NewsSource;
 import services.news.AbstractDBService;
 import ui.GraphEntityView;
@@ -20,8 +21,8 @@ public class SourceView extends GraphEntityView<NewsSource> {
     private Label country;
     
 
-    public SourceView(NewsSource apiSource) {
-        super(apiSource);
+    public SourceView(FlexUser user, NewsSource apiSource) {
+        super(user, apiSource);
     }
 
 

@@ -144,5 +144,36 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
         userService.save(user);
     }
 
+    public void removeMarkAsRead(String username, T entity) {
+        FlexUser user = userService.find(new FlexUser(username, null));
+        user.getRead().remove(entity);
+        userService.save(user);
+    }
 
+    public void removeMarkAsFavorite(String username, T entity) {
+        FlexUser user = userService.find(new FlexUser(username, null));
+        user.getFavorite().remove(entity);
+        userService.save(user);
+    }
+
+    public void removeMarkAsFake(String username, T entity) {
+        FlexUser user = userService.find(new FlexUser(username, null));
+        user.getFake().remove(entity);
+        userService.save(user);
+    }
+
+    public boolean isRead(String username, T entity) {
+        FlexUser user = userService.find(new FlexUser(username, null));
+        return user.getRead().contains(entity);
+    }
+
+    public boolean isFavorite(String username, T entity) {
+        FlexUser user = userService.find(new FlexUser(username, null));
+        return user.getFavorite().contains(entity);
+    }
+
+    public boolean isFake(String username, T entity) {
+        FlexUser user = userService.find(new FlexUser(username, null));
+        return user.getFake().contains(entity);
+    }
 }

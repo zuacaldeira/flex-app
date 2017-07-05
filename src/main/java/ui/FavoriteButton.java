@@ -14,7 +14,8 @@ import com.vaadin.icons.VaadinIcons;
 public class FavoriteButton extends FlexButton {
 
     public FavoriteButton() {
-        super("Favorite", VaadinIcons.STAR);
+        super(VaadinIcons.STAR);
+        setDescription("Favorite");
     }
     
 }

@@ -5,6 +5,7 @@
  */
 package ui.login;
 
+import db.news.FlexUser;
 import ui.FlexBody;
 
 /**
@@ -13,6 +14,7 @@ import ui.FlexBody;
  */
 public class AboutMeView extends FlexBody {
 
-    public AboutMeView() {
+    public AboutMeView(FlexUser user) {
+        super(user);
     }
 }

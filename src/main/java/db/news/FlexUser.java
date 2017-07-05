@@ -93,7 +93,19 @@ public class FlexUser extends GraphEntity {
 
     @Override
     public String getUrl() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
+    }
+
+    public Set<GraphEntity> getRead() {
+        return read;
+    }
+
+    public Set<GraphEntity> getFavorite() {
+        return favorite;
+    }
+
+    public Set<GraphEntity> getFake() {
+        return fake;
     }
     
     

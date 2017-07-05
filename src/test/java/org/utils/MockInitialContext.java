@@ -12,6 +12,7 @@ import services.news.NewsAuthorService;
 import services.news.NewsSourceService;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import services.news.FlexUserService;
 
 /**
  *
@@ -41,6 +42,9 @@ public class MockInitialContext extends InitialContext {
         }
         else if(name.equals(ServiceLocator.NEWS_AUTHOR_SERVICE)) {
             return new NewsAuthorService();
+        }
+        else if(name.equals(ServiceLocator.FLEX_USER_SERVICE)) {
+            return new FlexUserService();
         }
         else{
             throw new NamingException(name);

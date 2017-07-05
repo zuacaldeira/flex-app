@@ -10,6 +10,7 @@ import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import db.news.FlexUser;
 
 /**
  *
@@ -18,8 +19,9 @@ import com.vaadin.ui.Label;
 public class FlexFooter extends HorizontalLayout {
     
     private final Label copyright;
+    private FlexUser user;
     
-    public FlexFooter() {
+    public FlexFooter(FlexUser user) {
         copyright = new Label(VaadinIcons.COPYRIGHT.getHtml() + " Pirigrino"
                 + " <peregrino.do.piri@gmail.com>", ContentMode.HTML);
         copyright.setSizeUndefined();

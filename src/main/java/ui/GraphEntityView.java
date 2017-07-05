@@ -10,12 +10,10 @@ import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import db.news.FlexUser;
 import db.news.GraphEntity;
 import services.news.AbstractDBService;
-import utils.FlexUtils;
 
 /**
  *
@@ -24,14 +22,16 @@ import utils.FlexUtils;
  */
 public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLayout implements ClickListener {
 
-    private final T graphEntity;
+    private final T item;
+    private FlexUser user;
     
     private AbstractOrderedLayout infoHeader;
     private AbstractOrderedLayout infoBody;
     private AbstractOrderedLayout infoActions;
-
-    public GraphEntityView(T entity) {
-        this.graphEntity = entity;
+    
+    public GraphEntityView(FlexUser user, T entity) {
+        this.user = user;
+        this.item = entity;
         infoHeader = this.createInfoHeader();
         infoBody = this.createInfoBody();
         infoActions = this.createInfoActions();
@@ -63,29 +63,28 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
         commentButton.addClickListener(this);
 
         FlexButton favoriteButton = new FavoriteButton();
+        FlexButton fakeButton = new FakeButton();
+        FlexButton hideButton = new HideButton();
+
+        hideButton.addClickListener(this);
+        fakeButton.addClickListener(this);
         favoriteButton.addClickListener(this);
         
-        FlexUser user = getUser();
-        if(user != null && user.hasFavorite(getItem())) {
+        if(user != null && getService().isFavorite(getUsername(), item)) {
             favoriteButton.addStyleName("yellow");
+            
         }
 
-        FlexButton fakeButton = new FakeButton();
-        fakeButton.addClickListener(this);
-        if(user != null && user.hasFake(getItem())) {
+        if(user != null && getService().isFake(getUsername(), item)) {
             fakeButton.addStyleName("red");
         }
 
-        FlexButton hideButton = new HideButton();
-        hideButton.addClickListener(this);
-        if(user != null && user.hasFake(getItem())) {
-            fakeButton.addStyleName("yellow");
+        if(user != null && getService().isRead(getUsername(), item)) {
+            hideButton.addStyleName("purple");
         }
 
-        FlexButton editButton = new EditButton();
-        editButton.addClickListener(this);
 
-        HorizontalLayout actions = new HorizontalLayout(commentButton, favoriteButton, fakeButton, hideButton, editButton);
+        HorizontalLayout actions = new HorizontalLayout(commentButton, favoriteButton, fakeButton, hideButton);
         actions.setSizeUndefined();
         actions.setStyleName("controls");
         actions.setMargin(new MarginInfo(false, false, true, false));
@@ -98,20 +97,8 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
         return (SecuredUI) super.getUI();
     }
     
-    public FlexUser getUser() {
-        if(getUI() != null) {
-            return getUI().getFlexUser();
-        }
-        else if(getSession() != null) {
-            return (FlexUser) getSession().getAttribute("user");
-        }
-        else {
-            return null;
-        }
-    }
-    
     public T getItem() {
-        return graphEntity;
+        return item;
     }
     
     public void minimize() {
@@ -130,25 +117,72 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
     public void buttonClick(Button.ClickEvent event) {
         String username = getUsername();
         if(event.getButton() instanceof HideButton) {
-            Notification.show("Hide me!");
-            getService().markAsRead(username, this.getItem());
-            FlexUtils.getInstance().getBody(this).getContent().getSummaries().removeComponent(this);
+            handleHideClick((HideButton) event.getButton());
         }
         else if(event.getButton() instanceof FavoriteButton) {
-            Notification.show("Favorite");
-            getService().markAsFavorite(username, this.getItem());
-            event.getButton().addStyleName("yellow");
+            handleFavouriteClick((FavoriteButton) event.getButton());            
         }
+        
         else if(event.getButton() instanceof FakeButton) {
-            Notification.show("Fake");
-            getService().markAsFake(username, this.getItem());
-            event.getButton().addStyleName("red");
+            handleFakeClick((FakeButton) event.getButton());
         }
     }
 
     public abstract AbstractDBService<T> getService();
 
     private String getUsername() {
-        return getUI().getFlexUser().getUsername();
+        return user.getUsername();
     }
+
+
+    public FlexUser getUser() {
+        return user;
+    }
+
+    private void handleHideClick(HideButton button) {
+        if(!button.getStyleName().contains("purple")) {
+            getUI().access(() -> {
+                button.addStyleName("green");
+                button.setDescription("Mark as Read");
+                getService().markAsRead(getUsername(), this.getItem());
+            });
+        }
+        else {
+            getUI().access(()->{
+                button.removeStyleName("green");
+                button.setDescription("Mark as Unread");
+                getService().removeMarkAsRead(getUsername(), this.getItem());
+            });
+        }
+    }
+
+    private void handleFavouriteClick(FavoriteButton button) {
+        if(!button.getStyleName().contains("yellow")) {
+            button.addStyleName("yellow");
+            button.setDescription("Unmark Favorite");
+            getService().markAsFavorite(getUsername(), this.getItem());
+        }
+        else {
+            button.removeStyleName("yellow");
+            button.setDescription("Mark as Favorite");
+            getService().removeMarkAsFavorite(getUsername(), this.getItem());
+        }
+    }
+
+    private void handleFakeClick(FakeButton button) {
+        if(!button.getStyleName().contains("red")) {
+            button.addStyleName("red");
+            button.setDescription("Unmark Fake");
+            getService().markAsFake(getUsername(), this.getItem());
+        }
+        else {
+            button.removeStyleName("red");
+            button.setDescription("Mark as Fake");
+            getService().removeMarkAsFake(getUsername(), this.getItem());
+        }
+    }
+    
+    
+    
+    
 }

@@ -23,7 +23,7 @@ public class SummariesLayout<T extends GraphEntityView> extends FlexPanel {
         layout.setHeightUndefined();
         layout.setWidth("100%");
         layout.setMargin(false);
-        layout.setSpacing(true);
+        layout.setSpacing(false);
         super.setStyleName("summaries");
         super.setSizeFull();
         super.setDebugId(getClass().getCanonicalName());

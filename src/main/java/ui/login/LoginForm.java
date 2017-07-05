@@ -8,14 +8,16 @@ package ui.login;
 import services.news.FlexUserService;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import db.news.FlexUser;
 import ui.SaveButton;
-import ui.news.FlexTextField;
+import ui.FlexTextField;
 import utils.ServiceLocator;
 
 /**
@@ -48,7 +50,9 @@ public class LoginForm extends VerticalLayout {
         password2.setIcon(VaadinIcons.LOCK);
         password2.setRequiredIndicatorVisible(true);
         
-        register = new CheckBox("Not a member? Check to register", false);
+        register = new CheckBox("Not yet a member?", false);
+        register.setSizeFull();
+        register.setDescription("Register / Join us");
         register.addValueChangeListener(event -> {
                 password2.setVisible(event.getValue());
                 if(!event.getValue()) {
@@ -56,6 +60,7 @@ public class LoginForm extends VerticalLayout {
             }
         });
         saveButton = new SaveButton();
+        saveButton.setSizeFull();
         saveButton.addClickListener(event -> {
             FlexUserService userService = ServiceLocator.getInstance().findUserService();
             String u = this.username.getValue().trim();
@@ -80,9 +85,18 @@ public class LoginForm extends VerticalLayout {
                 loginUser(u, p);
             }
         });
-        formLayout.addComponents(username, password, password2, register, saveButton);
+        
+        HorizontalLayout registerOrSave = new HorizontalLayout(register, saveButton);
+        registerOrSave.setSizeFull();
+        registerOrSave.setHeightUndefined();
+        registerOrSave.setSpacing(true);
+        registerOrSave.setMargin(true);
+        registerOrSave.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+
+        formLayout.addComponents(username, password, password2, registerOrSave);
         password2.setVisible(false);
         formLayout.setSizeFull();
+        formLayout.setHeightUndefined();
         formLayout.setSpacing(true);
         formLayout.setMargin(true);
         addComponent(formLayout);

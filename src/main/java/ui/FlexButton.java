@@ -37,8 +37,6 @@ public class FlexButton extends Button {
     private void initialize() {
         unselect();
         setSizeFull();
-        setDescription(getCaption());
-        setCaption(null);
     }
 
     /*private static String normalize(String caption) {

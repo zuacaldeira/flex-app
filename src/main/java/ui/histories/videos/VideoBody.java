@@ -8,10 +8,11 @@ package ui.histories.videos;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Window;
 import db.histories.FlexVideo;
+import db.news.FlexUser;
 import services.histories.FlexVideoService;
 import ui.FlexBody;
 import ui.SecuredUI;
-import ui.news.FlexWindow;
+import ui.FlexWindow;
 import java.util.Date;
 import org.neo4j.ogm.exception.CypherException;
 import utils.ServiceLocator;
@@ -22,7 +23,8 @@ import utils.ServiceLocator;
  */
 public class VideoBody extends FlexBody {
 
-    public VideoBody() {
+    public VideoBody(FlexUser user) {
+        super(user);
     }
 
     private void showCreateForm() {
@@ -32,7 +34,7 @@ public class VideoBody extends FlexBody {
             FlexVideo newVideo = new FlexVideo();
             newVideo.setUrl(videoForm.getUrlField().getValue());
             newVideo.setTitle(videoForm.getTitleField().getValue());
-            newVideo.setPostedBy( ((SecuredUI)getUI()).getFlexUser());
+            newVideo.setPostedBy(getUser());
             newVideo.setPostedAt(new Date());
             newVideo.setDescription(videoForm.getDescriptionField().getValue());
             newVideo.setAuthor(videoForm.getAuthorField().getValue());

@@ -5,29 +5,30 @@
  */
 package ui.news.source;
 
-import ui.news.source.SourceView;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import db.news.FlexUser;
 import db.news.NewsSource;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
+import ui.news.UITest;
 
 /**
  *
  * @author zua
  */
 @RunWith(DataProviderRunner.class)
-public class SourceViewTest {
+public class SourceViewTestIT extends UITest{
     
-    public SourceViewTest() {
+    public SourceViewTestIT() {
     }
     
     @DataProvider
     public static Object[][] sourcesProvider() {
         NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "language", "country");
-        SourceView view = new SourceView(source);
+        SourceView view = new SourceView(new FlexUser(), source);
         return new Object[][] {
             {view, source}  
         };

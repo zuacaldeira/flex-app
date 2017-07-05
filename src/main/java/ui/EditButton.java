@@ -14,7 +14,8 @@ import com.vaadin.icons.VaadinIcons;
 public class EditButton extends FlexButton {
 
     public EditButton() {
-        super("Edit", VaadinIcons.EDIT);
+        super(null, VaadinIcons.EDIT);
+        setDescription("Edit");
     }
     
 }

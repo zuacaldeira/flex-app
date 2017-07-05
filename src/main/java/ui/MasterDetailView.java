@@ -9,8 +9,6 @@ import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalSplitPanel;
-import com.vaadin.ui.Notification;
-import ui.GraphEntityView;
 import ui.news.article.SummariesLayout;
 
 /**
@@ -69,7 +67,9 @@ public class MasterDetailView<T extends GraphEntityView> extends HorizontalSplit
         selected = itemView;
         selected.maximize();
         String url = selected.getItem().getUrl();
-        browserFrame.setSource(new ExternalResource(url));
+        if(url != null) {
+            browserFrame.setSource(new ExternalResource(url));
+        }
     }
     
     @Override

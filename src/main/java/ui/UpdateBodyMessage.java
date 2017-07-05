@@ -5,18 +5,18 @@
  */
 package ui;
 
-import db.news.NewsArticle;
+import db.news.GraphEntity;
 
 /**
  *
  * @author zua
  */
-public class UpdateBodyMessage {
+public class UpdateBodyMessage<T extends GraphEntity> {
 
     private final FlexBody body;
-    private final Iterable<NewsArticle> nodes;
+    private final Iterable<T> nodes;
 
-    public UpdateBodyMessage(FlexBody body, Iterable<NewsArticle> nodes) {
+    public UpdateBodyMessage(FlexBody body, Iterable<T> nodes) {
         this.body = body;
         this.nodes = nodes;
     }
@@ -25,7 +25,7 @@ public class UpdateBodyMessage {
         return body;
     }
 
-    public Iterable<NewsArticle> getNodes() {
+    public Iterable<T> getNodes() {
         return nodes;
     }
     

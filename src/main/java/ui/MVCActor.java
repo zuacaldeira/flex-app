@@ -7,6 +7,7 @@ package ui;
 
 import akka.actor.AbstractActor;
 import akka.actor.Props;
+import db.news.GraphEntity;
 import db.news.NewsArticle;
 import java.util.Iterator;
 
@@ -33,9 +34,9 @@ public class MVCActor extends AbstractActor {
     }
 
     private void updateBody(UpdateBodyMessage updateBodyMessage) {
-        Iterator<NewsArticle> it = updateBodyMessage.getNodes().iterator();
+        Iterator<GraphEntity> it = updateBodyMessage.getNodes().iterator();
         int i = 0;
-        NewsArticle next = null;
+        GraphEntity next = null;
         while(it.hasNext()) {
             if(i % 10 == 0) {
                 try {Thread.sleep(1000);}catch(InterruptedException e){ return ;}

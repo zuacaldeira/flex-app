@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui.histories;
+package ui;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;

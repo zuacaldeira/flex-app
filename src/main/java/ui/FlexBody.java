@@ -5,6 +5,7 @@
  */
 package ui;
 
+import db.news.FlexUser;
 import db.news.GraphEntity;
 import ui.news.article.FlexPanel;
 
@@ -13,9 +14,11 @@ import ui.news.article.FlexPanel;
  * @author zua
  */
 public class FlexBody extends FlexPanel {
+    private FlexUser user;
     
-    public FlexBody() {
+    public FlexBody(FlexUser user) {
         super.addStyleName("flex-body");
+        this.user = user;
         setSizeFull();
         setContent(new MasterDetailView());
     }
@@ -26,10 +29,17 @@ public class FlexBody extends FlexPanel {
     public void addItemView(GraphEntity item) {
         if(getUI() != null && getUI().isAttached()) {
             getUI().access(() -> {
-                getContent().addComponent(FlexViewFactory.getInstance().createView(item));
+                getContent().addComponent(FlexViewFactory.getInstance().createView(user, item));
             });
         }
     }
+
+    public FlexUser getUser() {
+        return user;
+    }
+    
+    
+    
 
 
 }

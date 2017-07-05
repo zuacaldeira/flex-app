@@ -13,6 +13,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Link;
 import com.vaadin.ui.VerticalLayout;
 import db.histories.FlexVideo;
+import db.news.FlexUser;
 import services.histories.FlexVideoService;
 import services.news.AbstractDBService;
 import ui.GraphEntityView;
@@ -34,8 +35,8 @@ public class FlexVideoView extends GraphEntityView<FlexVideo> {
     private Embedded video;
     private Label videoDescription;
 
-    public FlexVideoView(FlexVideo flexVideo) {
-        super(flexVideo);
+    public FlexVideoView(FlexUser user, FlexVideo flexVideo) {
+        super(user, flexVideo);
     }
     
     private void initTitle() {

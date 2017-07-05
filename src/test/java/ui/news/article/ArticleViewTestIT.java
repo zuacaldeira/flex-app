@@ -5,11 +5,11 @@
  */
 package ui.news.article;
 
-import ui.news.article.ArticleView;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import com.vaadin.server.ExternalResource;
+import db.news.FlexUser;
 import db.news.NewsArticle;
 import db.news.NewsAuthor;
 import ui.news.UITest;
@@ -40,7 +40,7 @@ public class ArticleViewTestIT extends UITest {
         Set<NewsAuthor> authors = new HashSet<>();
         authors.add(new NewsAuthor("name"));
         article.setAuthors(authors);
-        ArticleView view = new ArticleView(article);
+        ArticleView view = new ArticleView(new FlexUser(), article);
         return new Object[][] {
                 {view, article}
         };

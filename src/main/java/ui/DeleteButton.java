@@ -14,7 +14,7 @@ import com.vaadin.icons.VaadinIcons;
 public class DeleteButton extends FlexButton {
 
     public DeleteButton() {
-        super("Delete", VaadinIcons.TRASH);
+        super(VaadinIcons.TRASH);
         setDescription("Delete");
     }
     

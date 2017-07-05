@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui.news;
+package ui;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Window;
@@ -14,14 +14,14 @@ import com.vaadin.ui.Window;
  */
 public class FlexWindow extends Window {
 
-    public FlexWindow(String caption, Component dialog) {
+    public FlexWindow(String caption, Component content) {
         super(caption);
         super.setHeightUndefined();
         super.setWidth("50%");
         super.setModal(true);
         super.setStyleName("flex-window");
         super.center();
-        super.setContent(dialog);
+        super.setContent(content);
     }
 
 }

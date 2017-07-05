@@ -4,6 +4,7 @@ import ui.GraphEntityView;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import db.news.FlexUser;
 import db.news.NewsArticle;
 import db.news.NewsSource;
 import services.news.NewsArticleService;
@@ -24,8 +25,8 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     
     private AbstractOrderedLayout authors;
 
-    public ArticleView(NewsArticle article) {
-        super(article);
+    public ArticleView(FlexUser user, NewsArticle article) {
+        super(user, article);
     }
     
     
@@ -111,7 +112,7 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
         else {
             sourceName = new Label("Uknown");
         }
-        sourceName.setStyleName(ValoTheme.LABEL_LIGHT + " " + "source");
+        sourceName.setStyleName("source");
     }
 
     private void initTimeLabel() {

@@ -10,6 +10,7 @@ import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import com.vaadin.server.ExternalResource;
+import db.news.FlexUser;
 import db.news.NewsArticle;
 import db.news.NewsAuthor;
 import db.news.NewsSource;
@@ -41,7 +42,7 @@ public class FlexViewFactoryTestIT extends UITest {
     @UseDataProvider("sourcesProvider")
     public void testCreateSourceView(NewsSource source) {
         System.out.println("createSourceView");
-        SourceView view = FlexViewFactory.getInstance().createSourceView(source);
+        SourceView view = FlexViewFactory.getInstance().createSourceView(new FlexUser(), source);
         assertEquals(source, view.getItem());
         assertEquals(source.getName(), view.getName().getValue());
         assertEquals(source.getCategory(), view.getCategory().getValue());
@@ -65,7 +66,7 @@ public class FlexViewFactoryTestIT extends UITest {
     @UseDataProvider("articlesProvider")
     public void testCreateArticleView(NewsArticle article) {
         System.out.println("createArticleView");
-        ArticleView view = FlexViewFactory.getInstance().createArticleView(article);
+        ArticleView view = FlexViewFactory.getInstance().createArticleView(new FlexUser(), article);
         assertEquals(article, view.getArticle());
         assertEquals(article.getDescription(), view.getContent().getValue());
         assertEquals(article.getImageUrl(), ((ExternalResource)view.getImage().getSource()).getURL());
@@ -93,7 +94,7 @@ public class FlexViewFactoryTestIT extends UITest {
     @UseDataProvider("authorsProvider")
     public void testCreateAuthorView(NewsAuthor author) {
         System.out.println("createAuthorView");
-        AuthorView view = FlexViewFactory.getInstance().createAuthorView(author);
+        AuthorView view = FlexViewFactory.getInstance().createAuthorView(new FlexUser(), author);
         assertEquals(author, view.getAuthor());
     }
     

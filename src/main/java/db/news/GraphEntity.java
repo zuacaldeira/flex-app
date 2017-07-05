@@ -9,7 +9,8 @@ import org.neo4j.ogm.annotation.GraphId;
  */
 public abstract class GraphEntity implements Serializable {
     
-
+    private static final long serialVersionUID = 42L;
+    
     @GraphId
     private Long id;
     

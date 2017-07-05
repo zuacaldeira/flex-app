@@ -14,7 +14,8 @@ import com.vaadin.icons.VaadinIcons;
 public class FakeButton extends FlexButton {
 
     public FakeButton() {
-        super("Fake", VaadinIcons.DEL);
+        super(VaadinIcons.EXCLAMATION_CIRCLE);
+        setDescription("Fake");
     }
     
 }

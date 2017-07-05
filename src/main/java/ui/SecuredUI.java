@@ -18,13 +18,10 @@ import ui.login.LoginForm;
 public abstract class SecuredUI extends UI {
     
     
-    private FlexUser flexUser;
-
     @Override
     public void init(VaadinRequest request) {
         if(getSession() != null && getSession().getAttribute("user") != null) {
-            setFlexUser((FlexUser)getSession().getAttribute("user"));
-            FlexMainView mainView = new FlexMainView();
+            FlexMainView mainView = new FlexMainView((FlexUser)getSession().getAttribute("user"));
             setContent(mainView);
         }        
         else {
@@ -34,23 +31,14 @@ public abstract class SecuredUI extends UI {
     
     private void login() {
         LoginForm form = new LoginForm();
-        Window w = new Window("Login", form);
+        Window w = new FlexWindow("Login", form);
         w.center();
         w.setModal(true);
         w.setWidth("50%");
-        w.setHeight("75%");
+        w.setHeightUndefined();
         w.setClosable(false);
         addWindow(w);
     }
 
-    private void setFlexUser(FlexUser user) {
-        this.flexUser = user;
-    }
-    
     protected abstract String getPageLocation();
-
-    public FlexUser getFlexUser() {
-        return flexUser;
-    }
-
 }

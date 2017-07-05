@@ -241,7 +241,11 @@
             <version>9.4.5.v20170502</version>
         </dependency>
 
-        
+        <dependency>
+           <groupId>org.vaadin.addons</groupId>
+           <artifactId>locationtextfield</artifactId>
+           <version>3.0.0</version>
+        </dependency>        
     </dependencies>
 
     <build>

@@ -18,7 +18,7 @@ public class DateLabel extends Label {
 
     public DateLabel(Date date) {
         super(FlexUtils.formatDate(date));
-        setStyleName(ValoTheme.LABEL_TINY);
+        setStyleName(ValoTheme.LABEL_LIGHT + " source");
     }
     
 }

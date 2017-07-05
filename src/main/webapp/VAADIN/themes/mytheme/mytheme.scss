@@ -47,6 +47,10 @@
         font-family: serif;
     }
     
+    .flex-window {
+        @include linear-gradient(to bottom right, yellowgreen, yellow);
+    }
+
     .login-view {
         background: black;
         color: white;        
@@ -107,9 +111,7 @@
         .summaries{
             border-radius: 0%;
             color:black;
-            font-family: serif;
-            font-size: smaller;
-            opacity: 1;
+            background: transparent;
             
             .item {
                 .source {
@@ -138,7 +140,7 @@
             }
             
             .item-selected {
-                @include linear-gradient(to bottom, yellowgreen, silver);
+                @include linear-gradient(to bottom right, yellowgreen, yellow);
                 box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
                 .source {
                     color: white;
@@ -155,8 +157,9 @@
         }
     }
 
+    
     .action{
-        color: white;
+        color: yellowgreen;
         font-family: monospace;
         font-variant: all-caps;
         font-weight: normal;
@@ -165,12 +168,12 @@
         border: none;
     }
     .action:hover {
+        @include linear-gradient(to bottom right, yellowgreen, tomato);
         color: white;
-        background: primary;
         font-family: monospace;
         font-variant: all-caps;
         font-weight: bold;
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        box-shadow: 12px 12px 16px 12px rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     }
       
     .selected {
@@ -180,7 +183,7 @@
         font-family: monospace;
         font-variant: all-caps;
         font-weight: bold;
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        box-shadow: 12px 12px 16px 12px rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     }
     
 
@@ -189,6 +192,9 @@
     }
     .red {
         color: red;
+    }
+    .purple {
+        color: purple;
     }
 
     .category-general {
@@ -245,5 +251,16 @@
         }
     }
     
-        
+    .v-menubar {
+    }
+    .v-menubar-submenu {
+    }
+    .v-menubar-menuitem {
+    }
+    .v-menubar-menuitem-caption { 
+    }
+    .v-menubar-menuitem-selected {
+        @include linear-gradient(to bottom right, yellowgreen, yellow);
+    }
+    .v-menubar-submenu-indicator { }        
 }

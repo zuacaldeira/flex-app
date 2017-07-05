@@ -5,23 +5,24 @@
  */
 package ui.news.author;
 
-import ui.news.author.AuthorView;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import db.news.FlexUser;
 import db.news.NewsAuthor;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
+import ui.news.UITest;
 
 /**
  *
  * @author zua
  */
 @RunWith(DataProviderRunner.class)
-public class AuthorViewTest {
+public class AuthorViewTestIT extends UITest {
     
-    public AuthorViewTest() {
+    public AuthorViewTestIT() {
     }
 
     /**
@@ -69,7 +70,7 @@ public class AuthorViewTest {
     @DataProvider
     public static Object[][] authorsProvider() {
         NewsAuthor author = new NewsAuthor("name");
-        AuthorView view = new AuthorView(author);
+        AuthorView view = new AuthorView(new FlexUser(), author);
         return new Object[][] {
             {view, author}
         };

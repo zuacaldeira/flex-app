@@ -14,7 +14,7 @@ import com.vaadin.icons.VaadinIcons;
 public class HideButton extends FlexButton {
 
     public HideButton() {
-        super("Hide", VaadinIcons.EYE_SLASH);
+        super(VaadinIcons.EYE_SLASH);
         setDescription("Hide / Mark as Read");
     }
     

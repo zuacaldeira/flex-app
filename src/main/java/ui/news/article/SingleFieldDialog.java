@@ -9,7 +9,7 @@ import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.VerticalLayout;
 import ui.SaveButton;
-import ui.news.FlexTextField;
+import ui.FlexTextField;
 
 /**
  *
