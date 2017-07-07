@@ -43,6 +43,7 @@ public class MVCActor extends AbstractActor {
             }
             next = it.next();
             updateBodyMessage.getBody().addItemView(next);
+            i++;
         }               
     }
     

@@ -107,6 +107,19 @@ public class FlexUser extends GraphEntity {
     public Set<GraphEntity> getFake() {
         return fake;
     }
+
+    public void setRead(Set<GraphEntity> read) {
+        this.read = read;
+    }
+
+    public void setFavorite(Set<GraphEntity> favorite) {
+        this.favorite = favorite;
+    }
+
+    public void setFake(Set<GraphEntity> fake) {
+        this.fake = fake;
+    }
+
     
     
     

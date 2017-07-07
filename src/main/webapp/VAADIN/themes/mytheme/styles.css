@@ -12759,7 +12759,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .action {
-	color: yellowgreen;
+	color: white;
 	font-family: monospace;
 	font-variant: all-caps;
 	font-weight: normal;
@@ -12795,6 +12795,10 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .red {
 	color: red;
+}
+
+.mytheme .green {
+	color: green;
 }
 
 .mytheme .purple {

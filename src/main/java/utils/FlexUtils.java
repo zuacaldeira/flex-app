@@ -25,13 +25,16 @@ public class FlexUtils {
     private static FlexUtils instance;
 
     public static String formatDate(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("dd MMM, YYYY @ HH:mm");
-        String t = format.format(date).toLowerCase();
-        return t;
+        if(date != null) {
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm, dd/MMM/YY");
+            String t = format.format(date).toLowerCase();
+            return t;
+        }
+        return "";
     }
 
     public String wrapUp(String category) {
-        return "\'" + category + "\'";
+        return "\"" + category + "\"";
     }
 
     public boolean isUrl(String value) {

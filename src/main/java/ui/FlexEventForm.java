@@ -7,6 +7,7 @@ package ui;
 
 import com.vaadin.tapio.googlemaps.GoogleMap;
 import com.vaadin.tapio.googlemaps.client.LatLon;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Notification;
@@ -68,11 +69,14 @@ public class FlexEventForm extends VerticalLayout {
             .build();
         where.addLocationValueChangeListener(e -> {
             GeocodedLocation location = e.getValue();
-            LatLon latLon = splitLatLon(location.getGeocodedAddress());
-            Notification.show("Map re-centered to " + location.getGeocodedAddress());
             event.setWhere(location.getGeocodedAddress());
-            event.setLatLon(latLon);
-            smallMap.setCenter(latLon);
+            event.setLatitude(location.getLat());
+            event.setLongitude(location.getLon());
+            LatLon latLon = new LatLon(location.getLat(), location.getLon());
+            if(smallMap != null  && latLon != null) {
+                Notification.show("Map re-centered to " + latLon.getLat() + ", " + latLon.getLon());
+                smallMap.setCenter(latLon);
+            }
         });
     }
     
@@ -111,27 +115,16 @@ public class FlexEventForm extends VerticalLayout {
     
     private void initForm() {
         initTitle();
-        initWhere();
         initWhen();
-        initDetails();
         initMap();
+        initWhere();
+        initDetails();
         initSaveButton();
         formLayout = new FormLayout();
         formLayout.addComponents(title, when, where, smallMap, details, saveButton);
+        formLayout.setComponentAlignment(saveButton, Alignment.MIDDLE_RIGHT);
         formLayout.setSpacing(true);
         formLayout.setMargin(true);
     }
-
-    private LatLon splitLatLon(String geocodedAddress) {
-        try {
-            String[] parts = geocodedAddress.split(",");
-            String lat = parts[0].trim();
-            String lon = parts[1].trim();
-            double dlat = Double.valueOf(lat);
-            double dlon = Double.valueOf(lon);
-            return new LatLon(dlat, dlon);
-        } catch(Exception e) {
-            return new LatLon(0,0);
-        }
-    }
+   
 }

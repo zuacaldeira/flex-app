@@ -33,8 +33,8 @@ public abstract class GraphEntity implements Serializable {
     public boolean equals(Object other) {
         if(other instanceof GraphEntity) {
             GraphEntity otherEntity = (GraphEntity) other;
-            return getPropertyName().equals(otherEntity.getPropertyName()) 
-                    && getPropertyValue().equals(otherEntity.getPropertyValue());
+            return Objects.equals(getPropertyName(), otherEntity.getPropertyName()) 
+                    && Objects.equals(getPropertyValue(), otherEntity.getPropertyValue());
         }
         else {
             return false;

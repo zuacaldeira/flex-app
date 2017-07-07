@@ -3,6 +3,7 @@ package ui.histories.videos;
 import ui.news.article.*;
 import ui.GraphEntityView;
 import com.vaadin.tapio.googlemaps.GoogleMap;
+import com.vaadin.tapio.googlemaps.client.LatLon;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import db.histories.FlexEvent;
@@ -81,7 +82,7 @@ public class EventView extends GraphEntityView<FlexEvent>  {
         map = new GoogleMap(null, null, null);
         map.setWidth("100%");
         map.setHeight("100px");
-        map.setCenter(getItem().getLatLon());
+        map.setCenter(new LatLon(getItem().getLatitude(), getItem().getLongitude()));
     }
 
     private void initOwner() {

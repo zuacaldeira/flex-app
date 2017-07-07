@@ -26,80 +26,30 @@ import utils.ServiceLocator;
  */
 public class LoginForm extends VerticalLayout {
 
-    private final FormLayout formLayout;
-    private final FlexTextField username;
-    private final PasswordField password;
-    private final PasswordField password2;
-    private final CheckBox register;
-    private final SaveButton saveButton;
+    private FormLayout formLayout;
+    private FlexTextField username;
+    private PasswordField password;
+    private PasswordField password2;
+    private CheckBox register;
+    private SaveButton saveButton;
+    private FlexUserService service = ServiceLocator.getInstance().findUserService();
+    private HorizontalLayout registerOrSave;
 
     public LoginForm() {
+        initUsername();
+        initPassword();
+        initPassword2();
+        initRegisterCheckBox();
+        initSaveButton();
+        initRegisterOrSave();
         formLayout = new FormLayout();
-        
-        username = new FlexTextField("Username", VaadinIcons.USER);
-        username.setSizeFull();
-        username.setRequiredIndicatorVisible(true);
-        
-        password = new PasswordField("Password");
-        password.setSizeFull();
-        password.setIcon(VaadinIcons.LOCK);
-        password.setRequiredIndicatorVisible(true);
-        
-        password2 = new PasswordField("Password 2");
-        password2.setSizeFull();
-        password2.setIcon(VaadinIcons.LOCK);
-        password2.setRequiredIndicatorVisible(true);
-        
-        register = new CheckBox("Not yet a member?", false);
-        register.setSizeFull();
-        register.setDescription("Register / Join us");
-        register.addValueChangeListener(event -> {
-                password2.setVisible(event.getValue());
-                if(!event.getValue()) {
-                    password2.clear();
-            }
-        });
-        saveButton = new SaveButton();
-        saveButton.setSizeFull();
-        saveButton.addClickListener(event -> {
-            FlexUserService userService = ServiceLocator.getInstance().findUserService();
-            String u = this.username.getValue().trim();
-            String p = this.password.getValue().trim();
-
-            System.out.println("Username = " + u);
-            System.out.println("Password = " + p);
-            
-            FlexUser dbUser = null;
-            if(!register.isEmpty()) {
-                if(!existsUserNamed(u)) {
-                    registerNewUser(u, p);
-                    loginUser(u, p);
-                }
-                else {
-                    this.username.clear();
-                    this.password.clear();
-                    this.password2.clear();
-                }
-            }
-            else {
-                loginUser(u, p);
-            }
-        });
-        
-        HorizontalLayout registerOrSave = new HorizontalLayout(register, saveButton);
-        registerOrSave.setSizeFull();
-        registerOrSave.setHeightUndefined();
-        registerOrSave.setSpacing(true);
-        registerOrSave.setMargin(true);
-        registerOrSave.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
-
         formLayout.addComponents(username, password, password2, registerOrSave);
-        password2.setVisible(false);
         formLayout.setSizeFull();
         formLayout.setHeightUndefined();
         formLayout.setSpacing(true);
         formLayout.setMargin(true);
         addComponent(formLayout);
+        username.focus();
     }
 
     public FormLayout getFormLayout() {
@@ -107,12 +57,10 @@ public class LoginForm extends VerticalLayout {
     }
 
     private boolean existsUserNamed(String username) {
-        FlexUserService service = ServiceLocator.getInstance().findUserService();
         return service.contains(new FlexUser(username, null));
     }
 
-    private void loginUser(String user, String pass) {
-        FlexUserService service = ServiceLocator.getInstance().findUserService();
+    private void saveToLogin(String user, String pass) {
         FlexUser dbUser = service.login(new FlexUser(user, pass));
         if(dbUser != null) {
             getSession().setAttribute("user", dbUser);
@@ -124,7 +72,6 @@ public class LoginForm extends VerticalLayout {
     private FlexUser registerNewUser(String username, String password) {
         System.out.println("Register = " + register.getValue());
         if(this.password.getValue().equals(password2.getValue())) {
-            FlexUserService service = ServiceLocator.getInstance().findUserService();
             return service.register(new FlexUser(username, password));
         }
         else {
@@ -133,6 +80,90 @@ public class LoginForm extends VerticalLayout {
         }
     }
 
+    private void initUsername() {
+        username = new FlexTextField("Username", VaadinIcons.USER);
+        username.setSizeFull();
+        username.setCaptionAsHtml(true);
+        username.setValueChangeTimeout(2000);
+        username.setRequiredIndicatorVisible(true);  
+    }
+
+    private void initPassword() {
+        password = new PasswordField("Password");
+        password.setSizeFull();
+        password.setCaptionAsHtml(true);
+        password.setIcon(VaadinIcons.LOCK);
+        password.setRequiredIndicatorVisible(true);
+        password.addValueChangeListener(e -> {
+            saveButton.setEnabled(!password.getValue().isEmpty() && existsUserNamed(username.getValue()));
+        });
+    }
     
+    private void initPassword2() {
+        password2 = new PasswordField("Password 2");
+        password2.setSizeFull();
+        password2.setIcon(VaadinIcons.LOCK);
+        password2.setRequiredIndicatorVisible(true);     
+        password2.setVisible(false);
+        password2.addValueChangeListener(e -> {
+            saveButton.setEnabled(!e.getValue().isEmpty() && e.getValue().equals(password.getValue()));
+        });
+    }
     
+    private void initRegisterCheckBox() {
+        register = new CheckBox("Not yet a member?", false);
+        register.setSizeUndefined();
+        register.setDescription("Register / Join us");
+        register.addValueChangeListener(event -> {
+            if(!event.getValue()) {          // Unchecked
+                password2.clear();           // Clear password 2
+                password2.setVisible(false); // Hide it
+                password.focus();            // Focus on password
+            }
+            else {
+                password2.setVisible(event.getValue());
+                password2.focus();
+            }
+        });
+    }
+    
+    private void initSaveButton() {
+        saveButton = new SaveButton();
+        saveButton.addClickListener(event -> {
+            String u = this.username.getValue().trim();
+            String p = this.password.getValue().trim();
+            FlexUser dbUser = null;
+            if(!register.isEmpty()) {
+                saveToRegister(u, p);
+            }
+            else {
+                saveToLogin(u, p);
+            }
+        });
+        saveButton.setEnabled(false);
+    }
+    
+    private void saveToRegister(String username, String password) {
+        if(!existsUserNamed(username)) {
+            FlexUser dbUser = registerNewUser(username, password);
+            if(dbUser != null) {
+                saveToLogin(dbUser.getUsername(), password);
+            }
+        }
+        else {
+            this.username.clear();
+            this.password.clear();
+            this.password2.clear();
+        }
+    }
+    
+    private void initRegisterOrSave() {
+        registerOrSave = new HorizontalLayout(register, saveButton);
+        registerOrSave.setSizeFull();
+        //registerOrSave.setHeightUndefined();
+        registerOrSave.setSpacing(true);
+        registerOrSave.setMargin(false);
+        registerOrSave.setComponentAlignment(register, Alignment.MIDDLE_LEFT);
+        registerOrSave.setComponentAlignment(saveButton, Alignment.MIDDLE_RIGHT);
+    }
 }

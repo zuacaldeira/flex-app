@@ -26,7 +26,7 @@ public class FlexEventService extends AbstractDBService<FlexEvent> {
     
     @Override
     public SortOrder getSortOrder() {
-        return new SortOrder().add("title");
+        return new SortOrder().add("what");
     }
 
     @Override

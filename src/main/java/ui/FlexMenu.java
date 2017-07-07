@@ -67,8 +67,8 @@ public class FlexMenu extends HorizontalLayout {
         logoutButton = new LogoutButton();
         logoutButton.addUsername(getUsername());
         super.addComponents(menuBar, logoutButton);
-        super.setComponentAlignment(menuBar, Alignment.MIDDLE_RIGHT);
-        super.setComponentAlignment(logoutButton, Alignment.MIDDLE_LEFT);
+        super.setComponentAlignment(menuBar, Alignment.MIDDLE_LEFT);
+        super.setComponentAlignment(logoutButton, Alignment.MIDDLE_RIGHT);
     }
     
     

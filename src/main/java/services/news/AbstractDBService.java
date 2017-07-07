@@ -126,40 +126,48 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
         return Neo4jSessionFactory.getInstance().getNeo4jSession();
     }
     
+    
+    private String getCreateStateQuery(String relationName, String userProperty, String userPropertyValue, String entityProperty, String entityPropertyValue) {
+            String query = "MATCH (u:FlexUser),(n:" + getClassType().getSimpleName() + ") WHERE\n";
+            query += "u." + userProperty   + "=" + FlexUtils.getInstance().wrapUp(userPropertyValue);
+            query += " AND ";
+            query += "n." + entityProperty + "=" + FlexUtils.getInstance().wrapUp(entityPropertyValue);
+            query += " CREATE (u)-[r:" + relationName + "]->(n) RETURN r";
+            return query;
+    }
+    
+    private String getDeleteStateQuery(String relationName, String userProperty, String userPropertyValue, String entityProperty, String entityPropertyValue) {
+            String query = "MATCH (u:FlexUser)-[r:" + relationName + "]->(n:" + getClassType().getSimpleName() + ") WHERE\n";
+            query += "u." + userProperty   + "=" + FlexUtils.getInstance().wrapUp(userPropertyValue);
+            query += " AND ";
+            query += "n." + entityProperty + "=" + FlexUtils.getInstance().wrapUp(entityPropertyValue);
+            query += " DELETE r";
+            return query;
+    }
+
     public void markAsRead(String username, T entity) {
-        FlexUser user = userService.find(new FlexUser(username, null));
-        user.read(entity);
-        userService.save(user);
+        getSession().query(getCreateStateQuery("READ", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
     }
 
     public void markAsFavorite(String username, T entity) {
-        FlexUser user = userService.find(new FlexUser(username, null));
-        user.favorite(entity);
-        userService.save(user);
+        getSession().query(getCreateStateQuery("FAVORITE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
     }
 
     public void markAsFake(String username, T entity) {
-        FlexUser user = userService.find(new FlexUser(username, null));
-        user.fake(entity);
-        userService.save(user);
+        getSession().query(getCreateStateQuery("FAKE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
     }
+
 
     public void removeMarkAsRead(String username, T entity) {
-        FlexUser user = userService.find(new FlexUser(username, null));
-        user.getRead().remove(entity);
-        userService.save(user);
+        getSession().query(getDeleteStateQuery("READ", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
     }
-
+    
     public void removeMarkAsFavorite(String username, T entity) {
-        FlexUser user = userService.find(new FlexUser(username, null));
-        user.getFavorite().remove(entity);
-        userService.save(user);
+        getSession().query(getDeleteStateQuery("FAVORITE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
     }
 
     public void removeMarkAsFake(String username, T entity) {
-        FlexUser user = userService.find(new FlexUser(username, null));
-        user.getFake().remove(entity);
-        userService.save(user);
+        getSession().query(getDeleteStateQuery("FAKE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
     }
 
     public boolean isRead(String username, T entity) {

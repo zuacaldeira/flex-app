@@ -22,6 +22,17 @@ public class FlexUserService extends AbstractDBService<FlexUser> {
             if(newEntity.getPassword() != null) {
                 dbEntity.setPassword(newEntity.getPassword());
             }
+            
+            if(!newEntity.getRead().isEmpty()) {
+                dbEntity.setRead(newEntity.getRead());
+            }
+            if(!newEntity.getFavorite().isEmpty()) {
+                dbEntity.setFavorite(newEntity.getFavorite());
+            }
+            if(!newEntity.getFake().isEmpty()) {
+                dbEntity.setFake(newEntity.getFake());
+            }
+
         }
         
         return dbEntity;

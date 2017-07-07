@@ -5,26 +5,29 @@
  */
 package db.histories;
 
-import com.vaadin.tapio.googlemaps.client.LatLon;
 import db.news.FlexUser;
 import db.news.GraphEntity;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import org.neo4j.ogm.annotation.NodeEntity;
 
 /**
  *
  * @author zua
  */
+@NodeEntity
 public class FlexEvent extends GraphEntity {
     
     private String what;
     private Date when; 
     private String where;
-    private LatLon latLon;
+    private double latitude;
+    private double longitude;
     private String details;
     private Set<FlexReference> references;    
     private FlexUser owner;
+    private FlexEventType type;
 
     public FlexEvent() {
         references = new HashSet();
@@ -108,12 +111,28 @@ public class FlexEvent extends GraphEntity {
         return owner;
     }
 
-    public LatLon getLatLon() {
-        return latLon;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setLatLon(LatLon latLon) {
-        this.latLon = latLon;
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public FlexEventType getType() {
+        return type;
+    }
+
+    public void setType(FlexEventType type) {
+        this.type = type;
     }
     
     

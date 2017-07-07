@@ -16,6 +16,7 @@ public class SaveButton extends FlexButton {
     public SaveButton() {
         super("Save", VaadinIcons.CHECK);
         setSizeUndefined();
+        addStyleName("selected");
     }
     
 }
