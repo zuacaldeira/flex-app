@@ -8,14 +8,9 @@ package services.news;
 import db.news.Neo4jQueries;
 import utils.Neo4jSessionFactory;
 import db.news.NewsArticle;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import org.neo4j.ogm.cypher.ComparisonOperator;
-import org.neo4j.ogm.cypher.Filter;
-import org.neo4j.ogm.cypher.Filters;
 import org.neo4j.ogm.cypher.query.SortOrder;
 import org.neo4j.ogm.session.Session;
 import utils.FlexUtils;
@@ -79,83 +74,43 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
     }
     
     @Override
-    public boolean contains(NewsArticle object) {
-        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        Filter filter1 = new Filter(object.getPropertyName(), ComparisonOperator.EQUALS, object.getPropertyValue());
-        Filter filter2 = new Filter("sourceId", ComparisonOperator.EQUALS, object.getSourceId());
-        return !session.loadAll(getClassType(),
-                               new Filters().add(filter1), 
-                               2).isEmpty();
-    }
-
-    @Override
-    public SortOrder getSortOrder() {
-        return getSortOrderDesc();
-    }
-
-    private SortOrder getSortOrderDesc() {
-        return new SortOrder().add(SortOrder.Direction.DESC, "publishedAt");
-    }
-    
-    private SortOrder getSortOrderAsc() {
+    public SortOrder getSortOrderAsc() {
         return new SortOrder().add(SortOrder.Direction.ASC, "publishedAt");
     }
     
-    public Iterable<NewsArticle> findArticlesWithCategory(String category, int limit) {
-        String query = "MATCH (source:NewsSource)--(author:NewsAuthor)--(article:NewsArticle)";
-        query += " WHERE source.category=" + FlexUtils.getInstance().wrapUp(category);
-        query += " RETURN article ";
-        query += " ORDER BY article.publishedAt DESC LIMIT " + limit;
-        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        return session.query(getClassType(), query, new HashMap<>());
+    @Override
+    public SortOrder getSortOrderDesc() {
+        return new SortOrder().add(SortOrder.Direction.DESC, "publishedAt");
     }
 
-    public Iterable<NewsArticle> findArticlesWithSource(String publisher) {
-        String query = "MATCH (source:NewsSource)--(author:NewsAuthor)--(article:NewsArticle)";
-        query += " WHERE source.name=" + FlexUtils.getInstance().wrapUp(publisher);
-        query += " RETURN article ";
-        query += " ORDER BY article.publishedAt DESC LIMIT " + MAX_SIZE;
-        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        return session.query(getClassType(), query, new HashMap<>());
-    }
-
-    public Iterable<NewsArticle> findArticlesLatest() {
-        return findAll(MAX_SIZE, getSortOrderDesc());
-    }
-
-    public Iterable<NewsArticle> findArticlesOldest() {
-        return findAll(MAX_SIZE, getSortOrderAsc());
-    }
-
-    public Iterable<NewsArticle> findArticlesToday() {
-        Filter filter = new Filter("publishedAt", ComparisonOperator.LESS_THAN_EQUAL, new Date());
-        return findAll(MAX_SIZE, filter, getSortOrderDesc());
-    }
-
-    public Iterable<NewsArticle> findArticlesThisWeek() {
-        return new HashSet<>(); 
-    }
-
-    public Iterable<NewsArticle> findArticlesThisMonth() {
-        return new HashSet<>(); 
-    }
-
-    public Iterable<NewsArticle> findArticlesRead(String username) {
-        String query = "MATCH (n:NewsArticle)<-[r:READ]-(u:FlexUser) RETURN n";
+    public Iterable<NewsArticle> findArticlesWithCategory(String username, String category) {
+        String query = "MATCH (u:FlexUser), (n:NewsArticle)--(a:NewsAuthor)--(s:NewsSource) ";
+        query += "WHERE u.username=" + FlexUtils.getInstance().wrapUp(username) + " ";
+        query += "  AND s.category=" + FlexUtils.getInstance().wrapUp(category) + " ";
+        query += "  AND NOT ( (u)-[:READ|FAVORITE|FAKE]->(n)) ";
+        query += "  RETURN n ";
+        query += "  ORDER BY n.publishedAt DESC LIMIT " + LIMIT;
+        System.out.println(query);
         return getSession().query(getClassType(), query, new HashMap<>());
     }
-    
-    public Iterable<NewsArticle> findArticlesUnread(String username) {
-        return new HashSet<>(); 
-    }
-    
-    public Iterable<NewsArticle> findArticlesFavorite(String username) {
-        String query = "MATCH (n:NewsArticle)<-[r:FAVORITE]-(u:FlexUser) RETURN n";
+
+    public Iterable<NewsArticle> findArticlesWithSource(String username, String publisherId) {
+        String query = "MATCH (u:FlexUser), (n:NewsArticle)--(a:NewsAuthor)--(s:NewsSource) ";
+        query += "WHERE u.username=" + FlexUtils.getInstance().wrapUp(username) + " ";
+        query += "  AND s.name=" + FlexUtils.getInstance().wrapUp(publisherId) + " ";
+        query += "  AND NOT ( (u)-[:READ|FAVORITE|FAKE]->(n)) ";
+        query += "  RETURN n ";
+        query += "  ORDER BY n.publishedAt DESC LIMIT " + LIMIT;
+        System.out.println(query);
         return getSession().query(getClassType(), query, new HashMap<>());
     }
-    
-    public Iterable<NewsArticle> findArticlesFake(String username) {
-        String query = "MATCH (n:NewsArticle)<-[r:FAKE]-(u:FlexUser) RETURN n";
-        return getSession().query(getClassType(), query, new HashMap<>());
+
+    public Iterable<NewsArticle> findArticlesLatest(String username) {
+        return findAllDesc(username);
     }
+
+    public Iterable<NewsArticle> findArticlesOldest(String username) {
+        return findAllAsc(username);
+    }
+
 }

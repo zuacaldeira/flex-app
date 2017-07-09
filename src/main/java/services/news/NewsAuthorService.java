@@ -53,8 +53,14 @@ public class NewsAuthorService extends AbstractDBService<NewsAuthor> {
     }
 
     @Override
-    public SortOrder getSortOrder() {
-        return new SortOrder().add("name");
+    public SortOrder getSortOrderAsc() {
+        return new SortOrder().add(SortOrder.Direction.ASC, "name");
     }
+
+    @Override
+    public SortOrder getSortOrderDesc() {
+        return new SortOrder().add(SortOrder.Direction.DESC, "name");
+    }
+    
 
 }

@@ -25,10 +25,15 @@ public class FlexNoteService extends AbstractDBService<FlexNote> {
     }
     
     @Override
-    public SortOrder getSortOrder() {
-        return new SortOrder().add("title");
+    public SortOrder getSortOrderAsc() {
+        return new SortOrder().add(SortOrder.Direction.ASC, "title");
     }
 
+    @Override
+    public SortOrder getSortOrderDesc() {
+        return new SortOrder().add(SortOrder.Direction.DESC, "title");
+    }
+    
     @Override
     public FlexNote update(FlexNote dbEntity, FlexNote newEntity) {
         if(newEntity.getTitle() != null) {
@@ -39,5 +44,4 @@ public class FlexNoteService extends AbstractDBService<FlexNote> {
         }
         return dbEntity;
     }
-
 }

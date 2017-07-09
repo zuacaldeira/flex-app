@@ -70,8 +70,13 @@ public class NewsSourceService extends AbstractDBService<NewsSource> {
     }
     
     @Override
-    public SortOrder getSortOrder() {
-        return new SortOrder().add("name");
+    public SortOrder getSortOrderAsc() {
+        return new SortOrder().add(SortOrder.Direction.ASC, "name");
+    }
+
+    @Override
+    public SortOrder getSortOrderDesc() {
+        return new SortOrder().add(SortOrder.Direction.DESC, "name");
     }
 
     public Iterable<String> findCategories() {

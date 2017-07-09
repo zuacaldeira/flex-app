@@ -6,14 +6,9 @@
 package services.news;
 
 import utils.Neo4jSessionFactory;
-import db.news.FlexUser;
 import db.news.GraphEntity;
 import java.util.HashMap;
 import javax.ejb.EJB;
-import org.neo4j.ogm.cypher.ComparisonOperator;
-import org.neo4j.ogm.cypher.Filter;
-import org.neo4j.ogm.cypher.Filters;
-import org.neo4j.ogm.cypher.query.Pagination;
 import org.neo4j.ogm.cypher.query.SortOrder;
 import org.neo4j.ogm.session.Session;
 import utils.FlexUtils;
@@ -25,7 +20,7 @@ import utils.FlexUtils;
  */
 public abstract class AbstractDBService<T extends GraphEntity> implements DBService<T> {
 
-    public final int MAX_SIZE = 25;
+    public final int LIMIT = 100;
 
     @EJB
     private FlexUserService userService;
@@ -33,35 +28,88 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
     
     @Override
     public final Iterable<T> findAll() {
-        return findAll(MAX_SIZE);
+        return findAllDesc();
+    }
+    
+    @Override
+    public final Iterable<T> findAllAsc() {
+        String query = getFindAllQuery(null, null, null, getSortOrderAsc(), LIMIT);
+        return getSession().query(getClassType(), query, new HashMap<>());
     }
 
     @Override
-    public final Iterable<T> findAll(int limit) {
-        return findAll(limit, getSortOrder());
+    public final Iterable<T> findAllDesc() {
+        String query = getFindAllQuery(null, null, null, getSortOrderDesc(), LIMIT);
+        return getSession().query(getClassType(), query, new HashMap<>());
     }
 
-    public final Iterable<T> findAll(int limit, SortOrder sortOrder) {
-        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        return session.loadAll(getClassType(), sortOrder, new Pagination(0, limit), 2);
+    @Override
+    public final Iterable<T> findAll(String username) {
+        return findAllDesc(username);
     }
-
-    public final Iterable<T> findAll(int limit, Filter filter, SortOrder sortOrder) {
-        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        return session.loadAll(getClassType(), filter, sortOrder, new Pagination(0, limit), 2);
+    @Override
+    public final Iterable<T> findAllAsc(String username) {
+        String query = getFindAllQuery(username, null, null, getSortOrderAsc(), LIMIT);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
+    @Override
+    public final Iterable<T> findAllDesc(String username) {
+        String query = getFindAllQuery(username, null, null, getSortOrderDesc(), LIMIT);
+        return getSession().query(getClassType(), query, new HashMap<>());
     }
 
     @Override
     public final Iterable<T> findAll(String property, Object value) {
-        return findAll(property, value, MAX_SIZE);
+        return findAllDesc(property, value);
     }
 
     @Override
-    public final Iterable<T> findAll(String property, Object value, int limit) {
-        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        Filter filter = new Filter(property, ComparisonOperator.EQUALS, value);
-        return session.loadAll(getClassType(), filter, getSortOrder(), new Pagination(0, limit), 2);
+    public final Iterable<T> findAllAsc(String property, Object value) {
+        String query = getFindAllQuery(null, property, value, getSortOrderAsc(), LIMIT);
+        return getSession().query(getClassType(), query, new HashMap<>());
     }
+    @Override
+    public final Iterable<T> findAllDesc(String property, Object value) {
+        String query = getFindAllQuery(null, property, value, getSortOrderDesc(), LIMIT);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
+    
+    
+    @Override
+    public final Iterable<T> findAll(String username, String property, Object value) {
+        return findAllDesc(username, property, value);
+    }
+    @Override
+    public final Iterable<T> findAllAsc(String username, String property, Object value) {
+        String query = getFindAllQuery(username, property, value, getSortOrderAsc(), LIMIT);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
+    @Override
+    public final Iterable<T> findAllDesc(String username, String property, Object value) {
+        String query = getFindAllQuery(username, property, value, getSortOrderDesc(), LIMIT);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
+
+    @Override
+    public Iterable<T> findAllRead(String username) {
+        String query = getMatchStateQuery("READ", username, null, null);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
+
+    @Override
+    public Iterable<T> findAllFavorite(String username) {
+        String query = getMatchStateQuery("FAVORITE", username, null, null);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
+
+    @Override
+    public Iterable<T> findAllFake(String username) {
+        String query = getMatchStateQuery("FAKE", username, null, null);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
+    
+    
+    
 
     @Override
     public final T find(Long id) {
@@ -79,11 +127,7 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
         query += " WHERE n." + object.getPropertyName() + "=" + FlexUtils.getInstance().wrapUp(object.getPropertyValue());
         query += " RETURN n";
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        Iterable<T> dbObjects = session.query(getClassType(), query, new HashMap());
-        if(dbObjects.iterator().hasNext()) {
-            return find(dbObjects.iterator().next().getId());
-        }
-        return null;
+        return session.queryForObject(getClassType(), query, new HashMap<>());
     }
     
     @Override
@@ -106,12 +150,8 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
     }
 
     @Override
-    public boolean contains(T object) {
-        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        Filter filter = new Filter(object.getPropertyName(), ComparisonOperator.EQUALS, object.getPropertyValue());
-        return !session.loadAll(getClassType(),
-                               new Filters().add(filter), 
-                               2).isEmpty();
+    public final boolean contains(T object) {
+        return find(object) != null;
     }
 
     @Override
@@ -136,6 +176,17 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
             return query;
     }
     
+    private String getMatchStateQuery(String relationName, String username, String property, String value) {
+            String query = "MATCH (u:FlexUser)-[:" + relationName + "]->(n:" + getClassType().getSimpleName() + ") WHERE\n";
+            query += "u.username=" + FlexUtils.getInstance().wrapUp(username);
+            if(property != null) {
+                query += " AND ";
+                query += "n." + property + "=" + FlexUtils.getInstance().wrapUp(value);
+            }
+            query += " RETURN n";
+            return query;
+    }
+
     private String getDeleteStateQuery(String relationName, String userProperty, String userPropertyValue, String entityProperty, String entityPropertyValue) {
             String query = "MATCH (u:FlexUser)-[r:" + relationName + "]->(n:" + getClassType().getSimpleName() + ") WHERE\n";
             query += "u." + userProperty   + "=" + FlexUtils.getInstance().wrapUp(userPropertyValue);
@@ -144,44 +195,99 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
             query += " DELETE r";
             return query;
     }
+    private String getFindAllQuery(String username, String property, Object value, SortOrder order, int limit) {
+        String query = "MATCH (n:" + getClassType().getSimpleName() + "), (u:FlexUser)  ";
+        if(username != null && property != null) {
+            query += "WHERE u.username=" + FlexUtils.getInstance().wrapUp(username) + " ";
+            query += "AND n." + property + "=" + FlexUtils.getInstance().wrapUp(value.toString()) + " "; 
+            query += "AND NOT ( (u)-[:READ|FAVORITE|FAKE]->(n)) ";
+            query += "RETURN n ";
+        }
+        else if(username != null && property == null) {
+            query += "WHERE u.username=" + FlexUtils.getInstance().wrapUp(username) + " ";
+            query += "AND NOT ( (u)-[:READ|FAVORITE|FAKE]->(n)) ";
+            query += "RETURN n ";
+        } 
+        else if(username == null && property != null) {
+            query += "WHERE n." + property + "=" + FlexUtils.getInstance().wrapUp(value.toString()) + " "; 
+            query += "AND NOT ( (u)-[:READ|FAVORITE|FAKE]->(n)) ";
+            query += "RETURN n ";
+        }
+        else if(username == null && property == null) {
+            query += "WHERE NOT ( (u)-[:READ|FAVORITE|FAKE]->(n)) ";
+            query += "RETURN n ";
+        }
+        
+        if(order != null) {
+            query += order.toString().replace("$", "n") + " ";
+        }
 
+        if(LIMIT > 0) {
+            query += "LIMIT " + limit;
+        }
+        
+        System.out.println("Query = " + query);
+        return query;
+    }
+
+    @Override
     public void markAsRead(String username, T entity) {
-        getSession().query(getCreateStateQuery("READ", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+        if(!isRead(username, entity)){
+            getSession().query(getCreateStateQuery("READ", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+        }
     }
 
+    @Override
     public void markAsFavorite(String username, T entity) {
-        getSession().query(getCreateStateQuery("FAVORITE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+        if(!isFavorite(username, entity)) {
+            getSession().query(getCreateStateQuery("FAVORITE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+        }
     }
 
+    @Override
     public void markAsFake(String username, T entity) {
-        getSession().query(getCreateStateQuery("FAKE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+        if(!isFake(username, entity)) {
+            getSession().query(getCreateStateQuery("FAKE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+        }
     }
 
 
+    @Override
     public void removeMarkAsRead(String username, T entity) {
-        getSession().query(getDeleteStateQuery("READ", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+        if(isRead(username, entity)) {
+            getSession().query(getDeleteStateQuery("READ", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+        }
     }
     
+    @Override
     public void removeMarkAsFavorite(String username, T entity) {
-        getSession().query(getDeleteStateQuery("FAVORITE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+        if(isFavorite(username, entity)) {
+            getSession().query(getDeleteStateQuery("FAVORITE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+        }
     }
 
+    @Override
     public void removeMarkAsFake(String username, T entity) {
-        getSession().query(getDeleteStateQuery("FAKE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+        if(isFake(username, entity)) {
+            getSession().query(getDeleteStateQuery("FAKE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+        }
     }
 
+    @Override
     public boolean isRead(String username, T entity) {
-        FlexUser user = userService.find(new FlexUser(username, null));
-        return user.getRead().contains(entity);
+        return getSession().queryForObject(getClassType(), getMatchStateQuery("READ", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>()) 
+                != null;
     }
 
+    @Override
     public boolean isFavorite(String username, T entity) {
-        FlexUser user = userService.find(new FlexUser(username, null));
-        return user.getFavorite().contains(entity);
+        return getSession().queryForObject(getClassType(), getMatchStateQuery("FAVORITE", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>()) 
+                != null;
     }
 
+    @Override
     public boolean isFake(String username, T entity) {
-        FlexUser user = userService.find(new FlexUser(username, null));
-        return user.getFake().contains(entity);
+        return getSession().queryForObject(getClassType(), getMatchStateQuery("FAKE", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>()) 
+                != null;
     }
 }

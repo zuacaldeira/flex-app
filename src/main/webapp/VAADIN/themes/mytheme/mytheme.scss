@@ -168,7 +168,6 @@
         border: none;
     }
     .action:hover {
-        @include linear-gradient(to bottom right, yellowgreen, tomato);
         color: white;
         font-family: monospace;
         font-variant: all-caps;

@@ -61,9 +61,16 @@ public class FlexUserService extends AbstractDBService<FlexUser> {
         return save(user);
     }
 
+    
     @Override
-    public SortOrder getSortOrder() {
-        return new SortOrder().add("username");
+    public SortOrder getSortOrderAsc() {
+        return new SortOrder().add(SortOrder.Direction.ASC, "username");
+    }
+
+    @Override
+    public SortOrder getSortOrderDesc() {
+        return new SortOrder().add(SortOrder.Direction.DESC, "username");
     }
     
+
 }

@@ -25,8 +25,13 @@ public class FlexVideoService extends AbstractDBService<FlexVideo> {
     }
     
     @Override
-    public SortOrder getSortOrder() {
-        return new SortOrder().add("title");
+    public SortOrder getSortOrderAsc() {
+        return new SortOrder().add(SortOrder.Direction.ASC, "title");
+    }
+
+    @Override
+    public SortOrder getSortOrderDesc() {
+        return new SortOrder().add(SortOrder.Direction.DESC, "title");
     }
 
     @Override

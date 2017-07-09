@@ -5,8 +5,6 @@
  */
 package ui;
 
-import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
@@ -18,8 +16,9 @@ import db.histories.FlexEvent;
 import db.histories.FlexNote;
 import db.news.FlexUser;
 import db.news.GraphEntity;
-import db.news.NewsArticle;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utils.FlexUtils;
 import utils.ServiceLocator;
 
@@ -29,9 +28,6 @@ import utils.ServiceLocator;
  */
 public class FlexMenu extends HorizontalLayout {
 
-    private ActorSystem as = ActorSystem.create();
-    private Thread runner;
-    
     // Main Menu (top level)
     private MenuBar menuBar;
     private MenuItem news;
@@ -47,7 +43,7 @@ public class FlexMenu extends HorizontalLayout {
     private MenuItem settings;
     
     // History related menu items
-    private MenuItem notes;
+    private MenuItem events;
     private MenuItem civilizations;
     private MenuItem languages;
     private MenuItem dna;
@@ -56,6 +52,7 @@ public class FlexMenu extends HorizontalLayout {
     // Logout button 
     private LogoutButton logoutButton;
     private FlexUser user;
+    private Thread worker;
     
     public FlexMenu(FlexUser user) {
         this.user = user;
@@ -70,8 +67,6 @@ public class FlexMenu extends HorizontalLayout {
         super.setComponentAlignment(menuBar, Alignment.MIDDLE_LEFT);
         super.setComponentAlignment(logoutButton, Alignment.MIDDLE_RIGHT);
     }
-    
-    
     
     private void initMenuBar() {
         menuBar = new MenuBar();
@@ -90,44 +85,63 @@ public class FlexMenu extends HorizontalLayout {
         command = new MenuBar.Command() {
             @Override
             public void menuSelected(MenuItem selectedItem) {
-                Iterable<NewsArticle> nodes = null;
-                if(selectedItem.getParent() == categories) {
-                    nodes = ServiceLocator.getInstance().findArticlesService().findArticlesWithCategory(selectedItem.getText(), 100);
-                }
-                else if(selectedItem.getParent() == publishers) {
-                    nodes = ServiceLocator.getInstance().findArticlesService().findArticlesWithSource(selectedItem.getText());
-                }
-                else if(selectedItem.getText().equals("Latest")) {
-                    nodes = ServiceLocator.getInstance().findArticlesService().findArticlesLatest();
-                }
-                else if(selectedItem.getText().equals("Oldest")) {
-                    nodes = ServiceLocator.getInstance().findArticlesService().findArticlesOldest();
-                }
-                else if(selectedItem.getText().equals("Read")) {
-                    nodes = ServiceLocator.getInstance().findArticlesService().findArticlesRead(getUsername());                        
-                }
-                else if(selectedItem.getText().equals("Favorite")) {
-                    nodes = ServiceLocator.getInstance().findArticlesService().findArticlesFavorite(getUsername());                        
-                }
-                else if(selectedItem.getText().equals("Fake")) {
-                    nodes = ServiceLocator.getInstance().findArticlesService().findArticlesFake(getUsername());                        
-                }
-
-                initAndUpdateBody(nodes);
+                updateWorker(selectedItem);
             }
         };
     }
     
-    private <T extends GraphEntity> void initAndUpdateBody(Iterable<T> nodes) {
+    private void updateWorker(MenuItem selectedItem) {
         FlexBody body = new FlexBody(user);
         FlexUtils.getInstance().getMainView(FlexMenu.this).replaceBody(body);
-        new Thread(() -> {
-            final UpdateBodyMessage message = new UpdateBodyMessage<T>(body, nodes);
-            ActorRef ref = as.actorOf(MVCActor.props());
-            ref.tell(message, null);
-        }).start();
+        if(worker != null) {
+            worker.interrupt();
+        }
+        worker = new Thread(() -> {
+            Iterable<? extends GraphEntity> nodes = getNodes(selectedItem);
+            nodes.forEach(article -> {
+                body.addItemView(article);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(FlexMenu.class.getName()).log(Level.SEVERE, "Interrupted", ex);
+                    return;
+                }
+            });
+        });
+        worker.start();
     }
     
+    public Iterable<? extends GraphEntity> getNodes(MenuItem selectedItem) {
+        String username = getUsername();
+        
+        Iterable<? extends GraphEntity> nodes = null;
+        if(selectedItem.getParent().getText().equals("Categories")) {
+            nodes = ServiceLocator.getInstance().findArticlesService().findArticlesWithCategory(username, selectedItem.getText());
+        }
+        if(selectedItem.getParent().getText().equals("Publishers")) {
+            nodes = ServiceLocator.getInstance().findArticlesService().findArticlesWithSource(username, selectedItem.getText());
+        }
+        else if(selectedItem.getText().equals("Latest")) {
+            nodes = ServiceLocator.getInstance().findArticlesService().findArticlesLatest(username);
+        }
+        else if(selectedItem.getText().equals("Oldest")) {
+            nodes = ServiceLocator.getInstance().findArticlesService().findArticlesOldest(username);
+        }
+        else if(selectedItem.getText().equals("Read")) {
+            nodes = ServiceLocator.getInstance().findArticlesService().findAllRead(username);                        
+        }
+        else if(selectedItem.getText().equals("Favorite")) {
+            nodes = ServiceLocator.getInstance().findArticlesService().findAllFavorite(username);                        
+        }
+        else if(selectedItem.getText().equals("Fake")) {
+            nodes = ServiceLocator.getInstance().findArticlesService().findAllFake(username);                        
+        }
+        else if(selectedItem.getParent() == events && selectedItem.getText().equals("All")) {
+            nodes = ServiceLocator.getInstance().findEventService().findAll();                        
+        }
+        return nodes;
+    }
+
     private void initMenuNews() {
         news = menuBar.addItem("News", null);
         updateNewsCategory();
@@ -143,10 +157,10 @@ public class FlexMenu extends HorizontalLayout {
     private void initMenuHistory() {
         history = menuBar.addItem("History", null);
         
-        notes = history.addItem("New Event", null);
-        notes.addItem("All", new ShowUserEventsCommand());
-        notes.addSeparator();
-        notes.addItem("New Event", VaadinIcons.PLUS, new NewEventCommand());
+        events = history.addItem("Events", null);
+        events.addItem("All", new ShowUserEventsCommand());
+        events.addSeparator();
+        events.addItem("New Event", VaadinIcons.PLUS, new NewEventCommand());
         history.addSeparator();
         
         dna = history.addItem("DNA History", null);
@@ -299,7 +313,7 @@ public class FlexMenu extends HorizontalLayout {
 
         @Override
         public void menuSelected(MenuItem selectedItem) {
-            initAndUpdateBody(ServiceLocator.getInstance().findEventService().findAll());
+            updateWorker(selectedItem);
         }
     }
 

@@ -12769,9 +12769,6 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .action:hover {
-	background-color: yellowgreen;
-	background-image: -webkit-linear-gradient(top left, yellowgreen, tomato);
-	background-image: linear-gradient(to bottom right,yellowgreen, tomato);
 	color: white;
 	font-family: monospace;
 	font-variant: all-caps;

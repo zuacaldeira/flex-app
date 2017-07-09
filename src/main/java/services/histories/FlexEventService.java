@@ -25,9 +25,15 @@ public class FlexEventService extends AbstractDBService<FlexEvent> {
     }
     
     @Override
-    public SortOrder getSortOrder() {
-        return new SortOrder().add("what");
+    public SortOrder getSortOrderAsc() {
+        return new SortOrder().add(SortOrder.Direction.ASC, "when");
     }
+
+    @Override
+    public SortOrder getSortOrderDesc() {
+        return new SortOrder().add(SortOrder.Direction.DESC, "when");
+    }
+    
 
     @Override
     public FlexEvent update(FlexEvent dbEntity, FlexEvent newEntity) {
