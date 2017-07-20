@@ -104,13 +104,4 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
         System.out.println(query);
         return getSession().query(getClassType(), query, new HashMap<>());
     }
-
-    public Iterable<NewsArticle> findArticlesLatest(String username) {
-        return findAllDesc(username);
-    }
-
-    public Iterable<NewsArticle> findArticlesOldest(String username) {
-        return findAllAsc(username);
-    }
-
 }

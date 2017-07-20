@@ -15,6 +15,7 @@ import db.news.FlexUser;
 import db.news.GraphEntity;
 import services.news.AbstractDBService;
 import services.news.FlexUserService;
+import ui.news.article.SummariesLayout;
 import utils.ServiceLocator;
 
 /**
@@ -42,7 +43,7 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
         this.addComponents(new VerticalLayout(infoHeader, infoBody, infoActions));
         this.setSizeFull();
         this.setSpacing(false);
-        this.setMargin(new MarginInfo(true));
+        this.setMargin(false);
         this.setStyleName("item");
     }
 
@@ -154,7 +155,7 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
             button.removeStyleName("purple");
             button.setDescription("Mark as Unread");
         }        
-        ((VerticalLayout)getParent()).removeComponent(this);
+        ((SummariesLayout)getParent()).removeComponent(this);
     }
 
     private void handleFavouriteClick(FavoriteButton button) {

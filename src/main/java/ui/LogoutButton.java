@@ -6,7 +6,6 @@
 package ui;
 
 import com.vaadin.icons.VaadinIcons;
-import com.vaadin.server.Page;
 
 /**
  *
@@ -16,10 +15,6 @@ public class LogoutButton extends FlexButton {
 
     public LogoutButton() {
         super("Logout", VaadinIcons.POWER_OFF);
-        addClickListener(event -> {
-            getSession().setAttribute("user", null);
-            Page.getCurrent().setLocation("/flex-app");
-        });
         setSizeUndefined();
     }
     

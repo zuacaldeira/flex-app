@@ -3,7 +3,6 @@ package ui.news.article;
 import ui.GraphEntityView;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;
-import com.vaadin.ui.themes.ValoTheme;
 import db.news.FlexUser;
 import db.news.NewsArticle;
 import db.news.NewsSource;

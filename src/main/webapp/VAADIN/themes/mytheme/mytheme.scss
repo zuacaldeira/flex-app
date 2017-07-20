@@ -40,13 +40,6 @@
         @include linear-gradient(to bottom right, black, silver);
     }
 
-    .v-label-huge {
-        font-size: x-large;
-        font-weight: bold;
-        color: white;
-        font-family: serif;
-    }
-    
     .flex-window {
         @include linear-gradient(to bottom right, yellowgreen, yellow);
     }
@@ -118,7 +111,6 @@
                     color: lightgray;
                     font-family: monospace;
                     font-variant: small-caps;
-                    font-size: 125%;
                 }
             }
 
@@ -128,7 +120,6 @@
                     color: black;
                     font-family: monospace;
                     font-variant: small-caps;
-                    font-size: 125%;
                 }
                 .title {
                     font-weight: bold;
@@ -146,12 +137,10 @@
                     color: white;
                     font-family: monospace;
                     font-variant: small-caps;
-                    font-size: 125%;
                 }
                 .title {
                     font-weight: bold;
                     color: black;
-                    font-size: 125%;
                 }
             }
         }
@@ -253,16 +242,7 @@
         }
     }
     
-    .v-menubar {
+    .on {
+        background: orangered; /* Dark blue */        
     }
-    .v-menubar-submenu {
-    }
-    .v-menubar-menuitem {
-    }
-    .v-menubar-menuitem-caption { 
-    }
-    .v-menubar-menuitem-selected {
-        @include linear-gradient(to bottom right, yellowgreen, yellow);
-    }
-    .v-menubar-submenu-indicator { }        
 }

@@ -9,6 +9,7 @@ import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalSplitPanel;
+import com.vaadin.ui.VerticalLayout;
 import ui.news.article.SummariesLayout;
 
 /**
@@ -16,7 +17,8 @@ import ui.news.article.SummariesLayout;
  * @author zua
  * @param <T>
  */
-public class MasterDetailView<T extends GraphEntityView> extends HorizontalSplitPanel {
+public class MasterDetailView<T extends GraphEntityView> extends HorizontalSplitPanel  {
+    private VerticalLayout base;
     private SummariesLayout<T> summaries;
     private BrowserFrame browserFrame;
     private T selected;
@@ -28,11 +30,25 @@ public class MasterDetailView<T extends GraphEntityView> extends HorizontalSplit
         selected = null;
         myData = null;
         super.setStyleName("items");
-        super.setFirstComponent(summaries);
+        super.setFirstComponent(base);
         super.setSecondComponent(browserFrame);
-        setSizeFull();
+        super.setSizeFull();
         setSplitPosition(25f);
     }
+    
+    private void initSummaries() {
+        summaries = new SummariesLayout<T>();
+        summaries.setSizeFull();
+        base = new VerticalLayout(summaries);
+        base.setSizeFull();
+        base.setHeightUndefined();
+    }
+    
+    private void initBrowserFrame() {
+        browserFrame = new BrowserFrame();
+        browserFrame.setSizeFull();
+    }
+
 
     public SummariesLayout<T> getSummaries() {
         return summaries;
@@ -48,16 +64,6 @@ public class MasterDetailView<T extends GraphEntityView> extends HorizontalSplit
 
     public Object getMyData() {
         return myData;
-    }
-    
-    private void initSummaries() {
-        summaries = new SummariesLayout<T>();
-        summaries.setSizeFull();
-    }
-    
-    private void initBrowserFrame() {
-        browserFrame = new BrowserFrame();
-        browserFrame.setSizeFull();
     }
 
     private void updateSelected(T itemView) {

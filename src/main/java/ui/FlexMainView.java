@@ -14,21 +14,21 @@ import db.news.FlexUser;
  */
 public class FlexMainView extends AbsoluteLayout {
     
+    private final FlexUser user;
     private FlexMenu menu;
     private FlexBody body;
     private FlexFooter footer;
-    private FlexUser user;
 
     public FlexMainView(FlexUser user) {
         this.user = user;
         initMenu();
         initBody();
         initFooter();
-        setStyleName("flex-view");
-        setSizeFull();
-        addComponent(body, getBodyStyle());
-        addComponent(footer, getFooterStyle());
-        addComponent(menu, getMenuStyle());
+        super.setStyleName("flex-view");
+        super.setSizeFull();
+        super.addComponent(body, getBodyStyle());
+        super.addComponent(footer, getFooterStyle());
+        super.addComponent(menu, getMenuStyle());
     }
 
     private void initMenu() {

@@ -5,7 +5,6 @@
  */
 package ui;
 
-import ui.FlexViewFactory;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
@@ -15,9 +14,9 @@ import db.news.NewsArticle;
 import db.news.NewsAuthor;
 import db.news.NewsSource;
 import ui.news.UITest;
-import ui.news.article.ArticleView;
 import ui.news.author.AuthorView;
 import ui.news.source.SourceView;
+import ui.news.article.ArticleView;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;

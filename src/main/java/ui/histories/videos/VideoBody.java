@@ -11,7 +11,6 @@ import db.histories.FlexVideo;
 import db.news.FlexUser;
 import services.histories.FlexVideoService;
 import ui.FlexBody;
-import ui.SecuredUI;
 import ui.FlexWindow;
 import java.util.Date;
 import org.neo4j.ogm.exception.CypherException;

@@ -12656,13 +12656,6 @@ div.v-layout.v-horizontal.v-widget {
 	background-image: linear-gradient(to bottom right,black, silver);
 }
 
-.mytheme .v-label-huge {
-	font-size: x-large;
-	font-weight: bold;
-	color: white;
-	font-family: serif;
-}
-
 .mytheme .flex-window {
 	background-color: yellowgreen;
 	background-image: -webkit-linear-gradient(top left, yellowgreen, yellow);
@@ -12715,7 +12708,6 @@ div.v-layout.v-horizontal.v-widget {
 	color: lightgray;
 	font-family: monospace;
 	font-variant: small-caps;
-	font-size: 125%;
 }
 
 .mytheme .items .summaries .item:hover {
@@ -12726,7 +12718,6 @@ div.v-layout.v-horizontal.v-widget {
 	color: black;
 	font-family: monospace;
 	font-variant: small-caps;
-	font-size: 125%;
 }
 
 .mytheme .items .summaries .item:hover .title {
@@ -12749,13 +12740,11 @@ div.v-layout.v-horizontal.v-widget {
 	color: white;
 	font-family: monospace;
 	font-variant: small-caps;
-	font-size: 125%;
 }
 
 .mytheme .items .summaries .item-selected .title {
 	font-weight: bold;
 	color: black;
-	font-size: 125%;
 }
 
 .mytheme .action {
@@ -12855,8 +12844,6 @@ div.v-layout.v-horizontal.v-widget {
 	font-size: 300%;
 }
 
-.mytheme .v-menubar-menuitem-selected {
-	background-color: yellowgreen;
-	background-image: -webkit-linear-gradient(top left, yellowgreen, yellow);
-	background-image: linear-gradient(to bottom right,yellowgreen, yellow);
+.mytheme .on {
+	background: orangered;
 }

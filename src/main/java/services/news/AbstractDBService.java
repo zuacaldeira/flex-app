@@ -44,6 +44,23 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
     }
 
     @Override
+    public final Iterable<T> findAll(int limit) {
+        return findAllDesc(limit);
+    }
+    
+    @Override
+    public final Iterable<T> findAllAsc(int limit) {
+        String query = getFindAllQuery(null, null, null, getSortOrderAsc(), limit);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
+
+    @Override
+    public final Iterable<T> findAllDesc(int limit) {
+        String query = getFindAllQuery(null, null, null, getSortOrderDesc(), limit);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
+
+    @Override
     public final Iterable<T> findAll(String username) {
         return findAllDesc(username);
     }
@@ -55,6 +72,21 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
     @Override
     public final Iterable<T> findAllDesc(String username) {
         String query = getFindAllQuery(username, null, null, getSortOrderDesc(), LIMIT);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
+
+    @Override
+    public final Iterable<T> findAll(String username, int limit) {
+        return findAllDesc(username, limit);
+    }
+    @Override
+    public final Iterable<T> findAllAsc(String username, int limit) {
+        String query = getFindAllQuery(username, null, null, getSortOrderAsc(), limit);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
+    @Override
+    public final Iterable<T> findAllDesc(String username, int limit) {
+        String query = getFindAllQuery(username, null, null, getSortOrderDesc(), limit);
         return getSession().query(getClassType(), query, new HashMap<>());
     }
 
@@ -74,6 +106,21 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
         return getSession().query(getClassType(), query, new HashMap<>());
     }
     
+    @Override
+    public final Iterable<T> findAll(String property, Object value, int limit) {
+        return findAllDesc(property, value, limit);
+    }
+
+    @Override
+    public final Iterable<T> findAllAsc(String property, Object value, int limit) {
+        String query = getFindAllQuery(null, property, value, getSortOrderAsc(), limit);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
+    @Override
+    public final Iterable<T> findAllDesc(String property, Object value, int limit) {
+        String query = getFindAllQuery(null, property, value, getSortOrderDesc(), limit);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
     
     @Override
     public final Iterable<T> findAll(String username, String property, Object value) {
@@ -91,24 +138,97 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
     }
 
     @Override
+    public final Iterable<T> findAll(String username, String property, Object value, int limit) {
+        return findAllDesc(username, property, value, limit);
+    }
+    @Override
+    public final Iterable<T> findAllAsc(String username, String property, Object value, int limit) {
+        String query = getFindAllQuery(username, property, value, getSortOrderAsc(), limit);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
+    @Override
+    public final Iterable<T> findAllDesc(String username, String property, Object value, int limit) {
+        String query = getFindAllQuery(username, property, value, getSortOrderDesc(), limit);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
+    
+    @Override
+    public Iterable<T> findLatest(){
+        return findAllDesc();
+    }
+    
+    @Override
+    public Iterable<T> findOldest(){
+        return findAllAsc();
+    }
+
+    @Override
+    public Iterable<T> findLatest(int limit){
+        return findAllDesc(limit);
+    }
+    
+    @Override
+    public Iterable<T> findOldest(int limit) {
+        return findAllAsc(limit);
+    }
+
+    @Override
+    public Iterable<T> findLatest(String username) {
+        return findAllDesc(username);
+    }
+    
+    @Override
+    public Iterable<T> findOldest(String username) {
+            return findAllAsc(username);
+        
+    }
+    
+    @Override
+    public Iterable<T> findLatest(String username, int limit) {
+        return findAllDesc(username, limit);
+    }
+    
+    @Override
+    public Iterable<T> findOldest(String username, int limit) {
+        return findAllAsc(username, limit);
+    }
+
+    @Override
     public Iterable<T> findAllRead(String username) {
-        String query = getMatchStateQuery("READ", username, null, null);
+        String query = getMatchStateQuery("READ", username, null, null, LIMIT);
         return getSession().query(getClassType(), query, new HashMap<>());
     }
 
     @Override
     public Iterable<T> findAllFavorite(String username) {
-        String query = getMatchStateQuery("FAVORITE", username, null, null);
+        String query = getMatchStateQuery("FAVORITE", username, null, null, LIMIT);
         return getSession().query(getClassType(), query, new HashMap<>());
     }
 
     @Override
     public Iterable<T> findAllFake(String username) {
-        String query = getMatchStateQuery("FAKE", username, null, null);
+        String query = getMatchStateQuery("FAKE", username, null, null, LIMIT);
         return getSession().query(getClassType(), query, new HashMap<>());
     }
     
     
+    @Override
+    public Iterable<T> findAllRead(String username, int limit) {
+        String query = getMatchStateQuery("READ", username, null, null, limit);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
+
+    @Override
+    public Iterable<T> findAllFavorite(String username, int limit) {
+        String query = getMatchStateQuery("FAVORITE", username, null, null, limit);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
+
+    @Override
+    public Iterable<T> findAllFake(String username, int limit) {
+        String query = getMatchStateQuery("FAKE", username, null, null, limit);
+        return getSession().query(getClassType(), query, new HashMap<>());
+    }
     
 
     @Override
@@ -176,7 +296,7 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
             return query;
     }
     
-    private String getMatchStateQuery(String relationName, String username, String property, String value) {
+    private String getMatchStateQuery(String relationName, String username, String property, String value, int limit) {
             String query = "MATCH (u:FlexUser)-[:" + relationName + "]->(n:" + getClassType().getSimpleName() + ") WHERE\n";
             query += "u.username=" + FlexUtils.getInstance().wrapUp(username);
             if(property != null) {
@@ -184,6 +304,10 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
                 query += "n." + property + "=" + FlexUtils.getInstance().wrapUp(value);
             }
             query += " RETURN n";
+            
+            if(limit > 0) {
+                query += " limit " + limit;
+            }
             return query;
     }
 
@@ -222,7 +346,7 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
             query += order.toString().replace("$", "n") + " ";
         }
 
-        if(LIMIT > 0) {
+        if(limit > 0) {
             query += "LIMIT " + limit;
         }
         
@@ -275,19 +399,19 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
 
     @Override
     public boolean isRead(String username, T entity) {
-        return getSession().queryForObject(getClassType(), getMatchStateQuery("READ", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>()) 
+        return getSession().queryForObject(getClassType(), getMatchStateQuery("READ", username, entity.getPropertyName(), entity.getPropertyValue(), -1), new HashMap<>()) 
                 != null;
     }
 
     @Override
     public boolean isFavorite(String username, T entity) {
-        return getSession().queryForObject(getClassType(), getMatchStateQuery("FAVORITE", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>()) 
+        return getSession().queryForObject(getClassType(), getMatchStateQuery("FAVORITE", username, entity.getPropertyName(), entity.getPropertyValue(), -1), new HashMap<>()) 
                 != null;
     }
 
     @Override
     public boolean isFake(String username, T entity) {
-        return getSession().queryForObject(getClassType(), getMatchStateQuery("FAKE", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>()) 
+        return getSession().queryForObject(getClassType(), getMatchStateQuery("FAKE", username, entity.getPropertyName(), entity.getPropertyValue(), -1), new HashMap<>()) 
                 != null;
     }
 }

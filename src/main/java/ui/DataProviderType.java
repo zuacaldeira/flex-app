@@ -3,18 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui.login;
-
-import db.news.FlexUser;
-import ui.FlexBody;
+package ui;
 
 /**
  *
  * @author zua
  */
-public class AboutMeView extends FlexBody {
-
-    public AboutMeView(FlexUser user) {
-        super(user);
-    }
+public enum DataProviderType {
+    LATEST, OLDEST, CATEGORY, PUBLISHER, READ, FAKE, FAVORITE
 }

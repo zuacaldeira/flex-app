@@ -12,22 +12,55 @@ public interface DBService<T> {
     public Iterable<T> findAllAsc();
     public Iterable<T> findAllDesc();
 
+    public Iterable<T> findAll(int limit);
+    public Iterable<T> findAllAsc(int limit);
+    public Iterable<T> findAllDesc(int limit);
+
     public Iterable<T> findAll(String property, Object value);
     public Iterable<T> findAllAsc(String property, Object value);
     public Iterable<T> findAllDesc(String property, Object value);
+
+    public Iterable<T> findAll(String property, Object value, int limit);
+    public Iterable<T> findAllAsc(String property, Object value, int limit);
+    public Iterable<T> findAllDesc(String property, Object value, int limit);
 
     public Iterable<T> findAll(String username);
     public Iterable<T> findAllAsc(String username);
     public Iterable<T> findAllDesc(String username);
 
+    public Iterable<T> findAll(String username, int limit);
+    public Iterable<T> findAllAsc(String username, int limit);
+    public Iterable<T> findAllDesc(String username, int limit);
+
     public Iterable<T> findAll(String username, String property, Object value);
     public Iterable<T> findAllAsc(String username, String property, Object value);
     public Iterable<T> findAllDesc(String username, String property, Object value);
     
+    public Iterable<T> findAll(String username, String property, Object value, int limit);
+    public Iterable<T> findAllAsc(String username, String property, Object value, int limit);
+    public Iterable<T> findAllDesc(String username, String property, Object value, int limit);
+
     public Iterable<T> findAllRead(String username);
     public Iterable<T> findAllFavorite(String username);
     public Iterable<T> findAllFake(String username);
     
+    public Iterable<T> findAllRead(String username, int limit);
+    public Iterable<T> findAllFavorite(String username, int limit);
+    public Iterable<T> findAllFake(String username, int limit);
+    
+    public Iterable<T> findLatest();
+    public Iterable<T> findOldest();
+
+    public Iterable<T> findLatest(int limit);
+    public Iterable<T> findOldest(int limit);
+
+    public Iterable<T> findLatest(String username);
+    public Iterable<T> findOldest(String username);
+    
+    public Iterable<T> findLatest(String username, int limit);
+    public Iterable<T> findOldest(String username, int limit);
+   
+
     public boolean isRead(String username, T entity);
     public boolean isFavorite(String username, T entity);
     public boolean isFake(String username, T entity);

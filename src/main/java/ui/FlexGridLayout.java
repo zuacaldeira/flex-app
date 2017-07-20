@@ -7,7 +7,6 @@ package ui;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.GridLayout;
-import ui.GraphEntityView;
 
 /**
  *
@@ -20,8 +19,10 @@ public class FlexGridLayout<T extends GraphEntityView> extends GridLayout {
 
     public FlexGridLayout(int c, int r) {
         super(c, r);
-        super.setSizeFull();
-        super.setStyleName("summaries");
+        super.setWidthUndefined();
+        super.setHeightUndefined();
+        super.setSpacing(false);
+        super.setMargin(false);
     }
     
     @Override

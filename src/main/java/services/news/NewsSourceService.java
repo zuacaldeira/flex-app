@@ -82,7 +82,7 @@ public class NewsSourceService extends AbstractDBService<NewsSource> {
     public Iterable<String> findCategories() {
         System.out.println("FIND_CATEGORIES");
         
-        String query = "MATCH (s:NewsSource) RETURN DISTINCT s.category";
+        String query = "MATCH (s:NewsSource) RETURN DISTINCT s.category ORDER BY s.category ASC";
         Session session = super.getSession();
         return session.query(String.class, query, new HashMap());
     }
@@ -90,7 +90,7 @@ public class NewsSourceService extends AbstractDBService<NewsSource> {
     public Iterable<String> findNames() {
         System.out.println("FIND_NAMES");
         
-        String query = "MATCH (s:NewsSource) RETURN s.name";
+        String query = "MATCH (s:NewsSource) RETURN DISTINCT s.name ORDER BY s.name ASC";
         Session session = super.getSession();
         return session.query(String.class, query, new HashMap());
     }
