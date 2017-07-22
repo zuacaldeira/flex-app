@@ -5,12 +5,10 @@
  */
 package ui;
 
-import com.vaadin.ui.AbstractComponentContainer;
 import com.vaadin.ui.UIDetachedException;
 import db.news.FlexUser;
 import db.news.GraphEntity;
-import java.util.Date;
-import java.util.HashSet;
+import db.news.NewsArticle;
 import java.util.Timer;
 import java.util.TimerTask;
 import ui.news.article.FlexPanel;
@@ -21,74 +19,74 @@ import utils.ServiceLocator;
  * @author zua
  */
 public class FlexBody extends FlexPanel {
-    private FlexUser user;
-    private AbstractComponentContainer bodyContent;
+    private final FlexUser user;
     private DataProviderType dataProviderType;
     private String dataProviderValue;
+    private Timer timer;
+    private Iterable<NewsArticle> nodes;
     
     public FlexBody(FlexUser user) {
         super.addStyleName("flex-body");
         this.user = user;
-        bodyContent = new MasterDetailView();
         this.dataProviderType = DataProviderType.LATEST;
-        super.setContent(bodyContent);
+        super.setContent(new MasterDetailView());
         super.setSizeFull();
-    }
-    
-    public void attach() {
-        super.attach();
         initTimerTask();
     }
     
     private void initTimerTask() {
-        new Timer().scheduleAtFixedRate(new TimerTask(){
+        timer = new Timer();
+        timer.schedule(new TimerTask(){
             @Override
             public void run() {
                 try {
                     if(getUI() != null) {
-                        getUI().access(() -> {
-                            getNodes().forEach(item -> {
+                        System.out.println("Running scheduled timer task with data provider type");
+                        System.out.println(dataProviderType);
+                        
+                        loadNodes();
+                        nodes.forEach(item -> {
+                            getUI().access(() -> {
                                 addItemView(item);
-                                try {
-                                    Thread.sleep(500);
-                                } catch(InterruptedException ie) {
-                                    System.err.println(ie.getMessage());
-                                    return;
-                                }
                             });
+                            try {
+                                Thread.sleep(500);
+                            } catch(InterruptedException ie) {
+                                System.err.println(ie.getMessage());
+                                return;
+                            }
                         });
                     }
                 } catch(UIDetachedException udx) {
                     // TODO: nothing
                 }
             }
-        }, new Date(), 60000);
+        }, 1000, 60000);
     }
     
-    private Iterable<? extends GraphEntity> getNodes() {
+    private void loadNodes() {
         
         if(dataProviderType == DataProviderType.LATEST) {
-            return ServiceLocator.getInstance().findArticlesService().findLatest(user.getUsername());
+            nodes = ServiceLocator.getInstance().findArticlesService().findLatest(user.getUsername());
         }
         else if(dataProviderType == DataProviderType.OLDEST) {
-            return ServiceLocator.getInstance().findArticlesService().findOldest(user.getUsername());
+            nodes = ServiceLocator.getInstance().findArticlesService().findOldest(user.getUsername());
         }
         else if(dataProviderType == DataProviderType.READ) {
-            return ServiceLocator.getInstance().findArticlesService().findAllRead(user.getUsername());
+            nodes = ServiceLocator.getInstance().findArticlesService().findAllRead(user.getUsername());
         }
         else if(dataProviderType == DataProviderType.FAVORITE) {
-            return ServiceLocator.getInstance().findArticlesService().findAllFavorite(user.getUsername());
+            nodes = ServiceLocator.getInstance().findArticlesService().findAllFavorite(user.getUsername());
         }
         else if(dataProviderType == DataProviderType.FAKE) {
-            return ServiceLocator.getInstance().findArticlesService().findAllFake(user.getUsername());
+            nodes = ServiceLocator.getInstance().findArticlesService().findAllFake(user.getUsername());
         }
         else if(dataProviderType == DataProviderType.CATEGORY && dataProviderValue != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithCategory(user.getUsername(), dataProviderValue);
+            nodes = ServiceLocator.getInstance().findArticlesService().findArticlesWithCategory(user.getUsername(), dataProviderValue);
         }
         else if(dataProviderType == DataProviderType.PUBLISHER && dataProviderValue != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithSource(user.getUsername(), dataProviderValue);
+            nodes = ServiceLocator.getInstance().findArticlesService().findArticlesWithSource(user.getUsername(), dataProviderValue);
         }
-        return new HashSet<>();
     }
         
     @Override
@@ -108,11 +106,7 @@ public class FlexBody extends FlexPanel {
     }
     
     public void addItemView(GraphEntity item) {
-        if(getUI() != null) {
-            getUI().access(() -> {
-                getContent().addComponent(FlexViewFactory.getInstance().createView(user, item));
-            });
-        }
+        getContent().addComponent(FlexViewFactory.getInstance().createView(user, item));
     }
 
     public FlexUser getUser() {
@@ -120,8 +114,13 @@ public class FlexBody extends FlexPanel {
     }
 
     public void setDataProviderType(DataProviderType dataProviderType, String value) {
+        if(timer != null) {
+            timer.cancel();
+        }
+
         this.dataProviderType = dataProviderType;
-        this.dataProviderValue = value;
+        this.dataProviderValue = value;        
+        initTimerTask();
     }
 
 }

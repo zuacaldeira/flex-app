@@ -5,8 +5,6 @@
  */
 package ui;
 
-import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Alignment;
@@ -54,7 +52,6 @@ public class FlexMenu extends HorizontalLayout {
     // Logout button 
     private final LogoutButton logoutButton;
     private final FlexUser user;
-    private Thread worker;
     private MenuItem status;
     
     public FlexMenu(FlexUser user) {
@@ -70,7 +67,7 @@ public class FlexMenu extends HorizontalLayout {
             Page.getCurrent().setLocation("/flex-app");
         });
         logoutButton.addUsername(getUsername());
-        super.addComponents(menuBar, logoutButton);
+        super.addComponents(new FlexLogo(), menuBar, logoutButton);
         super.setComponentAlignment(menuBar, Alignment.MIDDLE_LEFT);
         super.setComponentAlignment(logoutButton, Alignment.MIDDLE_RIGHT);
     }
@@ -149,14 +146,10 @@ public class FlexMenu extends HorizontalLayout {
     }
 
     private void updateBodyWithMVCActor(MenuItem selectedItem) {
-        FlexBody body = new FlexBody(user);
-        body.setDataProviderType(getDataProviderType(selectedItem), selectedItem.getText());
-        FlexUtils.getInstance().getMainView(this).replaceBody(body);
+        FlexUtils.getInstance().getBody(this).setDataProviderType(getDataProviderType(selectedItem), selectedItem.getText());
     }
     
     public DataProviderType getDataProviderType(MenuItem selectedItem) {
-        String username = getUsername();
-
         if(selectedItem.getParent().getText().equals("Categories")) {
             return DataProviderType.CATEGORY;
         }
@@ -180,12 +173,6 @@ public class FlexMenu extends HorizontalLayout {
         }
         return null;
     }
-
-
-    public Thread getWorker() {
-        return worker;
-    }
-    
     
 
     private class ShowUserEventsCommand implements MenuBar.Command {
