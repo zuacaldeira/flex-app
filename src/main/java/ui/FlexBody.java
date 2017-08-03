@@ -5,12 +5,11 @@
  */
 package ui;
 
-import com.vaadin.ui.UIDetachedException;
 import db.news.FlexUser;
 import db.news.GraphEntity;
 import db.news.NewsArticle;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.Collection;
+import java.util.HashSet;
 import ui.news.article.FlexPanel;
 import utils.ServiceLocator;
 
@@ -20,74 +19,62 @@ import utils.ServiceLocator;
  */
 public class FlexBody extends FlexPanel {
     private final FlexUser user;
-    private DataProviderType dataProviderType;
-    private String dataProviderValue;
-    private Timer timer;
-    private Iterable<NewsArticle> nodes;
     
     public FlexBody(FlexUser user) {
-        super.addStyleName("flex-body");
         this.user = user;
-        this.dataProviderType = DataProviderType.LATEST;
-        super.setContent(new MasterDetailView());
+        super.addStyleName("flex-body");
         super.setSizeFull();
-        initTimerTask();
+        initTimerTask(DataProviderType.LATEST, null);
     }
     
-    private void initTimerTask() {
-        timer = new Timer();
-        timer.schedule(new TimerTask(){
-            @Override
-            public void run() {
-                try {
-                    if(getUI() != null) {
-                        System.out.println("Running scheduled timer task with data provider type");
-                        System.out.println(dataProviderType);
-                        
-                        loadNodes();
-                        nodes.forEach(item -> {
-                            getUI().access(() -> {
-                                addItemView(item);
-                            });
-                            try {
-                                Thread.sleep(500);
-                            } catch(InterruptedException ie) {
-                                System.err.println(ie.getMessage());
-                                return;
-                            }
-                        });
+    private void initTimerTask(DataProviderType type, String value) {
+            super.setContent(new MasterDetailView());
+            
+            /* Update body with views for new items */
+            new Thread(() -> {
+                System.out.println("FlexBodyThread#run(): START");
+                
+                loadNodes(type, value).forEach(item -> {
+                    addItemView(item);
+                    try {
+                        Thread.sleep(500);
+                    } catch(InterruptedException ie) {
+                        System.err.println(ie.getMessage());
+                        return;
                     }
-                } catch(UIDetachedException udx) {
-                    // TODO: nothing
-                }
-            }
-        }, 1000, 60000);
+                });
+                System.out.println("FlexBodyThread#run(): DONE");
+            }).start();  
     }
     
-    private void loadNodes() {
-        
+    private Collection<NewsArticle> loadNodes(DataProviderType dataProviderType, String value) {
+        Collection<NewsArticle> nodes = new HashSet<>();
+
         if(dataProviderType == DataProviderType.LATEST) {
-            nodes = ServiceLocator.getInstance().findArticlesService().findLatest(user.getUsername());
+            nodes.addAll(ServiceLocator.getInstance().findArticlesService().findLatest(user.getUsername()));
         }
         else if(dataProviderType == DataProviderType.OLDEST) {
-            nodes = ServiceLocator.getInstance().findArticlesService().findOldest(user.getUsername());
+            nodes.addAll(ServiceLocator.getInstance().findArticlesService().findOldest(user.getUsername()));
         }
         else if(dataProviderType == DataProviderType.READ) {
-            nodes = ServiceLocator.getInstance().findArticlesService().findAllRead(user.getUsername());
+            nodes.addAll(ServiceLocator.getInstance().findArticlesService().findAllRead(user.getUsername()));
         }
         else if(dataProviderType == DataProviderType.FAVORITE) {
-            nodes = ServiceLocator.getInstance().findArticlesService().findAllFavorite(user.getUsername());
+            nodes.addAll(ServiceLocator.getInstance().findArticlesService().findAllFavorite(user.getUsername()));
         }
         else if(dataProviderType == DataProviderType.FAKE) {
-            nodes = ServiceLocator.getInstance().findArticlesService().findAllFake(user.getUsername());
+            nodes.addAll(ServiceLocator.getInstance().findArticlesService().findAllFake(user.getUsername()));
         }
-        else if(dataProviderType == DataProviderType.CATEGORY && dataProviderValue != null) {
-            nodes = ServiceLocator.getInstance().findArticlesService().findArticlesWithCategory(user.getUsername(), dataProviderValue);
+        else if(dataProviderType == DataProviderType.CATEGORY && value != null) {
+            nodes.addAll(ServiceLocator.getInstance().findArticlesService().findArticlesWithCategory(user.getUsername(), value));
         }
-        else if(dataProviderType == DataProviderType.PUBLISHER && dataProviderValue != null) {
-            nodes = ServiceLocator.getInstance().findArticlesService().findArticlesWithSource(user.getUsername(), dataProviderValue);
+        else if(dataProviderType == DataProviderType.PUBLISHER && value != null) {
+            nodes.addAll(ServiceLocator.getInstance().findArticlesService().findArticlesWithSource(user.getUsername(), value));
         }
-    }
+
+        return nodes;
+    }    
+
         
     @Override
     public MasterDetailView getContent() {
@@ -106,21 +93,19 @@ public class FlexBody extends FlexPanel {
     }
     
     public void addItemView(GraphEntity item) {
-        getContent().addComponent(FlexViewFactory.getInstance().createView(user, item));
+        if(getUI() != null) {
+            getUI().access(() -> {
+                getContent().addComponent(FlexViewFactory.getInstance().createView(user, item));
+            });
+        }
     }
 
     public FlexUser getUser() {
         return user;
     }
 
-    public void setDataProviderType(DataProviderType dataProviderType, String value) {
-        if(timer != null) {
-            timer.cancel();
-        }
-
-        this.dataProviderType = dataProviderType;
-        this.dataProviderValue = value;        
-        initTimerTask();
+    public void updateDataProvider(DataProviderType dataProviderType, String value) {
+        initTimerTask(dataProviderType, value);
     }
 
 }

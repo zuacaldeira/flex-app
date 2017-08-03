@@ -5,9 +5,11 @@
  */
 package services.news;
 
+import com.google.common.collect.Sets;
 import utils.Neo4jSessionFactory;
 import db.news.GraphEntity;
 import java.util.HashMap;
+import java.util.Set;
 import javax.ejb.EJB;
 import org.neo4j.ogm.cypher.query.SortOrder;
 import org.neo4j.ogm.session.Session;
@@ -27,207 +29,206 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
     
     
     @Override
-    public final Iterable<T> findAll() {
+    public final Set<T> findAll() {
         return findAllDesc();
     }
     
     @Override
-    public final Iterable<T> findAllAsc() {
+    public final Set<T> findAllAsc() {
         String query = getFindAllQuery(null, null, null, getSortOrderAsc(), LIMIT);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
 
     @Override
-    public final Iterable<T> findAllDesc() {
+    public final Set<T> findAllDesc() {
         String query = getFindAllQuery(null, null, null, getSortOrderDesc(), LIMIT);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
 
     @Override
-    public final Iterable<T> findAll(int limit) {
+    public final Set<T> findAll(int limit) {
         return findAllDesc(limit);
     }
     
     @Override
-    public final Iterable<T> findAllAsc(int limit) {
+    public final Set<T> findAllAsc(int limit) {
         String query = getFindAllQuery(null, null, null, getSortOrderAsc(), limit);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
 
     @Override
-    public final Iterable<T> findAllDesc(int limit) {
+    public final Set<T> findAllDesc(int limit) {
         String query = getFindAllQuery(null, null, null, getSortOrderDesc(), limit);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
 
     @Override
-    public final Iterable<T> findAll(String username) {
+    public final Set<T> findAll(String username) {
         return findAllDesc(username);
     }
     @Override
-    public final Iterable<T> findAllAsc(String username) {
+    public final Set<T> findAllAsc(String username) {
         String query = getFindAllQuery(username, null, null, getSortOrderAsc(), LIMIT);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
     @Override
-    public final Iterable<T> findAllDesc(String username) {
+    public final Set<T> findAllDesc(String username) {
         String query = getFindAllQuery(username, null, null, getSortOrderDesc(), LIMIT);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
 
     @Override
-    public final Iterable<T> findAll(String username, int limit) {
+    public final Set<T> findAll(String username, int limit) {
         return findAllDesc(username, limit);
     }
     @Override
-    public final Iterable<T> findAllAsc(String username, int limit) {
+    public final Set<T> findAllAsc(String username, int limit) {
         String query = getFindAllQuery(username, null, null, getSortOrderAsc(), limit);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
     @Override
-    public final Iterable<T> findAllDesc(String username, int limit) {
+    public final Set<T> findAllDesc(String username, int limit) {
         String query = getFindAllQuery(username, null, null, getSortOrderDesc(), limit);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
 
     @Override
-    public final Iterable<T> findAll(String property, Object value) {
+    public final Set<T> findAll(String property, Object value) {
         return findAllDesc(property, value);
     }
 
     @Override
-    public final Iterable<T> findAllAsc(String property, Object value) {
+    public final Set<T> findAllAsc(String property, Object value) {
         String query = getFindAllQuery(null, property, value, getSortOrderAsc(), LIMIT);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
     @Override
-    public final Iterable<T> findAllDesc(String property, Object value) {
+    public final Set<T> findAllDesc(String property, Object value) {
         String query = getFindAllQuery(null, property, value, getSortOrderDesc(), LIMIT);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
     
     @Override
-    public final Iterable<T> findAll(String property, Object value, int limit) {
+    public final Set<T> findAll(String property, Object value, int limit) {
         return findAllDesc(property, value, limit);
     }
 
     @Override
-    public final Iterable<T> findAllAsc(String property, Object value, int limit) {
+    public final Set<T> findAllAsc(String property, Object value, int limit) {
         String query = getFindAllQuery(null, property, value, getSortOrderAsc(), limit);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
     @Override
-    public final Iterable<T> findAllDesc(String property, Object value, int limit) {
+    public final Set<T> findAllDesc(String property, Object value, int limit) {
         String query = getFindAllQuery(null, property, value, getSortOrderDesc(), limit);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
     
     @Override
-    public final Iterable<T> findAll(String username, String property, Object value) {
+    public final Set<T> findAll(String username, String property, Object value) {
         return findAllDesc(username, property, value);
     }
     @Override
-    public final Iterable<T> findAllAsc(String username, String property, Object value) {
+    public final Set<T> findAllAsc(String username, String property, Object value) {
         String query = getFindAllQuery(username, property, value, getSortOrderAsc(), LIMIT);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
     @Override
-    public final Iterable<T> findAllDesc(String username, String property, Object value) {
+    public final Set<T> findAllDesc(String username, String property, Object value) {
         String query = getFindAllQuery(username, property, value, getSortOrderDesc(), LIMIT);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
 
     @Override
-    public final Iterable<T> findAll(String username, String property, Object value, int limit) {
+    public final Set<T> findAll(String username, String property, Object value, int limit) {
         return findAllDesc(username, property, value, limit);
     }
     @Override
-    public final Iterable<T> findAllAsc(String username, String property, Object value, int limit) {
+    public final Set<T> findAllAsc(String username, String property, Object value, int limit) {
         String query = getFindAllQuery(username, property, value, getSortOrderAsc(), limit);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
     @Override
-    public final Iterable<T> findAllDesc(String username, String property, Object value, int limit) {
+    public final Set<T> findAllDesc(String username, String property, Object value, int limit) {
         String query = getFindAllQuery(username, property, value, getSortOrderDesc(), limit);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
     
     @Override
-    public Iterable<T> findLatest(){
+    public Set<T> findLatest(){
         return findAllDesc();
     }
     
     @Override
-    public Iterable<T> findOldest(){
+    public Set<T> findOldest(){
         return findAllAsc();
     }
 
     @Override
-    public Iterable<T> findLatest(int limit){
+    public Set<T> findLatest(int limit){
         return findAllDesc(limit);
     }
     
     @Override
-    public Iterable<T> findOldest(int limit) {
+    public Set<T> findOldest(int limit) {
         return findAllAsc(limit);
     }
 
     @Override
-    public Iterable<T> findLatest(String username) {
+    public Set<T> findLatest(String username) {
         return findAllDesc(username);
     }
     
     @Override
-    public Iterable<T> findOldest(String username) {
-            return findAllAsc(username);
-        
+    public Set<T> findOldest(String username) {
+        return findAllAsc(username);
     }
     
     @Override
-    public Iterable<T> findLatest(String username, int limit) {
+    public Set<T> findLatest(String username, int limit) {
         return findAllDesc(username, limit);
     }
     
     @Override
-    public Iterable<T> findOldest(String username, int limit) {
+    public Set<T> findOldest(String username, int limit) {
         return findAllAsc(username, limit);
     }
 
     @Override
-    public Iterable<T> findAllRead(String username) {
+    public Set<T> findAllRead(String username) {
         String query = getMatchStateQuery("READ", username, null, null, LIMIT);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
 
     @Override
-    public Iterable<T> findAllFavorite(String username) {
+    public Set<T> findAllFavorite(String username) {
         String query = getMatchStateQuery("FAVORITE", username, null, null, LIMIT);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
 
     @Override
-    public Iterable<T> findAllFake(String username) {
+    public Set<T> findAllFake(String username) {
         String query = getMatchStateQuery("FAKE", username, null, null, LIMIT);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
     
     
     @Override
-    public Iterable<T> findAllRead(String username, int limit) {
+    public Set<T> findAllRead(String username, int limit) {
         String query = getMatchStateQuery("READ", username, null, null, limit);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
 
     @Override
-    public Iterable<T> findAllFavorite(String username, int limit) {
+    public Set<T> findAllFavorite(String username, int limit) {
         String query = getMatchStateQuery("FAVORITE", username, null, null, limit);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
 
     @Override
-    public Iterable<T> findAllFake(String username, int limit) {
+    public Set<T> findAllFake(String username, int limit) {
         String query = getMatchStateQuery("FAKE", username, null, null, limit);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return executeQuery(query);
     }
     
 
@@ -413,5 +414,10 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
     public boolean isFake(String username, T entity) {
         return getSession().queryForObject(getClassType(), getMatchStateQuery("FAKE", username, entity.getPropertyName(), entity.getPropertyValue(), -1), new HashMap<>()) 
                 != null;
+    }
+    
+    
+    protected Set<T> executeQuery(String query) {
+        return Sets.newHashSet(getSession().query(getClassType(), query, new HashMap<>()));
     }
 }

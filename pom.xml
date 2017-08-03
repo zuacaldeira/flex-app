@@ -187,6 +187,18 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-client</artifactId>
+            <version>7.6.5</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>19.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
@@ -271,7 +283,7 @@
                             <goal>update-widgetset</goal>
                             <goal>compile</goal>
                             <!-- Comment out compile-theme goal to use on-the-fly theme compilation -->
-                            <goal>compile-theme</goal>
+                            <!--goal>compile-theme</goal-->
                         </goals>
                     </execution>
                 </executions>

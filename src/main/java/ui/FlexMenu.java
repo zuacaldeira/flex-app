@@ -146,7 +146,7 @@ public class FlexMenu extends HorizontalLayout {
     }
 
     private void updateBodyWithMVCActor(MenuItem selectedItem) {
-        FlexUtils.getInstance().getBody(this).setDataProviderType(getDataProviderType(selectedItem), selectedItem.getText());
+        FlexUtils.getInstance().getBody(this).updateDataProvider(getDataProviderType(selectedItem), selectedItem.getText());
     }
     
     public DataProviderType getDataProviderType(MenuItem selectedItem) {

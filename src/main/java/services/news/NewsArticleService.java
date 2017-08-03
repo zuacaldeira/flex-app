@@ -9,6 +9,7 @@ import db.news.Neo4jQueries;
 import utils.Neo4jSessionFactory;
 import db.news.NewsArticle;
 import java.util.HashMap;
+import java.util.Set;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import org.neo4j.ogm.cypher.query.SortOrder;
@@ -83,7 +84,7 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
         return new SortOrder().add(SortOrder.Direction.DESC, "publishedAt");
     }
 
-    public Iterable<NewsArticle> findArticlesWithCategory(String username, String category) {
+    public Set<NewsArticle> findArticlesWithCategory(String username, String category) {
         String query = "MATCH (u:FlexUser), (n:NewsArticle)--(a:NewsAuthor)--(s:NewsSource) ";
         query += "WHERE u.username=" + FlexUtils.getInstance().wrapUp(username) + " ";
         query += "  AND s.category=" + FlexUtils.getInstance().wrapUp(category) + " ";
@@ -91,10 +92,10 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
         query += "  RETURN n ";
         query += "  ORDER BY n.publishedAt DESC LIMIT " + LIMIT;
         System.out.println(query);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return super.executeQuery(query);
     }
 
-    public Iterable<NewsArticle> findArticlesWithSource(String username, String publisherId) {
+    public Set<NewsArticle> findArticlesWithSource(String username, String publisherId) {
         String query = "MATCH (u:FlexUser), (n:NewsArticle)--(a:NewsAuthor)--(s:NewsSource) ";
         query += "WHERE u.username=" + FlexUtils.getInstance().wrapUp(username) + " ";
         query += "  AND s.name=" + FlexUtils.getInstance().wrapUp(publisherId) + " ";
@@ -102,6 +103,6 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
         query += "  RETURN n ";
         query += "  ORDER BY n.publishedAt DESC LIMIT " + LIMIT;
         System.out.println(query);
-        return getSession().query(getClassType(), query, new HashMap<>());
+        return super.executeQuery(query);
     }
 }
