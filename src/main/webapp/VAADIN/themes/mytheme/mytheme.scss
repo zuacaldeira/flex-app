@@ -61,37 +61,22 @@
     .app-icon {
         font-size: 200%;
     }            
-    
-    .news{
         
-    }
-    
-    .bantus{
-        
-    }
-    
-    .development{
-        
-    }
-    
     .flex-menu {
-        //opacity: 0.5;
+        @include linear-gradient(to bottom right, yellowgreen, yellow, trasparent);
+        opacity: .9;
         color: black;
-        opacity: 1;
-        @include linear-gradient(to bottom right, yellowgreen, yellow);
         font-variant: small-caps;
-        font-weight: 900;
+        font-weight: bold;
         .flex-menu-bar {
             opacity: 1;
             .v-menubar-menuitem {
             }    
             .v-menubar-menuitem-selected {
                 background: orangered; /* Dark blue */
-                opacity: .8;
             }    
             .v-menu-bar-submenu {
                 background: orangered; /* Dark blue */        
-                opacity: .7;
             }
         }
 
@@ -99,13 +84,19 @@
 
 
     .flex-logo {
-        color: orangered;
+        font-variant: small-caps;
+        font-weight: bold;
         width: 100%;
         .logo {
             @include linear-gradient(to bottom right, orange, orangered, red);
-            border-radius: 50%;
         }
         .context {
+            color: gray;
+            font-weight: bolder;
+        }
+        .section {
+            color: orangered;
+            font-weight: bolder;
         }
         .logout {
             color: orangered;

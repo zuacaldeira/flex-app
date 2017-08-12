@@ -6,6 +6,7 @@
 package ui;
 
 import com.vaadin.server.Page;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -16,17 +17,26 @@ import db.news.FlexUser;
  * @author zua
  */
 public class FlexLogo extends HorizontalLayout {
-    private Label context;
+    private HorizontalLayout context;
+    private Label section;
+    private Label username;
     // Logout button 
     private final LogoutButton logoutButton;
     private final FlexUser user;
     
     public FlexLogo(FlexUser user) {
         this.user = user;
+        section = new Label("Latest");
+        section.setStyleName("section");
         
-        context = new Label();
+        username = new Label(user.getUsername());
+        
+        context = new HorizontalLayout(username, new Label("|"), section);
         context.setStyleName("context");
-        context.setSizeFull();
+        context.setSizeUndefined();
+        context.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        context.setMargin(new MarginInfo(false, false, false, true));
+        
 
         logoutButton = new LogoutButton();
         logoutButton.addClickListener(event -> {
@@ -40,13 +50,15 @@ public class FlexLogo extends HorizontalLayout {
         super.setSpacing(true);
         super.setMargin(false);
         super.setStyleName("flex-logo");
-        super.addComponents(context, logoutButton);
-        super.setComponentAlignment(context, Alignment.MIDDLE_CENTER);
+        super.addComponents(
+            context, 
+            logoutButton);
+        super.setComponentAlignment(context, Alignment.MIDDLE_LEFT);
         super.setComponentAlignment(logoutButton, Alignment.MIDDLE_RIGHT);
     }
     
     public void setNavigationContext(String context) {
         System.out.println("Updating context");
-        this.context.setCaption("> " + context);
+        section.setValue(context);
     }
 }
