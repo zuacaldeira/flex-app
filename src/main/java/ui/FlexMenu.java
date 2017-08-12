@@ -28,8 +28,6 @@ public class FlexMenu extends HorizontalLayout {
     // Main Menu (top level)
     private MenuBar menuBar;
     private MenuItem news;
-    private MenuItem history;
-    private MenuItem timelines;
     private MenuBar.Command command;
     
     // News related menu items
@@ -39,18 +37,7 @@ public class FlexMenu extends HorizontalLayout {
     private MenuItem publishers;
     private MenuItem settings;
     
-    // History related menu items
-    private MenuItem topics;
-    private MenuItem civilizations;
-    private MenuItem languages;
-    private MenuItem dna;
-    private MenuItem humanRights;
-
-    // Timelines
-    private MenuItem events;
     
-    // Logout button 
-    private final LogoutButton logoutButton;
     private final FlexUser user;
     private MenuItem status;
     
@@ -61,29 +48,25 @@ public class FlexMenu extends HorizontalLayout {
         super.setSpacing(false);
         super.setStyleName("flex-menu");
         initMenuBar();
-        logoutButton = new LogoutButton();
-        logoutButton.addClickListener(event -> {
-            getSession().setAttribute("user", null);
-            Page.getCurrent().setLocation("/flex-app");
-        });
-        logoutButton.addUsername(getUsername());
-        super.addComponents(new FlexLogo(), menuBar, logoutButton);
+        super.addComponent(menuBar);
         super.setComponentAlignment(menuBar, Alignment.MIDDLE_LEFT);
-        super.setComponentAlignment(logoutButton, Alignment.MIDDLE_RIGHT);
     }
     
     private void initMenuBar() {
         menuBar = new MenuBar();
-        menuBar.setWidthUndefined();
-        menuBar.setHeightUndefined();
+        menuBar.setSizeFull();
         menuBar.setAutoOpen(true);
-        menuBar.setStyleName(ValoTheme.MENUBAR_BORDERLESS);
+        menuBar.setStyleName("flex-menu-bar");
+        menuBar.addStyleName(ValoTheme.MENUBAR_BORDERLESS);
         initCommand();
         initMenuNews();
     }
     
     private void initCommand() {
-        command = (MenuItem selectedItem) -> { updateBodyWithMVCActor(selectedItem); };
+        command = (MenuItem selectedItem) -> { 
+            selectedItem.setStyleName("selected");
+            updateBody(selectedItem);
+        };
     }
     
     private void initMenuNews() {
@@ -145,15 +128,15 @@ public class FlexMenu extends HorizontalLayout {
         return (SecuredUI) super.getUI();
     }
 
-    private void updateBodyWithMVCActor(MenuItem selectedItem) {
-        FlexUtils.getInstance().getBody(this).updateDataProvider(getDataProviderType(selectedItem), selectedItem.getText());
+    private void updateBody(MenuItem selectedItem) {
+        FlexUtils.getInstance().getBody(this).updateData(getDataProviderType(selectedItem), selectedItem.getText());
     }
     
     public DataProviderType getDataProviderType(MenuItem selectedItem) {
-        if(selectedItem.getParent().getText().equals("Categories")) {
+        if(selectedItem.getParent() != null && selectedItem.getParent().getText().equals("Categories")) {
             return DataProviderType.CATEGORY;
         }
-        if(selectedItem.getParent().getText().equals("Publishers")) {
+        if(selectedItem.getParent() != null && selectedItem.getParent().getText().equals("Publishers")) {
             return DataProviderType.PUBLISHER;
         }
         else if(selectedItem.getText().equals("Latest")) {
@@ -184,11 +167,11 @@ public class FlexMenu extends HorizontalLayout {
 
         @Override
         public void menuSelected(MenuItem selectedItem) {
-            updateBodyWithMVCActor(selectedItem);
+            updateBody(selectedItem);
             if (previous != null) {
                 previous.setStyleName(null);
             }
-            selectedItem.setStyleName("on");
+            selectedItem.setStyleName("selected");
             previous = selectedItem;
         }
     }

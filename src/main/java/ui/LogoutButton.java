@@ -14,12 +14,13 @@ import com.vaadin.icons.VaadinIcons;
 public class LogoutButton extends FlexButton {
 
     public LogoutButton() {
-        super("Logout", VaadinIcons.POWER_OFF);
-        setSizeUndefined();
+        super("", VaadinIcons.POWER_OFF);
+        super.setSizeUndefined();
+        super.addStyleName("logout");
     }
     
     public void addUsername(String username) {
-        setCaption("Logout " + username);
+        //setCaption(username);
     }
     
     

@@ -18,23 +18,26 @@ public class FlexMainView extends AbsoluteLayout {
     private FlexMenu menu;
     private FlexBody body;
     private FlexFooter footer;
+    private FlexLogo logo;
 
     public FlexMainView(FlexUser user) {
         this.user = user;
         initMenu();
         initBody();
         initFooter();
+        initLogo();
         super.setStyleName("flex-view");
         super.setSizeFull();
         super.addComponent(body, getBodyStyle());
         super.addComponent(footer, getFooterStyle());
+        super.addComponent(logo, getLogoStyle());
         super.addComponent(menu, getMenuStyle());
     }
 
     private void initMenu() {
         menu = new FlexMenu(user);
         menu.setWidth("100%");
-        menu.setHeight(getTopPosition());
+        menu.setHeight("1cm");
     }
 
     private void initBody() {
@@ -45,27 +48,27 @@ public class FlexMainView extends AbsoluteLayout {
     private void initFooter() {
         footer = new FlexFooter(user);
         footer.setWidth("100%");
-        footer.setHeight(getBottomPosition());
+        footer.setHeight("1cm");
+    }
+    
+    private void initLogo() {
+        logo = new FlexLogo(user);
     }
 
     
     private String getBodyStyle() {
-        return "top:" + getTopPosition() + "; " + "bottom:" + getBottomPosition();
+        return "top:2cm; bottom:1cm";
     }
 
-    private String getTopPosition() {
-        return "1cm";
-    }
-    
-    private String getBottomPosition() {
-        return "1cm";
-    }
-    
     private String getFooterStyle() {
         return "bottom:0%";
     }
     
     private String getMenuStyle() {
+        return "top:1cm";
+    }
+
+    private String getLogoStyle() {
         return "top:0%";
     }
 
@@ -97,6 +100,10 @@ public class FlexMainView extends AbsoluteLayout {
 
     public FlexUser getUser() {
         return user;
+    }
+
+    public FlexLogo getLogo() {
+        return logo;
     }
     
     

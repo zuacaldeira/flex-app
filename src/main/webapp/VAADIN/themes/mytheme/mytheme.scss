@@ -37,7 +37,8 @@
 
     // Insert your own theme rules here
     .v-ui{
-        @include linear-gradient(to bottom right, black, silver);
+        background: white;
+        //@include linear-gradient(to bottom right, black, silver);
     }
 
     .flex-window {
@@ -48,6 +49,7 @@
         background: black;
         color: white;        
     }
+    
     
     .flex-view {
     }
@@ -74,21 +76,44 @@
     
     .flex-menu {
         //opacity: 0.5;
-        color:white;
+        color: black;
         opacity: 1;
-        background: transparent;
-        font-variant: all-caps;
-        font-family: Verdana;
-        font-weight: bold;
-        .menu-bar{
-
+        @include linear-gradient(to bottom right, yellowgreen, yellow);
+        font-variant: small-caps;
+        font-weight: 900;
+        .flex-menu-bar {
+            opacity: 1;
+            .v-menubar-menuitem {
+            }    
+            .v-menubar-menuitem-selected {
+                background: orangered; /* Dark blue */
+                opacity: .8;
+            }    
+            .v-menu-bar-submenu {
+                background: orangered; /* Dark blue */        
+                opacity: .7;
+            }
         }
+
     }
-    
+
 
     .flex-logo {
-        font-weight: lighter;
-        color: white;
+        color: orangered;
+        width: 100%;
+        .logo {
+            @include linear-gradient(to bottom right, orange, orangered, red);
+            border-radius: 50%;
+        }
+        .context {
+        }
+        .logout {
+            color: orangered;
+        }        
+        .logout:hover {
+            background: orangered;        
+            color: white;                
+        }        
     }
 
     .flex-body {
@@ -245,4 +270,5 @@
     .on {
         background: orangered; /* Dark blue */        
     }
+    
 }

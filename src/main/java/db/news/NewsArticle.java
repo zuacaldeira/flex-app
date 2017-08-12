@@ -21,6 +21,8 @@ public class NewsArticle extends GraphEntity implements Comparable<NewsArticle>{
     private String description;
     private String url;
     private String imageUrl;
+    
+    //@DateLong
     private Date publishedAt;
     private String sourceId;
     

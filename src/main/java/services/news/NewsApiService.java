@@ -136,7 +136,7 @@ public class NewsApiService {
                         articlesService.save(article);
                     }
                 } catch (Exception ex) {
-                    System.err.println("Exception: " + ex.getCause());
+                    //System.err.println("Exception: " + ex.getCause());
                 }
             }
         } catch (Exception ex) {
