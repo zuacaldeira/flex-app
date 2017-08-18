@@ -9,7 +9,7 @@ import db.news.Neo4jTest;
 import javax.naming.NamingException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.utils.MockInitialContext;
+import utils.MockInitialContext;
 import utils.ServiceLocator;
 
 /**

@@ -21,7 +21,7 @@ public class FlexLogoTest {
 
     @Test
     public void testIcon() {
-        FlexLogo logo = new FlexLogo(new FlexUser("alex", null));
+        FlexLogoBar logo = new FlexLogoBar(new FlexUser("alex", null));
         //assertEquals(VaadinIcons.MEGAFONE, logo.getIcon());
     }
     

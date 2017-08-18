@@ -43,31 +43,31 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
             dbEntity.setAuthors(newEntity.getAuthors());
         }
         
-        if(newEntity.getDescription() != null && newEntity.getDescription().equals(dbEntity.getDescription())) {
+        if(newEntity.getDescription() != null && !newEntity.getDescription().equals(dbEntity.getDescription())) {
             dbEntity.setDescription(newEntity.getDescription());
         }
         
-        if(newEntity.getImageUrl() != null && newEntity.getImageUrl().equals(dbEntity.getImageUrl())) {
+        if(newEntity.getImageUrl() != null && !newEntity.getImageUrl().equals(dbEntity.getImageUrl())) {
             dbEntity.setImageUrl(newEntity.getImageUrl());
         }
         
-        if(newEntity.getImageUrl() != null && newEntity.getImageUrl().equals(dbEntity.getImageUrl())) {
+        if(newEntity.getImageUrl() != null && !newEntity.getImageUrl().equals(dbEntity.getImageUrl())) {
             dbEntity.setImageUrl(newEntity.getImageUrl());
         }
 
-        if(newEntity.getPublishedAt() != null && newEntity.getPublishedAt().equals(dbEntity.getPublishedAt())) {
+        if(newEntity.getPublishedAt() != null && !newEntity.getPublishedAt().equals(dbEntity.getPublishedAt())) {
             dbEntity.setPublishedAt(newEntity.getPublishedAt());
         }
 
-        if(newEntity.getSourceId() != null && newEntity.getSourceId().equals(dbEntity.getSourceId())) {
+        if(newEntity.getSourceId() != null && !newEntity.getSourceId().equals(dbEntity.getSourceId())) {
             dbEntity.setSourceId(newEntity.getSourceId());
         }
         
-        if(newEntity.getTitle() != null && newEntity.getTitle().equals(dbEntity.getTitle())) {
+        if(newEntity.getTitle() != null && !newEntity.getTitle().equals(dbEntity.getTitle())) {
             dbEntity.setTitle(newEntity.getTitle());
         }
 
-        if(newEntity.getUrl() != null && newEntity.getUrl().equals(dbEntity.getUrl())) {
+        if(newEntity.getUrl() != null && !newEntity.getUrl().equals(dbEntity.getUrl())) {
             dbEntity.setUrl(newEntity.getUrl());
         }
         

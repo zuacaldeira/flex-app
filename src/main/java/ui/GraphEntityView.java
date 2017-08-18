@@ -130,18 +130,16 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
         @Override
     public void buttonClick(Button.ClickEvent event) {
         if(getUI() != null && getUI().isAttached()){
-            getUI().access(() -> {
-                if(event.getButton() instanceof HideButton) {
-                    handleHideClick((HideButton) event.getButton());
-                }
-                else if(event.getButton() instanceof FavoriteButton) {
-                    handleFavouriteClick((FavoriteButton) event.getButton());            
-                }
+            if(event.getButton() instanceof HideButton) {
+                handleHideClick((HideButton) event.getButton());
+            }
+            else if(event.getButton() instanceof FavoriteButton) {
+                handleFavouriteClick((FavoriteButton) event.getButton());            
+            }
 
-                else if(event.getButton() instanceof FakeButton) {
-                    handleFakeClick((FakeButton) event.getButton());
-                }
-            });
+            else if(event.getButton() instanceof FakeButton) {
+                handleFakeClick((FakeButton) event.getButton());
+            }
         }
     }
 

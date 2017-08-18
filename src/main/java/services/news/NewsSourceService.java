@@ -65,6 +65,9 @@ public class NewsSourceService extends AbstractDBService<NewsSource> {
         if(newEntity.getUrl() != null) {
             dbEntity.setUrl(newEntity.getUrl());
         }
+        if(newEntity.getLogoUrl() != null) {
+            dbEntity.setLogoUrl(newEntity.getLogoUrl());
+        }
         
         return dbEntity;
     }

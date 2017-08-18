@@ -61,6 +61,4 @@ public class NewsAuthorService extends AbstractDBService<NewsAuthor> {
     public SortOrder getSortOrderDesc() {
         return new SortOrder().add(SortOrder.Direction.DESC, "name");
     }
-    
-
 }

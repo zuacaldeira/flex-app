@@ -24,6 +24,7 @@ public class NewsSource extends GraphEntity implements Comparable<NewsSource> {
     
     @Relationship(type = "PUBLISHED", direction = Relationship.OUTGOING)
     private Set<NewsAuthor> correspondents;
+    private String logoUrl;
     
     public NewsSource() {
         correspondents = new HashSet<>();
@@ -165,5 +166,15 @@ public class NewsSource extends GraphEntity implements Comparable<NewsSource> {
     public boolean hasUrl() {
         return url != null;
     }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+    
+    
 
 }

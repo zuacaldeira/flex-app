@@ -1,5 +1,6 @@
 package services.news;
 
+import java.util.LinkedList;
 import org.neo4j.ogm.cypher.query.SortOrder;
 
 /**
@@ -89,4 +90,5 @@ public interface DBService<T> {
     public Class<T> getClassType();
     public SortOrder getSortOrderAsc();
     public SortOrder getSortOrderDesc();
+    public LinkedList<T> executeQuery(String query);    
 }

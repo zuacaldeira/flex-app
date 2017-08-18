@@ -10,13 +10,12 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.time.Instant;
 import java.util.Date;
 import java.util.Set;
-import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
-import javax.ejb.TimerService;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,17 +30,6 @@ public class NewsApiService {
     private static final String sourcesUrl = "http://newsapi.org/v1/sources?";
     private static final String articlesUrl = "http://newsapi.org/v1/articles?";
 
-/*    static {
-        String certificatesTrustStorePath = "/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home/jre/lib/security/cacerts";
-        System.setProperty("javax.net.ssl.trustStore", certificatesTrustStorePath);
-        System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
-    }
-*/
-    
-    @Resource
-    private TimerService timer;
-    
-    
     @EJB
     private NewsSourceService sourcesService;
 
@@ -65,82 +53,91 @@ public class NewsApiService {
 
     @Schedule(hour = "*", minute = "*/10")
     public void loadData() {
-        System.out.println("===> Loading data from newsapi.org...");
         try {
-            String query = createSourceQuery("", "", "");
-            System.out.println("===> Query for newapi.org: " + query);
-
-            JSONObject jsonObject     = makeApiCall(query);
-            JSONArray allSourcesArray = jsonObject.getJSONArray("sources");
-            for(int i = 0; i < allSourcesArray.length(); i++) {
-                try {
-                    JSONObject obj = allSourcesArray.getJSONObject(i);
-                    NewsSource source = createSource(obj);
-                    loadArticles(source);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            System.out.println("[LOADER] START: Loading data from newsapi.org...");
+            processSources(makeApiCall(createSourceQuery("", "", "")));
+            System.out.println("[LOADER] END: Data loaded.");
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new NewsServiceException(e);
         }
-        
-        System.out.println("<=== Data loaded.");
     }
-
-    private void loadArticles(NewsSource source) {
+    
+    private void processSources(JSONObject jsonObject) {
+        JSONArray allSourcesArray = jsonObject.getJSONArray("sources");
+        for(int i = 0; i < allSourcesArray.length(); i++) {
+            try {
+                processSource(createSource(allSourcesArray.getJSONObject(i)));
+            } catch (Exception e) {
+                //System.err.println(e.getMessage());
+                //throw new NewsServiceException(e);
+            }
+        }
+    }
+    
+    
+    private void processSource(NewsSource source) {
         try {
-            String query = createArticlesQuery(source.getSourceId(), "");
-            
-            JSONObject jsonObject = makeApiCall(query);
-            
-            JSONArray allArticlesArray = jsonObject.getJSONArray("articles");
-            
-            for(int i = 0; i < allArticlesArray.length(); i++) {
-                JSONObject obj = allArticlesArray.getJSONObject(i);
-                
-                NewsArticle article = new NewsArticle();
-                article.setSourceId(source.getSourceId());
-                if(!obj.isNull("title")) {
-                    article.setTitle(normalize(obj.getString("title")));
-                }
-                if(!obj.isNull("description")) {
-                    article.setDescription(obj.getString("description"));
-                }
-                if(!obj.isNull("url")) {
-                    article.setUrl(obj.getString("url"));
-                }
-                if(!obj.isNull("urlToImage")) {
-                    article.setImageUrl(obj.getString("urlToImage"));
-                }
-                if(!obj.isNull("publishedAt")) {
-                    //article.setPublishedAt(obj.getString("publishedAt"));
-                    article.setPublishedAt(new Date());
-                } else {
-                    article.setPublishedAt(new Date());
-                }
-                
-                String authorName = null;
-                if(!obj.isNull("author")) {
-                    authorName = obj.getString("author").trim();
-                    Set<NewsAuthor> authors = FlexUtils.getInstance().extractAuthors(authorName);
-                    authors.forEach(a -> {
-                        NewsAuthor dbAuthor = authorsService.find(a);
-                        NewsAuthor author = (dbAuthor == null)? a: dbAuthor;
-                        author.addArticle(article);
-                        source.addCorrespondent(author);
-                    });
-                }
-                try {
-                    if(!articlesService.contains(article)) {
-                        articlesService.save(article);
-                    }
-                } catch (Exception ex) {
-                    //System.err.println("Exception: " + ex.getCause());
-                }
+            System.out.println("[LOADER]\tLoading articles from " + source.getName());
+            processArticles(source, makeApiCall(createArticlesQuery(source.getSourceId(), "")));
+         } catch (Exception e) {
+            throw new NewsServiceException(e);
+        }
+    }
+    
+    private void processArticles(NewsSource source, JSONObject jsonObject) {
+           
+        JSONArray allArticlesArray = jsonObject.getJSONArray("articles");
+
+        for(int i = 0; i < allArticlesArray.length(); i++) {
+            try {
+                processArticle(source, allArticlesArray.getJSONObject(i));
+            } catch(Exception e) {
+                //System.err.println(e.getMessage());
+                //throw new NewsServiceException(e);
+            }
+        }
+    }
+    
+    private void processArticle(NewsSource source, JSONObject obj) {
+        try {
+            NewsArticle article = new NewsArticle();
+            article.setSourceId(source.getSourceId());
+            if(!obj.isNull("title")) {
+                article.setTitle(normalize(obj.getString("title")));
+            }
+            if(!obj.isNull("description")) {
+                article.setDescription(obj.getString("description"));
+            }
+            if(!obj.isNull("url")) {
+                article.setUrl(obj.getString("url"));
+            }
+            if(!obj.isNull("urlToImage")) {
+                article.setImageUrl(obj.getString("urlToImage"));
+            }
+            if(!obj.isNull("publishedAt")) {
+                article.setPublishedAt(getDate(obj.getString("publishedAt")));
+                article.setPublishedAt(new Date());
+            } else {
+                article.setPublishedAt(new Date());
+            }
+
+            String authorName = null;
+            if(!obj.isNull("author")) {
+                authorName = obj.getString("author").trim();
+                Set<NewsAuthor> authors = FlexUtils.getInstance().extractAuthors(authorName);
+                authors.forEach(a -> {
+                    NewsAuthor dbAuthor = authorsService.find(a);
+                    NewsAuthor author = (dbAuthor == null)? a: dbAuthor;
+                    author.addArticle(article);
+                    source.addCorrespondent(author);
+                });
+            }
+            if(!articlesService.contains(article)) {
+                articlesService.save(article);
+                System.out.println("[LOADER]\t\tStored new article " + article.getTitle());
             }
         } catch (Exception ex) {
-            System.err.println("Exception: " + ex.getCause());
+            throw new NewsServiceException(ex);
         }
     }
     
@@ -155,6 +152,7 @@ public class NewsApiService {
             query += ("&country=" + country);
         }
         query += ("&apiKey=" + apiKey);
+
         return query;
     }
 
@@ -227,6 +225,24 @@ public class NewsApiService {
 
     private String normalize(String string) {
         return string.replace("\"", "'");
+    }
+
+    private Date getDate(String dateString) {
+        try {
+            if(dateString.endsWith("+00:00")) {
+                dateString = dateString.replace("+00:00", "");
+            }
+
+            if(dateString.length() <= 19) {
+                dateString += ".00Z";
+            }
+            
+            Date d = Date.from(Instant.parse(dateString));
+            return d;
+        } catch(Exception e) {
+            System.err.println(dateString + " : " + e.getMessage());
+            return new Date();
+        }
     }
 
 }

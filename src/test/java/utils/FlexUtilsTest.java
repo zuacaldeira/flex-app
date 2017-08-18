@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.utils;
+package utils;
 
-import utils.FlexUtils;
 import db.news.NewsAuthor;
 import java.util.Set;
 import org.junit.Test;

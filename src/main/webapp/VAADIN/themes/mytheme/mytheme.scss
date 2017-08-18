@@ -38,6 +38,7 @@
     // Insert your own theme rules here
     .v-ui{
         background: white;
+        font-family: monospace;
         //@include linear-gradient(to bottom right, black, silver);
     }
 
@@ -64,10 +65,9 @@
         
     .flex-menu {
         @include linear-gradient(to bottom right, yellowgreen, yellow, trasparent);
-        opacity: .9;
         color: black;
         font-variant: small-caps;
-        font-weight: bold;
+        font-size: larger;
         .flex-menu-bar {
             opacity: 1;
             .v-menubar-menuitem {
@@ -85,19 +85,17 @@
 
     .flex-logo {
         font-variant: small-caps;
-        font-weight: bold;
         width: 100%;
         .logo {
             @include linear-gradient(to bottom right, orange, orangered, red);
         }
         .context {
-            color: gray;
-            font-weight: bolder;
+            color: white;
         }
         .section {
             color: orangered;
-            font-weight: bolder;
-        }
+        }        
+        
         .logout {
             color: orangered;
         }        
@@ -113,7 +111,7 @@
     }
     
     .flex-footer{
-        color:white;
+        color:transparent;
     }
 
     .items {
@@ -121,11 +119,11 @@
             border-radius: 0%;
             color:black;
             background: transparent;
+            font-size: smaller;
             
             .item {
                 .source {
                     color: lightgray;
-                    font-family: monospace;
                     font-variant: small-caps;
                 }
             }
@@ -134,7 +132,6 @@
                 background: gainsboro;
                 .source {
                     color: black;
-                    font-family: monospace;
                     font-variant: small-caps;
                 }
                 .title {

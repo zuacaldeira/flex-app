@@ -20,7 +20,7 @@ public class LogoutButton extends FlexButton {
     }
     
     public void addUsername(String username) {
-        //setCaption(username);
+        setCaption(username);
     }
     
     

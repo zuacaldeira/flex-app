@@ -23,7 +23,7 @@ import utils.FlexUtils;
  */
 public abstract class AbstractDBService<T extends GraphEntity> implements DBService<T> {
 
-    public final int LIMIT = 100;
+    public final int LIMIT = 50;
 
     @EJB
     private FlexUserService userService;
@@ -254,9 +254,13 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
     
     @Override
     public final T save(T object) {
-        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        session.save(object);
-        return find(object);
+        try {
+            Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
+            session.save(object);
+            return find(object);
+        } catch(Exception e) {
+            throw new NewsServiceException(e);
+        }
     }
     
     @Override
@@ -278,9 +282,6 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
 
     @Override
     public T update(T object) {
-        if(object.getId() == null) {
-            throw new IllegalArgumentException("Cannot update object not in db. Use save() to store the object in the database");
-        }
         return save(update(find(object), object));
     }
 
@@ -358,22 +359,34 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
 
     @Override
     public void markAsRead(String username, T entity) {
-        if(!isRead(username, entity)){
-            getSession().query(getCreateStateQuery("READ", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+        try{
+            if(!isRead(username, entity)){
+                getSession().query(getCreateStateQuery("READ", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+            }
+        } catch(Exception e) {
+            throw new NewsServiceException(e);
         }
     }
 
     @Override
     public void markAsFavorite(String username, T entity) {
-        if(!isFavorite(username, entity)) {
-            getSession().query(getCreateStateQuery("FAVORITE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+        try{
+            if(!isFavorite(username, entity)) {
+                getSession().query(getCreateStateQuery("FAVORITE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+            }
+        } catch(Exception e) {
+            throw new NewsServiceException(e);
         }
     }
 
     @Override
     public void markAsFake(String username, T entity) {
-        if(!isFake(username, entity)) {
-            getSession().query(getCreateStateQuery("FAKE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+        try {
+            if(!isFake(username, entity)) {
+                getSession().query(getCreateStateQuery("FAKE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
+            }
+        } catch(Exception e) {
+            throw new NewsServiceException(e);
         }
     }
 
@@ -417,8 +430,8 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
                 != null;
     }
     
-    
-    protected LinkedList<T> executeQuery(String query) {
+    @Override
+    public LinkedList<T> executeQuery(String query) {
         return Lists.newLinkedList(getSession().query(getClassType(), query, new HashMap<>()));
     }
 }
