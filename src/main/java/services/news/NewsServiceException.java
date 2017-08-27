@@ -14,7 +14,7 @@ import javax.ejb.ApplicationException;
 @ApplicationException(rollback=false)
 public class NewsServiceException extends RuntimeException {
 
-    public NewsServiceException(Exception e) {
+    public NewsServiceException(Throwable e) {
         super(e);
     }
     

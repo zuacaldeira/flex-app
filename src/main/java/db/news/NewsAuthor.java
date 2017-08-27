@@ -64,7 +64,6 @@ public class NewsAuthor extends  GraphEntity implements Comparable<NewsAuthor>{
     }
 
     public void setArticles(Set<NewsArticle> articles) {
-        this.articles = articles;
         for(NewsArticle article: articles) {
             addArticle(article);
         }

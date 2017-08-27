@@ -5,15 +5,12 @@
  */
 package services.news;
 
+import db.news.Neo4jQueries;
 import utils.Neo4jSessionFactory;
 import db.news.NewsSource;
-import java.util.Collection;
 import java.util.HashMap;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import org.neo4j.ogm.cypher.ComparisonOperator;
-import org.neo4j.ogm.cypher.Filter;
-import org.neo4j.ogm.cypher.Filters;
 import org.neo4j.ogm.cypher.query.SortOrder;
 import org.neo4j.ogm.session.Session;
 
@@ -32,14 +29,9 @@ public class NewsSourceService extends AbstractDBService<NewsSource> {
     
     public NewsSource findSourceBySourceId(String sourceId) {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        Filter filter = new Filter("sourceId", ComparisonOperator.EQUALS, sourceId);
-        Collection<NewsSource> collection = session.loadAll(getClassType(), new Filters().add(filter), 2);
-        if(!collection.isEmpty()) {
-            return collection.iterator().next();
-        }
-        else{
-            return null;
-        }
+        return session.queryForObject(NewsSource.class, 
+                Neo4jQueries.getInstance().findSourceBySourceId(sourceId),
+                new HashMap<>()); 
     }
 
     @Override
@@ -83,16 +75,12 @@ public class NewsSourceService extends AbstractDBService<NewsSource> {
     }
 
     public Iterable<String> findCategories() {
-        System.out.println("FIND_CATEGORIES");
-        
         String query = "MATCH (s:NewsSource) RETURN DISTINCT s.category ORDER BY s.category ASC";
         Session session = super.getSession();
         return session.query(String.class, query, new HashMap());
     }
 
     public Iterable<String> findNames() {
-        System.out.println("FIND_NAMES");
-        
         String query = "MATCH (s:NewsSource) RETURN DISTINCT s.name ORDER BY s.name ASC";
         Session session = super.getSession();
         return session.query(String.class, query, new HashMap());

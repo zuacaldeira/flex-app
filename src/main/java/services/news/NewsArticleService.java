@@ -31,16 +31,20 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
     }
     
     public NewsArticle findArticleByTitle(String title) {
-        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        return session.queryForObject(NewsArticle.class, 
-                Neo4jQueries.getInstance().findArticleByTitle(title),
-                new HashMap<>()); 
+        try {
+            Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
+            return session.queryForObject(NewsArticle.class, 
+                    Neo4jQueries.getInstance().findArticleByTitle(title),
+                    new HashMap<>()); 
+        } catch(Exception e) {
+            return null;
+        }
     }
 
     @Override
     public NewsArticle update(NewsArticle dbEntity, NewsArticle newEntity) {
         if(newEntity.getAuthors() != null && !newEntity.getAuthors().equals(dbEntity.getAuthors())) {
-            dbEntity.setAuthors(newEntity.getAuthors());
+            dbEntity.getAuthors().addAll(newEntity.getAuthors());
         }
         
         if(newEntity.getDescription() != null && !newEntity.getDescription().equals(dbEntity.getDescription())) {
@@ -51,10 +55,6 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
             dbEntity.setImageUrl(newEntity.getImageUrl());
         }
         
-        if(newEntity.getImageUrl() != null && !newEntity.getImageUrl().equals(dbEntity.getImageUrl())) {
-            dbEntity.setImageUrl(newEntity.getImageUrl());
-        }
-
         if(newEntity.getPublishedAt() != null && !newEntity.getPublishedAt().equals(dbEntity.getPublishedAt())) {
             dbEntity.setPublishedAt(newEntity.getPublishedAt());
         }
@@ -91,7 +91,7 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
         query += "  AND NOT ( (u)-[:READ|FAVORITE|FAKE]->(n)) ";
         query += "  RETURN n ";
         query += "  ORDER BY n.publishedAt DESC LIMIT " + LIMIT;
-        System.out.println(query);
+        //System.out.println(query);
         return super.executeQuery(query);
     }
 
@@ -102,7 +102,7 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
         query += "  AND NOT ( (u)-[:READ|FAVORITE|FAKE]->(n)) ";
         query += "  RETURN n ";
         query += "  ORDER BY n.publishedAt DESC LIMIT " + LIMIT;
-        System.out.println(query);
+        //System.out.println(query);
         return super.executeQuery(query);
     }
 }

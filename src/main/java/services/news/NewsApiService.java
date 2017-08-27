@@ -51,7 +51,7 @@ public class NewsApiService {
         this.authorsService = authorsService;
     }
 
-    @Schedule(hour = "*", minute = "*/10")
+    @Schedule(hour = "*", minute = "*/15")
     public void loadData() {
         try {
             System.out.println("[LOADER] START: Loading data from newsapi.org...");
@@ -77,7 +77,7 @@ public class NewsApiService {
     
     private void processSource(NewsSource source) {
         try {
-            System.out.println("[LOADER]\tLoading articles from " + source.getName());
+            System.out.println("[LOADER] Loading articles from " + source.getName());
             processArticles(source, makeApiCall(createArticlesQuery(source.getSourceId(), "")));
          } catch (Exception e) {
             throw new NewsServiceException(e);
@@ -115,8 +115,7 @@ public class NewsApiService {
                 article.setImageUrl(obj.getString("urlToImage"));
             }
             if(!obj.isNull("publishedAt")) {
-                article.setPublishedAt(getDate(obj.getString("publishedAt")));
-                article.setPublishedAt(new Date());
+                article.setPublishedAt(FlexUtils.getInstance().getDate(obj.getString("publishedAt")));
             } else {
                 article.setPublishedAt(new Date());
             }
@@ -132,10 +131,8 @@ public class NewsApiService {
                     source.addCorrespondent(author);
                 });
             }
-            if(!articlesService.contains(article)) {
-                articlesService.save(article);
-                System.out.println("[LOADER]\t\tStored new article " + article.getTitle());
-            }
+            articlesService.save(article);
+            System.out.println("[LOADER]\tStored new article " + article.getTitle());
         } catch (Exception ex) {
             throw new NewsServiceException(ex);
         }
@@ -225,24 +222,6 @@ public class NewsApiService {
 
     private String normalize(String string) {
         return string.replace("\"", "'");
-    }
-
-    private Date getDate(String dateString) {
-        try {
-            if(dateString.endsWith("+00:00")) {
-                dateString = dateString.replace("+00:00", "");
-            }
-
-            if(dateString.length() <= 19) {
-                dateString += ".00Z";
-            }
-            
-            Date d = Date.from(Instant.parse(dateString));
-            return d;
-        } catch(Exception e) {
-            System.err.println(dateString + " : " + e.getMessage());
-            return new Date();
-        }
     }
 
 }

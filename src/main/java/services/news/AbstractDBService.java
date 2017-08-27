@@ -244,23 +244,24 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
     
     @Override
     public final T find(T object) {
-        String classname = getClassType().getSimpleName();
-        String query = "MATCH (n:" + classname + ")";
-        query += " WHERE n." + object.getPropertyName() + "=" + FlexUtils.getInstance().wrapUp(object.getPropertyValue());
-        query += " RETURN n";
-        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-        return session.queryForObject(getClassType(), query, new HashMap<>());
+        try {
+            String classname = getClassType().getSimpleName();
+            String query = "MATCH (n:" + classname + ")";
+            query += " WHERE n." + object.getPropertyName() + "=" + FlexUtils.getInstance().wrapUp(object.getPropertyValue());
+            query += " RETURN n";
+            Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
+            //System.out.println("\t\t\tQuery = " + query);
+            return session.queryForObject(getClassType(), query, new HashMap<>());
+        } catch(Exception e) {
+            return null;
+        }
     }
     
     @Override
     public final T save(T object) {
-        try {
-            Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-            session.save(object);
-            return find(object);
-        } catch(Exception e) {
-            throw new NewsServiceException(e);
-        }
+        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
+        session.save(object);
+        return find(object);
     }
     
     @Override
@@ -353,40 +354,28 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
             query += "LIMIT " + limit;
         }
         
-        System.out.println("Query = " + query);
+        //System.out.println("Query = " + query);
         return query;
     }
 
     @Override
     public void markAsRead(String username, T entity) {
-        try{
-            if(!isRead(username, entity)){
-                getSession().query(getCreateStateQuery("READ", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
-            }
-        } catch(Exception e) {
-            throw new NewsServiceException(e);
+        if(!isRead(username, entity)){
+            getSession().query(getCreateStateQuery("READ", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
         }
     }
 
     @Override
     public void markAsFavorite(String username, T entity) {
-        try{
-            if(!isFavorite(username, entity)) {
-                getSession().query(getCreateStateQuery("FAVORITE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
-            }
-        } catch(Exception e) {
-            throw new NewsServiceException(e);
+        if(!isFavorite(username, entity)) {
+            getSession().query(getCreateStateQuery("FAVORITE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
         }
     }
 
     @Override
     public void markAsFake(String username, T entity) {
-        try {
-            if(!isFake(username, entity)) {
-                getSession().query(getCreateStateQuery("FAKE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
-            }
-        } catch(Exception e) {
-            throw new NewsServiceException(e);
+        if(!isFake(username, entity)) {
+            getSession().query(getCreateStateQuery("FAKE", "username", username, entity.getPropertyName(), entity.getPropertyValue()), new HashMap<>());
         }
     }
 

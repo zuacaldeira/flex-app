@@ -5,6 +5,8 @@
  */
 package db.news;
 
+import utils.FlexUtils;
+
 /**
  *
  * @author zua
@@ -45,28 +47,19 @@ public class Neo4jQueries {
 
     
     public  String findSourceBySourceId(String sourceId) {
-        return findQuery(NewsSource.class.getSimpleName(), "sourceId", sourceId);
+        return findQuery(NewsSource.class.getSimpleName(), "sourceId", FlexUtils.getInstance().wrapUp(sourceId));
     }
     
     public  String findArticleByTitle(String title) {
-        return findQuery(NewsArticle.class.getSimpleName(), "title", title);
+        return findQuery(NewsArticle.class.getSimpleName(), "title", FlexUtils.getInstance().wrapUp(title));
     }
     
     public  String findAuthorByName(String name) {
-        return findQuery(NewsAuthor.class.getSimpleName(), "name", name);
+        return findQuery(NewsAuthor.class.getSimpleName(), "name", FlexUtils.getInstance().wrapUp(name));
     }
     
-    private  String wrapString(String value) {
-        if(value != null) {
-            return "\"" + value + "\"";
-        }
-        else {
-            return "";
-        }
-    }
-
     private  String findNewsSourceQuery(NewsSource newsSource) {
-        System.out.println("Source ID = " + newsSource.getSourceId());
+        //System.out.println("Source ID = " + newsSource.getSourceId());
         return findSourceBySourceId(newsSource.getSourceId());
     }
 
@@ -79,8 +72,8 @@ public class Neo4jQueries {
     }
 
     private  String findQuery(String className, String property, String value) {
-        String query = "MATCH (n:" + className + "{" + property + ":" + wrapString(value) + "}) RETURN n";
-        System.out.println(query);
+        String query = "MATCH (n:" + className + "{" + property + ":" + value + "}) RETURN n";
+        //System.out.println(query);
         return query;
     }
 

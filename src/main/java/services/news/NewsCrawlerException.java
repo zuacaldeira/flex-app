@@ -11,7 +11,7 @@ package services.news;
  */
 public class NewsCrawlerException extends NewsServiceException {
 
-    public NewsCrawlerException(Exception e) {
+    public NewsCrawlerException(Throwable e) {
         super(e);
     }
     
