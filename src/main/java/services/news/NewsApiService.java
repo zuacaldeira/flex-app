@@ -10,8 +10,11 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.time.Instant;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
@@ -51,7 +54,7 @@ public class NewsApiService {
         this.authorsService = authorsService;
     }
 
-    @Schedule(hour = "*", minute = "*/15")
+    @Schedule(hour = "*", minute = "*/15", persistent = false)
     public void loadData() {
         try {
             System.out.println("[LOADER] START: Loading data from newsapi.org...");
@@ -98,6 +101,38 @@ public class NewsApiService {
         }
     }
     
+    private String normalizeTime(String dateString, String language) {
+        String result = normalizeTime("yyyy-MM-dd HH:mm:ss", dateString, language);
+        if(result == null) {
+            result = normalizeTime("yyyy-MM-dd HH:mm:ssZ", dateString, language);
+        }
+        if(result == null) {
+            result = normalizeTime("yyyy-MM-dd'T'HH:mm:ss", dateString, language);
+        }
+        if(result == null) {
+            result = normalizeTime("yyyy-MM-dd'T'HH:mm:ss'Z'", dateString, language);
+        }
+        if(result == null) {
+            result = normalizeTime("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", dateString, language);
+        }
+        if(result == null) {
+            result = normalizeTime("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", dateString, language);
+        }
+        if(result == null) {
+            result = normalizeTime("yyyy-MM-dd'T'HH:mm:ss.SSSZ", dateString, language);
+        }
+        
+        //System.out.println("Converted " + dateString + " into " + result);
+        
+        if(result != null) {
+            return result;
+        }
+        else {
+            return null;
+        }
+    }
+
+    
     private void processArticle(NewsSource source, JSONObject obj) {
         try {
             NewsArticle article = new NewsArticle();
@@ -115,7 +150,9 @@ public class NewsApiService {
                 article.setImageUrl(obj.getString("urlToImage"));
             }
             if(!obj.isNull("publishedAt")) {
-                article.setPublishedAt(FlexUtils.getInstance().getDate(obj.getString("publishedAt")));
+                String normalizedTime = normalizeTime(obj.getString("publishedAt"), source.getLanguage());
+                Date date = FlexUtils.getInstance().getDate2(normalizedTime, source.getLanguage());
+                article.setPublishedAt(date);
             } else {
                 article.setPublishedAt(new Date());
             }
@@ -123,16 +160,21 @@ public class NewsApiService {
             String authorName = null;
             if(!obj.isNull("author")) {
                 authorName = obj.getString("author").trim();
-                Set<NewsAuthor> authors = FlexUtils.getInstance().extractAuthors(authorName);
-                authors.forEach(a -> {
-                    NewsAuthor dbAuthor = authorsService.find(a);
-                    NewsAuthor author = (dbAuthor == null)? a: dbAuthor;
-                    author.addArticle(article);
-                    source.addCorrespondent(author);
+                Set<String> authorsNames = FlexUtils.getInstance().extractAuthors(authorName);
+                Set<NewsAuthor> authors = new HashSet<>();
+                
+                authorsNames.forEach(name -> {
+                    NewsAuthor dbAuthor = authorsService.findAuthorByName(name);
+                    NewsAuthor author = (dbAuthor == null) ? new NewsAuthor(name) : dbAuthor;
+                    authors.add(author);
                 });
+
+                article.setAuthors(authors);
+                source.setCorrespondents(authors);
+                
+                articlesService.save(article);
+                System.out.println("[LOADER]\tStored new article " + article.getTitle());
             }
-            articlesService.save(article);
-            System.out.println("[LOADER]\tStored new article " + article.getTitle());
         } catch (Exception ex) {
             throw new NewsServiceException(ex);
         }
@@ -222,6 +264,18 @@ public class NewsApiService {
 
     private String normalize(String string) {
         return string.replace("\"", "'");
+    }
+
+    private String normalizeTime(String datePattern, String dateString, String language) {
+        try {
+            SimpleDateFormat formatIn = new SimpleDateFormat(datePattern, new Locale(language));
+            Date date = formatIn.parse(dateString);
+            
+            SimpleDateFormat formatOut = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", new Locale(language));
+            return formatOut.format(date);
+        } catch(ParseException px) {
+            return null;
+        }
     }
 
 }

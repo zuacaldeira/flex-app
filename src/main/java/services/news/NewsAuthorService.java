@@ -28,6 +28,9 @@ public class NewsAuthorService extends AbstractDBService<NewsAuthor> {
     }
     
     public NewsAuthor findAuthorByName(String name) {
+        if(name == null || name.isEmpty()) {
+            return null;
+        }
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
         return session.queryForObject(NewsAuthor.class, 
                 Neo4jQueries.getInstance().findAuthorByName(name), 

@@ -22,8 +22,7 @@ import utils.ServiceLocator;
  */
 public class FlexBody extends FlexPanel {
     private final FlexUser user;
-    private Thread bodyWorker;
-    private Thread logoWorker;
+    private transient Thread bodyWorker;
     
     public FlexBody(FlexUser user) {
         this.user = user;

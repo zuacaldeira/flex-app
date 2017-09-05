@@ -7,15 +7,17 @@ package utils;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HasComponents;
-import db.news.NewsAuthor;
+import java.text.ParseException;
 import ui.FlexBody;
 import ui.FlexMainView;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,36 +35,18 @@ public class FlexUtils {
         }
         return "";
     }
-
-    public Date getDate(String dateString) {
-        //System.out.println("+++++ GET_DATE()");
-        if (dateString != null) {
-            //System.out.println("+++++ DATE STRING = " + dateString);
-            if (!dateString.contains("T")) {
-                dateString = dateString.replace(" ", "T");
-            } 
-            
-            if (dateString.endsWith("+00:00")) {
-                dateString = dateString.replace("+00:00", "");
-            }
-
-            if (dateString.length() == 20 && dateString.endsWith("Z") && !dateString.contains(".")) {
-                dateString = dateString.replace("Z", ".00Z");
-            }
-
-            if (dateString.length() >= 19 && !dateString.endsWith("Z")) {
-                dateString += ".00Z";
-            }
-
-            try {
-                return Date.from(Instant.parse(dateString));
-            } catch (Exception e) {
-                System.err.println("Couldn't parse " + dateString);
-            }
+    
+    public Date getDate2(String dateString, String language) {
+        try {
+            //System.out.println("###### Input date " + dateString);
+            SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", new Locale(language));
+            return format2.parse(dateString);
+        } catch (ParseException ex) {
+            Logger.getLogger(FlexUtils.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-        return new Date();
     }
-
+    
     public String wrapUp(String string) {
         if (string == null) {
             return null;
@@ -92,24 +76,18 @@ public class FlexUtils {
         return instance;
     }
 
-    public Set<NewsAuthor> extractAuthors(String value) {
-        Set<NewsAuthor> authors = new HashSet<>();
+    public Set<String> extractAuthors(String value) {
+        Set<String> result = new HashSet<>();
 
         Set<String> names = extractAuthorsNames(value);
-        names.forEach(name -> {
-            name = name.trim();
-            NewsAuthor author = null;
+        names.forEach(n -> {
+            String name = n.trim();
             if (isUrl(name)) {
-                String justName = extractNameFromUrl(value);
-                author = new NewsAuthor(justName);
-                author.setUrl(name);
-            } else {
-                author = new NewsAuthor(name);
+                name = extractNameFromUrl(value);
             }
-
-            authors.add(author);
+            result.add(name);
         });
-        return authors;
+        return result;
     }
 
     public Set<String> extractAuthorsNames(String value) {

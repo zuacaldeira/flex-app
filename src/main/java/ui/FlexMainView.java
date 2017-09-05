@@ -22,13 +22,13 @@ public class FlexMainView extends AbsoluteLayout {
     public FlexMainView(FlexUser user) {
         this.user = user;
         initBody();
-        super.addComponent(body, getBodyStyle());
+        super.addComponent(body, "top:2cm; bottom:0cm");
 
         initFooter();
-        super.addComponent(footer, getFooterStyle());
+        super.addComponent(footer, "bottom:0%");
 
         initMenu();
-        super.addComponent(menu, getMenuStyle());
+        super.addComponent(menu, "top:0cm");
 
         super.setStyleName("flex-view");
         super.setSizeFull();
@@ -37,7 +37,7 @@ public class FlexMainView extends AbsoluteLayout {
     private void initMenu() {
         menu = new FlexMenu(user);
         menu.setWidth("100%");
-        menu.setHeight("1cm");
+        menu.setHeight("2cm");
     }
 
     private void initBody() {
@@ -52,19 +52,6 @@ public class FlexMainView extends AbsoluteLayout {
     }
     
     
-    private String getBodyStyle() {
-        return "top:1cm; bottom:0cm";
-    }
-
-    private String getFooterStyle() {
-        return "bottom:0%";
-    }
-    
-    private String getMenuStyle() {
-        return "top:0cm";
-    }
-
-
     public void setMenu(FlexMenu menu) {
         this.menu = menu;
     }

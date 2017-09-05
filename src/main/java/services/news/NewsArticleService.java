@@ -31,14 +31,13 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
     }
     
     public NewsArticle findArticleByTitle(String title) {
-        try {
-            Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
-            return session.queryForObject(NewsArticle.class, 
-                    Neo4jQueries.getInstance().findArticleByTitle(title),
-                    new HashMap<>()); 
-        } catch(Exception e) {
+        if(title == null || title.isEmpty()) {
             return null;
         }
+        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
+        return session.queryForObject(NewsArticle.class, 
+                Neo4jQueries.getInstance().findArticleByTitle(title),
+                new HashMap<>()); 
     }
 
     @Override

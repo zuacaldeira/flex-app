@@ -8,8 +8,14 @@ package services.news.crawling;
 import db.news.NewsArticle;
 import db.news.NewsAuthor;
 import db.news.NewsSource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
@@ -101,15 +107,7 @@ public class MakaAngolaCrawler {
     }
 
     private NewsSource getSource(Document document) {
-        String sourceId = "makaangola";
-        String name = "Maka Angola";
-        String description = "Em defesa da democracia, contra a corrupção";
-        String url = MAKA_ANGOLA_URL_HOME;
-        String category = "política";
-        String language = "pt";
-        String country = "ao";
-
-        NewsSource source = new NewsSource(sourceId, name, description, url, category, language, country);
+        NewsSource source = getMySource();
         if (!document.select("#logo").isEmpty()) {
             String logoUrl = document.select("#logo").first().absUrl("src");
             System.out.println("Logo url: " + logoUrl);
@@ -146,7 +144,8 @@ public class MakaAngolaCrawler {
 
             Element time = article.select("time").first();
             if (time != null) {
-                newsArticle.setPublishedAt(FlexUtils.getInstance().getDate(time.attr("datetime")));
+                String normalizedTime = normalizeTime(time.attr("datetime")); 
+                newsArticle.setPublishedAt(FlexUtils.getInstance().getDate2(normalizedTime, source.getLanguage()));
             }
 
             Element content = article.select(".entry").first();
@@ -169,6 +168,26 @@ public class MakaAngolaCrawler {
                 //e.printStackTrace();
             }
         }
+    }
+
+    protected String normalizeTime(String inputPattern, String dateString) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat(inputPattern, new Locale(getMySource().getLanguage()));
+            Date date = format.parse(dateString);
+            SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", new Locale(getMySource().getLanguage()));
+            return format2.format(date);
+        } catch (ParseException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    private String normalizeTime(String time) {
+        String result = normalizeTime("yyyy-MM-dd'T'HH:mm:ssXXX", time);
+        if(result != null) {
+            return result;
+        }
+        return null;
     }
 
     private void prettyPrint(Element article) {
@@ -198,5 +217,18 @@ public class MakaAngolaCrawler {
             }
         }
         return "Maka Angola";
+    }
+
+    private NewsSource getMySource() {
+        String sourceId = "maka-angola";
+        String name = "Maka Angola";
+        String description = "Em defesa da democracia, contra a corrupção";
+        String url = MAKA_ANGOLA_URL_HOME;
+        String category = "política";
+        String language = "pt";
+        String country = "ao";
+
+        NewsSource source = new NewsSource(sourceId, name, description, url, category, language, country);
+        return source;
     }
 }
