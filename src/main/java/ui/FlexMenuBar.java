@@ -37,7 +37,7 @@ public class FlexMenuBar extends MenuBar {
     }
     
     private void initMenuBar() {
-        setSizeFull();
+        setSizeUndefined();
         setAutoOpen(true);
         setStyleName("flex-menu-bar");
         addStyleName(ValoTheme.MENUBAR_BORDERLESS);

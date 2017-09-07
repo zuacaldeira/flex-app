@@ -64,45 +64,26 @@
     }            
         
     .flex-menu {
-        @include linear-gradient(to bottom right, yellowgreen, yellow, trasparent);
+        visibility: false;
         color: black;
-        font-variant: small-caps;
-        font-size: larger;
+        font-size: large;
         .flex-menu-bar {
-            opacity: 1;
+            opacity: .9;
             .v-menubar-menuitem {
             }    
             .v-menubar-menuitem-selected {
-                background: orangered; /* Dark blue */
             }    
             .v-menu-bar-submenu {
-                background: orangered; /* Dark blue */        
             }
         }
-
-    }
-
-
-    .flex-logo {
-        font-variant: small-caps;
-        width: 100%;
-        .logo {
-            @include linear-gradient(to bottom right, orange, orangered, red);
-        }
-        .context {
-            color: white;
-        }
-        .section {
-            color: orangered;
-        }        
         
         .logout {
-            color: orangered;
-        }        
-        .logout:hover {
-            background: orangered;        
-            color: white;                
-        }        
+            background: lightgray;
+        }
+    }
+    
+    .flex-menu:hover {
+        visibility: true;        
     }
 
     .flex-body {

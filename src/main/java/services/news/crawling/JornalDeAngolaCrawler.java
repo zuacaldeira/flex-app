@@ -6,12 +6,6 @@
 package services.news.crawling;
 
 import db.news.NewsSource;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import org.jsoup.nodes.Document;
@@ -31,20 +25,19 @@ public class JornalDeAngolaCrawler extends FlexNewsCrawler {
     }
 
     
-    @Schedule(hour = "*", minute = "2/10", persistent = false)
+    @Schedule(hour = "*", minute = "*/10", persistent = false)
     public void crawl() {
-        //FlexLogger.getInstance().on();
         crawlWebsite(getUrl());
         crawlWebsite(getUrl() + "/cultura");
         crawlWebsite(getUrl() + "/desporto");
-        /*crawlWebsite(JORNAL_DE_ANGOLA_HOME + "/economia");
-        crawlWebsite(JORNAL_DE_ANGOLA_HOME + "/gente");
-        crawlWebsite(JORNAL_DE_ANGOLA_HOME + "/mundo");
-        crawlWebsite(JORNAL_DE_ANGOLA_HOME + "/opiniao");
-        crawlWebsite(JORNAL_DE_ANGOLA_HOME + "/politica");
-        crawlWebsite(JORNAL_DE_ANGOLA_HOME + "/provincias");
-        crawlWebsite(JORNAL_DE_ANGOLA_HOME + "/reportagem");
-        crawlWebsite(JORNAL_DE_ANGOLA_HOME + "/sociedade");*/
+        crawlWebsite(getUrl() + "/economia");
+        crawlWebsite(getUrl() + "/gente");
+        crawlWebsite(getUrl() + "/mundo");
+        crawlWebsite(getUrl() + "/opiniao");
+        crawlWebsite(getUrl() + "/politica");
+        crawlWebsite(getUrl() + "/provincias");
+        crawlWebsite(getUrl() + "/reportagem");
+        crawlWebsite(getUrl() + "/sociedade");
     }
     
     @Override

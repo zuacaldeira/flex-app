@@ -89,7 +89,7 @@ public class FlexBody extends FlexPanel {
     public void updateData(DataProviderType type, String value) {
         super.setContent(new MasterDetailView());
         if(FlexUtils.getInstance().getMainView(this) != null && value != null) {
-            FlexUtils.getInstance().getMainView(this).getMenu().getLogoBar().setNavigationContext(value);
+            //FlexUtils.getInstance().getMainView(this).getMenu().getLogoBar().setNavigationContext(value);
         }
         initBodyUpdaterThread(type, value);
     }

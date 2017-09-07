@@ -14,10 +14,10 @@ import javax.ejb.Singleton;
  * @author zua
  */
 @Singleton
-public class GlobalVoicesCrawlerPA extends GlobalVoicesAbstractCrawler {
+public class GlobalVoicesCrawlerFA extends GlobalVoicesAbstractCrawler {
 
-    public GlobalVoicesCrawlerPA() {
-        super("https://pa.globalvoices.org");
+    public GlobalVoicesCrawlerFA() {
+        super("https://fa.globalvoices.org");
     }
 
     @Schedule(hour = "*", minute = "*/10", persistent = false)
@@ -27,12 +27,12 @@ public class GlobalVoicesCrawlerPA extends GlobalVoicesAbstractCrawler {
     
     @Override
     public NewsSource getMySource() {
-        String sourceId = "global-voices-pa";
-        String name = "Global Voices PA";
+        String sourceId = "global-voices-fa";
+        String name = "Global Voices FA";
         String description = "";
         String url = getUrl();
         String category = "geral";
-        String language = "pa";
+        String language = "fa";
         String country = "uk";
         String logoUrl = "https://s3.amazonaws.com/static.globalvoices/img/tmpl/gv-logo-oneline-smallicon-600.png";
 
@@ -41,7 +41,6 @@ public class GlobalVoicesCrawlerPA extends GlobalVoicesAbstractCrawler {
         
         return source;
     }
-
 
     
     

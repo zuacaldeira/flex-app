@@ -11,14 +11,9 @@ package utils;
  */
 public class FlexLogger {
     
-    private static final FlexLogger FLEX_LOGGER = new FlexLogger();
     private boolean isOn = false;
 
-    private FlexLogger() {}
-    
-    public static FlexLogger getInstance() {
-        return FLEX_LOGGER;
-    }
+    public FlexLogger() {}
     
     public void log(String format, Object... values) {
         if(isOn) {

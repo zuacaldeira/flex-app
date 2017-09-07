@@ -17,7 +17,7 @@ import utils.ServiceLocator;
 public class ArticleView extends GraphEntityView<NewsArticle>  {
     // Info components
     private Label title;
-    private Label sourceName;
+    private AbsoluteLayout sourceRef;
     private Label content;
     private Image image;
     private Label publishedAt;
@@ -35,7 +35,7 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
         initTimeLabel();
         initTitle();
         initImage();
-        VerticalLayout view = new VerticalLayout(sourceName, publishedAt);
+        VerticalLayout view = new VerticalLayout(sourceRef, publishedAt);
         if(title != null) {
             view.addComponent(title);
         }
@@ -105,13 +105,17 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     
     private void initSourceName() {
         NewsSource source = ServiceLocator.getInstance().findSourcesService().findSourceBySourceId(getItem().getSourceId());
-        if(source != null) {
-            sourceName = new Label(source.getName());
+        sourceRef = new AbsoluteLayout();
+        sourceRef.setHeight("1cm");
+        sourceRef.setWidth("100%");
+        if(source.getLogoUrl() != null) {
+            Image logoImage = new Image("", new ExternalResource(source.getLogoUrl()));
+            logoImage.setHeight("100%");
+            logoImage.setWidthUndefined();
+            sourceRef.addComponent(logoImage);
         }
-        else {
-            sourceName = new Label("Uknown");
-        }
-        sourceName.setStyleName("source");
+        sourceRef.addComponent(new Label(source.getName()));
+        sourceRef.setStyleName("source");
     }
 
     private void initTimeLabel() {

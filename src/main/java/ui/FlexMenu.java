@@ -6,6 +6,7 @@
 package ui;
 
 import com.vaadin.server.Page;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import db.news.FlexUser;
@@ -17,16 +18,15 @@ import db.news.FlexUser;
 public class FlexMenu extends HorizontalLayout {
 
     private final FlexUser user;
-    private final FlexLogoBar logoBar;
     private final FlexMenuBar menuBar;
     private final LogoutButton logoutButton;
     
     public FlexMenu(FlexUser user) {
         this.user = user;
-        this.logoBar = new FlexLogoBar(user);
         this.menuBar = new FlexMenuBar(user);
                 
         logoutButton = new LogoutButton();
+        logoutButton.addUsername(user.getUsername());
         logoutButton.addClickListener(event -> {
             getSession().setAttribute("user", null);
             Page.getCurrent().setLocation("/flex-app");
@@ -35,18 +35,16 @@ public class FlexMenu extends HorizontalLayout {
 
         super.setSizeFull();
         super.setHeight("2cm");
-        super.addComponents(menuBar, logoBar, logoutButton);
-        super.setComponentAlignment(logoBar, Alignment.MIDDLE_CENTER);
+        super.setMargin(new MarginInfo(true, false));
+        
+        super.addComponents(menuBar, logoutButton);
+        super.setComponentAlignment(menuBar, Alignment.MIDDLE_LEFT);
         super.setComponentAlignment(logoutButton, Alignment.MIDDLE_RIGHT);
         super.setStyleName("flex-menu");
     }
 
     public FlexUser getUser() {
         return user;
-    }
-
-    public FlexLogoBar getLogoBar() {
-        return logoBar;
     }
 
     public FlexMenuBar getMenuBar() {

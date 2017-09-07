@@ -43,6 +43,7 @@ public abstract class FlexNewsCrawler {
 
     private final String url;
     
+    private FlexLogger logger = new FlexLogger();
     
     public FlexNewsCrawler(String url) {
         this.url = url;
@@ -54,14 +55,14 @@ public abstract class FlexNewsCrawler {
     
     public void crawlWebsite(String url) {
         try {
-            FlexLogger.getInstance().info("[%s] Loading articles from: %s\n", getClass().getSimpleName(), url);
+            logger.info("[%s] Loading articles from: %s\n", getClass().getSimpleName(), url);
             List<String> visited = new LinkedList<>();
             visited.add(url);
             crawlUrl(openDocument(url), getSource());
-            FlexLogger.getInstance().info("[%s] END\n", getClass().getSimpleName());
+            logger.info("[%s] END\n", getClass().getSimpleName());
         } catch (Exception e) {
             // Do nothing
-            //FlexLogger.getInstance().info("[%20s] !!ERROR!! %s\n", getClass().getSimpleName(), e.getMessage());
+            //logger.info("[%20s] !!ERROR!! %s\n", getClass().getSimpleName(), e.getMessage());
         }
     }
 
@@ -75,7 +76,7 @@ public abstract class FlexNewsCrawler {
         try {
             return Jsoup.connect(url).userAgent("Mozilla").get();
         } catch (Exception e) {
-            FlexLogger.getInstance().log("[%s] \tERROR - Couldn't open document %s caused by: %s\n", getClass().getSimpleName(), url, e.getMessage());
+            logger.log("[%s] \tERROR - Couldn't open document %s caused by: %s\n", getClass().getSimpleName(), url, e.getMessage());
             return null;
         }
     }
@@ -103,60 +104,60 @@ public abstract class FlexNewsCrawler {
 
     private void importArticle(Element article, NewsSource source) {
         //prettyPrint(article);
-        FlexLogger.getInstance().log("[%s] Processing article: %s\n", getClass().getSimpleName(), article.text());
+        logger.log("[%s] Processing article: %s\n", getClass().getSimpleName(), article.text());
 
         String articleUrl = getUrl(article);
         if(articleUrl == null) {
-            FlexLogger.getInstance().info("[%s] \tMissing url: %s\n", getClass().getSimpleName(), article.text());
+            logger.info("[%s] \tMissing url: %s\n", getClass().getSimpleName(), article.text());
             return;
         }
-        FlexLogger.getInstance().log("[%s] URL: %s\n", getClass().getSimpleName(), articleUrl);
+        logger.log("[%s] URL: %s\n", getClass().getSimpleName(), articleUrl);
 
         
         Document document = openDocument(articleUrl);
         if(document == null) {
-            FlexLogger.getInstance().info("[%s] \tCould't open url: %s\n", getClass().getSimpleName(), articleUrl);
+            logger.info("[%s] \tCould't open url: %s\n", getClass().getSimpleName(), articleUrl);
             return;
         }
         
         String title = getTitle(document);
         if(title == null) {
-            FlexLogger.getInstance().info("[%s] \tMissing title: %s\n", getClass().getSimpleName(), article.text());
+            logger.info("[%s] \tMissing title: %s\n", getClass().getSimpleName(), article.text());
             return;
         }
-        FlexLogger.getInstance().log("[%s] TITLE: %s\n", getClass().getSimpleName(), title);
+        logger.log("[%s] TITLE: %s\n", getClass().getSimpleName(), title);
 
         String imageUrl = getImageUrl(document);
         if(imageUrl == null) {
-            FlexLogger.getInstance().log("[%s] \tMissing image url: %s\n", getClass().getSimpleName(), article.text());
+            logger.log("[%s] \tMissing image url: %s\n", getClass().getSimpleName(), article.text());
             //return;
         }
-        FlexLogger.getInstance().log("[%s] IMAGE: %s\n", getClass().getSimpleName(), imageUrl);
+        logger.log("[%s] IMAGE: %s\n", getClass().getSimpleName(), imageUrl);
 
         String description = getContent(document);
         if(description == null) {
-            FlexLogger.getInstance().info("[%s] \tMissing description: %s\n", getClass().getSimpleName(), article.text());
+            logger.info("[%s] \tMissing description: %s\n", getClass().getSimpleName(), article.text());
             return;
         }
-        FlexLogger.getInstance().log("[%s] DESCRIPTION: %s\n", getClass().getSimpleName(), description);
+        logger.log("[%s] DESCRIPTION: %s\n", getClass().getSimpleName(), description);
 
         Date date = getPublishedAt(document);
         if(date == null) {
-            FlexLogger.getInstance().info("[%s] \tMissing published at: %s\n", getClass().getSimpleName(), article.text());
+            logger.info("[%s] \tMissing published at: %s\n", getClass().getSimpleName(), article.text());
             return;
         }
-        FlexLogger.getInstance().log("[%s] DATE: %s\n", getClass().getSimpleName(), date);
+        logger.log("[%s] DATE: %s\n", getClass().getSimpleName(), date);
 
         Set<NewsAuthor> authors = getNewsAuthors(getAuthors(document));
         if(authors == null) {
-            FlexLogger.getInstance().info("[%s] \tMissing authors: %s\n", getClass().getSimpleName(), article.text());
+            logger.info("[%s] \tMissing authors: %s\n", getClass().getSimpleName(), article.text());
             return;
         }
-        FlexLogger.getInstance().log("[%s] AUTHORS: %s\n", getClass().getSimpleName(), authors);
+        logger.log("[%s] AUTHORS: %s\n", getClass().getSimpleName(), authors);
         
         boolean inDb = articlesService.findArticleByTitle(title) != null;
         if(inDb) {
-            FlexLogger.getInstance().log("[%s] \tIgnored old article: %s\n", getClass().getSimpleName(), title);
+            logger.log("[%s] \tIgnored old article: %s\n", getClass().getSimpleName(), title);
             return;
         }
         
@@ -178,9 +179,9 @@ public abstract class FlexNewsCrawler {
         source.setCorrespondents(authors);
         try {
             articlesService.save(newsArticle);
-            FlexLogger.getInstance().info("[%s] \tStored new article: %s\n", getClass().getSimpleName(), newsArticle.getTitle());
+            logger.info("[%s] \tStored new article: %s\n", getClass().getSimpleName(), newsArticle.getTitle());
         } catch (Exception e) {
-            FlexLogger.getInstance().log("[%s] \tERROR storing article: %s\n", getClass().getSimpleName(), e.getMessage());
+            logger.log("[%s] \tERROR storing article: %s\n", getClass().getSimpleName(), e.getMessage());
         }
     }
     public void prettyPrint(Element article) {

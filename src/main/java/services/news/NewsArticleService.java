@@ -94,14 +94,15 @@ public class NewsArticleService extends  AbstractDBService<NewsArticle> {
         return super.executeQuery(query);
     }
 
-    public List<NewsArticle> findArticlesWithSource(String username, String publisherId) {
+    public List<NewsArticle> findArticlesWithSource(String username, String publisherName) {
         String query = "MATCH (u:FlexUser), (n:NewsArticle)--(a:NewsAuthor)--(s:NewsSource) ";
         query += "WHERE u.username=" + FlexUtils.getInstance().wrapUp(username) + " ";
-        query += "  AND s.name=" + FlexUtils.getInstance().wrapUp(publisherId) + " ";
+        query += "  AND s.name=" + FlexUtils.getInstance().wrapUp(publisherName) + " ";
+        query += "  AND n.sourceId=s.sourceId" + " ";
         query += "  AND NOT ( (u)-[:READ|FAVORITE|FAKE]->(n)) ";
         query += "  RETURN n ";
         query += "  ORDER BY n.publishedAt DESC LIMIT " + LIMIT;
-        //System.out.println(query);
+        System.out.println(query);
         return super.executeQuery(query);
     }
 }
