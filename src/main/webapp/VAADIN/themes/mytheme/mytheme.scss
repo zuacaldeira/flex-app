@@ -67,6 +67,7 @@
         visibility: false;
         color: black;
         font-size: large;
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 21px 0 rgba(0,0,0,0.19);
         .flex-menu-bar {
             opacity: .9;
             .v-menubar-menuitem {
@@ -78,7 +79,7 @@
         }
         
         .logout {
-            background: lightgray;
+            color: lightgray;
         }
     }
     
@@ -238,6 +239,11 @@
     
     .on {
         background: orangered; /* Dark blue */        
+    }
+    
+    // Geometric forms
+    .circle{
+        border-radius: 50%;
     }
     
 }

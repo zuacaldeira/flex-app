@@ -12,8 +12,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.logging.Level;
@@ -41,28 +39,21 @@ public abstract class FlexNewsCrawler {
     @EJB
     private NewsSourceService sourcesService;
 
-    private final String url;
+    private FlexLogger logger;
     
-    private FlexLogger logger = new FlexLogger();
-    
-    public FlexNewsCrawler(String url) {
-        this.url = url;
+    public FlexNewsCrawler() {
+        logger = new FlexLogger(getClass());
     }
     
-    public String getUrl() {
-        return url;
-    }
-    
-    public void crawlWebsite(String url) {
+    public void crawlWebsite(String url, NewsSource source) {
         try {
-            logger.info("[%s] Loading articles from: %s\n", getClass().getSimpleName(), url);
-            List<String> visited = new LinkedList<>();
+            logger.info("Loading articles from: %s", url);
+            Set<String> visited = new HashSet<>();
             visited.add(url);
-            crawlUrl(openDocument(url), getSource());
-            logger.info("[%s] END\n", getClass().getSimpleName());
+            crawlUrl(openDocument(url), source, visited);
         } catch (Exception e) {
             // Do nothing
-            //logger.info("[%20s] !!ERROR!! %s\n", getClass().getSimpleName(), e.getMessage());
+            //logger.info("[%20s] !!ERROR!! %s", e.getMessage());
         }
     }
 
@@ -76,7 +67,7 @@ public abstract class FlexNewsCrawler {
         try {
             return Jsoup.connect(url).userAgent("Mozilla").get();
         } catch (Exception e) {
-            logger.log("[%s] \tERROR - Couldn't open document %s caused by: %s\n", getClass().getSimpleName(), url, e.getMessage());
+            logger.log("\tERROR - Couldn't open document %s caused by: %s", url, e.getMessage());
             return null;
         }
     }
@@ -87,7 +78,7 @@ public abstract class FlexNewsCrawler {
         return (dbSource != null) ? dbSource : source;
     }
 
-    private void crawlUrl(Document document, final NewsSource source) {
+    private void crawlUrl(Document document, final NewsSource source, Set<String> visitedUrls) {
         if (document != null) {
             Elements articles = getArticles(document);
             for (Element article : articles) {
@@ -104,60 +95,60 @@ public abstract class FlexNewsCrawler {
 
     private void importArticle(Element article, NewsSource source) {
         //prettyPrint(article);
-        logger.log("[%s] Processing article: %s\n", getClass().getSimpleName(), article.text());
+        logger.log("Processing article: %s", article.text());
 
         String articleUrl = getUrl(article);
         if(articleUrl == null) {
-            logger.info("[%s] \tMissing url: %s\n", getClass().getSimpleName(), article.text());
+            logger.info("\tMissing url: %s", article.text());
             return;
         }
-        logger.log("[%s] URL: %s\n", getClass().getSimpleName(), articleUrl);
+        logger.log("URL: %s", articleUrl);
 
         
         Document document = openDocument(articleUrl);
         if(document == null) {
-            logger.info("[%s] \tCould't open url: %s\n", getClass().getSimpleName(), articleUrl);
+            logger.info("\tCould't open url: %s", articleUrl);
             return;
         }
         
         String title = getTitle(document);
         if(title == null) {
-            logger.info("[%s] \tMissing title: %s\n", getClass().getSimpleName(), article.text());
+            logger.info("\tMissing title: %s", article.text());
             return;
         }
-        logger.log("[%s] TITLE: %s\n", getClass().getSimpleName(), title);
+        logger.log("TITLE: %s", title);
 
         String imageUrl = getImageUrl(document);
         if(imageUrl == null) {
-            logger.log("[%s] \tMissing image url: %s\n", getClass().getSimpleName(), article.text());
+            logger.log("\tMissing image url: %s", article.text());
             //return;
         }
-        logger.log("[%s] IMAGE: %s\n", getClass().getSimpleName(), imageUrl);
+        logger.log("IMAGE: %s", imageUrl);
 
         String description = getContent(document);
         if(description == null) {
-            logger.info("[%s] \tMissing description: %s\n", getClass().getSimpleName(), article.text());
+            logger.info("\tMissing description: %s", article.text());
             return;
         }
-        logger.log("[%s] DESCRIPTION: %s\n", getClass().getSimpleName(), description);
+        logger.log("DESCRIPTION: %s", description);
 
         Date date = getPublishedAt(document);
         if(date == null) {
-            logger.info("[%s] \tMissing published at: %s\n", getClass().getSimpleName(), article.text());
+            logger.info("\tMissing published at: %s", article.text());
             return;
         }
-        logger.log("[%s] DATE: %s\n", getClass().getSimpleName(), date);
+        logger.log("DATE: %s", date);
 
         Set<NewsAuthor> authors = getNewsAuthors(getAuthors(document));
         if(authors == null) {
-            logger.info("[%s] \tMissing authors: %s\n", getClass().getSimpleName(), article.text());
+            logger.info("\tMissing authors: %s", article.text());
             return;
         }
-        logger.log("[%s] AUTHORS: %s\n", getClass().getSimpleName(), authors);
+        logger.log("AUTHORS: %s", authors);
         
         boolean inDb = articlesService.findArticleByTitle(title) != null;
         if(inDb) {
-            logger.log("[%s] \tIgnored old article: %s\n", getClass().getSimpleName(), title);
+            logger.log("\tIgnored old article: %s", title);
             return;
         }
         
@@ -179,9 +170,9 @@ public abstract class FlexNewsCrawler {
         source.setCorrespondents(authors);
         try {
             articlesService.save(newsArticle);
-            logger.info("[%s] \tStored new article: %s\n", getClass().getSimpleName(), newsArticle.getTitle());
+            logger.info("\tStored new article: %s", newsArticle.getTitle());
         } catch (Exception e) {
-            logger.log("[%s] \tERROR storing article: %s\n", getClass().getSimpleName(), e.getMessage());
+            logger.log("\tERROR storing article: %s", e.getMessage());
         }
     }
     public void prettyPrint(Element article) {
@@ -272,8 +263,8 @@ public abstract class FlexNewsCrawler {
     protected abstract String getAuthorsValue(Document document);
 
     protected String getFullImageUrl(String src) {
-        if(!src.startsWith(getUrl())) {
-            return getUrl() + src;
+        if(!src.startsWith(getSource().getUrl())) {
+            return getSource().getUrl() + src;
         }
         return src;
     }
@@ -323,9 +314,13 @@ public abstract class FlexNewsCrawler {
             SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", new Locale(getMySource().getLanguage()));
             return format2.format(date);
         } catch (ParseException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            logger.error("Parsing error during time normalization: ", ex.getMessage());
         }
         return null;
+    }
+
+    public FlexLogger getLogger() {
+        return logger;
     }
 
 

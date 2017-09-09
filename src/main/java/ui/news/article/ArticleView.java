@@ -7,7 +7,6 @@ import db.news.FlexUser;
 import db.news.NewsArticle;
 import db.news.NewsSource;
 import services.news.NewsArticleService;
-import ui.FlexBody;
 import utils.ServiceLocator;
 
 
@@ -17,12 +16,14 @@ import utils.ServiceLocator;
 public class ArticleView extends GraphEntityView<NewsArticle>  {
     // Info components
     private Label title;
-    private AbsoluteLayout sourceRef;
+    private HorizontalLayout header;
     private Label content;
     private Image image;
+    private Image logoImage;
     private Label publishedAt;
     
     private AbstractOrderedLayout authors;
+    private Label sourceNameLabel;
 
     public ArticleView(FlexUser user, NewsArticle article) {
         super(user, article);
@@ -31,27 +32,33 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     
     @Override
     public AbstractOrderedLayout createInfoHeader() {
-        initSourceName();
+        initSourceInfo();
         initTimeLabel();
-        initTitle();
-        initImage();
-        VerticalLayout view = new VerticalLayout(sourceRef, publishedAt);
-        if(title != null) {
-            view.addComponent(title);
-        }
-        if(image != null) {
-            view.addComponent(image);
-        }
-        view.setSpacing(false);
-        view.setMargin(false);
-        return view;
+        
+        VerticalLayout sourceAndDate = new VerticalLayout(sourceNameLabel, publishedAt);
+        sourceAndDate.setSpacing(false);
+        sourceAndDate.setMargin(false);
+        sourceAndDate.setComponentAlignment(sourceNameLabel, Alignment.MIDDLE_LEFT);
+        sourceAndDate.setComponentAlignment(publishedAt, Alignment.MIDDLE_LEFT);
+        header = new HorizontalLayout(logoImage, sourceAndDate);
+        header.setMargin(false);
+        header.setSpacing(false);
+        header.setSizeUndefined();
+        //header.setComponentAlignment(logoImage, Alignment.MIDDLE_CENTER);
+        //header.setComponentAlignment(sourceAndDate, Alignment.MIDDLE_CENTER);
+        return header;
     }
 
     @Override
     public AbstractOrderedLayout createInfoBody() {
+        initTitle();
         initImage();
         initContent();
-        VerticalLayout view = new VerticalLayout(content);   
+        VerticalLayout view = new VerticalLayout(title);
+        if(image != null) {
+            view.addComponent(image);
+        }   
+        view.addComponent(content);
         view.setSpacing(false);
         view.setMargin(false);
         return view;
@@ -103,19 +110,21 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
         return image;
     }
     
-    private void initSourceName() {
-        NewsSource source = ServiceLocator.getInstance().findSourcesService().findSourceBySourceId(getItem().getSourceId());
-        sourceRef = new AbsoluteLayout();
-        sourceRef.setHeight("1cm");
-        sourceRef.setWidth("100%");
+    private void initSourceInfo() {
+        NewsSource source = ServiceLocator.getInstance().findSourcesService().findSourceBySourceId(getItem().getSourceId());        
+        logoImage = null;
         if(source.getLogoUrl() != null) {
-            Image logoImage = new Image("", new ExternalResource(source.getLogoUrl()));
-            logoImage.setHeight("100%");
-            logoImage.setWidthUndefined();
-            sourceRef.addComponent(logoImage);
+            logoImage = new Image("", new ExternalResource(source.getLogoUrl()));
+            logoImage.setHeight("64px");
+            logoImage.setWidth("64px");
+        } else {
+            logoImage = new Image();
+            logoImage.setSizeUndefined();
         }
-        sourceRef.addComponent(new Label(source.getName()));
-        sourceRef.setStyleName("source");
+        logoImage.addStyleName("circle");
+        
+        sourceNameLabel = new Label(source.getName());
+        sourceNameLabel.setSizeUndefined();
     }
 
     private void initTimeLabel() {
@@ -131,24 +140,7 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     public NewsArticle getItem() {
         return (NewsArticle) super.getItem();
     }
-
     
-    private FlexBody getArticlesBody() {
-        return getArticlesBody(this);
-    }
-
-    private FlexBody getArticlesBody(Component component) {
-        if(component == null) {
-            throw new IllegalArgumentException("Component cannot be null");
-        }
-        else if(component instanceof FlexBody) {
-            return (FlexBody) component;
-        }
-        else {
-            return getArticlesBody(component.getParent());
-        }
-    }
-
     @Override
     public NewsArticleService getService() {
         return ServiceLocator.getInstance().findArticlesService();

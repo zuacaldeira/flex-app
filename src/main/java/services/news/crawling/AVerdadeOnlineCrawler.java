@@ -24,13 +24,17 @@ import org.jsoup.select.Elements;
 public class AVerdadeOnlineCrawler extends FlexNewsCrawler {
 
     public AVerdadeOnlineCrawler() {
-        super("http://www.verdade.co.mz");
+        super();
     }
 
 
+    private String getUrl() {
+        return "http://www.verdade.co.mz";
+    }
+    
     @Schedule(hour = "*", minute = "4/5", persistent = false)
     public void crawlSet1() {
-        crawlWebsite(getUrl());
+        crawlWebsite(getUrl(), getMySource());
         //crawlWebsite(URL_HOME + "/destaques");
         /*crawlWebsite(URL_HOME + "/destaques/africa");
         crawlWebsite(URL_HOME + "/destaques/democracia");
@@ -66,7 +70,6 @@ public class AVerdadeOnlineCrawler extends FlexNewsCrawler {
     @Override
     protected Elements getArticles(Document document) {
         Elements articles = document.select("table + table");
-        System.out.println("FOUND ARTICLES " + articles.size());
         return articles;
     }
 

@@ -39,12 +39,14 @@ public class FlexUtils {
     public Date getDate2(String dateString, String language) {
         try {
             //System.out.println("###### Input date " + dateString);
-            SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", new Locale(language));
-            return format2.parse(dateString);
+            if(dateString != null) {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", new Locale(language));
+                return format.parse(dateString);
+            }
         } catch (ParseException ex) {
             Logger.getLogger(FlexUtils.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
         }
+        return null;
     }
     
     public String wrapUp(String string) {

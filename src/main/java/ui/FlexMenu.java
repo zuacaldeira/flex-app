@@ -35,7 +35,8 @@ public class FlexMenu extends HorizontalLayout {
 
         super.setSizeFull();
         super.setHeight("2cm");
-        super.setMargin(new MarginInfo(true, false));
+        super.setMargin(new MarginInfo(false, true));
+        super.setMargin(false);
         
         super.addComponents(menuBar, logoutButton);
         super.setComponentAlignment(menuBar, Alignment.MIDDLE_LEFT);

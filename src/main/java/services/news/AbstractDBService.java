@@ -327,7 +327,12 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
         String query = "MATCH (n:" + getClassType().getSimpleName() + "), (u:FlexUser)  ";
         if(username != null && property != null) {
             query += "WHERE u.username=" + FlexUtils.getInstance().wrapUp(username) + " ";
-            query += "AND n." + property + "=" + FlexUtils.getInstance().wrapUp(value.toString()) + " "; 
+            if(value != null) {
+                query += "AND n." + property + "=" + FlexUtils.getInstance().wrapUp(value.toString()) + " ";
+            }
+            else {
+                query += "AND n." + property + " IS NULL ";
+            }
             query += "AND NOT ( (u)-[:READ|FAVORITE|FAKE]->(n)) ";
             query += "RETURN n ";
         }
@@ -337,7 +342,12 @@ public abstract class AbstractDBService<T extends GraphEntity> implements DBServ
             query += "RETURN n ";
         } 
         else if(username == null && property != null) {
-            query += "WHERE n." + property + "=" + FlexUtils.getInstance().wrapUp(value.toString()) + " "; 
+            if(value != null) {
+                query += "WHERE n." + property + "=" + FlexUtils.getInstance().wrapUp(value.toString()) + " ";
+            }
+            else {
+                query += "WHERE n." + property + " IS NULL ";
+            }
             query += "AND NOT ( (u)-[:READ|FAVORITE|FAKE]->(n)) ";
             query += "RETURN n ";
         }

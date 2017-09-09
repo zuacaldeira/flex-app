@@ -42,7 +42,7 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
         infoActions = this.createInfoActions();
         this.addComponents(new VerticalLayout(infoHeader, infoBody, infoActions));
         this.setSizeFull();
-        this.setSpacing(false);
+        this.setSpacing(true);
         this.setMargin(false);
         this.setStyleName("item");
     }

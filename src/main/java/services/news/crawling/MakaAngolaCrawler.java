@@ -20,13 +20,16 @@ import org.jsoup.select.Elements;
 public class MakaAngolaCrawler extends FlexNewsCrawler {
 
     public MakaAngolaCrawler() {
-        super("https://www.makaangola.org");
+        super();
     }
     
+    private String getUrl() {
+        return "https://www.makaangola.org";
+    }
     
     @Schedule(hour = "*", minute = "*/10")
     public void crawl() {
-        crawlWebsite(getUrl());
+        crawlWebsite(getUrl(), getMySource());
     }
 
 
@@ -52,6 +55,7 @@ public class MakaAngolaCrawler extends FlexNewsCrawler {
 
         NewsSource source = new NewsSource(sourceId, name, description, url, category, language, country);
         source.setLogoUrl(logoUrl);
+        
         return source;
     }
 
@@ -77,7 +81,7 @@ public class MakaAngolaCrawler extends FlexNewsCrawler {
 
     @Override
     protected String getImageUrlValue(Document document) {
-        Element image = document.select("article > img").first();
+        Element image = document.select("section.primary > article > img").first();
         if (image != null) {
             return image.attr("src");
         }
@@ -86,7 +90,7 @@ public class MakaAngolaCrawler extends FlexNewsCrawler {
 
     @Override
     protected String getContentValue(Document document) {
-        Element content = document.select(".entry").first();
+        Element content = document.select("div.entry.clearfix > p:nth-child(1)").first();
         if (content != null) {
             return content.text();
         }

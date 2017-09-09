@@ -5,13 +5,10 @@
  */
 package services.news.crawling.globalVoices;
 
-import db.news.NewsSource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -23,8 +20,8 @@ import services.news.crawling.FlexNewsCrawler;
  */
 public abstract class GlobalVoicesAbstractCrawler extends FlexNewsCrawler {
 
-    public GlobalVoicesAbstractCrawler(String url) {
-        super(url);
+    public GlobalVoicesAbstractCrawler() {
+        super();
     }
     
     
@@ -85,11 +82,13 @@ public abstract class GlobalVoicesAbstractCrawler extends FlexNewsCrawler {
                 String timeString = extractTime(timeElement.text()).trim();
                 
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", new Locale(getMySource().getLanguage()));
-                Date date = format.parse(dayString + " " + timeString);
-                SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", new Locale(getMySource().getLanguage()));
-                return format2.format(date);
+                if(dayString != null && timeString != null) {
+                    Date date = format.parse(dayString + " " + timeString);
+                    SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", new Locale(getMySource().getLanguage()));
+                    return format2.format(date);
+                }
             } catch (ParseException ex) {
-                Logger.getLogger(GlobalVoicesCrawlerPT.class.getName()).log(Level.SEVERE, null, ex);
+                super.getLogger().error(ex.getMessage());
             }
         }
         return null;

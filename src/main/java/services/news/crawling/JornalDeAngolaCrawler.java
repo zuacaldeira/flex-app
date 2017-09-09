@@ -21,23 +21,27 @@ import org.jsoup.select.Elements;
 public class JornalDeAngolaCrawler extends FlexNewsCrawler {
 
     public JornalDeAngolaCrawler() {
-        super("http://jornaldeangola.sapo.ao");
+        super();
+    }
+
+    private String getUrl() {
+        return "http://jornaldeangola.sapo.ao";
     }
 
     
     @Schedule(hour = "*", minute = "*/10", persistent = false)
     public void crawl() {
-        crawlWebsite(getUrl());
-        crawlWebsite(getUrl() + "/cultura");
-        crawlWebsite(getUrl() + "/desporto");
-        crawlWebsite(getUrl() + "/economia");
-        crawlWebsite(getUrl() + "/gente");
-        crawlWebsite(getUrl() + "/mundo");
-        crawlWebsite(getUrl() + "/opiniao");
-        crawlWebsite(getUrl() + "/politica");
-        crawlWebsite(getUrl() + "/provincias");
-        crawlWebsite(getUrl() + "/reportagem");
-        crawlWebsite(getUrl() + "/sociedade");
+        crawlWebsite(getUrl(), getMySource());
+        crawlWebsite(getUrl() + "/cultura", getMySource());
+        crawlWebsite(getUrl() + "/desporto", getMySource());
+        crawlWebsite(getUrl() + "/economia", getMySource());
+        crawlWebsite(getUrl() + "/gente", getMySource());
+        crawlWebsite(getUrl() + "/mundo", getMySource());
+        crawlWebsite(getUrl() + "/opiniao", getMySource());
+        crawlWebsite(getUrl() + "/politica", getMySource());
+        crawlWebsite(getUrl() + "/provincias", getMySource());
+        crawlWebsite(getUrl() + "/reportagem", getMySource());
+        crawlWebsite(getUrl() + "/sociedade", getMySource());
     }
     
     @Override
@@ -64,7 +68,7 @@ public class JornalDeAngolaCrawler extends FlexNewsCrawler {
     }
     
     private String getUrlSelector() {
-        return "article > a[href]";
+        return "article a[href]";
     }  
     
     private String getTitleSelector() {
