@@ -6,9 +6,8 @@
 package ui.news.article;
 
 import com.vaadin.ui.Label;
-import com.vaadin.ui.themes.ValoTheme;
 import java.util.Date;
-import utils.FlexUtils;
+import utils.FlexUIUtils;
 
 /**
  *
@@ -17,8 +16,7 @@ import utils.FlexUtils;
 public class DateLabel extends Label {
 
     public DateLabel(Date date) {
-        super(FlexUtils.formatDate(date));
-        setStyleName(ValoTheme.LABEL_LIGHT + " source");
+        super(FlexUIUtils.formatDate(date));
     }
     
 }

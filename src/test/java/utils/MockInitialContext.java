@@ -5,8 +5,6 @@
  */
 package utils;
 
-import utils.ServiceLocator;
-import services.news.NewsApiService;
 import services.news.NewsArticleService;
 import services.news.NewsAuthorService;
 import services.news.NewsSourceService;
@@ -27,12 +25,8 @@ public class MockInitialContext extends InitialContext {
 
     @Override
     public Object lookup(String name) throws NamingException {
-        if(name.equals(ServiceLocator.NEWS_API_SERVICE)) {
-            NewsApiService apiService = new NewsApiService();
-            apiService.setArticlesService(new NewsArticleService());
-            apiService.setAuthorsService(new NewsAuthorService());
-            apiService.setSourcesService(new NewsSourceService());
-            return apiService;
+        if(name.equals(ServiceLocator.NEWS_ARTICLE_SERVICE)) {
+            return new NewsArticleService(); 
         }
         else if(name.equals(ServiceLocator.NEWS_ARTICLE_SERVICE)) {
             return new NewsArticleService();

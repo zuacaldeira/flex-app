@@ -16,11 +16,10 @@ public class LogoutButton extends FlexButton {
     public LogoutButton() {
         super("", VaadinIcons.POWER_OFF);
         super.setSizeUndefined();
-        super.addStyleName("logout");
     }
     
     public void addUsername(String username) {
-        setCaption(username);
+        //setCaption(username);
     }
     
     

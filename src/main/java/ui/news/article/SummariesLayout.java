@@ -16,7 +16,7 @@ import ui.GraphEntityView;
 public class SummariesLayout<T extends GraphEntityView> extends FlexGridLayout<T> {
 
     public SummariesLayout() {
-        super(1,1);
+        super(2);
         super.setStyleName("summaries");
     }
 }

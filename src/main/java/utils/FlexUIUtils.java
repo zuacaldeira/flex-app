@@ -23,9 +23,9 @@ import java.util.logging.Logger;
  *
  * @author zua
  */
-public class FlexUtils {
+public class FlexUIUtils {
 
-    private static FlexUtils instance;
+    private static FlexUIUtils instance;
 
     public static String formatDate(Date date) {
         if (date != null) {
@@ -44,7 +44,7 @@ public class FlexUtils {
                 return format.parse(dateString);
             }
         } catch (ParseException ex) {
-            Logger.getLogger(FlexUtils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FlexUIUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -68,12 +68,12 @@ public class FlexUtils {
         return value.trim().toLowerCase().startsWith("http");
     }
 
-    private FlexUtils() {
+    private FlexUIUtils() {
     }
 
-    public static FlexUtils getInstance() {
+    public static FlexUIUtils getInstance() {
         if (instance == null) {
-            instance = new FlexUtils();
+            instance = new FlexUIUtils();
         }
         return instance;
     }

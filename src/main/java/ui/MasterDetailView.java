@@ -33,7 +33,7 @@ public class MasterDetailView<T extends GraphEntityView> extends HorizontalSplit
         super.setFirstComponent(base);
         super.setSecondComponent(browserFrame);
         super.setSizeFull();
-        setSplitPosition(25f);
+        setSplitPosition(40f);
     }
     
     private void initSummaries() {
@@ -42,6 +42,7 @@ public class MasterDetailView<T extends GraphEntityView> extends HorizontalSplit
         base = new VerticalLayout(summaries);
         base.setSizeFull();
         base.setHeightUndefined();
+        base.setMargin(false);
     }
     
     private void initBrowserFrame() {
@@ -80,7 +81,7 @@ public class MasterDetailView<T extends GraphEntityView> extends HorizontalSplit
     
     @Override
     public void addComponent(Component component) {
-        summaries.addComponent(component);
+        summaries.addItemView(component);
         if(selected == null) {
             updateSelected((T) component);
         }

@@ -8,12 +8,11 @@ package ui;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
-import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
-import db.histories.FlexEvent;
-import db.histories.FlexNote;
 import db.news.FlexUser;
-import utils.FlexUtils;
+import java.util.List;
+import java.util.Locale;
+import utils.FlexUIUtils;
 import utils.ServiceLocator;
 
 /**
@@ -27,6 +26,7 @@ public class FlexMenuBar extends MenuBar {
     private MenuItem categories;
     private MenuItem publishers;
     private MenuItem status;
+    private MenuItem languages;
 
     private MenuBar.Command command;
     private final FlexUser user;
@@ -53,37 +53,41 @@ public class FlexMenuBar extends MenuBar {
     }
     
     private void initMenuNews() {
-        news = addItem("News", null);
+        news = addItem("NEWS", null);
 
-        categories = addItem("Categories", null, null);
-        updateNewsCategory();
-
-        publishers = addItem("Publishers", null, null);
+        publishers = addItem("PUBLISHERS", null, null);
         updateNewsPublisher();
 
-        status = addItem("Status", null, null);
+        categories = addItem("CATEGORIES", null, null);
+        updateNewsCategory();
+
+        status = addItem("STATUS", null, null);
         updateNewsByStatus();
         
+        languages = addItem("LANGUAGES", null, null);
+        updateNewsLanguages();
+
         updateNewsByTime();
-        news.addSeparator();
-        updateNewsSettings();
     }
         
     private void updateNewsCategory() {
-        Iterable<String> cats = ServiceLocator.getInstance().findSourcesService().findCategories();
+        List<String> cats = ServiceLocator.getInstance().findSourcesService().findCategories();
         cats.forEach(cat -> {
-            if(cat != null) {
-                categories.addItem(cat, command);
-            }
+            categories.addItem(getCategoryCaption(cat), command);
         });
     }
 
     private void updateNewsPublisher() {
-        Iterable<String> sources = ServiceLocator.getInstance().findSourcesService().findNames();
-        sources.forEach(src -> {
-            if(src != null) {
-                publishers.addItem(src, command);
-            }
+        List<String> names = ServiceLocator.getInstance().findSourcesService().findNames();
+        names.forEach(name -> {
+            publishers.addItem(name, command);
+        });
+    }
+
+    private void updateNewsLanguages() {
+        List<String> langs = ServiceLocator.getInstance().findSourcesService().findLanguages();
+        langs.forEach(lang -> {
+            languages.addItem(getLanguageCaption(lang), command);
         });
     }
 
@@ -98,29 +102,27 @@ public class FlexMenuBar extends MenuBar {
         status.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, command);
     }
 
-    private void updateNewsSettings() {
-        news.addItem("Settings", VaadinIcons.COG, command);
-    }
-    
-    private String getUsername() {
-        return user.getUsername();
-    }
-    
     @Override
     public SecuredUI getUI() {
         return (SecuredUI) super.getUI();
     }
 
     private void updateBody(MenuItem selectedItem) {
-        FlexUtils.getInstance().getBody(this).updateData(getDataProviderType(selectedItem), selectedItem.getText());
+        FlexUIUtils.getInstance().getBody(this).updateData(getDataProviderType(selectedItem), selectedItem.getText());
     }
     
     public DataProviderType getDataProviderType(MenuItem selectedItem) {
-        if(selectedItem.getParent() != null && selectedItem.getParent().getText().equals("Categories")) {
+        if(selectedItem.getParent() != null && selectedItem.getParent().getText().equals("CATEGORIES")) {
             return DataProviderType.CATEGORY;
         }
-        if(selectedItem.getParent() != null && selectedItem.getParent().getText().equals("Publishers")) {
+        else if(selectedItem.getParent() != null && selectedItem.getParent().getText().equals("PUBLISHERS")) {
             return DataProviderType.PUBLISHER;
+        }
+        else if(selectedItem.getParent() != null && selectedItem.getParent().getText().equals("LANGUAGES")) {
+            return DataProviderType.LANGUAGES;
+        }
+        else if(selectedItem.getParent() != null && selectedItem.getParent().getText().equals("Countries")) {
+            return DataProviderType.COUNTRIES;
         }
         else if(selectedItem.getText().equals("Latest")) {
             return DataProviderType.LATEST;
@@ -139,60 +141,20 @@ public class FlexMenuBar extends MenuBar {
         }
         return null;
     }
-    
 
-    private class ShowUserEventsCommand implements MenuBar.Command {
-        
-        private MenuItem previous;
-
-        public ShowUserEventsCommand() {
-        }
-
-        @Override
-        public void menuSelected(MenuItem selectedItem) {
-            updateBody(selectedItem);
-            if (previous != null) {
-                previous.setStyleName(null);
-            }
-            selectedItem.setStyleName("selected");
-            previous = selectedItem;
-        }
-    }
-
-    private class NewEventCommand implements MenuBar.Command {
-
-        public NewEventCommand() {
-        }
-
-        @Override
-        public void menuSelected(MenuItem selectedItem) {
-            FlexEvent event = new FlexEvent();
-            event.setOwner(user);
-            Window w = new FlexWindow("Create new event", new FlexEventForm(user, event));
-            w.setModal(true);
-            w.setWidth("50%");
-            w.setHeightUndefined();
-            getUI().addWindow(w);
-        }
+    private String getLanguageCaption(String lang) {
+        Locale locale = Locale.forLanguageTag(lang);
+        return lang + " - " + locale.getDisplayLanguage();
     }
     
-
-    private class NewNoteCommand implements MenuBar.Command {
-        public NewNoteCommand() {
-        }
-
-        @Override
-        public void menuSelected(MenuItem selectedItem) {
-            FlexNote note = new FlexNote();
-            note.setOwner(user);
-            Window w = new Window("Create new note", new FlexNoteForm(note));
-            w.setModal(true);
-            w.setWidth("50%");
-            w.setHeight("75%");
-            getUI().addWindow(w);
-        }
+    private String getCategoryCaption(String cat) {
+        char c = cat.charAt(0);
+        return cat.replaceFirst(
+                        String.valueOf(c), 
+                        String.valueOf(Character.toUpperCase(c)))
+                    .replace("-", " ");
     }
-
+    
 }
 
 

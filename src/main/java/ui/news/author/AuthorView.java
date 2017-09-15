@@ -3,9 +3,7 @@ package ui.news.author;
 import com.vaadin.ui.*;
 import db.news.FlexUser;
 import db.news.NewsAuthor;
-import services.news.AbstractDBService;
 import ui.GraphEntityView;
-import utils.ServiceLocator;
 
 
 /**
@@ -54,9 +52,13 @@ public class AuthorView extends GraphEntityView<NewsAuthor> {
     }
 
     @Override
-    public AbstractDBService<NewsAuthor> getService() {
-        return ServiceLocator.getInstance().findAuthorsService();
+    public AbstractOrderedLayout createInfoActions() {
+        return new HorizontalLayout();
     }
 
+    @Override
+    public void buttonClick(Button.ClickEvent event) {
+        
+    }
 
 }

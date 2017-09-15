@@ -1,14 +1,13 @@
 package ui.news.source;
 
 import com.vaadin.ui.AbstractOrderedLayout;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import db.news.FlexUser;
 import db.news.NewsSource;
-import services.news.AbstractDBService;
 import ui.GraphEntityView;
-import utils.ServiceLocator;
 
 /**
  * Created by zua on 12/04/17.
@@ -86,7 +85,13 @@ public class SourceView extends GraphEntityView<NewsSource> {
     }
 
     @Override
-    public AbstractDBService<NewsSource> getService() {
-        return ServiceLocator.getInstance().findSourcesService();
+    public AbstractOrderedLayout createInfoActions() {
+        return new HorizontalLayout();
     }
+
+    @Override
+    public void buttonClick(Button.ClickEvent event) {
+        
+    }
+    
 }

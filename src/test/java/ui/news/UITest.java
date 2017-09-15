@@ -5,7 +5,6 @@
  */
 package ui.news;
 
-import db.news.Neo4jTest;
 import javax.naming.NamingException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -16,7 +15,7 @@ import utils.ServiceLocator;
  *
  * @author zua
  */
-public abstract class UITest extends Neo4jTest {
+public abstract class UITest  {
     
     @BeforeClass
     public static void mock() throws NamingException {

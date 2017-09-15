@@ -5,17 +5,13 @@
  */
 package ui;
 
-import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.AbstractOrderedLayout;
-import com.vaadin.ui.Button;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 import db.news.FlexUser;
 import db.news.GraphEntity;
-import services.news.AbstractDBService;
-import services.news.FlexUserService;
-import ui.news.article.SummariesLayout;
+import services.news.FlexUserServiceInterface;
 import utils.ServiceLocator;
 
 /**
@@ -31,7 +27,7 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
     private AbstractOrderedLayout infoHeader;
     private AbstractOrderedLayout infoBody;
     private AbstractOrderedLayout infoActions;
-    private final FlexUserService userService;
+    private final FlexUserServiceInterface userService;
     
     public GraphEntityView(FlexUser user, T entity) {
         userService = ServiceLocator.getInstance().findUserService();
@@ -40,7 +36,11 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
         infoHeader = this.createInfoHeader();
         infoBody = this.createInfoBody();
         infoActions = this.createInfoActions();
-        this.addComponents(new VerticalLayout(infoHeader, infoBody, infoActions));
+        
+        VerticalLayout base = new VerticalLayout(infoHeader, infoBody, infoActions);
+        base.setComponentAlignment(infoActions, Alignment.MIDDLE_RIGHT);
+        this.addComponent(base);
+        
         this.setSizeFull();
         this.setSpacing(true);
         this.setMargin(false);
@@ -59,53 +59,10 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
         return infoActions;
     }
     
-    private String getUsername() {
-        return user.getUsername();
-    }
-
-
     public FlexUser getUser() {
         return user;
     }
 
-    
-    
-    public abstract AbstractOrderedLayout createInfoHeader();
-    public abstract AbstractOrderedLayout createInfoBody();
-    
-    public  AbstractOrderedLayout createInfoActions() {
-        FlexButton commentButton = new CommentButton();
-        commentButton.addClickListener(this);
-
-        FlexButton favoriteButton = new FavoriteButton();
-        FlexButton fakeButton = new FakeButton();
-        FlexButton hideButton = new HideButton();
-
-        hideButton.addClickListener(this);
-        fakeButton.addClickListener(this);
-        favoriteButton.addClickListener(this);
-        
-        if(user != null && getService().isFavorite(getUsername(), item)) {
-            favoriteButton.addStyleName("yellow");
-        }
-
-        if(user != null && getService().isFake(getUsername(), item)) {
-            fakeButton.addStyleName("red");
-        }
-
-        if(user != null && getService().isRead(getUsername(), item)) {
-            hideButton.addStyleName("purple");
-        }
-
-
-        HorizontalLayout actions = new HorizontalLayout(commentButton, favoriteButton, fakeButton, hideButton);
-        actions.setSizeUndefined();
-        actions.setStyleName("controls");
-        actions.setMargin(new MarginInfo(false, false, true, false));
-        actions.setSpacing(false);
-        return actions;
-    }
-    
     @Override
     public SecuredUI getUI() {
         return (SecuredUI) super.getUI();
@@ -117,72 +74,17 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
     
     public void minimize() {
         setStyleName("item");
-        infoActions.setVisible(false);
-        infoBody.setVisible(false);
     }
 
     public void maximize() {
         setStyleName("item-selected");
-        infoActions.setVisible(true);
-        infoBody.setVisible(true);
     }
 
-        @Override
-    public void buttonClick(Button.ClickEvent event) {
-        if(getUI() != null && getUI().isAttached()){
-            if(event.getButton() instanceof HideButton) {
-                handleHideClick((HideButton) event.getButton());
-            }
-            else if(event.getButton() instanceof FavoriteButton) {
-                handleFavouriteClick((FavoriteButton) event.getButton());            
-            }
-
-            else if(event.getButton() instanceof FakeButton) {
-                handleFakeClick((FakeButton) event.getButton());
-            }
-        }
-    }
-
-    public abstract AbstractDBService<T> getService();
+    public abstract AbstractOrderedLayout createInfoHeader();
+    public abstract AbstractOrderedLayout createInfoBody();
+    public abstract AbstractOrderedLayout createInfoActions();
+    
 
 
-    private void handleHideClick(HideButton button) {
-        if(!button.getStyleName().contains("purple")) {
-            getService().markAsRead(getUsername(), this.getItem());
-            button.addStyleName("purple");
-            button.setDescription("Mark as Read");
-        }
-        else {
-            getService().removeMarkAsRead(getUsername(), this.getItem());
-            button.removeStyleName("purple");
-            button.setDescription("Mark as Unread");
-        }        
-        ((SummariesLayout)getParent()).removeComponent(this);
-    }
-
-    private void handleFavouriteClick(FavoriteButton button) {
-        if(!button.getStyleName().contains("yellow")) {
-            getService().markAsFavorite(getUsername(), this.getItem());
-            button.addStyleName("yellow");
-            button.setDescription("Unmark Favorite");
-        }
-        else {
-            getService().removeMarkAsFavorite(getUsername(), this.getItem());
-            button.removeStyleName("yellow");
-            button.setDescription("Mark as Favorite");
-        }
-    }
-
-    private void handleFakeClick(FakeButton button) {
-        if(!button.getStyleName().contains("red")) {
-            getService().markAsFake(getUsername(), this.getItem());
-            button.addStyleName("red");
-            button.setDescription("Unmark Fake");
-        }
-        else {
-            getService().removeMarkAsFake(getUsername(), this.getItem());
-            button.removeStyleName("red");
-            button.setDescription("Mark as Fake");
-        }
-    }    
+ 
 }

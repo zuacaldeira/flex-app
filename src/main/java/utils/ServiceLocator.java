@@ -5,92 +5,70 @@
  */
 package utils;
 
-import services.histories.FlexVideoService;
-import services.news.FlexUserService;
-import services.news.NewsApiService;
-import services.news.NewsArticleService;
-import services.news.NewsAuthorService;
-import services.news.NewsSourceService;
+import services.news.FlexUserServiceInterface;
+import services.news.NewsArticleServiceInterface;
+import services.news.NewsAuthorServiceInterface;
+import services.news.NewsSourceServiceInterface;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import services.histories.FlexEventService;
-import services.histories.FlexNoteService;
 
 /**
  *
  * @author zua
  */
 public class ServiceLocator {
-    private static final String PREFIX = "java:global/flex-app/";
-    public static final String NEWS_API_SERVICE     = PREFIX + NewsApiService.class.getSimpleName();
-    public static final String NEWS_ARTICLE_SERVICE = PREFIX + NewsArticleService.class.getSimpleName();
-    public static final String NEWS_SOURCE_SERVICE  = PREFIX + NewsSourceService.class.getSimpleName();
-    public static final String NEWS_AUTHOR_SERVICE  = PREFIX + NewsAuthorService.class.getSimpleName();
-    public static final String FLEX_USER_SERVICE    = PREFIX + FlexUserService.class.getSimpleName();
-    public static final String FLEX_VIDEO_SERVICE   = PREFIX + FlexVideoService.class.getSimpleName();
-    public static final String FLEX_NOTE_SERVICE    = PREFIX + FlexNoteService.class.getSimpleName();
-    public static final String FLEX_EVENT_SERVICE    = PREFIX + FlexEventService.class.getSimpleName();
-    
+
+    public static final String NEWS_API_SERVICE = "java:global/flex-app/NewsApiService!services.news.NewsApiServiceInterface";
+    public static final String NEWS_ARTICLE_SERVICE = "java:global/flex-app/NewsArticleService!services.news.NewsArticleServiceInterface";
+    public static final String NEWS_SOURCE_SERVICE = "java:global/flex-app/NewsSourceService!services.news.NewsSourceServiceInterface";
+    public static final String NEWS_AUTHOR_SERVICE = "java:global/flex-app/NewsAuthorService!services.news.NewsAuthorServiceInterface";
+    public static final String FLEX_USER_SERVICE = "java:global/flex-app/FlexUserService!services.news.FlexUserServiceInterface";
+
     private static InitialContext context;
 
     private static ServiceLocator instance;
-    
-    private ServiceLocator() {}
-    
+
+    private ServiceLocator() {
+    }
+
     public static ServiceLocator getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new ServiceLocator();
         }
         return instance;
     }
-    
+
     private Object findService(String name) {
         try {
-            if(context == null) {
+            if (context == null) {
                 context = new InitialContext();
             }
-            return context.lookup(name);
+            Object o = context.lookup(name);
+            return o;
         } catch (NamingException ex) {
-            throw new RuntimeException(ex);
+            System.out.println("NOT FOUND " + name);
+            return null;
         }
     }
-  
-    public NewsArticleService findArticlesService() {
-        return (NewsArticleService) findService(NEWS_ARTICLE_SERVICE);
+
+    public NewsArticleServiceInterface findArticlesService() {
+        return (NewsArticleServiceInterface) findService(NEWS_ARTICLE_SERVICE);
     }
 
-    public NewsSourceService findSourcesService() {
-        return (NewsSourceService) findService(NEWS_SOURCE_SERVICE);
+    public NewsSourceServiceInterface findSourcesService() {
+        return (NewsSourceServiceInterface) findService(NEWS_SOURCE_SERVICE);
     }
 
-    public NewsAuthorService findAuthorsService() {
-        return (NewsAuthorService) findService(NEWS_AUTHOR_SERVICE);
-    }
-    
-    public NewsApiService findNewsApiService() {
-        return (NewsApiService) findService(NEWS_API_SERVICE);
-    }
-    
-    public FlexUserService findUserService() {
-        return (FlexUserService) findService(FLEX_USER_SERVICE);
+    public NewsAuthorServiceInterface findAuthorsService() {
+        return (NewsAuthorServiceInterface) findService(NEWS_AUTHOR_SERVICE);
     }
 
-    public FlexVideoService findVideoService() {
-        return (FlexVideoService) findService(FLEX_VIDEO_SERVICE);
-    }
-
-    public FlexNoteService findNotesService() {
-        return (FlexNoteService) findService(FLEX_NOTE_SERVICE);
-    }
-
-    public FlexEventService findEventService() {
-        return (FlexEventService) findService(FLEX_EVENT_SERVICE);
+    public FlexUserServiceInterface findUserService() {
+        return (FlexUserServiceInterface) findService(FLEX_USER_SERVICE);
     }
 
     public void setInitialContext(InitialContext aContext) {
         context = aContext;
     }
-
-
 
 }

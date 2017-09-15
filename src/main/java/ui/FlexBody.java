@@ -5,6 +5,7 @@
  */
 package ui;
 
+import com.vaadin.ui.Notification;
 import db.news.FlexUser;
 import db.news.GraphEntity;
 import db.news.NewsArticle;
@@ -13,7 +14,7 @@ import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ui.news.article.FlexPanel;
-import utils.FlexUtils;
+import utils.FlexUIUtils;
 import utils.ServiceLocator;
 
 /**
@@ -48,10 +49,16 @@ public class FlexBody extends FlexPanel {
             return ServiceLocator.getInstance().findArticlesService().findAllFake(user.getUsername());
         }
         else if(dataProviderType == DataProviderType.CATEGORY && value != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithCategory(user.getUsername(), value);
+            return ServiceLocator.getInstance().findArticlesService().findArticlesWithCategory(user.getUsername(), getCategoryDBCaption(value));
         }
         else if(dataProviderType == DataProviderType.PUBLISHER && value != null) {
             return ServiceLocator.getInstance().findArticlesService().findArticlesWithSource(user.getUsername(), value);
+        }
+        else if(dataProviderType == DataProviderType.LANGUAGES && value != null) {
+            return ServiceLocator.getInstance().findArticlesService().findArticlesWithLanguage(user.getUsername(), getLanguageDBCaption(value));
+        }
+        else if(dataProviderType == DataProviderType.SEARCH && value != null) {
+            return ServiceLocator.getInstance().findArticlesService().findArticlesWithText(user.getUsername(), value);
         }
 
         return new HashSet<>();
@@ -88,7 +95,7 @@ public class FlexBody extends FlexPanel {
 
     public void updateData(DataProviderType type, String value) {
         super.setContent(new MasterDetailView());
-        if(FlexUtils.getInstance().getMainView(this) != null && value != null) {
+        if(FlexUIUtils.getInstance().getMainView(this) != null && value != null) {
             //FlexUtils.getInstance().getMainView(this).getMenu().getLogoBar().setNavigationContext(value);
         }
         initBodyUpdaterThread(type, value);
@@ -115,6 +122,25 @@ public class FlexBody extends FlexPanel {
             }
         });
         bodyWorker.start();  
+    }
+    
+    private String getLanguageDBCaption(String displayLanguage) {
+        String[] parts = displayLanguage.split("-");
+        return parts[0].trim();
+    }
+
+    private String getCategoryDBCaption(String cat) {
+        if(!cat.isEmpty()) {
+            char c = cat.charAt(0);
+            StringBuilder builder = new StringBuilder(cat.trim());
+            builder = builder.replace(0, 1, String.valueOf(Character.toLowerCase(c)));
+            String result = builder.toString();
+            System.out.println(result);
+            result = result.replace(" ", "-");
+            System.out.println(result);
+            return  result;
+        }
+        return cat;
     }
 
 }

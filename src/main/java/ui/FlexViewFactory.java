@@ -1,7 +1,5 @@
 package ui;
 
-import db.histories.FlexEvent;
-import db.histories.FlexVideo;
 import db.news.FlexUser;
 import db.news.GraphEntity;
 import ui.news.article.ArticleView;
@@ -9,8 +7,6 @@ import ui.news.source.SourceView;
 import db.news.NewsArticle;
 import db.news.NewsSource;
 import db.news.NewsAuthor;
-import ui.histories.videos.EventView;
-import ui.histories.videos.FlexVideoView;
 import ui.news.author.AuthorView;
 
 
@@ -36,15 +32,8 @@ public class FlexViewFactory {
         return new AuthorView(user, author);
     }
     
-    public  EventView createEventView(FlexUser user, FlexEvent event) {
-        return new EventView(user, event);
-    }
-
     public  GraphEntityView createView(FlexUser user, GraphEntity entity) {
-        if(entity instanceof FlexVideo) {
-            return new FlexVideoView(user, (FlexVideo) entity);
-        }
-        else if(entity instanceof NewsArticle) {
+        if(entity instanceof NewsArticle) {
             return createArticleView(user, (NewsArticle) entity);
         }
         else if(entity instanceof NewsSource) {
@@ -52,9 +41,6 @@ public class FlexViewFactory {
         }
         else if(entity instanceof NewsAuthor) {
             return createAuthorView(user, (NewsAuthor) entity);
-        }
-        else if(entity instanceof FlexEvent) {
-            return createEventView(user, (FlexEvent) entity);
         }
         return null;
     }

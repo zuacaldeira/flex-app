@@ -5,10 +5,7 @@
  */
 package ui;
 
-import com.vaadin.icons.VaadinIcons;
-import db.news.FlexUser;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -21,8 +18,6 @@ public class FlexLogoTest {
 
     @Test
     public void testIcon() {
-        FlexLogoBar logo = new FlexLogoBar(new FlexUser("alex", null));
-        //assertEquals(VaadinIcons.MEGAFONE, logo.getIcon());
     }
     
 }

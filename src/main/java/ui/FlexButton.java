@@ -7,7 +7,6 @@ package ui;
 
 import com.vaadin.server.Resource;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.themes.ValoTheme;
 
 /**
  *
@@ -35,22 +34,8 @@ public class FlexButton extends Button {
     }
     
     private void initialize() {
-        unselect();
         setSizeFull();
+        setStyleName("flex-button");
     }
 
-    /*private static String normalize(String caption) {
-        if(caption == null) {
-            return null;
-        }
-        return caption.toLowerCase();
-    }*/
-
-    public void unselect() {
-        setStyleName(ValoTheme.BUTTON_BORDERLESS + " action");
-    }
-
-    public void select() {
-        setStyleName(ValoTheme.BUTTON_BORDERLESS + " selected");
-    }
 }

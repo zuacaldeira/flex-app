@@ -5,7 +5,6 @@
  */
 package ui.login;
 
-import services.news.FlexUserService;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Alignment;
@@ -16,6 +15,7 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import db.news.FlexUser;
+import services.news.FlexUserServiceInterface;
 import ui.SaveButton;
 import ui.FlexTextField;
 import utils.ServiceLocator;
@@ -32,7 +32,7 @@ public class LoginForm extends VerticalLayout {
     private PasswordField password2;
     private CheckBox register;
     private SaveButton saveButton;
-    private FlexUserService service = ServiceLocator.getInstance().findUserService();
+    private FlexUserServiceInterface service;
     private HorizontalLayout registerOrSave;
 
     public LoginForm() {
@@ -42,6 +42,7 @@ public class LoginForm extends VerticalLayout {
         initRegisterCheckBox();
         initSaveButton();
         initRegisterOrSave();
+        service = ServiceLocator.getInstance().findUserService();
         formLayout = new FormLayout();
         formLayout.addComponents(username, password, password2, registerOrSave);
         formLayout.setSizeFull();
@@ -57,7 +58,7 @@ public class LoginForm extends VerticalLayout {
     }
 
     private boolean existsUserNamed(String username) {
-        return service.contains(new FlexUser(username, null));
+        return service.find(new FlexUser(username, null)).getId() != null;
     }
 
     private void saveToLogin(String user, String pass) {
@@ -70,7 +71,6 @@ public class LoginForm extends VerticalLayout {
     }
 
     private FlexUser registerNewUser(String username, String password) {
-        System.out.println("Register = " + register.getValue());
         if(this.password.getValue().equals(password2.getValue())) {
             return service.register(new FlexUser(username, password));
         }
@@ -95,7 +95,7 @@ public class LoginForm extends VerticalLayout {
         password.setIcon(VaadinIcons.LOCK);
         password.setRequiredIndicatorVisible(true);
         password.addValueChangeListener(e -> {
-            saveButton.setEnabled(!password.getValue().isEmpty() && existsUserNamed(username.getValue()));
+            //saveButton.setEnabled(!password.getValue().isEmpty() && existsUserNamed(username.getValue()));
         });
     }
     
@@ -106,7 +106,7 @@ public class LoginForm extends VerticalLayout {
         password2.setRequiredIndicatorVisible(true);     
         password2.setVisible(false);
         password2.addValueChangeListener(e -> {
-            saveButton.setEnabled(!e.getValue().isEmpty() && e.getValue().equals(password.getValue()));
+            //saveButton.setEnabled(!e.getValue().isEmpty() && e.getValue().equals(password.getValue()));
         });
     }
     
@@ -140,7 +140,7 @@ public class LoginForm extends VerticalLayout {
                 saveToLogin(u, p);
             }
         });
-        saveButton.setEnabled(false);
+        //saveButton.setEnabled(true);
     }
     
     private void saveToRegister(String username, String password) {

@@ -6,33 +6,40 @@
 package ui;
 
 import com.vaadin.ui.Component;
-import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  *
  * @author zua
  * @param <T>
  */
-public class FlexGridLayout<T extends GraphEntityView> extends GridLayout {
+public class FlexGridLayout<T extends GraphEntityView> extends HorizontalLayout {
 
     private T selected;
+    private int currentListIndex = 0;
 
-    public FlexGridLayout(int c, int r) {
-        super(c, r);
-        super.setWidthUndefined();
+    public FlexGridLayout(int c) {
+        for(int i = 0 ; i <  c; i++) {
+            VerticalLayout v = new VerticalLayout();
+            v.setMargin(false);
+            v.setSpacing(false);
+            super.addComponent(v);
+        }
+        super.setSizeUndefined();
         super.setHeightUndefined();
         super.setSpacing(false);
         super.setMargin(false);
     }
     
-    @Override
-    public void addComponent(Component component) {
-        super.addComponent(component);
+    public void addItemView(Component component) {
+        ((VerticalLayout)getComponent(currentListIndex)).addComponent(component);
+        updateCurrentListIndex();
         ((T)component).addLayoutClickListener(event -> {
             updateSelected((T)component);
         });
         if(selected == null) {
-            selected = (T) component;
+            updateSelected((T) component);
         }
     }
 
@@ -42,6 +49,14 @@ public class FlexGridLayout<T extends GraphEntityView> extends GridLayout {
         }
         selected = itemView;
         selected.maximize();
+    }
+
+    private void updateCurrentListIndex() {
+        if(currentListIndex >= getComponentCount()-1) {
+            currentListIndex = 0;
+        } else {
+            currentListIndex++;
+        }
     }
     
 }
