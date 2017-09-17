@@ -6,9 +6,9 @@
 package ui;
 
 import com.vaadin.ui.Notification;
-import db.news.FlexUser;
-import db.news.GraphEntity;
-import db.news.NewsArticle;
+import db.FlexUser;
+import db.GraphEntity;
+import db.NewsArticle;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.logging.Level;

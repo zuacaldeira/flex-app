@@ -8,7 +8,7 @@ package ui;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
-import db.news.FlexUser;
+import db.FlexUser;
 import ui.login.LoginForm;
 
 /**

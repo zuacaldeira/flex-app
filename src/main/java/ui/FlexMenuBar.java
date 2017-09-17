@@ -9,7 +9,7 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.themes.ValoTheme;
-import db.news.FlexUser;
+import db.FlexUser;
 import java.util.List;
 import java.util.Locale;
 import utils.FlexUIUtils;

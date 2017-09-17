@@ -5,8 +5,8 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
-import db.news.FlexUser;
-import db.news.NewsSource;
+import db.FlexUser;
+import db.NewsSource;
 import ui.GraphEntityView;
 
 /**

@@ -16,7 +16,6 @@ public class CommentButton extends FlexButton {
     public CommentButton() {
         super(VaadinIcons.COMMENT);
         setDescription("Comment");
-        setSizeUndefined();
     }
     
 }

@@ -3,16 +3,16 @@
 // Global variable overrides. Must be declared before importing Valo.
 
 // Defines the plaintext font size, weight and family. Font size affects general component sizing.
-//$v-font-size: 16px;
+$v-font-size: 16px;
 //$v-font-weight: 300;
-//$v-font-family: "Open Sans", sans-serif;
+$v-font-family: "Open Sans", sans-serif;
 
 // Defines the border used by all components.
 //$v-border: 1px solid (v-shade 0.7);
-//$v-border-radius: 4px;
+$v-border-radius: 10px;
 
 // Affects the color of some component elements, e.g Button, Panel title, etc
-//$v-background-color: hsl(210, 0%, 98%);
+$v-background-color: hsl(100, 30%, 98%);
 // Affects the color of content areas, e.g  Panel and Window content, TextField input etc
 //$v-app-background-color: $v-background-color;
 
@@ -29,126 +29,77 @@
 // For more information, see: https://vaadin.com/book/-/page/themes.valo.html
 // Example variants can be copy/pasted from https://vaadin.com/wiki/-/wiki/Main/Valo+Examples
 
+$mycolor: green;
 
 @import "../valo/valo.scss";
 
 @mixin mytheme {
     @include valo;
 
+    
     // Insert your own theme rules here
-    .v-ui{
-        background: white;
-        font-family: monospace;
-        //@include linear-gradient(to bottom right, black, silver);
+    .v-ui {
+        background: transparent;
+        //font-family: monospace;
+    }
+    
+
+    .v-button {
+        border: none;
+        background: transparent;
+        color: $mycolor;
     }
 
+
+    .flex-view {
+        background: transparent;
+    }
+    
     .flex-window {
-        @include linear-gradient(to bottom right, yellowgreen, yellow);
+        @include linear-gradient(to bottom right, gray, yellowgreen);
     }
 
     .login-view {
-        background: black;
-        color: white;        
+        @include linear-gradient(to bottom right, gray, yellowgreen);
     }
     
     
     .flex-view {
     }
 
-    .welcome-message {
-        font-size: xx-large;
-    }            
-
-    .app-icon {
-        font-size: 200%;
-    }   
+  
     
-    .flex-button {
-        background: transparent;
-        -webkit-transition-duration: 0.4s; /* Safari */
-        transition-duration: 0.4s;
-        border: none;
-    }
-    
-    .action {
-        background: transparent;
-        color: white;
-    }
-        
     .flex-menu {
-        @include linear-gradient(to bottom right, black, yellow);
-        width: 10%;
-        color: white;
-        font-size: large;
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 21px 0 rgba(0,0,0,0.19);
-        .flex-menu-bar {
-            .v-menubar-menuitem {
-                color: white;
-                font-weight: bolder;
-            }    
-            .v-menubar-menuitem-selected {
-            }    
-            .v-menu-bar-submenu {
-                @include linear-gradient(to bottom right, gray, yellow);                
-            }
+        background: white;
+        box-shadow: black;
+    }
+    
+    .flex-menu-bar {
+        .v-menubar-menuitem {
+            font-weight: bolder;
+            color: $mycolor;
+            size: 150%;
+        }    
+        .v-menubar-menuitem-selected {
+        }    
+        .v-menu-bar-submenu {
+            color: red;
         }
-
-        .searchbox {
-            .flex-button {
-                background: transparent;
-                color: white;
-            }
-
-            .flex-text {
-                background: black;
-                color: white;
-                border: thin;
-            }
-        }
-    }
-    
-    .flex-menu:hover {
-        width: 100%;
-    }
-    
-    .flex-body {
-        background: transparent;
-        color: white;
-    }
-    
-    .flex-footer{
-        color:transparent;
     }
 
     .items {
         .summaries{
-            border-radius: 0%;
-            color:black;
-            background: transparent;
-            font-size: smaller;
-            
             .item {
-                .source {
-                    font-variant: small-caps;
-                }
-                .title{
-                    font-size: larger;
-                }
-            }
-
-            .item:hover {
                 background: gainsboro;
                 .title {
                     font-weight: bold;
-                    color: black;
                 }
             }
             
             .item-selected {
                 @include linear-gradient(to bottom right, gray, yellow);
-                box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 36px 0 rgba(0,0,0,0.19);
+                //box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 36px 0 rgba(0,0,0,0.19);
                 .title {
-                    font-size: larger;
                     font-weight: bold;
                     color: white;
                 }
@@ -157,31 +108,11 @@
     }
 
     
-    .action{
-        color: white;
-        font-family: monospace;
-        font-variant: all-caps;
-        font-weight: normal;
-        -webkit-transition-duration: 0.4s; /* Safari */
-        transition-duration: 0.4s;
-        border: none;
-    }
-    .action:hover {
-        color: white;
-        font-family: monospace;
-        font-variant: all-caps;
-        font-weight: bold;
-        box-shadow: gray;
-    }
-      
     .selected {
         border: none;
         background: yellowgreen;
         color: white;
-        font-family: monospace;
-        font-variant: all-caps;
         font-weight: bold;
-        box-shadow: 12px 12px 16px 12px rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     }
     
 
@@ -243,23 +174,13 @@
         opacity: 1;
     }
 
-    .count {
-        font-size: 200%;
-        .label{
-        }
-        .number{
-            font-size: 300%;
-        }
-    }
-    
     .on {
-        background: orangered; /* Dark blue */        
+        background: orangered;   
     }
     
     // Geometric forms
     .circle{
         border-radius: 50%;
     }
-    
     
 }

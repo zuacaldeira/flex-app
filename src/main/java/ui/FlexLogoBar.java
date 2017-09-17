@@ -8,7 +8,7 @@ package ui;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import db.news.FlexUser;
+import db.FlexUser;
 
 /**
  *

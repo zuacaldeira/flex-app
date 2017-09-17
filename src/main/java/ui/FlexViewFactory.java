@@ -1,12 +1,12 @@
 package ui;
 
-import db.news.FlexUser;
-import db.news.GraphEntity;
+import db.FlexUser;
+import db.GraphEntity;
 import ui.news.article.ArticleView;
 import ui.news.source.SourceView;
-import db.news.NewsArticle;
-import db.news.NewsSource;
-import db.news.NewsAuthor;
+import db.NewsArticle;
+import db.NewsSource;
+import db.NewsAuthor;
 import ui.news.author.AuthorView;
 
 

@@ -33,11 +33,11 @@ public class MasterDetailView<T extends GraphEntityView> extends HorizontalSplit
         super.setFirstComponent(base);
         super.setSecondComponent(browserFrame);
         super.setSizeFull();
-        setSplitPosition(40f);
+        setSplitPosition(25f);
     }
     
     private void initSummaries() {
-        summaries = new SummariesLayout<T>();
+        summaries = new SummariesLayout<T>(1);
         summaries.setSizeFull();
         base = new VerticalLayout(summaries);
         base.setSizeFull();

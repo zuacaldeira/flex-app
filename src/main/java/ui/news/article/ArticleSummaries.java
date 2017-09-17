@@ -11,8 +11,8 @@ package ui.news.article;
  */
 public class ArticleSummaries extends SummariesLayout {
 
-    public ArticleSummaries() {
-        super();
+    public ArticleSummaries(int columns) {
+        super(columns);
         //setCaption("Latest News");
     }
     

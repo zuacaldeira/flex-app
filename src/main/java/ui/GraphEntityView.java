@@ -9,9 +9,9 @@ import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.VerticalLayout;
-import db.news.FlexUser;
-import db.news.GraphEntity;
-import services.news.FlexUserServiceInterface;
+import db.FlexUser;
+import db.GraphEntity;
+import services.FlexUserServiceInterface;
 import utils.ServiceLocator;
 
 /**

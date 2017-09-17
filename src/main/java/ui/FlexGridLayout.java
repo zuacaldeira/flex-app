@@ -22,8 +22,8 @@ public class FlexGridLayout<T extends GraphEntityView> extends HorizontalLayout 
     public FlexGridLayout(int c) {
         for(int i = 0 ; i <  c; i++) {
             VerticalLayout v = new VerticalLayout();
-            v.setMargin(false);
-            v.setSpacing(false);
+            v.setMargin(true);
+            v.setSpacing(true);
             super.addComponent(v);
         }
         super.setSizeUndefined();

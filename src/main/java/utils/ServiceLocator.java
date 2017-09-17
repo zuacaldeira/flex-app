@@ -5,10 +5,10 @@
  */
 package utils;
 
-import services.news.FlexUserServiceInterface;
-import services.news.NewsArticleServiceInterface;
-import services.news.NewsAuthorServiceInterface;
-import services.news.NewsSourceServiceInterface;
+import services.FlexUserServiceInterface;
+import services.NewsArticleServiceInterface;
+import services.NewsAuthorServiceInterface;
+import services.NewsSourceServiceInterface;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -18,11 +18,11 @@ import javax.naming.NamingException;
  */
 public class ServiceLocator {
 
-    public static final String NEWS_API_SERVICE = "java:global/flex-app/NewsApiService!services.news.NewsApiServiceInterface";
-    public static final String NEWS_ARTICLE_SERVICE = "java:global/flex-app/NewsArticleService!services.news.NewsArticleServiceInterface";
-    public static final String NEWS_SOURCE_SERVICE = "java:global/flex-app/NewsSourceService!services.news.NewsSourceServiceInterface";
-    public static final String NEWS_AUTHOR_SERVICE = "java:global/flex-app/NewsAuthorService!services.news.NewsAuthorServiceInterface";
-    public static final String FLEX_USER_SERVICE = "java:global/flex-app/FlexUserService!services.news.FlexUserServiceInterface";
+    public static final String NEWS_API_SERVICE = "java:global/flex-app/NewsApiService!services.NewsApiServiceInterface";
+    public static final String NEWS_ARTICLE_SERVICE = "java:global/flex-app/NewsArticleService!services.NewsArticleServiceInterface";
+    public static final String NEWS_SOURCE_SERVICE = "java:global/flex-app/NewsSourceService!services.NewsSourceServiceInterface";
+    public static final String NEWS_AUTHOR_SERVICE = "java:global/flex-app/NewsAuthorService!services.NewsAuthorServiceInterface";
+    public static final String FLEX_USER_SERVICE = "java:global/flex-app/FlexUserService!services.FlexUserServiceInterface";
 
     private static InitialContext context;
 

@@ -5,14 +5,14 @@
  */
 package ui;
 
-import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
-import db.news.FlexUser;
+import db.FlexUser;
 import org.vaadin.addons.searchbox.SearchBox;
+import org.vaadin.addons.searchbox.SearchBox.ButtonPosition;
 import utils.FlexUIUtils;
 
 /**
@@ -22,6 +22,7 @@ import utils.FlexUIUtils;
 public class FlexMenu extends HorizontalLayout {
 
     private final FlexUser user;
+    
     private final FlexMenuBar menuBar;
     private final LogoutButton logoutButton;
     private final SearchBox searchBox;
@@ -38,30 +39,28 @@ public class FlexMenu extends HorizontalLayout {
         });
         //logoutButton.addUsername(user.getUsername());
 
-        searchBox = new SearchBox(VaadinIcons.SEARCH, SearchBox.ButtonPosition.RIGHT);
-        searchBox.setButtonJoined(true);
-        searchBox.setWidth("100%");
+        searchBox = new SearchBox("", ButtonPosition.HIDDEN);
+        searchBox.setWidth("10cm");
         searchBox.setPlaceholder("Search news...");
-        searchBox.setStyleName("searchbox");
-        searchBox.getSearchButton().setStyleName("flex-button");
-        searchBox.getSearchField().setStyleName("flex-text");
         searchBox.addSearchListener(e -> {
             Notification.show(e.getSearchTerm());
             FlexUIUtils.getInstance().getBody(this).updateData(DataProviderType.SEARCH, e.getSearchTerm());
         });
         
+        HorizontalLayout others = new HorizontalLayout(searchBox, logoutButton);
+        others.setSizeUndefined();
+        others.setSpacing(false);
+        
         super.setSizeFull();
         super.setHeight("2cm");
         super.setMargin(new MarginInfo(false, true));
-        super.setMargin(false);
+        //super.setMargin(true);
         
-        super.addComponents(menuBar, searchBox, logoutButton);
+        super.addComponents(menuBar, others);
         super.setComponentAlignment(menuBar, Alignment.MIDDLE_LEFT);
-        super.setComponentAlignment(searchBox, Alignment.MIDDLE_CENTER);
-        super.setComponentAlignment(logoutButton, Alignment.MIDDLE_RIGHT);
+        super.setComponentAlignment(others, Alignment.MIDDLE_RIGHT);
         super.setExpandRatio(menuBar, .5f);
-        super.setExpandRatio(searchBox, .4f);
-        super.setExpandRatio(logoutButton, .1f);
+        super.setExpandRatio(others, .5f);
         super.setStyleName("flex-menu");
     }
 

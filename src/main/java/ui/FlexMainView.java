@@ -6,7 +6,7 @@
 package ui;
 
 import com.vaadin.ui.AbsoluteLayout;
-import db.news.FlexUser;
+import db.FlexUser;
 
 /**
  *

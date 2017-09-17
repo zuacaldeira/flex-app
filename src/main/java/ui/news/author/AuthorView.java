@@ -1,8 +1,8 @@
 package ui.news.author;
 
 import com.vaadin.ui.*;
-import db.news.FlexUser;
-import db.news.NewsAuthor;
+import db.FlexUser;
+import db.NewsAuthor;
 import ui.GraphEntityView;
 
 

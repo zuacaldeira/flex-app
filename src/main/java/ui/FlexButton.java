@@ -35,7 +35,6 @@ public class FlexButton extends Button {
     
     private void initialize() {
         setSizeFull();
-        setStyleName("flex-button");
     }
 
 }

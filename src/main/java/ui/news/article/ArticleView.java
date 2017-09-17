@@ -2,12 +2,11 @@ package ui.news.article;
 
 import ui.GraphEntityView;
 import com.vaadin.server.ExternalResource;
-import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
-import db.news.FlexUser;
-import db.news.NewsArticle;
-import db.news.NewsSource;
-import services.news.NewsArticleServiceInterface;
+import db.FlexUser;
+import db.NewsArticle;
+import db.NewsSource;
+import services.NewsArticleServiceInterface;
 import ui.CommentButton;
 import ui.FakeButton;
 import ui.FavoriteButton;
@@ -30,7 +29,7 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     
     private AbstractOrderedLayout authors;
     private Label sourceNameLabel;
-    private static final String HEADER_HEIGHT = "48px";
+    private static final String HEADER_HEIGHT = "64px";
 
     public ArticleView(FlexUser user, NewsArticle article) {
         super(user, article);
@@ -47,13 +46,14 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
         sourceAndDate.setMargin(false);
         if(sourceNameLabel != null) {
             sourceAndDate.addComponent(sourceNameLabel);
-            sourceAndDate.setComponentAlignment(sourceNameLabel, Alignment.MIDDLE_LEFT);
+            sourceAndDate.setComponentAlignment(sourceNameLabel, Alignment.MIDDLE_RIGHT);
         }
         if(publishedAt != null) {
             sourceAndDate.addComponent(publishedAt);
-            sourceAndDate.setComponentAlignment(publishedAt, Alignment.MIDDLE_LEFT);
+            sourceAndDate.setComponentAlignment(publishedAt, Alignment.MIDDLE_RIGHT);
         }
         header = new HorizontalLayout(logoImage, sourceAndDate);
+        header.setSizeFull();
         header.setExpandRatio(logoImage, .25f);
         header.setExpandRatio(sourceAndDate, .75f);
         header.setMargin(false);
@@ -61,7 +61,8 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
         //header.setHeight(HEADER_HEIGHT);
         header.setWidthUndefined();
         header.setComponentAlignment(logoImage, Alignment.MIDDLE_CENTER);
-        header.setComponentAlignment(sourceAndDate, Alignment.BOTTOM_LEFT);
+        header.setComponentAlignment(sourceAndDate, Alignment.BOTTOM_CENTER);
+        header.setStyleName("info-header");
         return header;
     }
 
@@ -127,15 +128,15 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     }
     
     private void initSourceInfo() {
-        logoImage = new Image("");
-        logoImage.addStyleName("circle");
         NewsSource source = ServiceLocator.getInstance().findSourcesService().findSourceWithSourceId(getItem().getSourceId());
         if(source != null) {
+            logoImage = new Image("");
             if(source.getLogoUrl() != null) {
                 logoImage = new Image("", new ExternalResource(source.getLogoUrl()));
-                logoImage.setHeight(HEADER_HEIGHT);
-                logoImage.setWidth(HEADER_HEIGHT);
             } 
+            logoImage.addStyleName("circle");
+            logoImage.setHeight(HEADER_HEIGHT);
+            logoImage.setWidth(HEADER_HEIGHT);
             sourceNameLabel = new Label(source.getName());
             sourceNameLabel.setSizeUndefined();
         }
@@ -170,6 +171,7 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     }
 
     
+    @Override
     public  AbstractOrderedLayout createInfoActions() {
         FlexButton commentButton = new CommentButton();
         commentButton.addClickListener(this);
@@ -196,9 +198,9 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
 
 
         HorizontalLayout actions = new HorizontalLayout(commentButton, favoriteButton, fakeButton, hideButton);
-        actions.setSizeUndefined();
+        actions.setSizeFull();
         actions.setStyleName("actions");
-        actions.setSpacing(false);
+        actions.setSpacing(true);
         return actions;
     }
     

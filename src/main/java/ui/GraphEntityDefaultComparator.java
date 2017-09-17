@@ -5,7 +5,7 @@
  */
 package ui;
 
-import db.news.NewsArticle;
+import db.NewsArticle;
 import java.util.Comparator;
 
 /**

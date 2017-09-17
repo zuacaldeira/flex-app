@@ -5,12 +5,12 @@
  */
 package utils;
 
-import services.news.NewsArticleService;
-import services.news.NewsAuthorService;
-import services.news.NewsSourceService;
+import services.NewsArticleService;
+import services.NewsAuthorService;
+import services.NewsSourceService;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import services.news.FlexUserService;
+import services.FlexUserService;
 
 /**
  *
