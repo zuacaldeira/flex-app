@@ -5,11 +5,13 @@
  */
 package ui;
 
+import window.FlexWindow;
+import view.FlexMainView;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 import db.FlexUser;
-import ui.login.LoginForm;
+import form.LoginForm;
 
 /**
  *

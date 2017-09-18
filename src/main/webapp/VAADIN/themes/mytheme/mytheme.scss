@@ -3,7 +3,7 @@
 // Global variable overrides. Must be declared before importing Valo.
 
 // Defines the plaintext font size, weight and family. Font size affects general component sizing.
-$v-font-size: 16px;
+$v-font-size: 14px;
 //$v-font-weight: 300;
 $v-font-family: "Open Sans", sans-serif;
 
@@ -12,9 +12,9 @@ $v-font-family: "Open Sans", sans-serif;
 $v-border-radius: 10px;
 
 // Affects the color of some component elements, e.g Button, Panel title, etc
-$v-background-color: hsl(100, 30%, 98%);
+//$v-background-color: hsl(50, 50%, 50%);
 // Affects the color of content areas, e.g  Panel and Window content, TextField input etc
-//$v-app-background-color: $v-background-color;
+//$v-app-background-color: hsl(200, 98%, 98%);
 
 // Affects the visual appearance of all components
 //$v-gradient: v-linear 8%;
@@ -29,7 +29,6 @@ $v-background-color: hsl(100, 30%, 98%);
 // For more information, see: https://vaadin.com/book/-/page/themes.valo.html
 // Example variants can be copy/pasted from https://vaadin.com/wiki/-/wiki/Main/Valo+Examples
 
-$mycolor: green;
 
 @import "../valo/valo.scss";
 
@@ -39,7 +38,7 @@ $mycolor: green;
     
     // Insert your own theme rules here
     .v-ui {
-        background: transparent;
+        //background: transparent;
         //font-family: monospace;
     }
     
@@ -47,7 +46,6 @@ $mycolor: green;
     .v-button {
         border: none;
         background: transparent;
-        color: $mycolor;
     }
 
 
@@ -56,11 +54,11 @@ $mycolor: green;
     }
     
     .flex-window {
-        @include linear-gradient(to bottom right, gray, yellowgreen);
+        @include linear-gradient(to bottom right, gray, yellow);
     }
 
     .login-view {
-        @include linear-gradient(to bottom right, gray, yellowgreen);
+        @include linear-gradient(to bottom right, gray, yellow);
     }
     
     
@@ -71,13 +69,19 @@ $mycolor: green;
     
     .flex-menu {
         background: white;
-        box-shadow: black;
+        opacity: .95;
+        box-shadow: 0px 8px yellow;
+    }
+    
+    .wall {
+        background: white;
+        box-shadow: 0px 8px #b525f8;
     }
     
     .flex-menu-bar {
         .v-menubar-menuitem {
+            color: gray;
             font-weight: bolder;
-            color: $mycolor;
             size: 150%;
         }    
         .v-menubar-menuitem-selected {
@@ -88,6 +92,7 @@ $mycolor: green;
     }
 
     .items {
+        margin-right: true;
         .summaries{
             .item {
                 background: gainsboro;
