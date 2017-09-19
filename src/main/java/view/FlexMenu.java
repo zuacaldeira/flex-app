@@ -5,6 +5,7 @@
  */
 package view;
 
+import utils.UIUtils;
 import button.LogoutButton;
 import com.vaadin.server.Page;
 import com.vaadin.shared.ui.MarginInfo;

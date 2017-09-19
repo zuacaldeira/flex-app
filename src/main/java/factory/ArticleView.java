@@ -53,16 +53,22 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
             sourceAndDate.addComponent(publishedAt);
             sourceAndDate.setComponentAlignment(publishedAt, Alignment.MIDDLE_RIGHT);
         }
-        header = new HorizontalLayout(logoImage, sourceAndDate);
+        header = new HorizontalLayout();
         header.setSizeFull();
-        header.setExpandRatio(logoImage, .25f);
-        header.setExpandRatio(sourceAndDate, .75f);
+        if(logoImage != null) {
+            header.addComponent(logoImage);
+            header.setExpandRatio(logoImage, .25f);
+            header.setComponentAlignment(logoImage, Alignment.MIDDLE_CENTER);
+        }
+        if(sourceAndDate != null) {
+            header.addComponent(sourceAndDate);
+            header.setExpandRatio(sourceAndDate, .75f);
+            header.setComponentAlignment(sourceAndDate, Alignment.BOTTOM_CENTER);
+        }
         header.setMargin(false);
         header.setSpacing(true);
         //header.setHeight(HEADER_HEIGHT);
         header.setWidthUndefined();
-        header.setComponentAlignment(logoImage, Alignment.MIDDLE_CENTER);
-        header.setComponentAlignment(sourceAndDate, Alignment.BOTTOM_CENTER);
         header.setStyleName("info-header");
         return header;
     }
@@ -129,7 +135,7 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     }
     
     private void initSourceInfo() {
-        NewsSource source = ServiceLocator.getInstance().findSourcesService().findSourceWithSourceId(getItem().getSourceId());
+        NewsSource source = new ServiceLocator().findSourcesService().findSourceWithSourceId(getItem().getSourceId());
         if(source != null) {
             logoImage = new Image("");
             if(source.getLogoUrl() != null) {
@@ -158,7 +164,7 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     }
     
     public NewsArticleServiceInterface getService() {
-        return ServiceLocator.getInstance().findArticlesService();
+        return new ServiceLocator().findArticlesService();
     }
 
     @Override

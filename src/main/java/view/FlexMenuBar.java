@@ -5,6 +5,7 @@
  */
 package view;
 
+import utils.UIUtils;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
@@ -35,11 +36,23 @@ public class FlexMenuBar extends MenuBar {
 
     private MenuBar.Command command;
     private final FlexUser user;
+    private ServiceLocator locator;
     
     public FlexMenuBar(FlexUser user) {
         this.user = user;
+        locator = new ServiceLocator();
         initMenuBar();
     }
+
+    public ServiceLocator getLocator() {
+        return locator;
+    }
+
+    public void setLocator(ServiceLocator locator) {
+        this.locator = locator;
+    }
+    
+    
     
     private void initMenuBar() {
         setSizeUndefined();
@@ -81,29 +94,29 @@ public class FlexMenuBar extends MenuBar {
         updateNewsByTime();
     }
         
-    private void updateNewsCategory() {
-        List<String> cats = ServiceLocator.getInstance().findSourcesService().findCategories();
+    protected void updateNewsCategory() {
+        List<String> cats = locator.findSourcesService().findCategories();
         cats.forEach(cat -> {
             categories.addItem(getCategoryCaption(cat), command);
         });
     }
 
-    private void updateNewsPublisher() {
-        List<String> names = ServiceLocator.getInstance().findSourcesService().findNames();
+    protected void updateNewsPublisher() {
+        List<String> names = locator.findSourcesService().findNames();
         names.forEach(name -> {
             publishers.addItem(name, command);
         });
     }
 
-    private void updateNewsLanguages() {
-        List<String> langs = ServiceLocator.getInstance().findSourcesService().findLanguages();
+    protected void updateNewsLanguages() {
+        List<String> langs = locator.findSourcesService().findLanguages();
         langs.forEach(lang -> {
             languages.addItem(getLanguageCaption(lang), command);
         });
     }
 
-    private void updateNewsCountries() {
-        List<String> locales = ServiceLocator.getInstance().findSourcesService().findCountries();
+    protected void updateNewsCountries() {
+        List<String> locales = locator.findSourcesService().findCountries();
         Set<String> countryNames = new HashSet<>();
         locales.forEach(locale -> {
             countryNames.add(getCountryCaption(locale));
@@ -136,7 +149,10 @@ public class FlexMenuBar extends MenuBar {
     }
 
     private void updateBody(MenuItem selectedItem) {
-        UIUtils.getInstance().getBody(this).updateData(getDataProviderType(selectedItem), selectedItem.getText());
+        FlexBody body = UIUtils.getInstance().getBody(this);
+        if(body != null) {
+            body.updateData(getDataProviderType(selectedItem), selectedItem.getText());
+        }
     }
     
     public DataProviderType getDataProviderType(MenuItem selectedItem) {

@@ -42,7 +42,7 @@ public class LoginForm extends VerticalLayout {
         initRegisterCheckBox();
         initSaveButton();
         initRegisterOrSave();
-        service = ServiceLocator.getInstance().findUserService();
+        service = new ServiceLocator().findUserService();
         formLayout = new FormLayout();
         formLayout.addComponents(username, password, password2, registerOrSave);
         formLayout.setSizeFull();
@@ -58,7 +58,7 @@ public class LoginForm extends VerticalLayout {
     }
 
     private boolean existsUserNamed(String username) {
-        return service.find(new FlexUser(username, null)).getId() != null;
+        return service.find(new FlexUser(username, null)) != null;
     }
 
     private void saveToLogin(String user, String pass) {

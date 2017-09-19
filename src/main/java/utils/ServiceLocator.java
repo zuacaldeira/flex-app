@@ -24,30 +24,17 @@ public class ServiceLocator {
     public static final String NEWS_AUTHOR_SERVICE = "java:global/flex-app/NewsAuthorService!services.NewsAuthorServiceInterface";
     public static final String FLEX_USER_SERVICE = "java:global/flex-app/FlexUserService!services.FlexUserServiceInterface";
 
-    private static InitialContext context;
-
-    private static ServiceLocator instance;
-
-    private ServiceLocator() {
-    }
-
-    public static ServiceLocator getInstance() {
-        if (instance == null) {
-            instance = new ServiceLocator();
-        }
-        return instance;
+    public ServiceLocator() {
     }
 
     private Object findService(String name) {
         try {
-            if (context == null) {
-                context = new InitialContext();
-            }
+            InitialContext context = new InitialContext();
             Object o = context.lookup(name);
             return o;
         } catch (NamingException ex) {
-            System.out.println("NOT FOUND " + name);
-            return null;
+            System.out.println("#####Service NOT FOUND " + name);
+            throw new ServiceNotFoundException();
         }
     }
 
@@ -65,10 +52,6 @@ public class ServiceLocator {
 
     public FlexUserServiceInterface findUserService() {
         return (FlexUserServiceInterface) findService(FLEX_USER_SERVICE);
-    }
-
-    public void setInitialContext(InitialContext aContext) {
-        context = aContext;
     }
 
 }

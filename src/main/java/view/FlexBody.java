@@ -5,6 +5,7 @@
  */
 package view;
 
+import utils.UIUtils;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.Image;
 import data.DataProviderType;
@@ -46,27 +47,27 @@ public class FlexBody extends FlexPanel {
 
     private Collection<NewsArticle> loadNodes(DataProviderType dataProviderType, String value) {
         if (dataProviderType == DataProviderType.LATEST) {
-            return ServiceLocator.getInstance().findArticlesService().findLatest(user.getUsername());
+            return new ServiceLocator().findArticlesService().findLatest(user.getUsername());
         } else if (dataProviderType == DataProviderType.OLDEST) {
-            return ServiceLocator.getInstance().findArticlesService().findOldest(user.getUsername());
+            return new ServiceLocator().findArticlesService().findOldest(user.getUsername());
         } else if (dataProviderType == DataProviderType.READ) {
-            return ServiceLocator.getInstance().findArticlesService().findAllRead(user.getUsername());
+            return new ServiceLocator().findArticlesService().findAllRead(user.getUsername());
         } else if (dataProviderType == DataProviderType.FAVORITE) {
-            return ServiceLocator.getInstance().findArticlesService().findAllFavorite(user.getUsername());
+            return new ServiceLocator().findArticlesService().findAllFavorite(user.getUsername());
         } else if (dataProviderType == DataProviderType.FAKE) {
-            return ServiceLocator.getInstance().findArticlesService().findAllFake(user.getUsername());
+            return new ServiceLocator().findArticlesService().findAllFake(user.getUsername());
         } else if (dataProviderType == DataProviderType.CATEGORY && value != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithCategory(user.getUsername(), getCategoryDBCaption(value));
+            return new ServiceLocator().findArticlesService().findArticlesWithCategory(user.getUsername(), getCategoryDBCaption(value));
         } else if (dataProviderType == DataProviderType.PUBLISHER && value != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithSource(user.getUsername(), value);
+            return new ServiceLocator().findArticlesService().findArticlesWithSource(user.getUsername(), value);
         } else if (dataProviderType == DataProviderType.LANGUAGES && value != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithLanguage(user.getUsername(), getLanguageDBCaption(value));
+            return new ServiceLocator().findArticlesService().findArticlesWithLanguage(user.getUsername(), getLanguageDBCaption(value));
         } else if (dataProviderType == DataProviderType.COUNTRIES && value != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithCountry(user.getUsername(), getCountryDBCaption(value));
+            return new ServiceLocator().findArticlesService().findArticlesWithCountry(user.getUsername(), getCountryDBCaption(value));
         } else if (dataProviderType == DataProviderType.SEARCH && value != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithText(user.getUsername(), value);
+            return new ServiceLocator().findArticlesService().findArticlesWithText(user.getUsername(), value);
         }
-        return ServiceLocator.getInstance().findArticlesService().findLatest(user.getUsername());
+        return new ServiceLocator().findArticlesService().findLatest(user.getUsername());
     }
 
     @Override
@@ -87,10 +88,6 @@ public class FlexBody extends FlexPanel {
     }
 
     public void updateData(DataProviderType type, String value) {
-        if (UIUtils.getInstance().getMainView(this) != null && value != null) {
-            //FlexUtils.getInstance().getMainView(this).getMenu().getLogoBar().setNavigationContext(value);
-        }
-
         initBodyUpdaterThread(type, value);
     }
 

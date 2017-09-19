@@ -31,7 +31,7 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
     private final FlexUserServiceInterface userService;
     
     public GraphEntityView(FlexUser user, T entity) {
-        userService = ServiceLocator.getInstance().findUserService();
+        userService = new ServiceLocator().findUserService();
         this.user = user;
         this.item = entity;
         infoHeader = this.createInfoHeader();
