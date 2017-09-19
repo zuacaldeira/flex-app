@@ -7,7 +7,7 @@ package label;
 
 import com.vaadin.ui.Label;
 import java.util.Date;
-import utils.FlexUIUtils;
+import utils.DateUtils;
 
 /**
  *
@@ -16,7 +16,7 @@ import utils.FlexUIUtils;
 public class DateLabel extends Label {
 
     public DateLabel(Date date) {
-        super(FlexUIUtils.formatDate(date));
+        super(DateUtils.getInstance().formatDate(date));
     }
     
 }

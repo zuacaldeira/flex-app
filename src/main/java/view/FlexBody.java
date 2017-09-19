@@ -14,11 +14,9 @@ import db.FlexUser;
 import db.GraphEntity;
 import db.NewsArticle;
 import java.util.Collection;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import panel.FlexPanel;
-import utils.FlexUIUtils;
 import utils.ServiceLocator;
 
 /**
@@ -89,7 +87,7 @@ public class FlexBody extends FlexPanel {
     }
 
     public void updateData(DataProviderType type, String value) {
-        if (FlexUIUtils.getInstance().getMainView(this) != null && value != null) {
+        if (UIUtils.getInstance().getMainView(this) != null && value != null) {
             //FlexUtils.getInstance().getMainView(this).getMenu().getLogoBar().setNavigationContext(value);
         }
 
@@ -158,12 +156,6 @@ public class FlexBody extends FlexPanel {
             return result;
         }
         return cat;
-    }
-
-    private void initWall() {
-        List<NewsArticle> items = ServiceLocator.getInstance().findArticlesService().findMaxFavorites();
-        NewsArticle item = items.get(0);
-        Image image = initImage(item);
     }
 
     private Image initImage(NewsArticle item) {

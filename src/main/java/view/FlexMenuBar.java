@@ -16,7 +16,6 @@ import java.util.Locale;
 import java.util.Set;
 import data.DataProviderType;
 import ui.SecuredUI;
-import utils.FlexUIUtils;
 import utils.ServiceLocator;
 
 /**
@@ -104,7 +103,7 @@ public class FlexMenuBar extends MenuBar {
     }
 
     private void updateNewsCountries() {
-        List<String> locales = ServiceLocator.getInstance().findArticlesService().findLocales();
+        List<String> locales = ServiceLocator.getInstance().findSourcesService().findCountries();
         Set<String> countryNames = new HashSet<>();
         locales.forEach(locale -> {
             countryNames.add(getCountryCaption(locale));
@@ -137,7 +136,7 @@ public class FlexMenuBar extends MenuBar {
     }
 
     private void updateBody(MenuItem selectedItem) {
-        FlexUIUtils.getInstance().getBody(this).updateData(getDataProviderType(selectedItem), selectedItem.getText());
+        UIUtils.getInstance().getBody(this).updateData(getDataProviderType(selectedItem), selectedItem.getText());
     }
     
     public DataProviderType getDataProviderType(MenuItem selectedItem) {

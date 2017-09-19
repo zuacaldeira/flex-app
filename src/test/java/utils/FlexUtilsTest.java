@@ -5,10 +5,7 @@
  */
 package utils;
 
-import db.NewsAuthor;
-import java.util.Set;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

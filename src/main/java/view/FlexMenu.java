@@ -15,7 +15,6 @@ import db.FlexUser;
 import org.vaadin.addons.searchbox.SearchBox;
 import org.vaadin.addons.searchbox.SearchBox.ButtonPosition;
 import data.DataProviderType;
-import utils.FlexUIUtils;
 
 /**
  *
@@ -46,7 +45,7 @@ public class FlexMenu extends HorizontalLayout {
         searchBox.setPlaceholder("Search news...");
         searchBox.addSearchListener(e -> {
             Notification.show(e.getSearchTerm());
-            FlexUIUtils.getInstance().getBody(this).updateData(DataProviderType.SEARCH, e.getSearchTerm());
+            UIUtils.getInstance().getBody(this).updateData(DataProviderType.SEARCH, e.getSearchTerm());
         });
         
         HorizontalLayout others = new HorizontalLayout(searchBox, logoutButton);
