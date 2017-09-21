@@ -28,15 +28,8 @@ public class UIUtils {
     }
 
     public FlexBody getBody(Component component) {
-        if(component == null) {
-            return null;
-        }
-        
-        if(component instanceof FlexBody) {
-            return (FlexBody) component;
-        }
-        
-        return getBody(component.getParent());        
+        FlexMainView mainView = getMainView(component);
+        return mainView.getBody();
     }
 
 

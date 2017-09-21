@@ -24,16 +24,23 @@ public class ServiceLocator {
     public static final String NEWS_AUTHOR_SERVICE = "java:global/flex-app/NewsAuthorService!services.NewsAuthorServiceInterface";
     public static final String FLEX_USER_SERVICE = "java:global/flex-app/FlexUserService!services.FlexUserServiceInterface";
 
-    public ServiceLocator() {
+    private static ServiceLocator INSTANCE;
+
+    private ServiceLocator() {
     }
 
+    public static ServiceLocator getInstance() {
+        if(INSTANCE==null) {
+            INSTANCE = new ServiceLocator();
+        }
+        return INSTANCE;
+    }
     private Object findService(String name) {
         try {
             InitialContext context = new InitialContext();
             Object o = context.lookup(name);
             return o;
         } catch (NamingException ex) {
-            System.out.println("#####Service NOT FOUND " + name);
             throw new ServiceNotFoundException();
         }
     }

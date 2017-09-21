@@ -11,9 +11,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import db.GraphEntity;
-import services.FlexUserServiceInterface;
 import ui.SecuredUI;
-import utils.ServiceLocator;
 
 /**
  *
@@ -28,10 +26,8 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
     private AbstractOrderedLayout infoHeader;
     private AbstractOrderedLayout infoBody;
     private AbstractOrderedLayout infoActions;
-    private final FlexUserServiceInterface userService;
     
     public GraphEntityView(FlexUser user, T entity) {
-        userService = new ServiceLocator().findUserService();
         this.user = user;
         this.item = entity;
         infoHeader = this.createInfoHeader();

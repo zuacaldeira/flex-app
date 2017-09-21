@@ -42,7 +42,7 @@ public class LoginForm extends VerticalLayout {
         initRegisterCheckBox();
         initSaveButton();
         initRegisterOrSave();
-        service = new ServiceLocator().findUserService();
+        service = ServiceLocator.getInstance().findUserService();
         formLayout = new FormLayout();
         formLayout.addComponents(username, password, password2, registerOrSave);
         formLayout.setSizeFull();

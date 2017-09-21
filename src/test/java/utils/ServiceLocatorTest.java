@@ -23,7 +23,7 @@ public class ServiceLocatorTest {
     @Test(expected = ServiceNotFoundException.class)
     public void testFindArticlesService() {
         System.out.println("findArticlesService");
-        ServiceLocator locator = new ServiceLocator();
+        ServiceLocator locator = ServiceLocator.getInstance();
         assertNotNull(locator.findArticlesService());
     }
 
@@ -34,7 +34,7 @@ public class ServiceLocatorTest {
     public void testFindSourcesService() {
         System.out.println("findSourcesService");
         
-        ServiceLocator locator = new ServiceLocator();
+        ServiceLocator locator = ServiceLocator.getInstance();
         assertNotNull(locator.findSourcesService());
     }
 
@@ -44,7 +44,7 @@ public class ServiceLocatorTest {
     @Test(expected = ServiceNotFoundException.class)
     public void testFindAuthorsService() {
         System.out.println("findAuthorsService");
-        ServiceLocator locator = new ServiceLocator();
+        ServiceLocator locator = ServiceLocator.getInstance();
         assertNotNull(locator.findAuthorsService());
     }
 
@@ -54,7 +54,7 @@ public class ServiceLocatorTest {
     @Test(expected = ServiceNotFoundException.class)
     public void testFindUserService() {
         System.out.println("findUserService");
-        ServiceLocator locator = new ServiceLocator();
+        ServiceLocator locator = ServiceLocator.getInstance();
         assertNotNull(locator.findAuthorsService());
     }
     

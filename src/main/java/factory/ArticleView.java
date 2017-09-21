@@ -1,6 +1,5 @@
 package factory;
 
-import factory.GraphEntityView;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;
 import db.FlexUser;
@@ -135,7 +134,7 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     }
     
     private void initSourceInfo() {
-        NewsSource source = new ServiceLocator().findSourcesService().findSourceWithSourceId(getItem().getSourceId());
+        NewsSource source = ServiceLocator.getInstance().findSourcesService().findSourceWithSourceId(getItem().getSourceId());
         if(source != null) {
             logoImage = new Image("");
             if(source.getLogoUrl() != null) {
@@ -164,7 +163,7 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     }
     
     public NewsArticleServiceInterface getService() {
-        return new ServiceLocator().findArticlesService();
+        return ServiceLocator.getInstance().findArticlesService();
     }
 
     @Override

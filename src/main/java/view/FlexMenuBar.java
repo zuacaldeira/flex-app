@@ -9,14 +9,16 @@ import utils.UIUtils;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import data.DataProviderType;
+import java.util.TreeSet;
 import ui.SecuredUI;
+import utils.MyDateUtils;
 import utils.ServiceLocator;
 
 /**
@@ -36,23 +38,11 @@ public class FlexMenuBar extends MenuBar {
 
     private MenuBar.Command command;
     private final FlexUser user;
-    private ServiceLocator locator;
     
     public FlexMenuBar(FlexUser user) {
         this.user = user;
-        locator = new ServiceLocator();
         initMenuBar();
     }
-
-    public ServiceLocator getLocator() {
-        return locator;
-    }
-
-    public void setLocator(ServiceLocator locator) {
-        this.locator = locator;
-    }
-    
-    
     
     private void initMenuBar() {
         setSizeUndefined();
@@ -95,31 +85,31 @@ public class FlexMenuBar extends MenuBar {
     }
         
     protected void updateNewsCategory() {
-        List<String> cats = locator.findSourcesService().findCategories();
+        List<String> cats = ServiceLocator.getInstance().findSourcesService().findCategories();
         cats.forEach(cat -> {
             categories.addItem(getCategoryCaption(cat), command);
         });
     }
 
     protected void updateNewsPublisher() {
-        List<String> names = locator.findSourcesService().findNames();
+        List<String> names = ServiceLocator.getInstance().findSourcesService().findNames();
         names.forEach(name -> {
             publishers.addItem(name, command);
         });
     }
 
     protected void updateNewsLanguages() {
-        List<String> langs = locator.findSourcesService().findLanguages();
+        List<String> langs = ServiceLocator.getInstance().findSourcesService().findLanguages();
         langs.forEach(lang -> {
             languages.addItem(getLanguageCaption(lang), command);
         });
     }
 
     protected void updateNewsCountries() {
-        List<String> locales = locator.findSourcesService().findCountries();
-        Set<String> countryNames = new HashSet<>();
-        locales.forEach(locale -> {
-            countryNames.add(getCountryCaption(locale));
+        List<String> locales = ServiceLocator.getInstance().findSourcesService().findCountries();
+        Set<String> countryNames = new TreeSet<>();
+        locales.forEach(localeString -> {
+            countryNames.add(MyDateUtils.getLocale(localeString).getDisplayCountry());
         });
         countryNames.forEach(name -> {
             countries.addItem(name, command);
@@ -152,6 +142,8 @@ public class FlexMenuBar extends MenuBar {
         FlexBody body = UIUtils.getInstance().getBody(this);
         if(body != null) {
             body.updateData(getDataProviderType(selectedItem), selectedItem.getText());
+        } else {
+            Notification.show("Body Not Found");
         }
     }
     
@@ -198,7 +190,7 @@ public class FlexMenuBar extends MenuBar {
     }
     
     private String getCountryCaption(String localeString) {
-        Locale locale = getLocale(localeString);
+        Locale locale = Locale.forLanguageTag(MyDateUtils.getLanguage(localeString));
         return locale.getCountry() + " - " + locale.getDisplayCountry();
     }
 
@@ -210,16 +202,6 @@ public class FlexMenuBar extends MenuBar {
                     .replace("-", " ");
     }
 
-    private Locale getLocale(String localeString) {
-        String[] parts = localeString.split("_");
-        if(parts.length == 2) {
-            return new Locale(parts[0], parts[1]);
-        }
-       
-        else {
-            return new Locale(parts[0]);
-        }
-    }
     
 }
 

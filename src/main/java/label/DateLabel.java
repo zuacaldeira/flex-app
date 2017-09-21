@@ -7,7 +7,7 @@ package label;
 
 import com.vaadin.ui.Label;
 import java.util.Date;
-import utils.DateUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 /**
  *
@@ -16,7 +16,15 @@ import utils.DateUtils;
 public class DateLabel extends Label {
 
     public DateLabel(Date date) {
-        super(DateUtils.getInstance().formatDate(date));
+        super(toText(date));
     }
     
+    private static String toText(Date date) {
+        if(date != null) {
+            return DateFormatUtils.format(date, "dd MMM yyyy, HH:mm:ss");
+        } 
+        else {
+            return DateFormatUtils.format(new Date(), "dd MMM yyyy, HH:mm:ss");
+        }
+    }
 }
