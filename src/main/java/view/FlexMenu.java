@@ -11,6 +11,7 @@ import com.vaadin.server.Page;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.Notification;
 import db.FlexUser;
 import org.vaadin.addons.searchbox.SearchBox;
@@ -25,6 +26,7 @@ public class FlexMenu extends HorizontalLayout {
 
     private final FlexUser user;
     
+    private Image logo;
     private final FlexMenuBar menuBar;
     private final LogoutButton logoutButton;
     private final SearchBox searchBox;
@@ -32,6 +34,7 @@ public class FlexMenu extends HorizontalLayout {
     public FlexMenu(FlexUser user) {
         this.user = user;
         this.menuBar = new FlexMenuBar(user);
+        //logo = new Image("", new ThemeResource(""))
                 
         logoutButton = new LogoutButton();
         logoutButton.addUsername(user.getUsername());

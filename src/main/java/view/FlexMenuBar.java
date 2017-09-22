@@ -12,11 +12,9 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import data.DataProviderType;
-import java.util.TreeSet;
 import ui.SecuredUI;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
@@ -85,40 +83,50 @@ public class FlexMenuBar extends MenuBar {
     }
         
     protected void updateNewsCategory() {
-        List<String> cats = ServiceLocator.getInstance().findSourcesService().findCategories();
+        Set<String> cats = ServiceLocator.getInstance().findSourcesService().findCategories();
         cats.forEach(cat -> {
             categories.addItem(getCategoryCaption(cat), command);
         });
     }
 
     protected void updateNewsPublisher() {
-        List<String> names = ServiceLocator.getInstance().findSourcesService().findNames();
+        Set<String> names = ServiceLocator.getInstance().findSourcesService().findNames();
         names.forEach(name -> {
             publishers.addItem(name, command);
         });
     }
 
     protected void updateNewsLanguages() {
-        List<String> langs = ServiceLocator.getInstance().findSourcesService().findLanguages();
-        langs.forEach(lang -> {
-            languages.addItem(getLanguageCaption(lang), command);
-        });
+        Set<String> locales = ServiceLocator.getInstance().findSourcesService().findLocales();
+        if(locales != null) {
+            locales.forEach(localeString -> {
+                if(localeString != null) {
+                    Locale locale = MyDateUtils.getLocale(localeString);
+                    if(locale != null) {
+                        languages.addItem(locale.getDisplayLanguage(), command);
+                    }
+                }
+            });
+        }
+        
     }
 
     protected void updateNewsCountries() {
-        List<String> locales = ServiceLocator.getInstance().findSourcesService().findCountries();
-        Set<String> countryNames = new TreeSet<>();
+        Set<String> locales = ServiceLocator.getInstance().findSourcesService().findLocales();
         locales.forEach(localeString -> {
-            countryNames.add(MyDateUtils.getLocale(localeString).getDisplayCountry());
-        });
-        countryNames.forEach(name -> {
-            countries.addItem(name, command);
+            if(localeString != null) {
+                Locale locale = MyDateUtils.getLocale(localeString);
+                if(locale != null) {
+                    countries.addItem(locale.getDisplayCountry(), command);
+                }
+            }
         });
     }
     
     private void updateViews() {
-        views.addItem("Overview", command);
-        views.addItem("Master Detail", command);
+        views.addItem("Full", command);
+        views.addItem("Images Only", command);
+        views.addItem("Titles Only", command);
     }
 
 
@@ -175,11 +183,14 @@ public class FlexMenuBar extends MenuBar {
         else if(selectedItem.getText().equals("Fake")) {
             return DataProviderType.FAKE;
         }
-        else if(selectedItem.getText().equals("Overview")) {
-            return DataProviderType.OVERVIEW;
+        else if(selectedItem.getText().equals("Full")) {
+            return DataProviderType.FULL;
         }
-        else if(selectedItem.getText().equals("Master Detail")) {
-            return DataProviderType.MASTER_DETAIL;
+        else if(selectedItem.getText().equals("Images Only")) {
+            return DataProviderType.IMAGES_ONLY;
+        }
+        else if(selectedItem.getText().equals("Titles Only")) {
+            return DataProviderType.TITLES_ONLY;
         }
         return null;
     }

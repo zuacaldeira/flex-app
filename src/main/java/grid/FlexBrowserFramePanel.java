@@ -5,15 +5,18 @@
  */
 package grid;
 
+import com.vaadin.ui.BrowserFrame;
+import panel.FlexPanel;
+
 /**
  *
  * @author zua
  */
-public class ArticleSummaries extends SummariesLayout {
+public class FlexBrowserFramePanel extends FlexPanel {
 
-    public ArticleSummaries(int columns) {
-        super(columns);
-        //setCaption("Latest News");
+    public FlexBrowserFramePanel(String caption, BrowserFrame component) {
+        super(caption, component);
     }
+    
     
 }

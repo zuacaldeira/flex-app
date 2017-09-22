@@ -96,40 +96,31 @@ public class FlexBody extends FlexPanel {
             bodyWorker.interrupt();
         }
 
-        if (type == DataProviderType.OVERVIEW) {
-            toOverview();
-        } else if (type == DataProviderType.MASTER_DETAIL) {
-            toMasterDetail();
-        } else {
-
-            /* Update body with views for new items */
-            bodyWorker = new Thread(() -> {
-                Collection<NewsArticle> nodes = loadNodes(type, value);
-                cleanUp();
-                int i = 0;
-                try {
-                    for (GraphEntity item : nodes) {
-                        if (getUI() != null && getUI().isAttached()) {
-                            getUI().access(() -> {
-                                addItemView(item);
-                            });
-                        }
-                        if (i % 10 == 0) {
-                            Thread.sleep(1000);
-                        }
-                        i++;
+        /* Update body with views for new items */
+        bodyWorker = new Thread(() -> {
+            Collection<NewsArticle> nodes = loadNodes(type, value);
+            cleanUp();
+            int i = 0;
+            try {
+                for (GraphEntity item : nodes) {
+                    if (getUI() != null && getUI().isAttached()) {
+                        getUI().access(() -> {
+                            addItemView(item);
+                        });
                     }
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(FlexBody.class.getName()).log(Level.SEVERE, null, ex);
+                    if (i % 10 == 0) {
+                        Thread.sleep(1000);
+                    }
+                    i++;
                 }
-            });
-            
-            bodyWorker.start();
-        }
+            } catch (InterruptedException ex) {
+                Logger.getLogger(FlexBody.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        bodyWorker.start();
         System.out.println("FlexBodyThread#run(): DONE");
     }
-
-    
 
     private String getLanguageDBCaption(String displayLanguage) {
         String[] parts = displayLanguage.split("-");
@@ -168,14 +159,6 @@ public class FlexBody extends FlexPanel {
     private void initMasterDetail() {
         masterDetailView = new MasterDetailView();
         masterDetailView.setWidth("100%");
-    }
-
-    private void toOverview() {
-        masterDetailView.getBrowserFrame().setVisible(false);
-    }
-
-    private void toMasterDetail() {
-        masterDetailView.getBrowserFrame().setVisible(true);
     }
 
     private void cleanUp() {

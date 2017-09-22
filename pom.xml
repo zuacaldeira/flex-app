@@ -33,10 +33,10 @@
             <id>vaadin-snapshots</id>
             <url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
             <releases>
-                    <enabled>false</enabled>
+                <enabled>false</enabled>
             </releases>
             <snapshots>
-                    <enabled>true</enabled>
+                <enabled>true</enabled>
             </snapshots>
         </repository>
     </repositories>
@@ -77,9 +77,9 @@
             <artifactId>vaadin-themes</artifactId>
         </dependency>
         <dependency>
-           <groupId>org.vaadin.addons</groupId>
-           <artifactId>searchbox</artifactId>
-           <version>0.1.1</version>
+            <groupId>org.vaadin.addons</groupId>
+            <artifactId>searchbox</artifactId>
+            <version>0.1.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
         <!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
@@ -120,7 +120,11 @@
             <version>1.10.0</version>
             <scope>test</scope>
         </dependency>
-        
+        <dependency>
+            <groupId>com.neovisionaries</groupId>
+            <artifactId>nv-i18n</artifactId>
+            <version>1.22</version>
+        </dependency>        
         <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-util -->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>

@@ -26,7 +26,7 @@ public class FlexPanel extends Panel {
     }
 
     private void configure() {
-        setStyleName(ValoTheme.PANEL_BORDERLESS);
+        setStyleName(ValoTheme.PANEL_BORDERLESS + " " + "flex-panel");
         setSizeFull();
     }
     

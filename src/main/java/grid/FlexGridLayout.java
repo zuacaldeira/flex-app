@@ -5,6 +5,7 @@
  */
 package grid;
 
+import com.vaadin.ui.Alignment;
 import factory.GraphEntityView;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
@@ -25,13 +26,16 @@ public class FlexGridLayout<T extends GraphEntityView> extends HorizontalLayout 
         columns = c;
         for(int i = 0 ; i <  c; i++) {
             VerticalLayout v = new VerticalLayout();
-            v.setMargin(true);
+            v.setMargin(false);
             v.setSpacing(true);
+            v.setSizeFull();
+            v.setHeightUndefined();
             super.addComponent(v);
+            super.setComponentAlignment(v, Alignment.TOP_CENTER);
         }
-        super.setSizeUndefined();
+        super.setWidth("100%");
         super.setHeightUndefined();
-        super.setSpacing(false);
+        super.setSpacing(true);
         super.setMargin(false);
     }
     

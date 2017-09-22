@@ -10,49 +10,52 @@ import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalSplitPanel;
-import com.vaadin.ui.VerticalLayout;
+import panel.FlexPanel;
 
 /**
  *
  * @author zua
  * @param <T>
  */
-public class MasterDetailView<T extends GraphEntityView> extends HorizontalSplitPanel  {
-    private VerticalLayout base;
-    private SummariesLayout<T> summaries;
-    private BrowserFrame browserFrame;
+public class MasterDetailView<T extends GraphEntityView> extends FlexPanel  {
+
+    private HorizontalSplitPanel horizontalSplitPanel;
+    private FlexBrowserFramePanel browserFramePanel;
+    private SummariesLayoutPanel<T> summariesPanel;
     private T selected;
     private Object myData;
+    private BrowserFrame browserFrame;
 
     public MasterDetailView() {
-        initSummaries();
-        initBrowserFrame();
+        horizontalSplitPanel = new HorizontalSplitPanel();
+        horizontalSplitPanel.setSizeFull();
+        horizontalSplitPanel.setSplitPosition(25f);
         selected = null;
         myData = null;
         super.setStyleName("items");
-        super.setFirstComponent(base);
-        super.setSecondComponent(browserFrame);
         super.setSizeFull();
-        setSplitPosition(25f);
+        initSummaries(1);
+        initBrowserFrame();
+        horizontalSplitPanel.setFirstComponent(summariesPanel);
+        horizontalSplitPanel.setSecondComponent(browserFramePanel);
+        setContent(horizontalSplitPanel);
     }
     
-    private void initSummaries() {
-        summaries = new SummariesLayout<T>(1);
-        summaries.setSizeFull();
-        base = new VerticalLayout(summaries);
-        base.setSizeFull();
-        base.setHeightUndefined();
-        base.setMargin(false);
+    private void initSummaries(int c) {
+        summariesPanel = new SummariesLayoutPanel<T>(c);
+        summariesPanel.setSizeFull();
     }
     
     private void initBrowserFrame() {
         browserFrame = new BrowserFrame();
         browserFrame.setSizeFull();
+        browserFrame.setCaption("You are reading...");
+        browserFramePanel = new FlexBrowserFramePanel(null, browserFrame);
     }
 
 
-    public SummariesLayout<T> getSummaries() {
-        return summaries;
+    public SummariesLayoutPanel<T> getSummaries() {
+        return summariesPanel;
     }
 
     public BrowserFrame getBrowserFrame() {
@@ -79,9 +82,8 @@ public class MasterDetailView<T extends GraphEntityView> extends HorizontalSplit
         }
     }
     
-    @Override
     public void addComponent(Component component) {
-        summaries.addItemView(component);
+        summariesPanel.addItemView(component);
         if(selected == null) {
             updateSelected((T) component);
         }
@@ -89,5 +91,5 @@ public class MasterDetailView<T extends GraphEntityView> extends HorizontalSplit
             updateSelected((T)component);
         });
     }
-    
+
 }
