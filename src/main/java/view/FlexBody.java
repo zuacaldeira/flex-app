@@ -14,9 +14,11 @@ import db.FlexUser;
 import db.GraphEntity;
 import db.NewsArticle;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import panel.FlexPanel;
+import utils.MyDateUtils;
 import utils.ServiceLocator;
 
 /**
@@ -58,13 +60,13 @@ public class FlexBody extends FlexPanel {
         } else if (dataProviderType == DataProviderType.CATEGORY && value != null) {
             return ServiceLocator.getInstance().findArticlesService().findArticlesWithCategory(user.getUsername(), getCategoryDBCaption(value));
         } else if (dataProviderType == DataProviderType.PUBLISHER && value != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithSource(user.getUsername(), value);
+            return ServiceLocator.getInstance().findArticlesService().findArticlesWithSource(user.getUsername(), getSourceIdForSourceName(value));
         } else if (dataProviderType == DataProviderType.LANGUAGES && value != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithLanguage(user.getUsername(), getLanguageDBCaption(value));
+            return ServiceLocator.getInstance().findArticlesService().findArticlesWithLanguage(user.getUsername(), MyDateUtils.getLanguageCode(value));
         } else if (dataProviderType == DataProviderType.COUNTRIES && value != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithCountry(user.getUsername(), getCountryDBCaption(value));
+            return ServiceLocator.getInstance().findArticlesService().findArticlesWithCountry(user.getUsername(), MyDateUtils.getCountryCode(value));
         } else if (dataProviderType == DataProviderType.SEARCH && value != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithText(user.getUsername(), value);
+            return ServiceLocator.getInstance().findArticlesService().findArticlesWithText(value);
         }
         return ServiceLocator.getInstance().findArticlesService().findLatest(user.getUsername());
     }
@@ -122,14 +124,14 @@ public class FlexBody extends FlexPanel {
         System.out.println("FlexBodyThread#run(): DONE");
     }
 
-    private String getLanguageDBCaption(String displayLanguage) {
-        String[] parts = displayLanguage.split("-");
-        return parts[0].trim();
-    }
-
     private String getCountryDBCaption(String displayCountry) {
-        String[] parts = displayCountry.split("-");
-        return parts[0].trim();
+        for(Locale l: Locale.getAvailableLocales()) {
+            if(l.getDisplayCountry().equalsIgnoreCase(displayCountry)) {
+                System.out.println("Found Locale with country " + l.getDisplayCountry());
+                return l.getCountry();
+            }
+        }
+        throw new IllegalArgumentException("Unknown country " + displayCountry);
     }
 
     private String getCategoryDBCaption(String cat) {
@@ -164,6 +166,10 @@ public class FlexBody extends FlexPanel {
     private void cleanUp() {
         initMasterDetail();
         setContent(masterDetailView);
+    }
+
+    private String getSourceIdForSourceName(String value) {
+        return ServiceLocator.getInstance().findSourcesService().findSourceNamed(value).getSourceId();
     }
 
 }

@@ -3,8 +3,8 @@ $v-app-loading-text: "Nzinga";
 // Global variable overrides. Must be declared before importing Valo.
 $color-main: silver;
 $color-menu: black;
-$color-menu-alt: black;
-$color-menu-text: darkgray;
+$color-menu-alt: gray;
+$color-menu-text: white;
 $color-alt: red;
 $color-selected: green;
 $color-unselected: gainsboro;
@@ -12,16 +12,16 @@ $color-unselected: gainsboro;
 // Defines the plaintext font size, weight and family. Font size affects general component sizing.
 $v-font-size: 12px;
 //$v-font-weight: 300;
-$v-font-family: "Open Sans", sans-serif;
+//$v-font-family: "Open Sans", sans-serif;
 
 // Defines the border used by all components.
 //$v-border: 1px solid (v-shade 0.7);
 //$v-border-radius: 10px;
 
 // Affects the color of some component elements, e.g Button, Panel title, etc
-//$v-background-color: hsl(0, 0%, 0%);
+$v-background-color: $color-menu;
 // Affects the color of content areas, e.g  Panel and Window content, TextField input etc
-//$v-app-background-color: hsl(50, 50%, 50%);
+$v-app-background-color: $color-menu-text;
 
 // Affects the visual appearance of all components
 //$v-gradient: v-linear 8%;
@@ -42,13 +42,13 @@ $v-shadow-opacity: 5%;
 @mixin mytheme {
     @include valo;
 
-    
+
     // Insert your own theme rules here
     .v-ui {
         //background: transparent;
         //font-family: monospace;
     }
-    
+
     .v-button {
         border: thin;
         background: transparent;
@@ -63,7 +63,7 @@ $v-shadow-opacity: 5%;
     .flex-view {
         background: transparent;
     }
-    
+
     .flex-window {
         @include linear-gradient(to bottom right, gray, $color-selected);
     }
@@ -71,30 +71,23 @@ $v-shadow-opacity: 5%;
     .login-view {
         @include linear-gradient(to bottom right, gray, $color-selected);
     }
-    
-    
+
+
     .flex-view {
     }
 
-  
-    
     .flex-menu {
         @include linear-gradient(to  right, $color-menu, $color-menu-alt);
         box-shadow: 0px 4px $color-unselected;
         color: $color-alt;
     }
-    
+
     .flex-body{
         @include linear-gradient(to  right, $color-menu, $color-menu-alt);
         box-shadow: 0px 4px 4px $color-selected;
         color: $color-alt;
     }
 
-    .wall {
-        background: white;
-        box-shadow: 0px 8px #b525f8;
-    }
-    
     .flex-menu-bar {
         .v-menubar-menuitem {
             color: white;
@@ -109,6 +102,7 @@ $v-shadow-opacity: 5%;
     }
 
     .items {
+        //$v-font-family: "JF Flat","Open Sans", sans-serif;        
         .item {
             background: $color-unselected;
             .title {
@@ -125,7 +119,7 @@ $v-shadow-opacity: 5%;
         }
     }
 
-    
+
     .yellow {
         color: yellow;
     }
@@ -143,7 +137,7 @@ $v-shadow-opacity: 5%;
         background: #00ace0;
         opacity: 1;
     }
-    
+
     .category-technology {
         background: #46b33a;
         opacity: 1;
@@ -168,7 +162,7 @@ $v-shadow-opacity: 5%;
         background: pink;
         opacity: 1;
     }
-    
+
     .category-music {
         background: purple;
         opacity: 1;
@@ -187,10 +181,10 @@ $v-shadow-opacity: 5%;
     .on {
         background: orangered;   
     }
-    
+
     // Geometric forms
     .circle{
         border-radius: 50%;
     }
-    
+
 }

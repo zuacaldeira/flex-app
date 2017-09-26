@@ -15,6 +15,8 @@ import db.FlexUser;
 import java.util.Locale;
 import java.util.Set;
 import data.DataProviderType;
+import java.util.Collection;
+import java.util.TreeSet;
 import ui.SecuredUI;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
@@ -83,43 +85,44 @@ public class FlexMenuBar extends MenuBar {
     }
         
     protected void updateNewsCategory() {
-        Set<String> cats = ServiceLocator.getInstance().findSourcesService().findCategories();
+        Collection<String> cats = ServiceLocator.getInstance().findSourcesService().findCategories();
         cats.forEach(cat -> {
             categories.addItem(getCategoryCaption(cat), command);
         });
     }
 
     protected void updateNewsPublisher() {
-        Set<String> names = ServiceLocator.getInstance().findSourcesService().findNames();
+        Collection<String> names = ServiceLocator.getInstance().findSourcesService().findNames();
         names.forEach(name -> {
             publishers.addItem(name, command);
         });
     }
 
     protected void updateNewsLanguages() {
-        Set<String> locales = ServiceLocator.getInstance().findSourcesService().findLocales();
-        if(locales != null) {
-            locales.forEach(localeString -> {
-                if(localeString != null) {
-                    Locale locale = MyDateUtils.getLocale(localeString);
-                    if(locale != null) {
-                        languages.addItem(locale.getDisplayLanguage(), command);
-                    }
-                }
-            });
-        }
+        Set<String> result = new TreeSet<>();
+
+        Collection<String> locales = ServiceLocator.getInstance().findSourcesService().findLocales();        
+        locales.forEach(localeString -> {
+            if(localeString != null && !localeString.isEmpty()) {
+                result.add(MyDateUtils.getLanguageNameFromPattern(localeString));
+            }
+        });
         
+        result.forEach(lang -> {
+            languages.addItem(lang, command);
+        });
     }
 
     protected void updateNewsCountries() {
-        Set<String> locales = ServiceLocator.getInstance().findSourcesService().findLocales();
+        Set<String> result = new TreeSet<>();
+
+        Collection<String> locales = ServiceLocator.getInstance().findSourcesService().findLocales();
         locales.forEach(localeString -> {
-            if(localeString != null) {
-                Locale locale = MyDateUtils.getLocale(localeString);
-                if(locale != null) {
-                    countries.addItem(locale.getDisplayCountry(), command);
-                }
-            }
+            result.add(MyDateUtils.getCountryNameFromPattern(localeString));
+        });
+        
+        result.forEach(country -> {
+            countries.addItem(country, command);
         });
     }
     
@@ -201,7 +204,7 @@ public class FlexMenuBar extends MenuBar {
     }
     
     private String getCountryCaption(String localeString) {
-        Locale locale = Locale.forLanguageTag(MyDateUtils.getLanguage(localeString));
+        Locale locale = Locale.forLanguageTag(MyDateUtils.extractLanguage(localeString));
         return locale.getCountry() + " - " + locale.getDisplayCountry();
     }
 

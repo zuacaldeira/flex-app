@@ -58,11 +58,11 @@ public class LoginForm extends VerticalLayout {
     }
 
     private boolean existsUserNamed(String username) {
-        return service.find(new FlexUser(username, null)) != null;
+        return service.findUserNamed(username) != null;
     }
 
     private void saveToLogin(String user, String pass) {
-        FlexUser dbUser = service.login(new FlexUser(user, pass));
+        FlexUser dbUser = service.login(user, pass);
         if(dbUser != null) {
             getSession().setAttribute("user", dbUser);
             ((Window)getParent()).close();
@@ -72,7 +72,7 @@ public class LoginForm extends VerticalLayout {
 
     private FlexUser registerNewUser(String username, String password) {
         if(this.password.getValue().equals(password2.getValue())) {
-            return service.register(new FlexUser(username, password));
+            return service.register(username, password);
         }
         else {
             password2.clear();
