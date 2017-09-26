@@ -29,7 +29,7 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     
     private AbstractOrderedLayout authors;
     private Label sourceNameLabel;
-    private static final String HEADER_HEIGHT = "32px";
+    private static final String HEADER_HEIGHT = "36px";
 
     public ArticleView(FlexUser user, NewsArticle article) {
         super(user, article);
