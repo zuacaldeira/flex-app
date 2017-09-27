@@ -1,13 +1,6 @@
 // If you edit this file you need to compile the theme. See README.md for details.
 $v-app-loading-text: "Nzinga";
 // Global variable overrides. Must be declared before importing Valo.
-$color-main: silver;
-$color-menu: black;
-$color-menu-alt: gray;
-$color-menu-text: white;
-$color-alt: red;
-$color-selected: green;
-$color-unselected: gainsboro;
 
 // Defines the plaintext font size, weight and family. Font size affects general component sizing.
 $v-font-size: 12px;
@@ -19,9 +12,9 @@ $v-font-size: 12px;
 //$v-border-radius: 10px;
 
 // Affects the color of some component elements, e.g Button, Panel title, etc
-$v-background-color: $color-menu;
+$v-background-color: black;
 // Affects the color of content areas, e.g  Panel and Window content, TextField input etc
-$v-app-background-color: $color-menu-text;
+$v-app-background-color: white;
 
 // Affects the visual appearance of all components
 //$v-gradient: v-linear 8%;
@@ -35,6 +28,13 @@ $v-shadow-opacity: 5%;
 
 // For more information, see: https://vaadin.com/book/-/page/themes.valo.html
 // Example variants can be copy/pasted from https://vaadin.com/wiki/-/wiki/Main/Valo+Examples
+$color-main: silver;
+$color-menu: black;
+$color-menu-alt: gray;
+$color-menu-text: white;
+$color-alt: red;
+$color-selected: green;
+$color-unselected: gainsboro;
 
 
 @import "../valo/valo.scss";
@@ -97,7 +97,7 @@ $v-shadow-opacity: 5%;
         .v-menubar-menuitem-selected {
         }    
         .v-menu-bar-submenu {
-            color: red;
+            //color: red;
         }
     }
 
@@ -123,9 +123,11 @@ $v-shadow-opacity: 5%;
     .yellow {
         color: yellow;
     }
+    
     .red {
         color: red;
     }
+    
     .green {
         color: green;
     }
@@ -133,50 +135,6 @@ $v-shadow-opacity: 5%;
         color: purple;
     }
 
-    .category-general {
-        background: #00ace0;
-        opacity: 1;
-    }
-
-    .category-technology {
-        background: #46b33a;
-        opacity: 1;
-    }
-
-    .category-sport {
-        background: azure;
-        opacity: 1;
-    }
-
-    .category-business {
-        background: gold;
-        opacity: 1;
-    }
-
-    .category-politics {
-        background: greenyellow;
-        opacity: 1;
-    }
-
-    .category-entertainment {
-        background: pink;
-        opacity: 1;
-    }
-
-    .category-music {
-        background: purple;
-        opacity: 1;
-    }
-
-    .category-science-and-nature{
-        background: yellow;
-        opacity: 1;
-    }
-
-    .category-gaming{
-        background: yellowgreen;
-        opacity: 1;
-    }
 
     .on {
         background: orangered;   
