@@ -62,6 +62,13 @@ public class FlexMenuBar extends MenuBar {
     
     private void initMenuNews() {
         news = addItem("NEWS", null);
+        updateNewsByTime();
+        
+        news.addSeparator();
+        updateNewsByStatus();
+        
+        news.addSeparator();
+        updateViews();
 
         publishers = addItem("PUBLISHERS", null, null);
         updateNewsPublisher();
@@ -69,19 +76,11 @@ public class FlexMenuBar extends MenuBar {
         categories = addItem("CATEGORIES", null, null);
         updateNewsCategory();
 
-        status = addItem("STATUS", null, null);
-        updateNewsByStatus();
-        
         languages = addItem("LANGUAGES", null, null);
         updateNewsLanguages();
 
         countries = addItem("COUNTRIES", null, null);
         updateNewsCountries();
-
-        views = addItem("VIEWS", null, null);
-        updateViews();
-
-        updateNewsByTime();
     }
         
     protected void updateNewsCategory() {
@@ -127,9 +126,9 @@ public class FlexMenuBar extends MenuBar {
     }
     
     private void updateViews() {
-        views.addItem("Full", command);
-        views.addItem("Images Only", command);
-        views.addItem("Titles Only", command);
+        news.addItem("Full", command);
+        news.addItem("Images Only", command);
+        news.addItem("Titles Only", command);
     }
 
 
@@ -139,9 +138,9 @@ public class FlexMenuBar extends MenuBar {
     }
     
     private void updateNewsByStatus() {
-        status.addItem("Read", VaadinIcons.EYE_SLASH, command);
-        status.addItem("Favorite", VaadinIcons.STAR, command);
-        status.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, command);
+        news.addItem("Read", VaadinIcons.EYE_SLASH, command);
+        news.addItem("Favorite", VaadinIcons.STAR, command);
+        news.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, command);
     }
 
     @Override
@@ -198,7 +197,7 @@ public class FlexMenuBar extends MenuBar {
         return null;
     }
 
-    private String getLanguageCaption(String lang) {
+/*    private String getLanguageCaption(String lang) {
         Locale locale = Locale.forLanguageTag(lang);
         return lang + " - " + locale.getDisplayLanguage();
     }
@@ -207,7 +206,7 @@ public class FlexMenuBar extends MenuBar {
         Locale locale = Locale.forLanguageTag(MyDateUtils.extractLanguage(localeString));
         return locale.getCountry() + " - " + locale.getDisplayCountry();
     }
-
+*/
     private String getCategoryCaption(String cat) {
         char c = cat.charAt(0);
         return cat.replaceFirst(
