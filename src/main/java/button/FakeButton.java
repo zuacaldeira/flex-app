@@ -11,11 +11,10 @@ import com.vaadin.icons.VaadinIcons;
  *
  * @author zua
  */
-public class FakeButton extends FlexButton {
+public class FakeButton extends FlexActionButton {
 
     public FakeButton() {
-        super(VaadinIcons.EXCLAMATION_CIRCLE);
-        setDescription("Fake");
+        super(FlexCaptions.FAKE, VaadinIcons.EXCLAMATION_CIRCLE);
     }
     
 }

@@ -11,11 +11,10 @@ import com.vaadin.icons.VaadinIcons;
  *
  * @author zua
  */
-public class HideButton extends FlexButton {
+public class HideButton extends FlexActionButton {
 
     public HideButton() {
-        super(VaadinIcons.EYE_SLASH);
-        setDescription("Hide / Mark as Read");
+        super(FlexCaptions.HIDE, VaadinIcons.EYE_SLASH);
     }
-    
+
 }

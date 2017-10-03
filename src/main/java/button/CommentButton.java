@@ -11,11 +11,10 @@ import com.vaadin.icons.VaadinIcons;
  *
  * @author zua
  */
-public class CommentButton extends FlexButton {
+public class CommentButton extends FlexActionButton {
 
     public CommentButton() {
-        super(VaadinIcons.COMMENT);
-        setDescription("Comment");
+        super("Comment", VaadinIcons.COMMENT);
     }
     
 }

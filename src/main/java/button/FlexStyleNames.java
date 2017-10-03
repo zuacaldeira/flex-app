@@ -5,16 +5,13 @@
  */
 package button;
 
-import com.vaadin.icons.VaadinIcons;
-
 /**
  *
  * @author zua
  */
-public class EditButton extends FlexActionButton {
+public class FlexStyleNames {
 
-    public EditButton() {
-        super(FlexCaptions.EDIT, VaadinIcons.EDIT);
-    }
+    public static final String FLEX_BUTTON = "flex-button";
+    public static final String FLEX_ACTION = "flex-action";
     
 }

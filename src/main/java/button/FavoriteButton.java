@@ -11,11 +11,10 @@ import com.vaadin.icons.VaadinIcons;
  *
  * @author zua
  */
-public class FavoriteButton extends FlexButton {
+public class FavoriteButton extends FlexActionButton {
 
     public FavoriteButton() {
-        super(VaadinIcons.STAR);
-        setDescription("Favorite");
+        super(FlexCaptions.FAVORITE, VaadinIcons.STAR);
     }
-    
+
 }

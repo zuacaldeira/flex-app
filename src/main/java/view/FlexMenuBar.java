@@ -12,7 +12,6 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
-import java.util.Locale;
 import java.util.Set;
 import data.DataProviderType;
 import java.util.Collection;
@@ -197,16 +196,6 @@ public class FlexMenuBar extends MenuBar {
         return null;
     }
 
-/*    private String getLanguageCaption(String lang) {
-        Locale locale = Locale.forLanguageTag(lang);
-        return lang + " - " + locale.getDisplayLanguage();
-    }
-    
-    private String getCountryCaption(String localeString) {
-        Locale locale = Locale.forLanguageTag(MyDateUtils.extractLanguage(localeString));
-        return locale.getCountry() + " - " + locale.getDisplayCountry();
-    }
-*/
     private String getCategoryCaption(String cat) {
         char c = cat.charAt(0);
         return cat.replaceFirst(

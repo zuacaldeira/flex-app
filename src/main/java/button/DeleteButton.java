@@ -6,6 +6,7 @@
 package button;
 
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.ui.themes.ValoTheme;
 
 /**
  *
@@ -14,8 +15,8 @@ import com.vaadin.icons.VaadinIcons;
 public class DeleteButton extends FlexButton {
 
     public DeleteButton() {
-        super(VaadinIcons.TRASH);
-        setDescription("Delete");
+        super(FlexCaptions.DELETE, VaadinIcons.TRASH);
+        addStyleName(ValoTheme.BUTTON_DANGER);
     }
-    
+
 }

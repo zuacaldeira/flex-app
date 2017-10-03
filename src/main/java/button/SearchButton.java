@@ -6,7 +6,6 @@
 package button;
 
 import com.vaadin.icons.VaadinIcons;
-import button.FlexButton;
 
 /**
  *
@@ -15,7 +14,7 @@ import button.FlexButton;
 public class SearchButton extends FlexButton {
 
     public SearchButton() {
-        super(VaadinIcons.SEARCH);
+        super(FlexCaptions.SEARCH, VaadinIcons.SEARCH);
     }
-    
+
 }

@@ -6,15 +6,19 @@
 package button;
 
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.ui.themes.ValoTheme;
 
 /**
+ * The Cancel Button is a user interaction element that stops the current user
+ * interaction.
  *
  * @author zua
  */
 public class CancelButton extends FlexButton {
 
     public CancelButton() {
-           super("Cancel", VaadinIcons.TIME_BACKWARD);
+        super("Cancel", VaadinIcons.CLOSE);
+        addStyleName(ValoTheme.BUTTON_DANGER);
     }
-    
+
 }

@@ -14,7 +14,7 @@ import com.vaadin.icons.VaadinIcons;
 public class LogoutButton extends FlexButton {
 
     public LogoutButton() {
-        super(null, VaadinIcons.USER);
+        super("Logout", VaadinIcons.USER);
         super.setSizeUndefined();
     }
     
