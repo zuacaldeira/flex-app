@@ -3,7 +3,7 @@ $v-app-loading-text: "Nzinga";
 // Global variable overrides. Must be declared before importing Valo.
 
 // Defines the plaintext font size, weight and family. Font size affects general component sizing.
-$v-font-size: 12px;
+//$v-font-size: 12px;
 //$v-font-weight: 300;
 //$v-font-family: "Open Sans", sans-serif;
 
@@ -12,14 +12,14 @@ $v-font-size: 12px;
 //$v-border-radius: 10px;
 
 // Affects the color of some component elements, e.g Button, Panel title, etc
-$v-background-color: black;
+//$v-background-color: black;
 // Affects the color of content areas, e.g  Panel and Window content, TextField input etc
-$v-app-background-color: white;
+//$v-app-background-color: pink;
 
 // Affects the visual appearance of all components
 //$v-gradient: v-linear 8%;
 //$v-bevel-depth: 30%;
-$v-shadow-opacity: 5%;
+//$v-shadow-opacity: 5%;
 
 // Defines colors for indicating status (focus, success, failure)
 //$v-focus-color: valo-focus-color(); // Calculates a suitable color automatically
@@ -28,13 +28,13 @@ $v-shadow-opacity: 5%;
 
 // For more information, see: https://vaadin.com/book/-/page/themes.valo.html
 // Example variants can be copy/pasted from https://vaadin.com/wiki/-/wiki/Main/Valo+Examples
-$color-main: silver;
-$color-menu: black;
-$color-menu-alt: gray;
-$color-menu-text: white;
-$color-alt: red;
-$color-selected: green;
-$color-unselected: gainsboro;
+//$color-main: white;
+//$color-menu: black;
+//$color-menu-alt: gray;
+//$color-menu-text: white;
+//$color-alt: yellow;
+//$color-selected: green;
+//$color-unselected: gainsboro;
 
 
 @import "../valo/valo.scss";
@@ -50,8 +50,8 @@ $color-unselected: gainsboro;
     }
 
     .v-button {
-        border: thin;
         background: transparent;
+        border: thin;
         color: white;
     }
 
@@ -65,11 +65,11 @@ $color-unselected: gainsboro;
     }
 
     .flex-window {
-        @include linear-gradient(to bottom right, gray, $color-selected);
+        @include linear-gradient(to bottom right, gray, yellow);
     }
 
     .login-view {
-        @include linear-gradient(to bottom right, gray, $color-selected);
+        @include linear-gradient(to bottom right, gray, yellow);
     }
 
 
@@ -77,41 +77,43 @@ $color-unselected: gainsboro;
     }
 
     .flex-menu {
-        @include linear-gradient(to  right, $color-menu, $color-menu-alt);
-        box-shadow: 0px 4px $color-unselected;
-        color: $color-alt;
-    }
-
-    .flex-body{
-        @include linear-gradient(to  right, $color-menu, $color-menu-alt);
-        box-shadow: 0px 4px 4px $color-selected;
-        color: $color-alt;
-    }
-
-    .flex-menu-bar {
-        .v-menubar-menuitem {
-            color: white;
-            font-weight: bolder;
-            size: 150%;
-        }    
-        .v-menubar-menuitem-selected {
-        }    
-        .v-menu-bar-submenu {
-            //color: red;
+        box-shadow: 0 0 0 yellow;
+        background: black;
+        .flex-menu-bar {
+            .v-menubar-menuitem {
+            }    
+            .v-menubar-menuitem:hover {
+                color: blue;
+                font-weight: bolder;
+                size: 110%;
+            }    
+            .v-menubar-menuitem:active {
+                color: yellow;
+                font-weight: bolder;
+            }    
+            .v-menu-bar-submenu {
+                //color: red;
+            }
         }
     }
+
+
+    .flex-body{
+        box-shadow: 0 0 0 yellow;
+    }
+
 
     .items {
         //$v-font-family: "JF Flat","Open Sans", sans-serif;        
         .item {
-            background: $color-unselected;
+            background: gray;
             .title {
                 font-weight: bold;
             }
         }
 
         .item-selected {
-            @include linear-gradient(to bottom right, gray, $color-selected);
+            background: yellowgreen;
             color: white;
             .title {
                 font-weight: bold;
@@ -123,11 +125,11 @@ $color-unselected: gainsboro;
     .yellow {
         color: yellow;
     }
-    
+
     .red {
         color: red;
     }
-    
+
     .green {
         color: green;
     }

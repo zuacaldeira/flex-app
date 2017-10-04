@@ -37,7 +37,7 @@ public class FlexMainView extends AbsoluteLayout {
     private void initMenu() {
         menu = new FlexMenu(user);
         menu.setWidth("100%");
-        menu.setHeight("1cm");
+        menu.setHeight("1.2cm");
     }
 
     private void initBody() {
