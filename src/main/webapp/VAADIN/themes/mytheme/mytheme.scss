@@ -50,9 +50,16 @@ $v-app-loading-text: "Nzinga";
     }
 
     .v-button {
-        background: transparent;
+        background: yellow;
         border: thin;
         color: white;
+    }
+
+    .flex-action {
+        background: yellow;
+        border: thin;
+        color: lavenderblush;
+        border-radius: 50%;
     }
 
     .v-panel-bordeless {
@@ -77,8 +84,9 @@ $v-app-loading-text: "Nzinga";
     }
 
     .flex-menu {
-        box-shadow: 0 0 0 yellow;
         background: black;
+        color: white;
+        
         .flex-menu-bar {
             .v-menubar-menuitem {
             }    
@@ -99,7 +107,6 @@ $v-app-loading-text: "Nzinga";
 
 
     .flex-body{
-        box-shadow: 0 0 0 yellow;
     }
 
 

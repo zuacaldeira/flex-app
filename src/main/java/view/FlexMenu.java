@@ -45,7 +45,7 @@ public class FlexMenu extends HorizontalLayout {
         //logoutButton.addUsername(user.getUsername());
 
         searchBox = new SearchBox("", ButtonPosition.HIDDEN);
-        searchBox.setWidth("10cm");
+        searchBox.setSizeUndefined();
         searchBox.setPlaceholder("Search news...");
         searchBox.addSearchListener(e -> {
             Notification.show(e.getSearchTerm());

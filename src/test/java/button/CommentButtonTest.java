@@ -24,6 +24,7 @@ public class CommentButtonTest {
         assertTrue(button.getStyleName().contains(FlexStyleNames.FLEX_ACTION));
         assertEquals(FlexCaptions.COMMENT, button.getDescription());
         assertNull(button.getCaption());
+        assertTrue(button.getHeight() < 0);
     }
 
 }
