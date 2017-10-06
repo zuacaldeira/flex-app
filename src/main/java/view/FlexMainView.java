@@ -22,7 +22,7 @@ public class FlexMainView extends AbsoluteLayout {
     public FlexMainView(FlexUser user) {
         this.user = user;
         initBody();
-        super.addComponent(body, "top:1cm; bottom:0cm");
+        super.addComponent(body, "top:1.5cm; bottom:1cm");
 
         initFooter();
         super.addComponent(footer, "bottom:0%");
@@ -37,7 +37,7 @@ public class FlexMainView extends AbsoluteLayout {
     private void initMenu() {
         menu = new FlexMenu(user);
         menu.setWidth("100%");
-        menu.setHeight("1.2cm");
+        footer.setHeight(1.5f, Unit.CM);
     }
 
     private void initBody() {
@@ -48,7 +48,7 @@ public class FlexMainView extends AbsoluteLayout {
     private void initFooter() {
         footer = new FlexFooter(user);
         footer.setWidth("100%");
-        footer.setHeight("1cm");
+        footer.setHeight(1f, Unit.CM);
     }
     
     

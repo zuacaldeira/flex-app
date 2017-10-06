@@ -44,13 +44,14 @@ public class FlexMenu extends HorizontalLayout {
         });
         //logoutButton.addUsername(user.getUsername());
 
-        searchBox = new SearchBox("", ButtonPosition.HIDDEN);
+        searchBox = new SearchBox("", ButtonPosition.LEFT);
         searchBox.setSizeUndefined();
         searchBox.setPlaceholder("Search news...");
         searchBox.addSearchListener(e -> {
             Notification.show(e.getSearchTerm());
             UIUtils.getInstance().getBody(this).updateData(DataProviderType.SEARCH, e.getSearchTerm());
         });
+        searchBox.setStyleName("search-box");
         
         HorizontalLayout others = new HorizontalLayout(searchBox, logoutButton);
         others.setSizeUndefined();

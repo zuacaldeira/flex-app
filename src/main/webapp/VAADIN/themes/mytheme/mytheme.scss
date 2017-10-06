@@ -56,9 +56,10 @@ $v-app-loading-text: "Nzinga";
     }
 
     .flex-action {
-        background: yellow;
+        background: cornflowerblue;
         border: thin;
-        color: lavenderblush;
+        color: white;
+        font-weight: bold;
         border-radius: 50%;
     }
 
@@ -71,17 +72,11 @@ $v-app-loading-text: "Nzinga";
         background: transparent;
     }
 
-    .flex-window {
-        @include linear-gradient(to bottom right, gray, yellow);
+    .login-view .flex-window {
+        @include linear-gradient(to bottom right, gray, coral);
+        color: white;
     }
 
-    .login-view {
-        @include linear-gradient(to bottom right, gray, yellow);
-    }
-
-
-    .flex-view {
-    }
 
     .flex-menu {
         background: black;
