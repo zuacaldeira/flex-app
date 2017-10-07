@@ -11,6 +11,7 @@ import services.NewsAuthorServiceInterface;
 import services.NewsSourceServiceInterface;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import services.NewsSourceService;
 
 /**
  *

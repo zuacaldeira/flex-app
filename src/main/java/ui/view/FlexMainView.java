@@ -3,16 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package ui.view;
 
+import ui.view.body.FlexBody;
 import com.vaadin.ui.AbsoluteLayout;
 import db.FlexUser;
+import ui.view.menu.CanPopulate;
+import view.FlexFooter;
+import ui.view.menu.FlexMenu;
 
 /**
  *
  * @author zua
  */
-public class FlexMainView extends AbsoluteLayout {
+public class FlexMainView extends AbsoluteLayout implements CanPopulate {
     
     private final FlexUser user;
     private FlexMenu menu;
@@ -37,7 +41,7 @@ public class FlexMainView extends AbsoluteLayout {
     private void initMenu() {
         menu = new FlexMenu(user);
         menu.setWidth("100%");
-        footer.setHeight(1.5f, Unit.CM);
+        menu.setHeight("1.5cm");
     }
 
     private void initBody() {
@@ -48,7 +52,7 @@ public class FlexMainView extends AbsoluteLayout {
     private void initFooter() {
         footer = new FlexFooter(user);
         footer.setWidth("100%");
-        footer.setHeight(1f, Unit.CM);
+        footer.setHeight("1cm");
     }
     
     
@@ -80,6 +84,11 @@ public class FlexMainView extends AbsoluteLayout {
 
     public FlexUser getUser() {
         return user;
+    }
+
+    @Override
+    public void populate() {
+        menu.populate();
     }
 
 }

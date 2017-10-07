@@ -6,7 +6,7 @@
 package ui;
 
 import window.FlexWindow;
-import view.FlexMainView;
+import ui.view.FlexMainView;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
@@ -25,6 +25,7 @@ public abstract class SecuredUI extends UI {
         if(getSession() != null && getSession().getAttribute("user") != null) {
             FlexMainView mainView = new FlexMainView((FlexUser)getSession().getAttribute("user"));
             setContent(mainView);
+            mainView.populate();
         }        
         else {
             login();

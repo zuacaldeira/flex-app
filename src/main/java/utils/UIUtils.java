@@ -6,8 +6,8 @@
 package utils;
 
 import com.vaadin.ui.Component;
-import view.FlexBody;
-import view.FlexMainView;
+import ui.view.body.FlexBody;
+import ui.view.FlexMainView;
 
 /**
  *

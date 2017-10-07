@@ -36,7 +36,7 @@ public class FlexButton extends Button {
     
     private void initialize() {
         setSizeUndefined();
-        setStyleName(ValoTheme.BUTTON_BORDERLESS);
+        setStyleName(ValoTheme.BUTTON_BORDERLESS + " " + ValoTheme.BUTTON_SMALL);
         addStyleName("flex-button");
     }
 
