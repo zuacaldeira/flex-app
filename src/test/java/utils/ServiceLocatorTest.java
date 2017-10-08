@@ -13,14 +13,14 @@ import static org.junit.Assert.*;
  * @author zua
  */
 public class ServiceLocatorTest {
-    
+
     public ServiceLocatorTest() {
     }
 
     /**
      * Test of findArticlesService method, of class ServiceLocator.
      */
-    @Test(expected = ServiceNotFoundException.class)
+    @Test
     public void testFindArticlesService() {
         System.out.println("findArticlesService");
         ServiceLocator locator = ServiceLocator.getInstance();
@@ -30,10 +30,10 @@ public class ServiceLocatorTest {
     /**
      * Test of findSourcesService method, of class ServiceLocator.
      */
-    @Test(expected = ServiceNotFoundException.class)
+    @Test
     public void testFindSourcesService() {
         System.out.println("findSourcesService");
-        
+
         ServiceLocator locator = ServiceLocator.getInstance();
         assertNotNull(locator.findSourcesService());
     }
@@ -41,7 +41,7 @@ public class ServiceLocatorTest {
     /**
      * Test of findAuthorsService method, of class ServiceLocator.
      */
-    @Test(expected = ServiceNotFoundException.class)
+    @Test
     public void testFindAuthorsService() {
         System.out.println("findAuthorsService");
         ServiceLocator locator = ServiceLocator.getInstance();
@@ -51,11 +51,11 @@ public class ServiceLocatorTest {
     /**
      * Test of findUserService method, of class ServiceLocator.
      */
-    @Test(expected = ServiceNotFoundException.class)
+    @Test
     public void testFindUserService() {
         System.out.println("findUserService");
         ServiceLocator locator = ServiceLocator.getInstance();
         assertNotNull(locator.findAuthorsService());
     }
-    
+
 }

@@ -11,6 +11,9 @@ import services.NewsAuthorServiceInterface;
 import services.NewsSourceServiceInterface;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import services.FlexUserService;
+import services.NewsArticleService;
+import services.NewsAuthorService;
 import services.NewsSourceService;
 
 /**
@@ -31,35 +34,48 @@ public class ServiceLocator {
     }
 
     public static ServiceLocator getInstance() {
-        if(INSTANCE==null) {
+        if (INSTANCE == null) {
             INSTANCE = new ServiceLocator();
         }
         return INSTANCE;
     }
-    private Object findService(String name) {
-        try {
-            InitialContext context = new InitialContext();
-            Object o = context.lookup(name);
-            return o;
-        } catch (NamingException ex) {
-            throw new ServiceNotFoundException();
-        }
+
+    private Object findService(String name) throws NamingException {
+        InitialContext context = new InitialContext();
+        Object o = context.lookup(name);
+        return o;
     }
 
     public NewsArticleServiceInterface findArticlesService() {
-        return (NewsArticleServiceInterface) findService(NEWS_ARTICLE_SERVICE);
+        try {
+            return (NewsArticleServiceInterface) findService(NEWS_ARTICLE_SERVICE);
+        } catch (NamingException nx) {
+            return new NewsArticleService();
+        }
     }
 
     public NewsSourceServiceInterface findSourcesService() {
-        return (NewsSourceServiceInterface) findService(NEWS_SOURCE_SERVICE);
+        try {
+            return (NewsSourceServiceInterface) findService(NEWS_SOURCE_SERVICE);
+        } catch (NamingException nx) {
+            return new NewsSourceService();
+        }
     }
 
     public NewsAuthorServiceInterface findAuthorsService() {
-        return (NewsAuthorServiceInterface) findService(NEWS_AUTHOR_SERVICE);
+        try {
+            return (NewsAuthorServiceInterface) findService(NEWS_AUTHOR_SERVICE);
+        } catch (NamingException nx) {
+            return new NewsAuthorService();
+        }
     }
 
     public FlexUserServiceInterface findUserService() {
-        return (FlexUserServiceInterface) findService(FLEX_USER_SERVICE);
+        try {
+            return (FlexUserServiceInterface) findService(FLEX_USER_SERVICE);
+        } catch (NamingException nx) {
+            return new FlexUserService();
+        }
     }
 
 }

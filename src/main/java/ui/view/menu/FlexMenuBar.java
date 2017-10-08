@@ -8,6 +8,7 @@ package ui.view.menu;
 import ui.view.body.FlexBody;
 import utils.UIUtils;
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.server.Page;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Notification;
@@ -17,6 +18,7 @@ import java.util.Set;
 import data.DataProviderType;
 import java.util.Collection;
 import java.util.TreeSet;
+import services.NewsSourceServiceInterface;
 import ui.SecuredUI;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
@@ -35,26 +37,39 @@ public class FlexMenuBar extends MenuBar implements CanPopulate {
     private MenuItem languages;
     private MenuItem countries;
     private MenuItem logout;
+    private MenuItem search;
 
     private MenuBar.Command command;
     private final FlexUser user;
-
+    
+    private NewsSourceServiceInterface sourcesService;
+    
     public FlexMenuBar(FlexUser user) {
         this.user = user;
+        sourcesService = ServiceLocator.getInstance().findSourcesService();
+        initMenuItems();
     }
 
     protected void initMenuItems() {
-        home = addItem("Home", null);
-        news = addItem("News", null);
-        publishers = addItem("Publishers", null, null);
-        categories = addItem("Categories", null, null);
-        languages = addItem("Languages", null, null);
-        countries = addItem("Countries", null, null);
-        logout = addItem("Logout", null);
         command = (MenuItem selectedItem) -> {
             selectedItem.setStyleName("selected");
             updateBody(selectedItem);
         };
+
+        home = addItem("", VaadinIcons.HOME, (selectedItem) -> {
+            Page.getCurrent().setLocation("/flex-app");
+        });
+        news = addItem("News", null, null);
+        publishers = addItem("Publishers", null, null);
+        categories = addItem("Categories", null, null);
+        languages = addItem("Languages", null, null);
+        countries = addItem("Countries", null, null);
+        search = addItem("", VaadinIcons.SEARCH, null);
+        logout = addItem("", VaadinIcons.SIGN_OUT, (selectedItem) -> {
+            Notification.show("LOGOUT");
+            getSession().setAttribute("user", null);
+            Page.getCurrent().setLocation("/flex-app");
+        });
 
         setSizeUndefined();
         setAutoOpen(true);
@@ -74,45 +89,50 @@ public class FlexMenuBar extends MenuBar implements CanPopulate {
     }
 
     protected void populateNewsCategory() {
-        Collection<String> cats = ServiceLocator.getInstance().findSourcesService().findCategories();
-        cats.forEach(cat -> {
-            categories.addItem(getCategoryCaption(cat), command);
-        });
+        if(sourcesService != null) {
+            Collection<String> cats = sourcesService.findCategories();
+            cats.forEach(cat -> {
+                categories.addItem(getCategoryCaption(cat), command);
+            });
+        }
     }
 
     protected void populateNewsPublisher() {
-        Collection<String> names = ServiceLocator.getInstance().findSourcesService().findNames();
-        names.forEach(name -> {
-            publishers.addItem(name, command);
-        });
+        if(sourcesService != null) {
+            Collection<String> names = sourcesService.findNames();
+            names.forEach(name -> {
+                publishers.addItem(name, command);
+            });
+        }
     }
 
     protected void populateNewsLanguages() {
-        Set<String> result = new TreeSet<>();
+        if(sourcesService != null) {
+            Set<String> result = new TreeSet<>();
+            Collection<String> locales = sourcesService.findLocales();
+            locales.forEach(localeString -> {
+                if (localeString != null && !localeString.isEmpty()) {
+                    result.add(MyDateUtils.getLanguageNameFromPattern(localeString));
+                }
+            });
+            result.forEach(lang -> {
+                languages.addItem(lang, command);
+            });
+        }
 
-        Collection<String> locales = ServiceLocator.getInstance().findSourcesService().findLocales();
-        locales.forEach(localeString -> {
-            if (localeString != null && !localeString.isEmpty()) {
-                result.add(MyDateUtils.getLanguageNameFromPattern(localeString));
-            }
-        });
-
-        result.forEach(lang -> {
-            languages.addItem(lang, command);
-        });
     }
 
     protected void populateNewsCountries() {
-        Set<String> result = new TreeSet<>();
-
-        Collection<String> locales = ServiceLocator.getInstance().findSourcesService().findLocales();
-        locales.forEach(localeString -> {
-            result.add(MyDateUtils.getCountryNameFromPattern(localeString));
-        });
-
-        result.forEach(country -> {
-            countries.addItem(country, command);
-        });
+        if(sourcesService != null) {
+            Set<String> result = new TreeSet<>();
+            Collection<String> locales = sourcesService.findLocales();
+            locales.forEach(localeString -> {
+                result.add(MyDateUtils.getCountryNameFromPattern(localeString));
+            });
+            result.forEach(country -> {
+                countries.addItem(country, command);
+            });
+        }
     }
 
     private void populateViews() {

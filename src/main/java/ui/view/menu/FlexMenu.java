@@ -35,10 +35,10 @@ public class FlexMenu extends HorizontalLayout implements CanPopulate {
         initLogo();
         initMenuBar();
         initSearchBox();
-        super.setSizeUndefined();
+        super.setSizeFull();
         super.setMargin(false);
-        super.addComponents(logo, menuBar, searchBox);
-        super.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        super.addComponents(menuBar);
+        super.setComponentAlignment(menuBar, Alignment.MIDDLE_CENTER);
         super.setStyleName("flex-menu");
     }
 
@@ -56,15 +56,6 @@ public class FlexMenu extends HorizontalLayout implements CanPopulate {
 
     private void initMenuBar() {
         this.menuBar = new FlexMenuBar(user);
-    }
-
-    private void initLogoutButton() {
-        LogoutButton logoutButton = new LogoutButton();
-        logoutButton.addUsername(user.getUsername());
-        logoutButton.addClickListener(event -> {
-            getSession().setAttribute("user", null);
-            Page.getCurrent().setLocation("/flex-app");
-        });
     }
 
     private void initSearchBox() {
