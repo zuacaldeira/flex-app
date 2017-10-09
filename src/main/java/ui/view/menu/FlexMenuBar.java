@@ -12,6 +12,7 @@ import com.vaadin.server.Page;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
 import java.util.Set;
@@ -64,7 +65,9 @@ public class FlexMenuBar extends MenuBar implements CanPopulate {
         categories = addItem("Categories", null, null);
         languages = addItem("Languages", null, null);
         countries = addItem("Countries", null, null);
-        search = addItem("", VaadinIcons.SEARCH, null);
+        search = addItem("", VaadinIcons.SEARCH, (selectedItem) -> {
+            UI.getCurrent().addWindow(new SearchWindow(user));
+        });
         logout = addItem("", VaadinIcons.SIGN_OUT, (selectedItem) -> {
             Notification.show("LOGOUT");
             getSession().setAttribute("user", null);

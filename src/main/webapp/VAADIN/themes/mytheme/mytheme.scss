@@ -52,7 +52,7 @@ $color-action: white;
 
     .flex-button {
         border: thin;
-        color: cornflowerblue;
+        color: $color-action;
     }
 
     .flex-action {
@@ -126,6 +126,7 @@ $color-action: white;
     .green {
         color: green;
     }
+
     .purple {
         color: purple;
     }
