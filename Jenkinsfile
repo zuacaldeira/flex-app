@@ -13,8 +13,9 @@ pipeline {
         }
         stage('build') { 
             steps { 
-              sh 'mvn --version'
-              sh 'mvn clean install'
+                sh 'mvn --version'
+                sh 'mvn clean install'
+                jacoco changeBuildStatus: true, deltaBranchCoverage: '10', deltaClassCoverage: '10', deltaComplexityCoverage: '10', deltaLineCoverage: '10', deltaMethodCoverage: '10', exclusionPattern: '**/*Test*.class', maximumBranchCoverage: '10', maximumClassCoverage: '10', maximumComplexityCoverage: '10', maximumLineCoverage: '10', maximumMethodCoverage: '10'
             }
         }
     }
