@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui.view;
+package ui.view.main;
 
 import ui.view.body.FlexBody;
 import com.vaadin.ui.AbsoluteLayout;
 import db.FlexUser;
 import ui.view.menu.CanPopulate;
-import view.FlexFooter;
+import ui.view.footer.FlexFooter;
 import ui.view.menu.FlexMenu;
 
 /**

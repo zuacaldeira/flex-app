@@ -6,7 +6,7 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import ui.view.FlexMainView;
+import ui.view.main.FlexMainView;
 import ui.SecuredUI;
 import javax.servlet.annotation.WebServlet;
 

@@ -36,7 +36,7 @@ public class FlexGridLayout<T extends GraphEntityView> extends HorizontalLayout 
         super.setWidth("100%");
         super.setHeightUndefined();
         super.setSpacing(true);
-        super.setMargin(false);
+        super.setMargin(true);
     }
     
     public void addItemView(Component component) {

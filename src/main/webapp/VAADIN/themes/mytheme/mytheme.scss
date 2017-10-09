@@ -97,17 +97,19 @@ $color-action: white;
 
 
     .items {
-        //$v-font-family: "JF Flat","Open Sans", sans-serif;        
+        //$v-font-family: "JF Flat","Open Sans", sans-serif;
+        border-radius: 10%;
         .item {
-            background: gray;
+            background: white;
+            color: black;
             .title {
                 font-weight: bold;
             }
         }
 
         .item-selected {
-            background: yellowgreen;
-            color: white;
+            background: black;
+            color: $color-main;
             .title {
                 font-weight: bold;
             }

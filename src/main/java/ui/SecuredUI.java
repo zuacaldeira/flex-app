@@ -6,7 +6,7 @@
 package ui;
 
 import window.FlexWindow;
-import ui.view.FlexMainView;
+import ui.view.main.FlexMainView;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;

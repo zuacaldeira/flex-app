@@ -15,7 +15,7 @@ import data.DataProviderType;
 import db.FlexUser;
 import org.vaadin.addons.searchbox.SearchBox;
 import org.vaadin.addons.searchbox.SearchBox.ButtonPosition;
-import ui.view.FlexLogo;
+import ui.view.logo.FlexLogo;
 import utils.UIUtils;
 
 /**

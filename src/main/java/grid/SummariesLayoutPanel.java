@@ -15,8 +15,9 @@ import panel.FlexPanel;
  * @param <T>
  */
 public class SummariesLayoutPanel<T extends GraphEntityView> extends FlexPanel {
+
     private final FlexGridLayout<T> overviews;
-    
+
     public SummariesLayoutPanel(int columns) {
         overviews = new FlexGridLayout<>(columns);
         //super.setStyleName("summaries");
