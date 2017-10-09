@@ -25,6 +25,7 @@ public class FlexFooter extends HorizontalLayout {
         copyright = new Label(VaadinIcons.COPYRIGHT.getHtml() + " Pirigrino"
                 + " <peregrino.do.piri@gmail.com>", ContentMode.HTML);
         copyright.setSizeUndefined();
+        this.user = user;
         super.addComponent(copyright);
         super.setSizeFull();
         super.setSpacing(false);
