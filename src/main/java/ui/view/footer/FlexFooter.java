@@ -31,4 +31,14 @@ public class FlexFooter extends HorizontalLayout {
         super.setStyleName("flex-footer");
         super.setComponentAlignment(copyright, Alignment.MIDDLE_CENTER);
     }
+
+    public Label getCopyright() {
+        return copyright;
+    }
+
+    public FlexUser getUser() {
+        return user;
+    }
+    
+    
 }
