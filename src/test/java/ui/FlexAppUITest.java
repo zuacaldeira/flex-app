@@ -5,6 +5,8 @@
  */
 package ui;
 
+import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinServletRequest;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -35,6 +37,13 @@ public class FlexAppUITest {
         System.out.println("getContent");
         FlexAppUI instance = new FlexAppUI();
         assertNull(instance.getContent());
+    }
+    
+    @Test
+    public void testInit() {
+        System.out.println("getContent");
+        FlexAppUI instance = new FlexAppUI();
+        instance.init(null);        
     }
     
 }

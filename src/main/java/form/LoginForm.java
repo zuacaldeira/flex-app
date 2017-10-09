@@ -153,4 +153,30 @@ public class LoginForm extends FlexForm {
         registerOrSave.setComponentAlignment(register, Alignment.MIDDLE_LEFT);
         registerOrSave.setComponentAlignment(saveButton, Alignment.MIDDLE_RIGHT);
     }
+
+    public FlexTextField getUsername() {
+        return username;
+    }
+
+    public PasswordField getPassword() {
+        return password;
+    }
+
+    public PasswordField getPassword2() {
+        return password2;
+    }
+
+    public CheckBox getRegister() {
+        return register;
+    }
+
+    public SaveButton getSaveButton() {
+        return saveButton;
+    }
+
+    public HorizontalLayout getRegisterOrSave() {
+        return registerOrSave;
+    }
+    
+    
 }
