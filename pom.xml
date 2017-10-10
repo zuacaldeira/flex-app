@@ -103,11 +103,11 @@
             <version>2.1.5</version>
             <scope>test</scope>
         </dependency>
-        <dependency> 
+        <dependency> <!-- If you're using the HTTP driver -->
             <groupId>org.neo4j</groupId>
-            <artifactId>neo4j-ogm-core</artifactId>
+            <artifactId>neo4j-ogm-http-driver</artifactId>
             <version>2.1.5</version>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-ogm-test</artifactId>
