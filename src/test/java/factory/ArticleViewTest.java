@@ -218,10 +218,6 @@ public class ArticleViewTest {
         System.out.println("minimize");
         FlexUser user = new FlexUser();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
-        article.setTitle("Title");
-        article.setDescription("Description");
-        Date date = new Date();
-        article.setPublishedAt(date);
         NewsAuthor author = new NewsAuthor("Author");
         author.addArticle(article);
         ArticleView aView = new ArticleView(user, article);
