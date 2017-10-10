@@ -5,6 +5,7 @@
  */
 package ui.view.body;
 
+import data.ArticlesRepository;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.Image;
 import data.DataProviderType;
@@ -18,8 +19,6 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import panel.FlexPanel;
-import utils.MyDateUtils;
-import utils.ServiceLocator;
 
 /**
  *
@@ -44,31 +43,6 @@ public class FlexBody extends FlexPanel {
         });
         cleanUp();
         updateData(DataProviderType.LATEST, "latest");
-    }
-
-    private Collection<NewsArticle> loadNodes(DataProviderType dataProviderType, String value) {
-        if (dataProviderType == DataProviderType.LATEST) {
-            return ServiceLocator.getInstance().findArticlesService().findLatest(user.getUsername());
-        } else if (dataProviderType == DataProviderType.OLDEST) {
-            return ServiceLocator.getInstance().findArticlesService().findOldest(user.getUsername());
-        } else if (dataProviderType == DataProviderType.READ) {
-            return ServiceLocator.getInstance().findArticlesService().findAllRead(user.getUsername());
-        } else if (dataProviderType == DataProviderType.FAVORITE) {
-            return ServiceLocator.getInstance().findArticlesService().findAllFavorite(user.getUsername());
-        } else if (dataProviderType == DataProviderType.FAKE) {
-            return ServiceLocator.getInstance().findArticlesService().findAllFake(user.getUsername());
-        } else if (dataProviderType == DataProviderType.CATEGORY && value != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithCategory(user.getUsername(), getCategoryDBCaption(value));
-        } else if (dataProviderType == DataProviderType.PUBLISHER && value != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithSource(user.getUsername(), getSourceIdForSourceName(value));
-        } else if (dataProviderType == DataProviderType.LANGUAGES && value != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithLanguage(user.getUsername(), MyDateUtils.getLanguageCode(value));
-        } else if (dataProviderType == DataProviderType.COUNTRIES && value != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithCountry(user.getUsername(), MyDateUtils.getCountryCode(value));
-        } else if (dataProviderType == DataProviderType.SEARCH && value != null) {
-            return ServiceLocator.getInstance().findArticlesService().findArticlesWithText(value);
-        }
-        return ServiceLocator.getInstance().findArticlesService().findLatest(user.getUsername());
     }
 
     @Override
@@ -100,8 +74,8 @@ public class FlexBody extends FlexPanel {
 
         /* Update body with views for new items */
         bodyWorker = new Thread(() -> {
-            Collection<NewsArticle> nodes = loadNodes(type, value);
             cleanUp();
+            Collection<NewsArticle> nodes = new ArticlesRepository().loadNodes(type, value, user);
             int i = 0;
             try {
                 for (GraphEntity item : nodes) {
@@ -124,7 +98,7 @@ public class FlexBody extends FlexPanel {
         System.out.println("FlexBodyThread#run(): DONE");
     }
 
-    private String getCountryDBCaption(String displayCountry) {
+    private static String getCountryDBCaption(String displayCountry) {
         for(Locale l: Locale.getAvailableLocales()) {
             if(l.getDisplayCountry().equalsIgnoreCase(displayCountry)) {
                 System.out.println("Found Locale with country " + l.getDisplayCountry());
@@ -132,20 +106,6 @@ public class FlexBody extends FlexPanel {
             }
         }
         throw new IllegalArgumentException("Unknown country " + displayCountry);
-    }
-
-    private String getCategoryDBCaption(String cat) {
-        if (!cat.isEmpty()) {
-            char c = cat.charAt(0);
-            StringBuilder builder = new StringBuilder(cat.trim());
-            builder = builder.replace(0, 1, String.valueOf(Character.toLowerCase(c)));
-            String result = builder.toString();
-            System.out.println(result);
-            result = result.replace(" ", "-");
-            System.out.println(result);
-            return result;
-        }
-        return cat;
     }
 
     private Image initImage(NewsArticle item) {
@@ -166,10 +126,6 @@ public class FlexBody extends FlexPanel {
     private void cleanUp() {
         initMasterDetail();
         setContent(masterDetailView);
-    }
-
-    private String getSourceIdForSourceName(String value) {
-        return ServiceLocator.getInstance().findSourcesService().findSourceNamed(value).getSourceId();
     }
 
 }
