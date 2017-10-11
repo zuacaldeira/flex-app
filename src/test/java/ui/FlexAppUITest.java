@@ -5,8 +5,6 @@
  */
 package ui;
 
-import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinServletRequest;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
