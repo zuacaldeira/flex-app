@@ -6,8 +6,6 @@
 package ui.view.body;
 
 import data.ArticlesRepository;
-import com.vaadin.server.ExternalResource;
-import com.vaadin.ui.Image;
 import data.DataProviderType;
 import grid.MasterDetailView;
 import factory.FlexViewFactory;
@@ -15,7 +13,6 @@ import db.FlexUser;
 import db.GraphEntity;
 import db.NewsArticle;
 import java.util.Collection;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import panel.FlexPanel;
@@ -91,26 +88,6 @@ public class FlexBody extends FlexPanel {
 
         bodyWorker.start();
         System.out.println("FlexBodyThread#run(): DONE");
-    }
-
-    private static String getCountryDBCaption(String displayCountry) {
-        for(Locale l: Locale.getAvailableLocales()) {
-            if(l.getDisplayCountry().equalsIgnoreCase(displayCountry)) {
-                System.out.println("Found Locale with country " + l.getDisplayCountry());
-                return l.getCountry();
-            }
-        }
-        throw new IllegalArgumentException("Unknown country " + displayCountry);
-    }
-
-    private Image initImage(NewsArticle item) {
-        if (item.getImageUrl() != null) {
-            Image image = new Image(null, new ExternalResource(item.getImageUrl()));
-            image.setStyleName("image");
-            image.setSizeFull();
-            return image;
-        }
-        return new Image();
     }
 
     private void initMasterDetail() {
