@@ -13,7 +13,7 @@ pipeline {
         }
         stage('build') { 
             steps { 
-                sh 'mvn clean install' 
+                sh 'mvn install' 
                 jacoco exclusionPattern: '**/*Test*.class'
             }
             post {
