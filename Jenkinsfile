@@ -13,7 +13,7 @@ pipeline {
         }
         stage('build') { 
             steps { 
-                sh 'mvn -Dmaven.test.failure.ignore=true install' 
+                sh 'mvn install' 
                 jacoco buildOverBuild: true, changeBuildStatus: true, exclusionPattern: '**/*Test*.class'
             }
             post {
