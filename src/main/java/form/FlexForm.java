@@ -12,5 +12,11 @@ import com.vaadin.ui.FormLayout;
  * @author zua
  */
 public abstract class FlexForm extends FormLayout {
+
+    public FlexForm() {
+        setStyleName("flex-form");
+    }
+    
+    
     
 }

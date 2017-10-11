@@ -14790,18 +14790,19 @@ div.v-layout.v-horizontal.v-widget {
 	background: transparent;
 }
 
-.mytheme .login-view .flex-window {
+.mytheme .flex-window {
 	background-color: gray;
-	background-image: -webkit-linear-gradient(top left, gray, coral);
-	background-image: linear-gradient(to bottom right,gray, coral);
+	background-image: -webkit-linear-gradient(top left, gray, purple);
+	background-image: linear-gradient(to bottom right,gray, purple);
 	color: white;
 }
 
 .mytheme .flex-view {
-	background: transparent;
+	background: #c9c9c9;
 }
 
 .mytheme .flex-menu {
+	border-radius: 5%;
 	background: black;
 	color: whitesmoke;
 }
@@ -14816,11 +14817,8 @@ div.v-layout.v-horizontal.v-widget {
 	font-weight: bold;
 }
 
-.mytheme .items {
-	border-radius: 10%;
-}
-
 .mytheme .items .item {
+	border-radius: 5%;
 	background: white;
 	color: black;
 }
@@ -14830,6 +14828,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .items .item-selected {
+	border-radius: 5%;
 	background: black;
 	color: purple;
 }

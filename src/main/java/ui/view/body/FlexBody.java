@@ -42,7 +42,7 @@ public class FlexBody extends FlexPanel {
             }
         });
         cleanUp();
-        updateData(DataProviderType.LATEST, "latest");
+        this.initBodyUpdaterThread(DataProviderType.LATEST, "latest");
     }
 
     @Override
@@ -62,16 +62,11 @@ public class FlexBody extends FlexPanel {
         return user;
     }
 
-    public void updateData(DataProviderType type, String value) {
-        initBodyUpdaterThread(type, value);
-    }
-
-    private void initBodyUpdaterThread(DataProviderType type, String value) {
+    public void initBodyUpdaterThread(DataProviderType type, String value) {
         System.out.println("FlexBodyThread#run(): START");
         if (bodyWorker != null) {
             bodyWorker.interrupt();
         }
-
         /* Update body with views for new items */
         bodyWorker = new Thread(() -> {
             cleanUp();

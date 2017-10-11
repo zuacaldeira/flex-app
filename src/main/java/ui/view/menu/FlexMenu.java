@@ -5,18 +5,11 @@
  */
 package ui.view.menu;
 
-import button.LogoutButton;
-import com.vaadin.icons.VaadinIcons;
-import com.vaadin.server.Page;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
-import data.DataProviderType;
 import db.FlexUser;
 import org.vaadin.addons.searchbox.SearchBox;
-import org.vaadin.addons.searchbox.SearchBox.ButtonPosition;
 import ui.view.logo.FlexLogo;
-import utils.UIUtils;
 
 /**
  *
@@ -34,7 +27,6 @@ public class FlexMenu extends HorizontalLayout implements CanPopulate {
         this.user = user;
         initLogo();
         initMenuBar();
-        initSearchBox();
         super.setSizeFull();
         super.setMargin(false);
         super.addComponents(menuBar);
@@ -58,14 +50,6 @@ public class FlexMenu extends HorizontalLayout implements CanPopulate {
         this.menuBar = new FlexMenuBar(user);
     }
 
-    private void initSearchBox() {
-        searchBox = new SearchBox(VaadinIcons.SEARCH, ButtonPosition.RIGHT);
-        searchBox.addSearchListener(e -> {
-            Notification.show("Clicked on search " + e.getSearchTerm());
-            UIUtils.getInstance().getBody(this).updateData(DataProviderType.SEARCH, e.getSearchTerm());
-        });
-    }
-
     private void initLogo() {
         logo = new FlexLogo();
     }
@@ -73,10 +57,6 @@ public class FlexMenu extends HorizontalLayout implements CanPopulate {
     @Override
     public void populate() {
         menuBar.populate();
-    }
-
-    public SearchBox getSearchBox() {
-        return searchBox;
     }
 
 }

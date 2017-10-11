@@ -72,15 +72,4 @@ public class FlexMenuStructuralTest {
         assertNotNull(menu.getMenuBar());
     }
 
-    /**
-     * Test of getSearchButton method, of class FlexMenu.
-     */
-    @Test
-    public void testGetSearchBox() {
-        System.out.println("getSearchButton");
-        FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMenu menu = new FlexMenu(user);
-        assertNotNull(menu.getSearchBox());
-    }
-
 }

@@ -16,8 +16,8 @@ public class FlexWindow extends Window {
 
     public FlexWindow(String caption, Component content) {
         super(caption);
-        super.setHeight("50%");
         super.setWidth("50%");
+        super.setHeightUndefined();
         super.setModal(true);
         super.setStyleName("flex-window");
         super.center();

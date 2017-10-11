@@ -65,7 +65,7 @@ public class FlexBodyTest {
         System.out.println("getUser");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         FlexBody instance = new FlexBody(user);
-        instance.addItemView(new NewsArticle());
+        assertNotNull(instance.getUser());
     }
 
     /**
@@ -76,7 +76,7 @@ public class FlexBodyTest {
         System.out.println("updateData");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         FlexBody instance = new FlexBody(user);
-        instance.updateData(DataProviderType.FAKE, null);
+        instance.initBodyUpdaterThread(DataProviderType.FAKE, null);
     }
     
 }
