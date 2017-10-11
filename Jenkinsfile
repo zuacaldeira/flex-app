@@ -14,7 +14,7 @@ pipeline {
         stage('build') { 
             steps { 
                 sh 'mvn install' 
-                jacoco buildOverBuild: true, changeBuildStatus: true, exclusionPattern: '**/*Test*.class'
+                jacoco exclusionPattern: '**/*Test*.class'
             }
             post {
                 success {
