@@ -17,7 +17,9 @@ public class HomeButton extends FlexButton {
     public HomeButton() {
         super(FlexCaptions.HOME, VaadinIcons.HOME);
         super.addClickListener(event -> {
-            Page.getCurrent().setLocation("/flex-app");
+            if(Page.getCurrent() != null) {
+                Page.getCurrent().setLocation("/flex-app");
+            }
         });
     }
 

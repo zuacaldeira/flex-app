@@ -5,7 +5,6 @@
  */
 package button;
 
-import com.vaadin.ui.themes.ValoTheme;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -25,5 +24,10 @@ public class HomeButtonTest {
         assertTrue(button.getStyleName().contains(FlexStyleNames.FLEX_BUTTON));
         assertEquals(FlexCaptions.HOME, button.getCaption());
     }
-
+    
+    @Test
+    public void testClick() {
+        HomeButton home = new HomeButton();
+        home.click();
+    }
 }

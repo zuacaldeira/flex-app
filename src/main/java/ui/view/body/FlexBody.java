@@ -65,27 +65,7 @@ public class FlexBody extends FlexPanel {
             bodyWorker.interrupt();
         }
         /* Update body with views for new items */
-        bodyWorker = new Thread(() -> {
-            cleanUp();
-            Collection<NewsArticle> nodes = new ArticlesRepository().loadNodes(type, value, user);
-            int i = 0;
-            try {
-                for (GraphEntity item : nodes) {
-                    if (getUI() != null && getUI().isAttached()) {
-                        getUI().access(() -> {
-                            addItemView(item);
-                        });
-                    }
-                    if (i % 10 == 0) {
-                        Thread.sleep(1000);
-                    }
-                    i++;
-                }
-            } catch (InterruptedException ex) {
-                Logger.getLogger(FlexBody.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-
+        bodyWorker = new BodyWorker(this, type, value, user);
         bodyWorker.start();
         System.out.println("FlexBodyThread#run(): DONE");
     }
@@ -95,7 +75,7 @@ public class FlexBody extends FlexPanel {
         masterDetailView.setWidth("100%");
     }
 
-    private void cleanUp() {
+    protected void cleanUp() {
         initMasterDetail();
         setContent(masterDetailView);
     }
