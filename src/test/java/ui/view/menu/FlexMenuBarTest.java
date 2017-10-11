@@ -5,12 +5,16 @@
  */
 package ui.view.menu;
 
+import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.MenuBar.MenuItem;
 import data.DataProviderType;
 import db.FlexUser;
+import db.NewsSource;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import ui.view.main.FlexMainView;
 import utils.FlexLogger;
-import utils.ServiceNotFoundException;
+import utils.ServiceLocator;
 
 /**
  *
@@ -24,7 +28,7 @@ public class FlexMenuBarTest {
 
     public FlexMenuBarTest() {
         logger = new FlexLogger(getClass());
-        
+
     }
 
     /**
@@ -50,9 +54,10 @@ public class FlexMenuBarTest {
     @Test
     public void testPopulate() {
         System.out.println("populate");
+        initMinimalScenario();
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         FlexMenuBar menuBar = new FlexMenuBar(user);
-        menuBar.initMenuItems();
+        menuBar.populate();
         assertNotNull(menuBar.getPublishers());
         assertNotNull(menuBar.getLanguages());
         assertNotNull(menuBar.getCountries());
@@ -67,7 +72,7 @@ public class FlexMenuBarTest {
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         FlexMenuBar menuBar = new FlexMenuBar(user);
         menuBar.populateNewsCategory();
-        
+
     }
 
     /**
@@ -120,10 +125,86 @@ public class FlexMenuBarTest {
     @Test
     public void testGetDataProviderType() {
         System.out.println("getDataProviderType");
+        initMinimalScenario();
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         FlexMenuBar menuBar = new FlexMenuBar(user);
         menuBar.populate();
-        //assertEquals(DataProviderType.CATEGORY, menuBar.getDataProviderType(menuBar.getCategories()));
+        assertEquals(DataProviderType.HOME, menuBar.getDataProviderType(menuBar.getHome()));
+        assertEquals(DataProviderType.LATEST, menuBar.getDataProviderType(menuBar.getLatest()));
+        assertEquals(DataProviderType.OLDEST, menuBar.getDataProviderType(menuBar.getOldest()));
+        assertEquals(DataProviderType.READ, menuBar.getDataProviderType(menuBar.getRead()));
+        assertEquals(DataProviderType.FAVORITE, menuBar.getDataProviderType(menuBar.getFavorite()));
+        assertEquals(DataProviderType.FAKE, menuBar.getDataProviderType(menuBar.getFake()));
+        assertEquals(DataProviderType.FULL, menuBar.getDataProviderType(menuBar.getFull()));
+        assertEquals(DataProviderType.IMAGES_ONLY, menuBar.getDataProviderType(menuBar.getImagesOnly()));
+        assertEquals(DataProviderType.TITLES_ONLY, menuBar.getDataProviderType(menuBar.getTitlesOnly()));
+        assertEquals(DataProviderType.PUBLISHER, menuBar.getDataProviderType(menuBar.getPublishers()));
+        assertEquals(DataProviderType.CATEGORY, menuBar.getDataProviderType(menuBar.getCategories()));
+        assertEquals(DataProviderType.LANGUAGES, menuBar.getDataProviderType(menuBar.getLanguages()));
+        assertEquals(DataProviderType.COUNTRIES, menuBar.getDataProviderType(menuBar.getCountries()));
+        assertEquals(DataProviderType.SEARCH, menuBar.getDataProviderType(menuBar.getSearch()));
+        assertEquals(DataProviderType.LOGOUT, menuBar.getDataProviderType(menuBar.getLogout()));
+    }
+
+    private void initMinimalScenario() {
+        NewsSource source = new NewsSource("sourceId", "Publishing AG", "Source Description", "url", "business", "en", "GB");
+        ServiceLocator.getInstance().findSourcesService().save(source);
+    }
+
+    @Test
+    public void testSelectHome() {
+        System.out.println("selectHome");
+        initMinimalScenario();
+        FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
+        FlexMainView view = new FlexMainView(user);
+        view.populate();
+
+        FlexMenuBar menuBar = view.getMenu().getMenuBar();
+        MenuItem menuItem = menuBar.getHome();
+        MenuBar.Command command = menuItem.getCommand();
+        command.menuSelected(menuItem);
+    }
+
+    @Test
+    public void testSelectSearch() {
+        System.out.println("selectSearch");
+        initMinimalScenario();
+        FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
+        FlexMainView view = new FlexMainView(user);
+        view.populate();
+
+        FlexMenuBar menuBar = view.getMenu().getMenuBar();
+        MenuItem menuItem = menuBar.getSearch();
+        MenuBar.Command command = menuItem.getCommand();
+        command.menuSelected(menuItem);
+    }
+
+    @Test
+    public void testSelectLogout() {
+        System.out.println("selectLogout");
+        initMinimalScenario();
+        FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
+        FlexMainView view = new FlexMainView(user);
+        view.populate();
+
+        FlexMenuBar menuBar = view.getMenu().getMenuBar();
+        MenuItem menuItem = menuBar.getLogout();
+        MenuBar.Command command = menuItem.getCommand();
+        command.menuSelected(menuItem);
+    }
+
+    @Test
+    public void testSelectOther() {
+        System.out.println("selectOther");
+        initMinimalScenario();
+        FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
+        FlexMainView view = new FlexMainView(user);
+        view.populate();
+
+        FlexMenuBar menuBar = view.getMenu().getMenuBar();
+        MenuItem menuItem = menuBar.getLatest();
+        MenuBar.Command command = menuItem.getCommand();
+        command.menuSelected(menuItem);
     }
 
 }
