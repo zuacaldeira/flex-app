@@ -10,9 +10,11 @@ import com.vaadin.ui.AbstractOrderedLayout;
 import db.FlexUser;
 import db.NewsArticle;
 import db.NewsAuthor;
+import db.NewsSource;
 import java.util.Date;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import utils.ServiceLocator;
 
 /**
  *
@@ -42,6 +44,7 @@ public class ArticleViewTest {
     @Test
     public void testCreateInfoHeader() {
         System.out.println("createInfoHeader");
+        initMinimalScenario();
         FlexUser user = new FlexUser();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
         ArticleView aView = new ArticleView(user, article);
@@ -54,6 +57,7 @@ public class ArticleViewTest {
     @Test
     public void testCreateInfoBody() {
         System.out.println("createInfoBody");
+        initMinimalScenario();
         FlexUser user = new FlexUser();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
         ArticleView aView = new ArticleView(user, article);
@@ -233,14 +237,9 @@ public class ArticleViewTest {
     @Test
     public void testCreateInfoActions() {
         System.out.println("createInfoActions");
+        initMinimalScenario();
         FlexUser user = new FlexUser();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
-        article.setTitle("Title");
-        article.setDescription("Description");
-        Date date = new Date();
-        article.setPublishedAt(date);
-        NewsAuthor author = new NewsAuthor("Author");
-        author.addArticle(article);
         ArticleView aView = new ArticleView(user, article);
         AbstractOrderedLayout actions = aView.createInfoActions();
         assertNotNull(actions);
@@ -254,8 +253,6 @@ public class ArticleViewTest {
         System.out.println("buttonClick");
         FlexUser user = new FlexUser();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
-        article.setTitle("Title");
-        article.setDescription("Description");
         Date date = new Date();
         article.setPublishedAt(date);
         NewsAuthor author = new NewsAuthor("Author");
@@ -263,6 +260,16 @@ public class ArticleViewTest {
         ArticleView aView = new ArticleView(user, article);
         AbstractOrderedLayout actions = aView.createInfoActions();
         ((FlexActionButton)actions.getComponent(1)).click();
+    }
+
+    private void initMinimalScenario() {
+        NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "en", "GB");
+        source.setLogoUrl("logoUrl");
+        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+        NewsAuthor author = new NewsAuthor("author");
+        author.addArticle(article);
+        source.addCorrespondent(author);
+        ServiceLocator.getInstance().findSourcesService().save(source);
     }
 
 }
