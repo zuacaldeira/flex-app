@@ -30,13 +30,25 @@ public class BodyWorker extends Thread {
         this.type = type;
         this.value = value;
         this.user = user;
-        
+
     }
 
     @Override
     public void run() {
-        body.cleanUp();
+        bodyCleanUp();
         Collection<NewsArticle> nodes = new ArticlesRepository().loadNodes(type, value, user);
+        bodyUpdate(nodes);
+    }
+
+    private void bodyCleanUp() {
+        if (body.getUI() != null && body.getUI().isAttached()) {
+            body.getUI().access(() -> {
+                body.cleanUp();
+            });
+        }
+    }
+
+    private void bodyUpdate(Collection<NewsArticle> nodes) {
         int i = 0;
         try {
             for (GraphEntity item : nodes) {

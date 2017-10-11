@@ -41,7 +41,9 @@ public class ArticlesRepositoryTest {
             {DataProviderType.IMAGES_ONLY, null},
             {DataProviderType.TITLES_ONLY, null},
             {DataProviderType.COUNTRIES, "Portugal"},
-            {DataProviderType.LANGUAGES, "Portuguese"}
+            {DataProviderType.LANGUAGES, "Portuguese"},
+            {DataProviderType.PUBLISHER, "Publishing AG"},
+            {DataProviderType.SEARCH, "a query"},
         };
     }
 
