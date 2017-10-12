@@ -2,19 +2,24 @@
 $v-app-loading-text: "Nzinga";
 // Global variable overrides. Must be declared before importing Valo.
 
+// App colors
+$color-primary: gray;
+$color-secondary: purple;
+$color-action: white;
+
 // Defines the plaintext font size, weight and family. Font size affects general component sizing.
 $v-font-size: 14px;
 //$v-font-weight: 300;
 //$v-font-family: "Open Sans", sans-serif;
 
 // Defines the border used by all components.
-//$v-border: 1px solid (v-shade 0.7);
+//$v-border: 2px solid (v-shade 0.7);
 //$v-border-radius: 10px;
 
 // Affects the color of some component elements, e.g Button, Panel title, etc
-//$v-background-color: black;
+$v-background-color: rgba(10, 255, 0, 0.7);
 // Affects the color of content areas, e.g  Panel and Window content, TextField input etc
-//$v-app-background-color: pink;
+//$v-app-background-color: rgba(255, 0, 255, 0.7);
 
 // Affects the visual appearance of all components
 //$v-gradient: v-linear 8%;
@@ -28,9 +33,6 @@ $v-font-size: 14px;
 
 // For more information, see: https://vaadin.com/book/-/page/themes.valo.html
 // Example variants can be copy/pasted from https://vaadin.com/wiki/-/wiki/Main/Valo+Examples
-$color-main: purple;
-$color-action: white;
-//$color-menu: black;
 //$color-menu-alt: gray;
 //$color-menu-text: white;
 //$color-alt: yellow;
@@ -46,13 +48,11 @@ $color-action: white;
 
     // Insert your own theme rules here
     .v-ui {
-        //background: transparent;
-        //font-family: monospace;
+        @include linear-gradient(to bottom right, $color-primary, $color-secondary);
     }
 
     .flex-button {
-        border: thin;
-        color: $color-action;
+        color: $color-primary;
     }
 
     .flex-action {
@@ -67,27 +67,46 @@ $color-action: white;
     }
 
     .flex-window {
-        @include linear-gradient(to bottom right, gray, $color-main);
+        @include linear-gradient(to bottom right, $color-primary, $color-secondary);
         color: white;
     }
 
     .flex-view {
-        background: #c9c9c9;
     }
 
 
     .flex-menu {
-        @include linear-gradient(to bottom right, gray, $color-main);
-        color: whitesmoke;
+        color: $color-action;
+    }
+    
+    .flex-logo {
+        background: url('layouts/neao_lg.gif');
     }
 
     .flex-menu-bar {
+        opacity: 0.7;
+        .v-menubar {
+            color: $color-action;
+            background: transparent;
+            /* border: 1px solid #4455aa;
+            text-shadow: 1px 1px 0px #474746;
+            border-radius: 10px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;*/
+        }
         .v-menubar-menuitem {
-            color: $color-main;
+            background: transparent;
+            color: $color-action;
             font-weight: bold;
         }    
         .v-menubar-menuitem:hover {
-            color: white;
+            background: transparent;
+            color: $color-primary;
+        }
+
+        .v-menubar-menuitem-selected {
+            background: transparent;
+            color: $color-action;
             font-weight: bold;
         }    
     }
@@ -98,9 +117,10 @@ $color-action: white;
 
     .items {
         //$v-font-family: "JF Flat","Open Sans", sans-serif;
+        text-align: justify;
         .item {
             background: white;
-            color: black;
+            color: $color-primary;
             .title {
                 font-weight: bold;
             }
@@ -108,7 +128,7 @@ $color-action: white;
 
         .item-selected {
             background: black;
-            color: $color-main;
+            color: $color-action;
             .title {
                 font-weight: bold;
             }

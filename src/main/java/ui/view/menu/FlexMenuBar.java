@@ -57,6 +57,7 @@ public class FlexMenuBar extends MenuBar implements CanPopulate {
         this.user = user;
         sourcesService = ServiceLocator.getInstance().findSourcesService();
         initMenuItems();
+        setMoreMenuItem(home);
     }
 
     protected void initMenuItems() {
@@ -66,7 +67,7 @@ public class FlexMenuBar extends MenuBar implements CanPopulate {
         };
 
         home = addItem("", VaadinIcons.HOME, (selectedItem) -> {
-            if(Page.getCurrent() != null) {
+            if (Page.getCurrent() != null) {
                 Page.getCurrent().setLocation("/flex-app");
             }
         });
@@ -76,12 +77,12 @@ public class FlexMenuBar extends MenuBar implements CanPopulate {
         languages = addItem("Languages", null, null);
         countries = addItem("Countries", null, null);
         search = addItem("", VaadinIcons.SEARCH, (selectedItem) -> {
-            if(UI.getCurrent() != null) {
+            if (UI.getCurrent() != null) {
                 UI.getCurrent().addWindow(new SearchWindow(user));
             }
         });
         logout = addItem("", VaadinIcons.SIGN_OUT, (selectedItem) -> {
-            if(UI.getCurrent() != null) {
+            if (UI.getCurrent() != null) {
                 Notification.show("LOGOUT");
                 getSession().setAttribute("user", null);
                 Page.getCurrent().setLocation("/flex-app");

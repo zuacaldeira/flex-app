@@ -10,6 +10,7 @@ import com.vaadin.ui.AbsoluteLayout;
 import db.FlexUser;
 import ui.view.menu.CanPopulate;
 import ui.view.footer.FlexFooter;
+import ui.view.logo.FlexLogo;
 import ui.view.menu.FlexMenu;
 
 /**
@@ -26,14 +27,16 @@ public class FlexMainView extends AbsoluteLayout implements CanPopulate {
     public FlexMainView(FlexUser user) {
         this.user = user;
         initBody();
-        super.addComponent(body, "top:1.5cm; bottom:1cm");
+        super.addComponent(body, "top:1cm; bottom:0cm");
 
-        initFooter();
-        super.addComponent(footer, "bottom:0%");
+        //initFooter();
+        //super.addComponent(footer, "bottom:0%");
 
         initMenu();
         super.addComponent(menu, "top:0cm");
 
+        super.addComponent(new FlexLogo());
+        
         super.setStyleName("flex-view");
         super.setSizeFull();
     }
@@ -41,7 +44,7 @@ public class FlexMainView extends AbsoluteLayout implements CanPopulate {
     private void initMenu() {
         menu = new FlexMenu(user);
         menu.setWidth("100%");
-        menu.setHeight("1.5cm");
+        menu.setHeightUndefined();
     }
 
     private void initBody() {

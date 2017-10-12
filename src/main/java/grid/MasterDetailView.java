@@ -32,7 +32,6 @@ public class MasterDetailView<T extends GraphEntityView> extends FlexPanel  {
         horizontalSplitPanel.setSplitPosition(25f);
         selected = null;
         myData = null;
-        super.setStyleName("items");
         super.setSizeFull();
         initSummaries(1);
         initBrowserFrame();

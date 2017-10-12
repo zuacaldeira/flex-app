@@ -5,16 +5,11 @@
  */
 package ui.view.body;
 
-import data.ArticlesRepository;
 import data.DataProviderType;
 import grid.MasterDetailView;
 import factory.FlexViewFactory;
 import db.FlexUser;
 import db.GraphEntity;
-import db.NewsArticle;
-import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import panel.FlexPanel;
 
 /**

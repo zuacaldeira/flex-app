@@ -20,9 +20,9 @@ public class SummariesLayoutPanel<T extends GraphEntityView> extends FlexPanel {
 
     public SummariesLayoutPanel(int columns) {
         overviews = new FlexGridLayout<>(columns);
-        //super.setStyleName("summaries");
         super.setSizeFull();
         super.setContent(overviews);
+        super.setStyleName("items");
     }
 
     public void addItemView(Component component) {

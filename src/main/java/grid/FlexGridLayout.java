@@ -24,10 +24,10 @@ public class FlexGridLayout<T extends GraphEntityView> extends HorizontalLayout 
 
     public FlexGridLayout(int c) {
         columns = c;
-        for(int i = 0 ; i <  c; i++) {
+        for (int i = 0; i < c; i++) {
             VerticalLayout v = new VerticalLayout();
             v.setMargin(false);
-            v.setSpacing(true);
+            v.setSpacing(false);
             v.setSizeFull();
             v.setHeightUndefined();
             super.addComponent(v);
@@ -35,23 +35,23 @@ public class FlexGridLayout<T extends GraphEntityView> extends HorizontalLayout 
         }
         super.setWidth("100%");
         super.setHeightUndefined();
-        super.setSpacing(true);
-        super.setMargin(true);
+        //super.setSpacing(true);
+        //super.setMargin(false);
     }
-    
+
     public void addItemView(Component component) {
-        ((VerticalLayout)getComponent(currentListIndex)).addComponent(component);
+        ((VerticalLayout) getComponent(currentListIndex)).addComponent(component);
         updateCurrentListIndex();
-        ((T)component).addLayoutClickListener(event -> {
-            updateSelected((T)component);
+        ((T) component).addLayoutClickListener(event -> {
+            updateSelected((T) component);
         });
-        if(selected == null) {
+        if (selected == null) {
             updateSelected((T) component);
         }
     }
 
     private void updateSelected(T itemView) {
-        if(selected != null) {
+        if (selected != null) {
             selected.minimize();
         }
         selected = itemView;
@@ -59,7 +59,7 @@ public class FlexGridLayout<T extends GraphEntityView> extends HorizontalLayout 
     }
 
     private void updateCurrentListIndex() {
-        if(currentListIndex >= getComponentCount()-1) {
+        if (currentListIndex >= getComponentCount() - 1) {
             currentListIndex = 0;
         } else {
             currentListIndex++;
@@ -69,7 +69,5 @@ public class FlexGridLayout<T extends GraphEntityView> extends HorizontalLayout 
     public int getColumns() {
         return columns;
     }
-    
-    
-    
+
 }
