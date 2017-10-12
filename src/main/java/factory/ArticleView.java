@@ -9,7 +9,6 @@ import services.NewsArticleServiceInterface;
 import button.CommentButton;
 import button.FakeButton;
 import button.FavoriteButton;
-import button.FlexButton;
 import button.HideButton;
 import label.DateLabel;
 import utils.ServiceLocator;
@@ -30,6 +29,10 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     private AbstractOrderedLayout authors;
     private Label sourceNameLabel;
     private static final String HEADER_HEIGHT = "36px";
+    private CommentButton commentButton;
+    private FavoriteButton favoriteButton;
+    private FakeButton fakeButton;
+    private HideButton hideButton;
 
     public ArticleView(FlexUser user, NewsArticle article) {
         super(user, article);
@@ -179,13 +182,12 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     
     @Override
     public  AbstractOrderedLayout createInfoActions() {
-        FlexButton commentButton = new CommentButton();
+        commentButton = new CommentButton();
+        favoriteButton = new FavoriteButton();
+        fakeButton = new FakeButton();
+        hideButton = new HideButton();
+
         commentButton.addClickListener(this);
-
-        FlexButton favoriteButton = new FavoriteButton();
-        FlexButton fakeButton = new FakeButton();
-        FlexButton hideButton = new HideButton();
-
         hideButton.addClickListener(this);
         fakeButton.addClickListener(this);
         favoriteButton.addClickListener(this);
@@ -210,7 +212,7 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
         return actions;
     }
     
-    private void handleHideClick(HideButton button) {
+    protected void handleHideClick(HideButton button) {
         if(!button.getStyleName().contains("purple")) {
             getService().markAsRead(getUser().getUsername(), this.getItem());
             button.addStyleName("purple");
@@ -220,11 +222,13 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
             getService().removeMarkAsRead(getUser().getUsername(), this.getItem());
             button.removeStyleName("purple");
             button.setDescription("Mark as Unread");
-        }        
-        ((VerticalLayout)getParent()).removeComponent(this);
+        }
+        if(getParent() != null) {
+            ((VerticalLayout)getParent()).removeComponent(this);
+        }       
     }
 
-    private void handleFavouriteClick(FavoriteButton button) {
+    protected void handleFavouriteClick(FavoriteButton button) {
         if(!button.getStyleName().contains("yellow")) {
             getService().markAsFavorite(getUser().getUsername(), this.getItem());
             button.addStyleName("yellow");
@@ -237,7 +241,7 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
         }
     }
 
-    private void handleFakeClick(FakeButton button) {
+    protected void handleFakeClick(FakeButton button) {
         if(!button.getStyleName().contains("red")) {
             getService().markAsFake(getUser().getUsername(), this.getItem());
             button.addStyleName("red");
@@ -252,18 +256,33 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     
     @Override
     public void buttonClick(Button.ClickEvent event) {
-        if(getUI() != null && getUI().isAttached()){
-            if(event.getButton() instanceof HideButton) {
-                handleHideClick((HideButton) event.getButton());
-            }
-            else if(event.getButton() instanceof FavoriteButton) {
-                handleFavouriteClick((FavoriteButton) event.getButton());            
-            }
-
-            else if(event.getButton() instanceof FakeButton) {
-                handleFakeClick((FakeButton) event.getButton());
-            }
+        if(event.getButton() == hideButton) {
+            handleHideClick((HideButton) event.getButton());
+        }
+        else if(event.getButton() == favoriteButton) {
+            handleFavouriteClick((FavoriteButton) event.getButton());            
+        }
+        else if(event.getButton() == fakeButton) {
+            handleFakeClick((FakeButton) event.getButton());
         }
     }
+
+    public CommentButton getCommentButton() {
+        return commentButton;
+    }
+
+    public FavoriteButton getFavoriteButton() {
+        return favoriteButton;
+    }
+
+    public FakeButton getFakeButton() {
+        return fakeButton;
+    }
+
+    public HideButton getHideButton() {
+        return hideButton;
+    }
+    
+    
     
 }

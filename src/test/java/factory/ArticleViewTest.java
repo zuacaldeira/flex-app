@@ -238,7 +238,7 @@ public class ArticleViewTest {
     public void testCreateInfoActions() {
         System.out.println("createInfoActions");
         initMinimalScenario();
-        FlexUser user = new FlexUser();
+        FlexUser user = new FlexUser("test:username", "test:password");
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
         ArticleView aView = new ArticleView(user, article);
         AbstractOrderedLayout actions = aView.createInfoActions();
@@ -251,15 +251,24 @@ public class ArticleViewTest {
     @Test
     public void testButtonClick() {
         System.out.println("buttonClick");
+        initMinimalScenario();
         FlexUser user = new FlexUser();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
-        Date date = new Date();
-        article.setPublishedAt(date);
-        NewsAuthor author = new NewsAuthor("Author");
-        author.addArticle(article);
         ArticleView aView = new ArticleView(user, article);
         AbstractOrderedLayout actions = aView.createInfoActions();
-        ((FlexActionButton)actions.getComponent(1)).click();
+        assertEquals(4, actions.getComponentCount());
+        
+        aView.handleHideClick(aView.getHideButton());
+        aView.handleFakeClick(aView.getFakeButton());
+        aView.handleFavouriteClick(aView.getFavoriteButton());
+        //assertTrue(((FlexActionButton) actions.getComponent(0)).getStyleName().contains("purple"));
+        assertTrue(aView.getFavoriteButton().getStyleName().contains("yellow"));
+        assertTrue(aView.getFakeButton().getStyleName().contains("red"));
+        assertTrue(aView.getHideButton().getStyleName().contains("purple"));
+
+        aView.handleHideClick(aView.getHideButton());
+        aView.handleFakeClick(aView.getFakeButton());
+        aView.handleFavouriteClick(aView.getFavoriteButton());
     }
 
     private void initMinimalScenario() {
@@ -270,6 +279,13 @@ public class ArticleViewTest {
         author.addArticle(article);
         source.addCorrespondent(author);
         ServiceLocator.getInstance().findSourcesService().save(source);
+
+        FlexUser user = new FlexUser("test:username", "test:password");
+        ServiceLocator.getInstance().findUserService().register("test:username", "test:password");
+
+        ServiceLocator.getInstance().findArticlesService().markAsFake("test:username", article);
+        ServiceLocator.getInstance().findArticlesService().markAsFavorite("test:username", article);
+        ServiceLocator.getInstance().findArticlesService().markAsRead("test:username", article);
     }
 
 }
