@@ -54,7 +54,7 @@ public class LoginForm extends FlexForm {
 
     private void saveToLogin(String user, String pass) {
         FlexUser dbUser = service.login(user, pass);
-        if (dbUser != null) {
+        if (dbUser != null && getSession() != null) {
             getSession().setAttribute("user", dbUser);
             ((Window) getParent()).close();
             Page.getCurrent().setLocation("/flex-app/news");

@@ -88,6 +88,24 @@ public class LoginFormTest {
     public void testGetSaveButton() {
         System.out.println("getSaveButton");
         LoginForm instance = new LoginForm();
+        instance.getUsername().setValue("username");
+        instance.getPassword().setValue("pass");
+        SaveButton save = instance.getSaveButton();
+        assertNotNull(save);
+        save.click();
+    }
+
+    /**
+     * Test of getSaveButton method, of class LoginForm.
+     */
+    @Test
+    public void testGetSaveButton2() {
+        System.out.println("getSaveButton");
+        LoginForm instance = new LoginForm();
+        instance.getUsername().setValue("username");
+        instance.getPassword().setValue("pass");
+        instance.getPassword2().setValue("pass2");
+        instance.getRegister().setValue(true);
         SaveButton save = instance.getSaveButton();
         assertNotNull(save);
         save.click();
