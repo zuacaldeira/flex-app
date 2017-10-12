@@ -128,7 +128,7 @@
         <dependency>
             <groupId>org.github.zuacaldeira</groupId>
             <artifactId>flex-app-backend</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.0</version>
             <type>jar</type>
         </dependency>
         <dependency>
