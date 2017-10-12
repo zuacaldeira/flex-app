@@ -14802,8 +14802,9 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-menu {
-	border-radius: 5%;
-	background: black;
+	background-color: gray;
+	background-image: -webkit-linear-gradient(top left, gray, purple);
+	background-image: linear-gradient(to bottom right,gray, purple);
 	color: whitesmoke;
 }
 

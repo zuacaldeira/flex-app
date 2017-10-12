@@ -77,8 +77,7 @@ $color-action: white;
 
 
     .flex-menu {
-        border-radius: 5%;
-        background: black;
+        @include linear-gradient(to bottom right, gray, $color-main);
         color: whitesmoke;
     }
 
@@ -100,7 +99,6 @@ $color-action: white;
     .items {
         //$v-font-family: "JF Flat","Open Sans", sans-serif;
         .item {
-            border-radius: 5%;
             background: white;
             color: black;
             .title {
@@ -109,7 +107,6 @@ $color-action: white;
         }
 
         .item-selected {
-            border-radius: 5%;
             background: black;
             color: $color-main;
             .title {
