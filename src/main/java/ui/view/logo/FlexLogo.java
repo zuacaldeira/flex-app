@@ -5,17 +5,15 @@
  */
 package ui.view.logo;
 
-import com.vaadin.ui.Label;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  *
  * @author zua
  */
-public class FlexLogo extends Label {
+public class FlexLogo extends VerticalLayout {
 
     public FlexLogo() {
         super.setStyleName("flex-logo");
     }
-    
-    
 }

@@ -79,7 +79,7 @@ $v-font-size: 14px;
     }
     
     .flex-logo {
-        background: url('layouts/neao_lg.gif');
+        
     }
 
     .flex-menu-bar {
@@ -115,6 +115,7 @@ $v-font-size: 14px;
 
     .items {
         //$v-font-family: "JF Flat","Open Sans", sans-serif;
+        background: transparent;
         .item {
             background: white;
             color: $color-primary;

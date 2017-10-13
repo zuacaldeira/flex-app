@@ -9,7 +9,7 @@ import factory.GraphEntityView;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.HorizontalSplitPanel;
+import com.vaadin.ui.HorizontalLayout;
 import panel.FlexPanel;
 
 /**
@@ -19,25 +19,24 @@ import panel.FlexPanel;
  */
 public class MasterDetailView<T extends GraphEntityView> extends FlexPanel  {
 
-    private HorizontalSplitPanel horizontalSplitPanel;
     private FlexBrowserFramePanel browserFramePanel;
     private SummariesLayoutPanel<T> summariesPanel;
+    private HorizontalLayout baseLayout;
     private T selected;
     private Object myData;
     private BrowserFrame browserFrame;
 
     public MasterDetailView() {
-        horizontalSplitPanel = new HorizontalSplitPanel();
-        horizontalSplitPanel.setSizeFull();
-        horizontalSplitPanel.setSplitPosition(25f);
         selected = null;
         myData = null;
-        super.setSizeFull();
         initSummaries(1);
         initBrowserFrame();
-        horizontalSplitPanel.setFirstComponent(summariesPanel);
-        horizontalSplitPanel.setSecondComponent(browserFramePanel);
-        setContent(horizontalSplitPanel);
+        baseLayout = new HorizontalLayout(summariesPanel, browserFramePanel);
+        baseLayout.setSizeFull();
+        baseLayout.setExpandRatio(summariesPanel, .2f);
+        baseLayout.setExpandRatio(browserFramePanel, .8f);
+        super.setSizeFull();
+        super.setContent(baseLayout);
     }
     
     private void initSummaries(int c) {

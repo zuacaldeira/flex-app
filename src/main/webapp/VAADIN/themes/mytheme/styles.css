@@ -14809,10 +14809,6 @@ div.v-layout.v-horizontal.v-widget {
 	background: url('layouts/neao_lg.gif');
 }
 
-.mytheme .flex-menu-bar {
-	opacity: 0.7;
-}
-
 .mytheme .flex-menu-bar .v-menubar {
 	color: white;
 	background: transparent;
@@ -14836,12 +14832,13 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .items {
-	text-align: justify;
+	background: transparent;
 }
 
 .mytheme .items .item {
 	background: white;
 	color: gray;
+	text-align: justify;
 }
 
 .mytheme .items .item .title {
@@ -14851,6 +14848,7 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme .items .item-selected {
 	background: black;
 	color: white;
+	text-align: justify;
 }
 
 .mytheme .items .item-selected .title {
