@@ -17,7 +17,7 @@ $v-font-size: 14px;
 //$v-border-radius: 10px;
 
 // Affects the color of some component elements, e.g Button, Panel title, etc
-$v-background-color: rgba(10, 255, 0, 0.7);
+//$v-background-color: rgba(10, 255, 0, 0.7);
 // Affects the color of content areas, e.g  Panel and Window content, TextField input etc
 //$v-app-background-color: rgba(255, 0, 255, 0.7);
 
@@ -56,7 +56,6 @@ $v-background-color: rgba(10, 255, 0, 0.7);
     }
 
     .flex-action {
-        background: transparent;
         color: $color-action;
         border-radius: 50%;
     }
@@ -84,7 +83,6 @@ $v-background-color: rgba(10, 255, 0, 0.7);
     }
 
     .flex-menu-bar {
-        opacity: 0.7;
         .v-menubar {
             color: $color-action;
             background: transparent;
@@ -117,10 +115,10 @@ $v-background-color: rgba(10, 255, 0, 0.7);
 
     .items {
         //$v-font-family: "JF Flat","Open Sans", sans-serif;
-        text-align: justify;
         .item {
             background: white;
             color: $color-primary;
+            text-align: justify;
             .title {
                 font-weight: bold;
             }
@@ -129,6 +127,7 @@ $v-background-color: rgba(10, 255, 0, 0.7);
         .item-selected {
             background: black;
             color: $color-action;
+            text-align: justify;
             .title {
                 font-weight: bold;
             }
