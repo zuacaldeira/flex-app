@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-Local Netbeans Testing Pipeline</actionName>
+            <displayName>Local Netbeans Testing Pipeline</displayName>
+            <goals>
+                <goal>properties:read-project-properties</goal>
+                <goal>clean</goal>
+                <goal>install</goal>
+                <goal>glassfish:redeploy</goal>
+                <goal>-e</goal>
+            </goals>
+            <properties>
+                <glassfish.properties.file.argument>testing</glassfish.properties.file.argument>
+            </properties>
+        </action>
+        <action>
+            <actionName>CUSTOM-Local Netbeans Glassfish Server Production</actionName>
+            <displayName>Local Netbeans Glassfish Server Production</displayName>
+            <goals>
+                <goal>properties:read-project-properties</goal>
+                <goal>clean</goal>
+                <goal>install</goal>
+                <goal>glassfish:redeploy</goal>
+                <goal>-e</goal>
+            </goals>
+            <properties>
+                <glassfish.properties.file.argument>production</glassfish.properties.file.argument>
+            </properties>
+        </action>
+    </actions>
