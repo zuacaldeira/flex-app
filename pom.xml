@@ -8,6 +8,24 @@
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>flex-app</name>
+    <description>Flex Web App for African Languages</description>
+    <developers>
+        <developer>
+            <name>Alexandre Zua Caldeira</name>
+            <email>zuacaldeira@gmail.com</email>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>LICENSE</name>
+        </license>
+    </licenses>
+    <url>https://github.com/zuacaldeira/flex-app</url>
+    <scm>
+        <connection>scm:git:https://github.com/zuacaldeira/flex-app</connection>
+        <developerConnection>scm:git:https://github.com/zuacaldeira/flex-app.git</developerConnection>
+        <url>https://github.com/zuacaldeira/flex-app</url>
+    </scm>
 
     <prerequisites>
         <maven>3</maven>
@@ -25,7 +43,7 @@
         <!-- Input Parameter - GlassFish properties file -->
         <glassfish.properties.file.argument></glassfish.properties.file.argument>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>    
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
     </properties>
 
     <distributionManagement>
@@ -335,6 +353,79 @@
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
+            
+            <!-- MAVEN SOURCE PLUGIN -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- MAVEN JAVADOC PLUGIN -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>  
+            
+            <!-- MAVEN GPG PLUGIN -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>                
+            
+            <!-- MAVEN NEXUS-STAGING PLUGIN -->
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>  
+            
+          
+            <!-- MAVEN RELEASE PLUGIN -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>ossrh</releaseProfiles>
+                    <goals>deploy</goals>
+                </configuration>
+            </plugin>              
         </plugins>
         
     </build>
