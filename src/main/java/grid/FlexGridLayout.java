@@ -14,7 +14,7 @@ import com.vaadin.ui.VerticalLayout;
 /**
  *
  * @author zua
- * @param <T>
+ * @param <T> A sub-type of {@code GraphEntityView}.
  */
 public class FlexGridLayout<T extends GraphEntityView> extends HorizontalLayout {
 

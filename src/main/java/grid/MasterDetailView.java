@@ -15,7 +15,7 @@ import panel.FlexPanel;
 /**
  *
  * @author zua
- * @param <T>
+ * @param <T> A sub-type of {@code GraphEntityView}.
  */
 public class MasterDetailView<T extends GraphEntityView> extends FlexPanel  {
 

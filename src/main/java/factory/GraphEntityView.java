@@ -16,28 +16,28 @@ import ui.SecuredUI;
 /**
  *
  * @author zua
- * @param <T>
+ * @param <T> A sub type of {@code GraphEntity}.
  */
 public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLayout implements ClickListener {
 
     private final T item;
     private FlexUser user;
-    
+
     private AbstractOrderedLayout infoHeader;
     private AbstractOrderedLayout infoBody;
     private AbstractOrderedLayout infoActions;
-    
+
     public GraphEntityView(FlexUser user, T entity) {
         this.user = user;
         this.item = entity;
         infoHeader = this.createInfoHeader();
         infoBody = this.createInfoBody();
         infoActions = this.createInfoActions();
-        
+
         VerticalLayout base = new VerticalLayout(infoHeader, infoBody, infoActions);
         base.setComponentAlignment(infoActions, Alignment.MIDDLE_RIGHT);
         this.addComponent(base);
-        
+
         this.setSizeFull();
         this.setSpacing(true);
         this.setMargin(false);
@@ -55,7 +55,7 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
     public AbstractOrderedLayout getInfoActions() {
         return infoActions;
     }
-    
+
     public FlexUser getUser() {
         return user;
     }
@@ -64,11 +64,11 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
     public SecuredUI getUI() {
         return (SecuredUI) super.getUI();
     }
-    
+
     public T getItem() {
         return item;
     }
-    
+
     public void minimize() {
         setStyleName("item");
     }
@@ -78,10 +78,9 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
     }
 
     public abstract AbstractOrderedLayout createInfoHeader();
+
     public abstract AbstractOrderedLayout createInfoBody();
+
     public abstract AbstractOrderedLayout createInfoActions();
-    
 
-
- 
 }

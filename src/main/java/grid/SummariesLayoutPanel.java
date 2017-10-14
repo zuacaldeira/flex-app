@@ -12,7 +12,7 @@ import panel.FlexPanel;
 /**
  *
  * @author zua
- * @param <T>
+ * @param <T> A sub-type of {@code GraphEntityView}.
  */
 public class SummariesLayoutPanel<T extends GraphEntityView> extends FlexPanel {
 

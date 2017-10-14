@@ -6,12 +6,14 @@
 package ui.view.menu;
 
 /**
- * Interface for menus in the <strong>flex app</strong> project.
+ * Interface for menus in the <strong>flex app</strong> project. Introduces
+ * {@literal &{populate: &{}}}.
+ *
  *
  * @author zua
  *
- * @SessionType("&{populate: &{}}")
  */
 public interface CanPopulate {
+
     public void populate();
 }
