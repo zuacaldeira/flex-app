@@ -6,14 +6,14 @@ pipeline {
     }
 
     stages {
-        stage('Initialize') {
+        stage('INITIALIZE') {
             steps{
-                sh 'echo "PATH = ${PATH}"; echo "M2_HOME = ${M2_HOME}"'
+                sh 'echo "Initializing flex-app build."'
             }
         }
-        stage('build') { 
+        stage('BUILD') { 
             steps { 
-                sh 'mvn install' 
+                sh 'mvn clean install' 
                 jacoco exclusionPattern: '**/*Test*.class'
             }
             post {
