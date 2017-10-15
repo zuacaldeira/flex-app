@@ -32,14 +32,14 @@
     </prerequisites>
 
     <properties>
-        <vaadin.version>8.1.1</vaadin.version>
-        <vaadin.plugin.version>8.1.1</vaadin.plugin.version>
+        <vaadin.version>8.1.5</vaadin.version>
+        <vaadin.plugin.version>8.1.5</vaadin.plugin.version>
         <jetty.plugin.version>9.3.9.v20160517</jetty.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <!-- If there are no local customisations, this can also be "fetch" or "cdn" -->
-        <!--vaadin.widgetset.mode>local</vaadin.widgetset.mode-->
+        <vaadin.widgetset.mode>local</vaadin.widgetset.mode>
         <!-- Input Parameter - GlassFish properties file -->
         <glassfish.properties.file.argument />
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -308,7 +308,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <skip>true</skip>
+                    <skip>false</skip>
                 </configuration>
             </plugin>
             <!-- The Jetty plugin allows us to easily test the development build by
