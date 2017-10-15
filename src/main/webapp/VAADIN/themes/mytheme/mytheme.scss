@@ -3,8 +3,9 @@ $v-app-loading-text: "Nzinga";
 // Global variable overrides. Must be declared before importing Valo.
 
 // App colors
+$color-menu: rgba(255, 255, 255, 0.75);
 $color-primary: gray;
-$color-secondary: purple;
+$color-secondary: lightgray;
 $color-action: white;
 
 // Defines the plaintext font size, weight and family. Font size affects general component sizing.
@@ -75,7 +76,7 @@ $v-font-size: 14px;
 
 
     .flex-menu {
-        color: $color-action;
+        color: $color-menu;
     }
     
     .flex-logo {

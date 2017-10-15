@@ -14793,8 +14793,8 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .v-ui {
 	background-color: gray;
-	background-image: -webkit-linear-gradient(top left, gray, purple);
-	background-image: linear-gradient(to bottom right,gray, purple);
+	background-image: -webkit-linear-gradient(top left, gray, lightgray);
+	background-image: linear-gradient(to bottom right,gray, lightgray);
 }
 
 .mytheme .flex-button {
@@ -14813,13 +14813,13 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .flex-window {
 	background-color: gray;
-	background-image: -webkit-linear-gradient(top left, gray, purple);
-	background-image: linear-gradient(to bottom right,gray, purple);
+	background-image: -webkit-linear-gradient(top left, gray, lightgray);
+	background-image: linear-gradient(to bottom right,gray, lightgray);
 	color: white;
 }
 
 .mytheme .flex-menu {
-	color: white;
+	color: rgba(255, 255, 255, 0.75);
 }
 
 .mytheme .flex-menu-bar .v-menubar {
@@ -14827,7 +14827,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-menu-bar .v-menubar-menuitem {
-	background: transparent;
+	background: black;
 	color: white;
 	font-weight: bold;
 }
@@ -14845,6 +14845,10 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .flex-menu-bar .v-menubar-popup {
 	background: black;
+}
+
+.mytheme .flex-body {
+	background: rgba(255, 0, 126, 0.7);
 }
 
 .mytheme .items {
