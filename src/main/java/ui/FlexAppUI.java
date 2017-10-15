@@ -4,6 +4,7 @@ package ui;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import ui.view.main.FlexMainView;
@@ -19,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 
 @Theme("mytheme")
 @Push
+@Widgetset("AppWidgetset")
 public class FlexAppUI extends SecuredUI {
 
     @Override
@@ -32,7 +34,7 @@ public class FlexAppUI extends SecuredUI {
     }
 
     @WebServlet(urlPatterns = "/*", name = "NewsUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = FlexAppUI.class, productionMode = false)
+    @VaadinServletConfiguration(ui = FlexAppUI.class, productionMode = false, widgetset = "AppWidgetset")
     public static class NewsUIServlet extends VaadinServlet {
     }
 
