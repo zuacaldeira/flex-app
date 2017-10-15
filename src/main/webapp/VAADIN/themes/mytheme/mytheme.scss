@@ -84,7 +84,7 @@ $v-font-size: 14px;
 
     .flex-menu-bar {
         .v-menubar {
-            color: $color-action;
+            //color: $color-action;
             background: transparent;
             /* border: 1px solid #4455aa;
             text-shadow: 1px 1px 0px #474746;
@@ -93,7 +93,7 @@ $v-font-size: 14px;
             -moz-border-radius: 10px;*/
         }
         .v-menubar-menuitem {
-            background: transparent;
+            background: black;
             color: $color-action;
             font-weight: bold;
         }    
@@ -106,7 +106,11 @@ $v-font-size: 14px;
             background: transparent;
             color: $color-action;
             font-weight: bold;
-        }    
+        }
+        
+        .v-menubar-popup {
+            background: black;
+        }
     }
 
     .flex-body{

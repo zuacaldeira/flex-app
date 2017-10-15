@@ -35,6 +35,7 @@ public class MasterDetailView<T extends GraphEntityView> extends FlexPanel  {
         baseLayout.setSizeFull();
         baseLayout.setExpandRatio(summariesPanel, .2f);
         baseLayout.setExpandRatio(browserFramePanel, .8f);
+        baseLayout.setSpacing(false);
         super.setSizeFull();
         super.setContent(baseLayout);
     }

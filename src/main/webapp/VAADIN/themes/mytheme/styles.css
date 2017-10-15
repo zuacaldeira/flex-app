@@ -14823,7 +14823,6 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-menu-bar .v-menubar {
-	color: white;
 	background: transparent;
 }
 
@@ -14842,6 +14841,10 @@ div.v-layout.v-horizontal.v-widget {
 	background: transparent;
 	color: white;
 	font-weight: bold;
+}
+
+.mytheme .flex-menu-bar .v-menubar-popup {
+	background: black;
 }
 
 .mytheme .items {
