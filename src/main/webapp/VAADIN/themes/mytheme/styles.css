@@ -14792,17 +14792,14 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .v-ui {
-	background-color: gray;
-	background-image: -webkit-linear-gradient(top left, gray, lightgray);
-	background-image: linear-gradient(to bottom right,gray, lightgray);
+	background: white;
 }
 
 .mytheme .flex-button {
-	color: gray;
+	color: white;
 }
 
 .mytheme .flex-action {
-	color: white;
 	border-radius: 50%;
 }
 
