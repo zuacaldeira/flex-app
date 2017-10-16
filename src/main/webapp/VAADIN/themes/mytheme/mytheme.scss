@@ -3,6 +3,7 @@ $v-app-loading-text: "Nzinga";
 // Global variable overrides. Must be declared before importing Valo.
 
 // App colors
+$color-ui: rbga(126, 0, 126, 1);
 $color-menu: rgba(255, 255, 255, 0.75);
 $color-primary: gray;
 $color-secondary: lightgray;
@@ -115,7 +116,7 @@ $v-font-size: 14px;
     }
 
     .flex-body{
-        background: rgba(255, 0, 126, .7);
+        //background: rgba(255, 0, 126, .7);
     }
 
 
