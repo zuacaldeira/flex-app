@@ -1,13 +1,17 @@
 // If you edit this file you need to compile the theme. See README.md for details.
-$v-app-loading-text: "Nzinga";
+$v-app-loading-text:        "Nzinga";
 // Global variable overrides. Must be declared before importing Valo.
 
 // App colors
-$color-ui: rgba(255, 255, 255, 1);
-$color-menu: rgba(255, 255, 255, 0.75);
-$color-primary: gray;
-$color-secondary: lightgray;
-$color-action: white;
+$color-ui:                  rgba(255, 255, 255, 1);
+$color-background-primary:  rgba(0, 255, 255, 0.75);
+$color-background-secondary:rgba(127, 255, 127, 0.75);
+$color-background-action:   rgba(255, 255, 0, 0.1);
+$color-text-primary:        rgba(125, 125, 125, 1);
+$color-text-secondary:      rgba(255, 255, 255, 1);
+$color-text-action:         white;
+$color-menu:                white;
+$color-menu-shadow:         gray;
 
 // Defines the plaintext font size, weight and family. Font size affects general component sizing.
 $v-font-size: 14px;
@@ -54,21 +58,19 @@ $v-font-size: 14px;
     }
 
     .flex-button {
-        color: $color-action;
+        color: $color-text-primary;
     }
 
     .flex-action {
         border-radius: 50%;
     }
 
-    .v-panel-bordeless {
+    .v-panel, .v-panel-bordeless {
         border: none;
         background: transparent;
     }
 
     .flex-window {
-        @include linear-gradient(to bottom right, $color-primary, $color-secondary);
-        color: white;
     }
 
     .flex-view {
@@ -76,41 +78,32 @@ $v-font-size: 14px;
 
 
     .flex-menu {
-        color: $color-menu;
+        background: $color-menu;
+        box-shadow: 4px 0px 2px $color-menu-shadow;
+        color: $color-text-primary;
     }
-    
+
     .flex-logo {
-        
     }
 
     .flex-menu-bar {
+        background: transparent;
         .v-menubar {
-            //color: $color-action;
-            background: transparent;
-            /* border: 1px solid #4455aa;
-            text-shadow: 1px 1px 0px #474746;
-            border-radius: 10px;
-            -webkit-border-radius: 10px;
-            -moz-border-radius: 10px;*/
         }
         .v-menubar-menuitem {
-            background: black;
-            color: $color-action;
-            font-weight: bold;
+            color: $color-text-primary;
         }    
         .v-menubar-menuitem:hover {
-            background: transparent;
-            color: $color-primary;
+            font-weight: bold;
         }
 
         .v-menubar-menuitem-selected {
-            background: transparent;
-            color: $color-action;
+            color: $color-text-action;
             font-weight: bold;
         }
-        
+
         .v-menubar-popup {
-            background: black;
+            //background: black;
         }
     }
 
@@ -124,7 +117,7 @@ $v-font-size: 14px;
         background: transparent;
         .item {
             background: white;
-            color: $color-primary;
+            color: $color-text-primary;
             text-align: justify;
             .title {
                 font-weight: bold;
@@ -133,7 +126,7 @@ $v-font-size: 14px;
 
         .item-selected {
             background: black;
-            color: $color-action;
+            color: $color-text-action;
             text-align: justify;
             .title {
                 font-weight: bold;

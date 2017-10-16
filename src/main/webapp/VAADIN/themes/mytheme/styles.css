@@ -14796,52 +14796,39 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-button {
-	color: white;
+	color: #7d7d7d;
 }
 
 .mytheme .flex-action {
 	border-radius: 50%;
 }
 
-.mytheme .v-panel-bordeless {
+.mytheme .v-panel, .mytheme .v-panel-bordeless {
 	border: none;
 	background: transparent;
 }
 
-.mytheme .flex-window {
-	background-color: gray;
-	background-image: -webkit-linear-gradient(top left, gray, lightgray);
-	background-image: linear-gradient(to bottom right,gray, lightgray);
-	color: white;
-}
-
 .mytheme .flex-menu {
-	color: rgba(255, 255, 255, 0.75);
+	background: white;
+	box-shadow: 2px 0px 2px gray;
+	color: #7d7d7d;
 }
 
-.mytheme .flex-menu-bar .v-menubar {
+.mytheme .flex-menu-bar {
 	background: transparent;
 }
 
 .mytheme .flex-menu-bar .v-menubar-menuitem {
-	background: black;
-	color: white;
-	font-weight: bold;
+	color: #7d7d7d;
 }
 
 .mytheme .flex-menu-bar .v-menubar-menuitem:hover {
-	background: transparent;
-	color: gray;
-}
-
-.mytheme .flex-menu-bar .v-menubar-menuitem-selected {
-	background: transparent;
-	color: white;
 	font-weight: bold;
 }
 
-.mytheme .flex-menu-bar .v-menubar-popup {
-	background: black;
+.mytheme .flex-menu-bar .v-menubar-menuitem-selected {
+	color: white;
+	font-weight: bold;
 }
 
 .mytheme .items {
@@ -14850,7 +14837,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .items .item {
 	background: white;
-	color: gray;
+	color: #7d7d7d;
 	text-align: justify;
 }
 
