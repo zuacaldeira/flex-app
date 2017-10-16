@@ -14809,8 +14809,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-menu {
-	background: white;
-	box-shadow: 2px 0px 2px gray;
+	background: black;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(150, 0, 0, 0.4);
 	color: #7d7d7d;
 }
 
@@ -14833,10 +14833,12 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .items {
 	background: transparent;
+	box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2), 2px 3px 10px 2px rgba(150, 0, 0, 0.4);
 }
 
 .mytheme .items .item {
 	background: white;
+	box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2), 2px 3px 10px 2px rgba(150, 0, 0, 0.4);
 	color: #7d7d7d;
 	text-align: justify;
 }
