@@ -98,12 +98,14 @@ $flex-item-shadow: 2px 2px 4px 2px rgba(0, 0, 0, .2), 2px 3px 10px 2px rgba(150,
         .v-menubar-menuitem:hover {
             font-weight: bold;
         }
-
         .v-menubar-menuitem-selected {
             color: $color-text-action;
             font-weight: bold;
         }
-
+        .v-menubar-menuitem-highlighted {
+            color: $color-text-action;
+            font-weight: bold;
+        }
         .v-menubar-popup {
             background: black;
         }

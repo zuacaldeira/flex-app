@@ -28,7 +28,10 @@ import utils.ServiceLocator;
  *
  * @author zua
  */
-public class FlexMenuBar extends MenuBar implements CanPopulate {
+public final class FlexMenuBar extends MenuBar implements CanPopulate {
+
+    private final FlexUser user;
+    private final NewsSourceServiceInterface sourcesService;
 
     // Main Menu (top level)
     private MenuItem home;
@@ -41,9 +44,6 @@ public class FlexMenuBar extends MenuBar implements CanPopulate {
     private MenuItem search;
 
     private MenuBar.Command command;
-    private final FlexUser user;
-
-    private NewsSourceServiceInterface sourcesService;
     private MenuItem read;
     private MenuItem favorite;
     private MenuItem fake;
@@ -56,16 +56,11 @@ public class FlexMenuBar extends MenuBar implements CanPopulate {
     public FlexMenuBar(FlexUser user) {
         this.user = user;
         sourcesService = ServiceLocator.getInstance().findSourcesService();
-        initMenuItems();
-        setMoreMenuItem(home);
+        this.initMenuItems();
+        this.setMoreMenuItem(home);
     }
 
     protected void initMenuItems() {
-        command = (MenuItem selectedItem) -> {
-            selectedItem.setStyleName("selected");
-            updateBody(selectedItem);
-        };
-
         home = addItem("", VaadinIcons.HOME, (selectedItem) -> {
             if (Page.getCurrent() != null) {
                 Page.getCurrent().setLocation("/flex-app");
@@ -76,12 +71,12 @@ public class FlexMenuBar extends MenuBar implements CanPopulate {
         categories = addItem("Categories", null, null);
         languages = addItem("Languages", null, null);
         countries = addItem("Countries", null, null);
-        search = addItem("", VaadinIcons.SEARCH, (selectedItem) -> {
+        search = addItem("", VaadinIcons.SEARCH, () -> {
             if (UI.getCurrent() != null) {
                 UI.getCurrent().addWindow(new SearchWindow(user));
             }
         });
-        logout = addItem("", VaadinIcons.SIGN_OUT, (selectedItem) -> {
+        logout = addItem("", VaadinIcons.SIGN_OUT, () -> {
             if (UI.getCurrent() != null) {
                 Notification.show("LOGOUT");
                 getSession().setAttribute("user", null);
@@ -111,14 +106,18 @@ public class FlexMenuBar extends MenuBar implements CanPopulate {
     protected void populateNewsCategory() {
         Collection<String> cats = sourcesService.findCategories();
         cats.forEach(cat -> {
-            categories.addItem(getCategoryCaption(cat), command);
+            categories.addItem(getCategoryCaption(cat), (selectedMenuItem) -> {
+                updateBody(DataProviderType.CATEGORY, selectedMenuItem.getText());
+            });
         });
     }
 
     protected void populateNewsPublisher() {
         Collection<String> names = sourcesService.findNames();
         names.forEach(name -> {
-            publishers.addItem(name, command);
+            publishers.addItem(name, (selectedMenuItem -> {
+                updateBody(DataProviderType.PUBLISHER, selectedMenuItem.getText());
+            }));
         });
     }
 
@@ -131,7 +130,9 @@ public class FlexMenuBar extends MenuBar implements CanPopulate {
             }
         });
         result.forEach(lang -> {
-            languages.addItem(lang, command);
+            languages.addItem(lang, (selectedMenuItem) -> {
+                updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
+            });
         });
     }
 
@@ -142,25 +143,43 @@ public class FlexMenuBar extends MenuBar implements CanPopulate {
             result.add(MyDateUtils.getCountryNameFromPattern(localeString));
         });
         result.forEach(country -> {
-            countries.addItem(country, command);
+            countries.addItem(country, (selectedMenuItem) -> {
+                updateBody(DataProviderType.COUNTRIES, selectedMenuItem.getText());
+            });
         });
     }
 
     private void populateViews() {
-        full = news.addItem("Full", command);
-        imagesOnly = news.addItem("Images Only", command);
-        titlesOnly = news.addItem("Titles Only", command);
+        full = news.addItem("Full", (selectedMenuItem) -> {
+            updateBody(DataProviderType.FULL, null);
+        });
+        imagesOnly = news.addItem("Images Only", (selectedMenuItem) -> {
+            updateBody(DataProviderType.IMAGES_ONLY, null);
+        });
+        titlesOnly = news.addItem("Titles Only", (selectedMenuItem) -> {
+            updateBody(DataProviderType.TITLES_ONLY, null);
+        });
     }
 
     private void populateNewsByTime() {
-        latest = news.addItem("Latest", VaadinIcons.ARROW_CIRCLE_DOWN, command);
-        oldest = news.addItem("Oldest", VaadinIcons.ARROW_CIRCLE_UP, command);
+        latest = news.addItem("Latest", VaadinIcons.ARROW_CIRCLE_DOWN, (selectdMenuItem) -> {
+            updateBody(DataProviderType.LATEST, null);
+        });
+        oldest = news.addItem("Oldest", VaadinIcons.ARROW_CIRCLE_UP, (selectedMenuItem) -> {
+            updateBody(DataProviderType.OLDEST, null);
+        });
     }
 
     private void populateNewsByStatus() {
-        read = news.addItem("Read", VaadinIcons.EYE_SLASH, command);
-        favorite = news.addItem("Favorite", VaadinIcons.STAR, command);
-        fake = news.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, command);
+        read = news.addItem("Read", VaadinIcons.EYE_SLASH, (selectedMenuItem) -> {
+            updateBody(DataProviderType.READ, null);
+        });
+        favorite = news.addItem("Favorite", VaadinIcons.STAR, (selectedMenuItem) -> {
+            updateBody(DataProviderType.FAVORITE, null);
+        });
+        fake = news.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, (selectMenuItem) -> {
+            updateBody(DataProviderType.FAKE, null);
+        });
     }
 
     @Override
@@ -172,6 +191,15 @@ public class FlexMenuBar extends MenuBar implements CanPopulate {
         FlexBody body = UIUtils.getInstance().getBody(this);
         if (body != null) {
             body.initBodyUpdaterThread(getDataProviderType(selectedItem), selectedItem.getText());
+        } else {
+            Notification.show("Body Not Found");
+        }
+    }
+
+    private void updateBody(DataProviderType dataType, String value) {
+        FlexBody body = UIUtils.getInstance().getBody(this);
+        if (body != null) {
+            body.initBodyUpdaterThread(dataType, value);
         } else {
             Notification.show("Body Not Found");
         }
