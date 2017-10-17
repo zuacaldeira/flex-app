@@ -98,7 +98,9 @@ public class FlexMenuBar extends MenuBar implements CanPopulate {
     @Override
     public void populate() {
         populateNewsByTime();
+        news.addSeparator();
         populateNewsByStatus();
+        news.addSeparator();
         populateViews();
         populateNewsPublisher();
         populateNewsCategory();
