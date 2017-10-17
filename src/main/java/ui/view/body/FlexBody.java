@@ -6,7 +6,6 @@
 package ui.view.body;
 
 import data.DataProviderType;
-import grid.MasterDetailView;
 import factory.FlexViewFactory;
 import db.FlexUser;
 import db.GraphEntity;

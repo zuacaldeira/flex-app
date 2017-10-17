@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package grid;
+package ui.view.body;
 
 import com.vaadin.ui.BrowserFrame;
 import panel.FlexPanel;
