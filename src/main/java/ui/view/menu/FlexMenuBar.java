@@ -43,7 +43,6 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
     private MenuItem logout;
     private MenuItem search;
 
-    private MenuBar.Command command;
     private MenuItem read;
     private MenuItem favorite;
     private MenuItem fake;
@@ -187,29 +186,12 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
         return (SecuredUI) super.getUI();
     }
 
-    private void updateBody(MenuItem selectedItem) {
-        FlexBody body = UIUtils.getInstance().getBody(this);
-        if (body != null) {
-            body.initBodyUpdaterThread(getDataProviderType(selectedItem), selectedItem.getText());
-        } else {
-            Notification.show("Body Not Found");
-        }
-    }
-
     private void updateBody(DataProviderType dataType, String value) {
         FlexBody body = UIUtils.getInstance().getBody(this);
         if (body != null) {
             body.initBodyUpdaterThread(dataType, value);
         } else {
             Notification.show("Body Not Found");
-        }
-    }
-
-    public DataProviderType getDataProviderType(MenuItem selectedItem) {
-        if (selectedItem.getParent() == null || selectedItem.getParent() == news) {
-            return getTopDataProviderType(selectedItem);
-        } else {
-            return getTopDataProviderType(selectedItem.getParent());
         }
     }
 
@@ -289,56 +271,7 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
         return titlesOnly;
     }
 
-    public Command getCommand() {
-        return command;
-    }
-
     public FlexUser getUser() {
         return user;
     }
-
-    private DataProviderType getTopDataProviderType(MenuItem selectedItem) {
-        if (selectedItem.getText() == null || selectedItem.getText().isEmpty()) {
-            return getIconicDataProviderType(selectedItem);
-        }
-        switch (selectedItem.getText()) {
-            case "Latest":
-                return DataProviderType.LATEST;
-            case "Oldest":
-                return DataProviderType.OLDEST;
-            case "Read":
-                return DataProviderType.READ;
-            case "Favorite":
-                return DataProviderType.FAVORITE;
-            case "Fake":
-                return DataProviderType.FAKE;
-            case "Full":
-                return DataProviderType.FULL;
-            case "Images Only":
-                return DataProviderType.IMAGES_ONLY;
-            case "Titles Only":
-                return DataProviderType.TITLES_ONLY;
-            case "Categories":
-                return DataProviderType.CATEGORY;
-            case "Publishers":
-                return DataProviderType.PUBLISHER;
-            case "Languages":
-                return DataProviderType.LANGUAGES;
-            case "Countries":
-                return DataProviderType.COUNTRIES;
-            default:
-                return DataProviderType.LATEST;
-        }
-    }
-
-    private DataProviderType getIconicDataProviderType(MenuItem selectedItem) {
-        if (selectedItem.getIcon().equals(VaadinIcons.SEARCH)) {
-            return DataProviderType.SEARCH;
-        }
-        if (selectedItem.getIcon().equals(VaadinIcons.SIGN_OUT)) {
-            return DataProviderType.LOGOUT;
-        }
-        return DataProviderType.HOME;
-    }
-
 }

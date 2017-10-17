@@ -7,7 +7,6 @@ package ui.view.menu;
 
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
-import data.DataProviderType;
 import db.FlexUser;
 import db.NewsSource;
 import org.junit.Test;
@@ -117,33 +116,6 @@ public class FlexMenuBarTest {
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         FlexMenuBar menuBar = new FlexMenuBar(user);
         assertNull(menuBar.getUI());
-    }
-
-    /**
-     * Test of getDataProviderType method, of class FlexMenuBar.
-     */
-    @Test
-    public void testGetDataProviderType() {
-        System.out.println("getDataProviderType");
-        initMinimalScenario();
-        FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMenuBar menuBar = new FlexMenuBar(user);
-        menuBar.populate();
-        assertEquals(DataProviderType.HOME, menuBar.getDataProviderType(menuBar.getHome()));
-        assertEquals(DataProviderType.LATEST, menuBar.getDataProviderType(menuBar.getLatest()));
-        assertEquals(DataProviderType.OLDEST, menuBar.getDataProviderType(menuBar.getOldest()));
-        assertEquals(DataProviderType.READ, menuBar.getDataProviderType(menuBar.getRead()));
-        assertEquals(DataProviderType.FAVORITE, menuBar.getDataProviderType(menuBar.getFavorite()));
-        assertEquals(DataProviderType.FAKE, menuBar.getDataProviderType(menuBar.getFake()));
-        assertEquals(DataProviderType.FULL, menuBar.getDataProviderType(menuBar.getFull()));
-        assertEquals(DataProviderType.IMAGES_ONLY, menuBar.getDataProviderType(menuBar.getImagesOnly()));
-        assertEquals(DataProviderType.TITLES_ONLY, menuBar.getDataProviderType(menuBar.getTitlesOnly()));
-        assertEquals(DataProviderType.PUBLISHER, menuBar.getDataProviderType(menuBar.getPublishers()));
-        assertEquals(DataProviderType.CATEGORY, menuBar.getDataProviderType(menuBar.getCategories()));
-        assertEquals(DataProviderType.LANGUAGES, menuBar.getDataProviderType(menuBar.getLanguages()));
-        assertEquals(DataProviderType.COUNTRIES, menuBar.getDataProviderType(menuBar.getCountries()));
-        assertEquals(DataProviderType.SEARCH, menuBar.getDataProviderType(menuBar.getSearch()));
-        assertEquals(DataProviderType.LOGOUT, menuBar.getDataProviderType(menuBar.getLogout()));
     }
 
     private void initMinimalScenario() {
