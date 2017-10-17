@@ -71,12 +71,12 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
         categories = addItem("Categories", null, null);
         languages = addItem("Languages", null, null);
         countries = addItem("Countries", null, null);
-        search = addItem("", VaadinIcons.SEARCH, () -> {
+        search = addItem("", VaadinIcons.SEARCH, (selectedItem) -> {
             if (UI.getCurrent() != null) {
                 UI.getCurrent().addWindow(new SearchWindow(user));
             }
         });
-        logout = addItem("", VaadinIcons.SIGN_OUT, () -> {
+        logout = addItem("", VaadinIcons.SIGN_OUT, (selectedItem) -> {
             if (UI.getCurrent() != null) {
                 Notification.show("LOGOUT");
                 getSession().setAttribute("user", null);
