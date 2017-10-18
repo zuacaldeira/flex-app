@@ -30,7 +30,7 @@ public class FlexMainView extends AbsoluteLayout implements CanPopulate {
         this.user = user;
 
         initBody();
-        super.addComponent(body, "top:1cm; bottom:0cm");
+        super.addComponent(body, "top:1cm; bottom:1cm");
 
         initFooter();
         super.addComponent(footer, "bottom:0%");
@@ -56,7 +56,7 @@ public class FlexMainView extends AbsoluteLayout implements CanPopulate {
         body.setSizeFull();
         if(Page.getCurrent() != null) {
             browserHeight = Page.getCurrent().getBrowserWindowHeight();
-            body.setHeight(browserHeight, Unit.PIXELS);
+            body.setHeight(browserHeight-80, Unit.PIXELS);
         }        
     }
 

@@ -9,6 +9,7 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Link;
 import db.FlexUser;
 
@@ -42,7 +43,7 @@ public class FlexFooter extends HorizontalLayout {
     }
 
     private void initCopyright() {
-        copyright = new Link(" Pirigrino", new ExternalResource("mailto:peregrino.do.piri@gmail.com"));
+        copyright = new Link("Pirigrino", new ExternalResource("mailto:peregrino.do.piri@gmail.com"));
         copyright.setIcon(VaadinIcons.COPYRIGHT);
         copyright.setTargetName("blank");
         copyright.setSizeUndefined();
@@ -50,12 +51,13 @@ public class FlexFooter extends HorizontalLayout {
 
     private void initPoweredBy() {
         poweredBy = new HorizontalLayout();
-        poweredBy.setCaption("Powered By");
-        poweredBy.addComponents(getVaadinLink(), getNeo4jLink());
+        poweredBy.addComponents(new Label("Powered by:"), getVaadinLink(), getNeo4jLink());
     }
 
     private Link getVaadinLink() {
-        return new Link("Vaadin", new ExternalResource("https://vaadin.com"));
+        Link link =  new Link("Vaadin", new ExternalResource("https://vaadin.com"));
+        
+        return link;
     }
 
     private Link getNeo4jLink() {
