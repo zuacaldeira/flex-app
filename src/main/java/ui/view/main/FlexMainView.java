@@ -28,9 +28,7 @@ public class FlexMainView extends AbsoluteLayout implements CanPopulate {
 
     public FlexMainView(FlexUser user) {
         this.user = user;
-        if(Page.getCurrent() != null) {
-            browserHeight = Page.getCurrent().getBrowserWindowHeight();
-        }        
+
         initBody();
         super.addComponent(body, "top:1cm; bottom:0cm");
 
@@ -44,26 +42,28 @@ public class FlexMainView extends AbsoluteLayout implements CanPopulate {
         
         super.setStyleName("flex-view");
         super.setSizeFull();
+        super.setHeight(totalHeightInPixels(), Unit.PIXELS);
     }
 
     private void initMenu() {
         menu = new FlexMenu(user);
         menu.setWidth("100%");
-        menu.setHeightUndefined();
+        menu.setHeight(40, Unit.PIXELS);
     }
 
     private void initBody() {
         body = new FlexBody(user);
         body.setSizeFull();
         if(Page.getCurrent() != null) {
+            browserHeight = Page.getCurrent().getBrowserWindowHeight();
             body.setHeight(browserHeight, Unit.PIXELS);
-        }
+        }        
     }
 
     private void initFooter() {
         footer = new FlexFooter(user);
         footer.setWidth("100%");
-        footer.setHeight("1cm");
+        footer.setHeight(40, Unit.PIXELS);
     }
     
     
@@ -100,6 +100,10 @@ public class FlexMainView extends AbsoluteLayout implements CanPopulate {
     @Override
     public void populate() {
         menu.populate();
+    }
+
+    private float totalHeightInPixels() {
+        return menu.getHeight() + body.getHeight() + footer.getHeight();
     }
 
 }
