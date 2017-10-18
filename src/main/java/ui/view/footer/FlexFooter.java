@@ -31,7 +31,8 @@ public class FlexFooter extends HorizontalLayout {
         super.setSizeFull();
         super.setSpacing(false);
         super.setStyleName("flex-footer");
-        super.setComponentAlignment(copyright, Alignment.MIDDLE_CENTER);
+        super.setComponentAlignment(copyright, Alignment.MIDDLE_LEFT);
+        super.setComponentAlignment(poweredBy, Alignment.MIDDLE_RIGHT);        
     }
 
     public Link getCopyright() {
@@ -52,6 +53,8 @@ public class FlexFooter extends HorizontalLayout {
     private void initPoweredBy() {
         poweredBy = new HorizontalLayout();
         poweredBy.addComponents(new Label("Powered by:"), getVaadinLink(), getNeo4jLink());
+        poweredBy.setHeight("100%");
+        poweredBy.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
     }
 
     private Link getVaadinLink() {
