@@ -161,7 +161,6 @@
             <groupId>com.github.zuacaldeira</groupId>
             <artifactId>flex-app-backend</artifactId>
             <version>1.1-SNAPSHOT</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>com.tngtech.java</groupId>
