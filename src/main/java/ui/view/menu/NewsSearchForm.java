@@ -24,9 +24,8 @@ public class NewsSearchForm extends FlexForm {
     public NewsSearchForm() {
         initSearchBox();
         super.addComponent(searchBox);
-        super.setSizeFull();
         super.setHeightUndefined();
-        super.setMargin(false);
+        super.setMargin(true);
     }
 
     public SearchBox getSearchBox() {
@@ -34,11 +33,13 @@ public class NewsSearchForm extends FlexForm {
     }
 
     private void initSearchBox() {
-        searchBox = new SearchBox("", SearchBox.ButtonPosition.RIGHT);
-        searchBox.setIcon(null);
+        searchBox = new SearchBox(VaadinIcons.SEARCH, SearchBox.ButtonPosition.RIGHT);
+        searchBox.setWidth("100%");
         searchBox.setButtonJoined(true);
-        searchBox.setSizeFull();
         searchBox.setStyleName("search-box");
+        searchBox.getSearchField().focus();
+        searchBox.getSearchButton().setEnabled(false);
+        
         searchBox.addSearchListener(e -> {
             Notification.show("Clicked on search " + e.getSearchTerm());
             FlexBody body = getBody();
