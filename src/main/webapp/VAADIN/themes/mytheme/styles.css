@@ -14809,16 +14809,13 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-window {
+	background: rgba(0, 0, 0, 0.95);
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(150, 0, 0, 0.4);
-}
-
-.mytheme .search-window {
-	background: transparent;
 }
 
 .mytheme .search-box {
 	background: white;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(150, 0, 0, 0.4);
+	box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2), 2px 3px 10px 2px rgba(150, 0, 0, 0.4);
 }
 
 .mytheme .flex-menu {

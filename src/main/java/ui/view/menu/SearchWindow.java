@@ -16,7 +16,6 @@ public class SearchWindow extends FlexWindow {
 
     public SearchWindow(FlexUser user) {
         super("Search Views...", new NewsSearchForm());
-        super.setModal(false);
-        super.setStyleName("search-window");
+        super.setModal(true);
     }
 }

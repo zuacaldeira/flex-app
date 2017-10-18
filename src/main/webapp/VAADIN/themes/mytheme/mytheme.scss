@@ -73,17 +73,13 @@ $flex-item-shadow: 2px 2px 4px 2px rgba(0, 0, 0, .2), 2px 3px 10px 2px rgba(150,
     }
 
     .flex-window {
-        box-shadow: $flex-menu-shadow;
-    }
-
-    .search-window {
-        background: transparent;
+        background: rgba(0, 0, 0, .95);
         box-shadow: $flex-menu-shadow;
     }
 
     .search-box {
         background: white;
-        box-shadow: $flex-text-shadow;
+        box-shadow: $flex-item-shadow;
     }
 
     .flex-view {
