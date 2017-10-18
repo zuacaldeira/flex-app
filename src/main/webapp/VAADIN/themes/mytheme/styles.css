@@ -14809,7 +14809,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-window {
-	background: rgba(0, 0, 0, 0.95);
+	background: rgba(10, 10, 10, 0.9);
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(150, 0, 0, 0.4);
 }
 
@@ -14819,7 +14819,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-menu {
-	background: black;
+	background: rgba(10, 10, 10, 0.9);
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(150, 0, 0, 0.4);
 	color: #7d7d7d;
 }
@@ -14848,6 +14848,10 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .flex-menu-bar .v-menubar-popup {
 	background: black;
+}
+
+.mytheme .flex-footer {
+	background: rgba(10, 10, 10, 0.9);
 }
 
 .mytheme .items {

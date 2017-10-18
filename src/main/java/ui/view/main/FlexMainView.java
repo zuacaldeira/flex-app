@@ -5,6 +5,7 @@
  */
 package ui.view.main;
 
+import com.vaadin.server.Page;
 import ui.view.body.FlexBody;
 import com.vaadin.ui.AbsoluteLayout;
 import db.FlexUser;
@@ -23,14 +24,18 @@ public class FlexMainView extends AbsoluteLayout implements CanPopulate {
     private FlexMenu menu;
     private FlexBody body;
     private FlexFooter footer;
+    private int browserHeight;
 
     public FlexMainView(FlexUser user) {
         this.user = user;
+        if(Page.getCurrent() != null) {
+            browserHeight = Page.getCurrent().getBrowserWindowHeight();
+        }        
         initBody();
         super.addComponent(body, "top:1cm; bottom:0cm");
 
-        //initFooter();
-        //super.addComponent(footer, "bottom:0%");
+        initFooter();
+        super.addComponent(footer, "bottom:0%");
 
         initMenu();
         super.addComponent(menu, "top:0cm");
@@ -50,6 +55,9 @@ public class FlexMainView extends AbsoluteLayout implements CanPopulate {
     private void initBody() {
         body = new FlexBody(user);
         body.setSizeFull();
+        if(Page.getCurrent() != null) {
+            body.setHeight(browserHeight, Unit.PIXELS);
+        }
     }
 
     private void initFooter() {
