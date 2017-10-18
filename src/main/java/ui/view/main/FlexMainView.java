@@ -56,7 +56,7 @@ public class FlexMainView extends AbsoluteLayout implements CanPopulate {
         body.setSizeFull();
         if(Page.getCurrent() != null) {
             browserHeight = Page.getCurrent().getBrowserWindowHeight();
-            body.setHeight(browserHeight-80, Unit.PIXELS);
+            body.setHeight(browserHeight, Unit.PIXELS);
         }        
     }
 
