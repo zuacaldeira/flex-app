@@ -5,6 +5,7 @@
  */
 package ui.view.menu;
 
+import com.vaadin.server.Page;
 import db.FlexUser;
 import window.FlexWindow;
 
@@ -15,7 +16,22 @@ import window.FlexWindow;
 public class SearchWindow extends FlexWindow {
 
     public SearchWindow(FlexUser user) {
-        super("Search News...", new NewsSearchForm());
+        super(null, new NewsSearchForm());
+        super.setModal(false);
+        super.setPosition(Page.getCurrent().getBrowserWindowWidth()-getWindowWidthInPixels(), 0);
+    }
+    
+    private int getWindowWidthInPixels() {
+        float width = getWidth();
+        Unit units = getWidthUnits();
+        
+        if(units == Unit.PERCENTAGE) {
+            return (int) (width*Page.getCurrent().getBrowserWindowWidth()/100);
+        }
+        if(units == Unit.PIXELS) {
+            return (int) width;
+        }
+        throw new RuntimeException("Cannot convert from " + units + " to pixels");
     }
     
 }

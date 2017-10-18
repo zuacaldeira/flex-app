@@ -10,7 +10,8 @@ import com.vaadin.ui.Notification;
 import data.DataProviderType;
 import form.FlexForm;
 import org.vaadin.addons.searchbox.SearchBox;
-import utils.UIUtils;
+import ui.FlexAppUI;
+import ui.view.body.FlexBody;
 
 /**
  *
@@ -22,10 +23,10 @@ public class NewsSearchForm extends FlexForm {
 
     public NewsSearchForm() {
         initSearchBox();
-        this.addComponent(searchBox);
-        this.setSizeFull();
-        this.setHeightUndefined();
-        this.setMargin(true);
+        super.addComponent(searchBox);
+        super.setSizeFull();
+        super.setHeightUndefined();
+        //super.setMargin(true);
     }
 
     public SearchBox getSearchBox() {
@@ -33,14 +34,20 @@ public class NewsSearchForm extends FlexForm {
     }
 
     private void initSearchBox() {
-        searchBox = new SearchBox(VaadinIcons.SEARCH, SearchBox.ButtonPosition.RIGHT);
+        searchBox = new SearchBox("", SearchBox.ButtonPosition.RIGHT);
         searchBox.setButtonJoined(true);
         searchBox.setSizeFull();
         searchBox.setStyleName("search-box");
         searchBox.addSearchListener(e -> {
             Notification.show("Clicked on search " + e.getSearchTerm());
-            UIUtils.getInstance().getBody(this).initBodyUpdaterThread(DataProviderType.SEARCH, e.getSearchTerm());
+            FlexBody body = getBody();
+            body.initBodyUpdaterThread(DataProviderType.SEARCH, e.getSearchTerm());
         });
+    }
+    
+    
+    public FlexBody getBody() {
+        return ((FlexAppUI)getUI()).getContent().getBody();
     }
 
 }
