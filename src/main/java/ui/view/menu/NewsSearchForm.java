@@ -26,7 +26,7 @@ public class NewsSearchForm extends FlexForm {
         super.addComponent(searchBox);
         super.setSizeFull();
         super.setHeightUndefined();
-        //super.setMargin(true);
+        super.setMargin(false);
     }
 
     public SearchBox getSearchBox() {
@@ -35,6 +35,7 @@ public class NewsSearchForm extends FlexForm {
 
     private void initSearchBox() {
         searchBox = new SearchBox("", SearchBox.ButtonPosition.RIGHT);
+        searchBox.setIcon(null);
         searchBox.setButtonJoined(true);
         searchBox.setSizeFull();
         searchBox.setStyleName("search-box");
