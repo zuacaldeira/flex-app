@@ -5,7 +5,6 @@
  */
 package factory;
 
-import button.FlexActionButton;
 import com.vaadin.ui.AbstractOrderedLayout;
 import db.FlexUser;
 import db.NewsArticle;
