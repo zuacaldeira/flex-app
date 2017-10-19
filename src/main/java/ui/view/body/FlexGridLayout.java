@@ -14,11 +14,10 @@ import com.vaadin.ui.VerticalLayout;
 /**
  *
  * @author zua
- * @param <T> A sub-type of {@code GraphEntityView}.
  */
-public class FlexGridLayout<T extends GraphEntityView> extends HorizontalLayout {
+public class FlexGridLayout extends HorizontalLayout {
 
-    private T selected;
+    private GraphEntityView selected;
     private int currentListIndex = 0;
     private final int columns;
 
@@ -42,15 +41,15 @@ public class FlexGridLayout<T extends GraphEntityView> extends HorizontalLayout 
     public void addItemView(Component component) {
         ((VerticalLayout) getComponent(currentListIndex)).addComponent(component);
         updateCurrentListIndex();
-        ((T) component).addLayoutClickListener(event -> {
-            updateSelected((T) component);
+        ((GraphEntityView) component).addLayoutClickListener(event -> {
+            updateSelected((GraphEntityView) component);
         });
         if (selected == null) {
-            updateSelected((T) component);
+            updateSelected((GraphEntityView) component);
         }
     }
 
-    private void updateSelected(T itemView) {
+    private void updateSelected(GraphEntityView itemView) {
         if (selected != null) {
             selected.minimize();
         }

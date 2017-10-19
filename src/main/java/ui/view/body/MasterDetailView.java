@@ -15,14 +15,13 @@ import panel.FlexPanel;
 /**
  *
  * @author zua
- * @param <T> A sub-type of {@code GraphEntityView}.
  */
-public class MasterDetailView<T extends GraphEntityView> extends FlexPanel  {
+public class MasterDetailView extends FlexPanel {
 
     private FlexBrowserFramePanel browserFramePanel;
-    private SummariesLayoutPanel<T> summariesPanel;
+    private SummariesLayoutPanel summariesPanel;
     private HorizontalLayout baseLayout;
-    private T selected;
+    private GraphEntityView selected;
     private Object myData;
     private BrowserFrame browserFrame;
 
@@ -39,12 +38,12 @@ public class MasterDetailView<T extends GraphEntityView> extends FlexPanel  {
         super.setSizeFull();
         super.setContent(baseLayout);
     }
-    
+
     private void initSummaries(int c) {
-        summariesPanel = new SummariesLayoutPanel<T>(c);
+        summariesPanel = new SummariesLayoutPanel(c);
         summariesPanel.setSizeFull();
     }
-    
+
     private void initBrowserFrame() {
         browserFrame = new BrowserFrame();
         browserFrame.setSizeFull();
@@ -52,8 +51,7 @@ public class MasterDetailView<T extends GraphEntityView> extends FlexPanel  {
         browserFramePanel = new FlexBrowserFramePanel(null, browserFrame);
     }
 
-
-    public SummariesLayoutPanel<T> getSummaries() {
+    public SummariesLayoutPanel getSummaries() {
         return summariesPanel;
     }
 
@@ -61,7 +59,7 @@ public class MasterDetailView<T extends GraphEntityView> extends FlexPanel  {
         return browserFrame;
     }
 
-    public T getSelected() {
+    public GraphEntityView getSelected() {
         return selected;
     }
 
@@ -69,25 +67,25 @@ public class MasterDetailView<T extends GraphEntityView> extends FlexPanel  {
         return myData;
     }
 
-    private void updateSelected(T itemView) {
-        if(selected != null) {
+    private void updateSelected(GraphEntityView itemView) {
+        if (selected != null) {
             selected.minimize();
         }
         selected = itemView;
         selected.maximize();
         String url = selected.getItem().getUrl();
-        if(url != null) {
+        if (url != null) {
             browserFrame.setSource(new ExternalResource(url));
         }
     }
-    
+
     public void addComponent(Component component) {
         summariesPanel.addItemView(component);
-        if(selected == null) {
-            updateSelected((T) component);
+        if (selected == null) {
+            updateSelected((GraphEntityView) component);
         }
-        ((T)component).addLayoutClickListener(event -> {
-            updateSelected((T)component);
+        ((GraphEntityView) component).addLayoutClickListener(event -> {
+            updateSelected((GraphEntityView) component);
         });
     }
 

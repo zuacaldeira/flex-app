@@ -12,14 +12,13 @@ import panel.FlexPanel;
 /**
  *
  * @author zua
- * @param <T> A sub-type of {@code GraphEntityView}.
  */
-public class SummariesLayoutPanel<T extends GraphEntityView> extends FlexPanel {
+public class SummariesLayoutPanel extends FlexPanel {
 
-    private final FlexGridLayout<T> overviews;
+    private final FlexGridLayout overviews;
 
     public SummariesLayoutPanel(int columns) {
-        overviews = new FlexGridLayout<>(columns);
+        overviews = new FlexGridLayout(columns);
         super.setSizeFull();
         super.setContent(overviews);
         super.setStyleName("items");
