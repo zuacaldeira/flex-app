@@ -3,7 +3,7 @@ package ui.ui;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
-import com.vaadin.annotations.Widgetset;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import ui.view.main.FlexMainView;
@@ -24,7 +24,7 @@ public class FlexAppUI extends SecuredUI {
 
     @Override
     protected String getPageLocation() {
-        return "/flex-app/news";
+        return Page.getCurrent().getLocation().getPath() + "/news";
     }
 
     @Override
