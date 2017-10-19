@@ -1,4 +1,4 @@
-package ui;
+package ui.ui;
 
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;

@@ -11,7 +11,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import db.GraphEntity;
-import ui.SecuredUI;
+import ui.ui.SecuredUI;
 
 /**
  *

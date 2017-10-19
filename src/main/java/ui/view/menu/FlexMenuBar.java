@@ -20,7 +20,7 @@ import data.DataProviderType;
 import java.util.Collection;
 import java.util.TreeSet;
 import services.NewsSourceServiceInterface;
-import ui.SecuredUI;
+import ui.ui.SecuredUI;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
 

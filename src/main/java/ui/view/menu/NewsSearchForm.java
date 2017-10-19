@@ -10,7 +10,7 @@ import com.vaadin.ui.Notification;
 import data.DataProviderType;
 import form.FlexForm;
 import org.vaadin.addons.searchbox.SearchBox;
-import ui.FlexAppUI;
+import ui.ui.FlexAppUI;
 import ui.view.body.FlexBody;
 
 /**
