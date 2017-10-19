@@ -13,11 +13,11 @@ import panel.FlexPanel;
  *
  * @author zua
  */
-public class SummariesLayoutPanel extends FlexPanel {
+public class SummariesPanel extends FlexPanel {
 
     private final FlexGridLayout overviews;
 
-    public SummariesLayoutPanel(int columns) {
+    public SummariesPanel(int columns) {
         overviews = new FlexGridLayout(columns);
         super.setSizeFull();
         super.setContent(overviews);

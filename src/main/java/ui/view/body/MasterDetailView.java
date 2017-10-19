@@ -19,7 +19,7 @@ import panel.FlexPanel;
 public class MasterDetailView extends FlexPanel {
 
     private FlexBrowserFramePanel browserFramePanel;
-    private SummariesLayoutPanel summariesPanel;
+    private SummariesPanel summariesPanel;
     private HorizontalLayout baseLayout;
     private GraphEntityView selected;
     private Object myData;
@@ -40,7 +40,7 @@ public class MasterDetailView extends FlexPanel {
     }
 
     private void initSummaries(int c) {
-        summariesPanel = new SummariesLayoutPanel(c);
+        summariesPanel = new SummariesPanel(c);
         summariesPanel.setSizeFull();
     }
 
@@ -51,7 +51,7 @@ public class MasterDetailView extends FlexPanel {
         browserFramePanel = new FlexBrowserFramePanel(null, browserFrame);
     }
 
-    public SummariesLayoutPanel getSummaries() {
+    public SummariesPanel getSummaries() {
         return summariesPanel;
     }
 
