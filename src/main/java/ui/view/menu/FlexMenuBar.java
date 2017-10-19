@@ -20,6 +20,7 @@ import data.DataProviderType;
 import java.util.Collection;
 import java.util.TreeSet;
 import services.NewsSourceServiceInterface;
+import ui.ui.FlexAppUI;
 import ui.ui.SecuredUI;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
@@ -62,7 +63,7 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
     protected void initMenuItems() {
         home = addItem("", VaadinIcons.HOME, (selectedItem) -> {
             if (Page.getCurrent() != null) {
-                Page.getCurrent().setLocation("/flex-app");
+                Page.getCurrent().setLocation(((FlexAppUI) getUI()).getPageLocation());
             }
         });
         news = addItem("News", null, null);
@@ -79,7 +80,7 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
             if (UI.getCurrent() != null) {
                 Notification.show("LOGOUT");
                 getSession().setAttribute("user", null);
-                Page.getCurrent().setLocation("/flex-app");
+                Page.getCurrent().setLocation(((FlexAppUI) getUI()).getPageLocation());
             }
         });
 

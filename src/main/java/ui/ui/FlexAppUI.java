@@ -23,8 +23,8 @@ import javax.servlet.annotation.WebServlet;
 public class FlexAppUI extends SecuredUI {
 
     @Override
-    protected String getPageLocation() {
-        return Page.getCurrent().getLocation().getPath() + "/news";
+    public String getPageLocation() {
+        return Page.getCurrent().getLocation().getPath() + "news";
     }
 
     @Override

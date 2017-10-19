@@ -16,6 +16,7 @@ import db.FlexUser;
 import services.FlexUserServiceInterface;
 import button.SaveButton;
 import text.FlexTextField;
+import ui.ui.FlexAppUI;
 import utils.ServiceLocator;
 
 /**
@@ -57,7 +58,7 @@ public class LoginForm extends FlexForm {
         if (dbUser != null && getSession() != null) {
             getSession().setAttribute("user", dbUser);
             ((Window) getParent()).close();
-            Page.getCurrent().setLocation("/flex-app/news");
+            Page.getCurrent().setLocation(((FlexAppUI) getUI()).getPageLocation());
         }
     }
 
