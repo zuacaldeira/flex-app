@@ -83,39 +83,6 @@ public class SourceViewTest {
     }
 
     /**
-     * Test of createInfoHeader method, of class SourceView.
-     */
-    @Test
-    public void testCreateInfoHeader() {
-        System.out.println("createInfoHeader");
-        FlexUser user = new FlexUser("test:username", "test:password");
-        NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
-        assertNotNull(new SourceView(user, source).createInfoHeader());
-    }
-
-    /**
-     * Test of createInfoBody method, of class SourceView.
-     */
-    @Test
-    public void testCreateInfoBody() {
-        System.out.println("createInfoBody");
-        FlexUser user = new FlexUser("test:username", "test:password");
-        NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
-        assertNotNull(new SourceView(user, source).createInfoBody());
-    }
-
-    /**
-     * Test of createInfoActions method, of class SourceView.
-     */
-    @Test
-    public void testCreateInfoActions() {
-        System.out.println("createInfoActions");
-        FlexUser user = new FlexUser("test:username", "test:password");
-        NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
-        assertNotNull(new SourceView(user, source).createInfoActions());
-    }
-
-    /**
      * Test of buttonClick method, of class SourceView.
      */
     @Test
@@ -125,7 +92,6 @@ public class SourceViewTest {
         NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
         SourceView view = new SourceView(user, source);
         assertNotNull(view);
-        view.buttonClick(null);
     }
 
 }

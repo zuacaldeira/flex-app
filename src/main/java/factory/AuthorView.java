@@ -38,26 +38,4 @@ public class AuthorView extends GraphEntityView<NewsAuthor> {
     @Override
     public void maximize() {
     }
-
-    @Override
-    public AbstractOrderedLayout createInfoHeader() {
-        initName();
-        return new HorizontalLayout(name);
-    }
-
-    @Override
-    public AbstractOrderedLayout createInfoBody() {
-        return new VerticalLayout();
-    }
-
-    @Override
-    public AbstractOrderedLayout createInfoActions() {
-        return new HorizontalLayout();
-    }
-
-    @Override
-    public void buttonClick(Button.ClickEvent event) {
-        
-    }
-
 }

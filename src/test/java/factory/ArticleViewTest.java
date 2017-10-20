@@ -5,7 +5,6 @@
  */
 package factory;
 
-import com.vaadin.ui.AbstractOrderedLayout;
 import db.FlexUser;
 import db.NewsArticle;
 import db.NewsAuthor;
@@ -41,26 +40,26 @@ public class ArticleViewTest {
      * Test of createInfoHeader method, of class ArticleView.
      */
     @Test
-    public void testCreateInfoHeader() {
-        System.out.println("createInfoHeader");
+    public void testGetArticleViewHeader() {
+        System.out.println("testGetArticleViewHeader");
         initMinimalScenario();
         FlexUser user = new FlexUser();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
         ArticleView aView = new ArticleView(user, article);
-        assertNotNull(aView.createInfoHeader());
+        assertNotNull(aView.getArticleViewHeader());
     }
 
     /**
      * Test of createInfoBody method, of class ArticleView.
      */
     @Test
-    public void testCreateInfoBody() {
-        System.out.println("createInfoBody");
+    public void testGetArticleViewBody() {
+        System.out.println("testGetArticleViewBody");
         initMinimalScenario();
         FlexUser user = new FlexUser();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
         ArticleView aView = new ArticleView(user, article);
-        assertNotNull(aView.createInfoBody());
+        assertNotNull(aView.getArticleViewBody());
     }
 
     /**
@@ -84,7 +83,7 @@ public class ArticleViewTest {
         FlexUser user = new FlexUser();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
         ArticleView aView = new ArticleView(user, article);
-        assertEquals("title", aView.getTitle().getValue());
+        assertEquals("title", aView.getArticle().getTitle());
     }
 
     /**
@@ -99,7 +98,7 @@ public class ArticleViewTest {
         NewsAuthor author = new NewsAuthor("Author");
         author.addArticle(article);
         ArticleView aView = new ArticleView(user, article);
-        assertNull(aView.getAuthors());
+        assertNull(aView.getArticleViewBody().getAuthors());
         //assertEquals(1, aView.getAuthors().getComponentCount());
     }
 
@@ -116,12 +115,12 @@ public class ArticleViewTest {
         NewsAuthor author = new NewsAuthor("Author");
         author.addArticle(article);
         ArticleView aView = new ArticleView(user, article);
-        assertNotNull(aView.getContent());
-        assertEquals("Description", aView.getContent().getValue());
+        assertNotNull(aView.getArticleViewBody().getContent());
+        assertEquals("Description", aView.getArticleViewBody().getContent().getValue());
     }
 
     /**
-     * Test of getImage method, of class ArticleView.
+     * Test of getArticleViewHeader method, of class ArticleView.
      */
     @Test
     public void testGetImage() {
@@ -134,7 +133,7 @@ public class ArticleViewTest {
         NewsAuthor author = new NewsAuthor("Author");
         author.addArticle(article);
         ArticleView aView = new ArticleView(user, article);
-        assertNotNull(aView.getImage());
+        assertNotNull(aView.getArticleViewHeader());
     }
 
     /**
@@ -152,7 +151,7 @@ public class ArticleViewTest {
         NewsAuthor author = new NewsAuthor("Author");
         author.addArticle(article);
         ArticleView aView = new ArticleView(user, article);
-        assertNotNull(aView.getPublishedAt().getValue());
+        assertNotNull(aView.getArticleViewBody().getContent().getValue());
     }
 
     /**
@@ -189,7 +188,7 @@ public class ArticleViewTest {
         NewsAuthor author = new NewsAuthor("Author");
         author.addArticle(article);
         ArticleView aView = new ArticleView(user, article);
-        assertNotNull(aView.getService());
+        assertNotNull(aView.getArticleViewActions().getService());
     }
 
     /**
@@ -208,9 +207,7 @@ public class ArticleViewTest {
         author.addArticle(article);
         ArticleView aView = new ArticleView(user, article);
         aView.maximize();
-        assertTrue(aView.getImage().isVisible());
-        assertTrue(aView.getPublishedAt().isVisible());
-        assertTrue(aView.getTitle().isVisible());
+        assertTrue(aView.getArticleViewHeader().isVisible());
     }
 
     /**
@@ -225,23 +222,20 @@ public class ArticleViewTest {
         author.addArticle(article);
         ArticleView aView = new ArticleView(user, article);
         aView.minimize();
-        assertTrue(aView.getImage().isVisible());
-        assertTrue(aView.getPublishedAt().isVisible());
-        assertTrue(aView.getTitle().isVisible());
+        assertTrue(aView.getArticleViewHeader().isVisible());
     }
 
     /**
      * Test of createInfoActions method, of class ArticleView.
      */
     @Test
-    public void testCreateInfoActions() {
-        System.out.println("createInfoActions");
+    public void testGetArticleViewActions() {
+        System.out.println("testGetArticleViewActions");
         initMinimalScenario();
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
         ArticleView aView = new ArticleView(user, article);
-        AbstractOrderedLayout actions = aView.createInfoActions();
-        assertNotNull(actions);
+        assertNotNull(aView.getArticleViewActions());
     }
 
     /**
@@ -251,23 +245,24 @@ public class ArticleViewTest {
     public void testButtonClick() {
         System.out.println("buttonClick");
         initMinimalScenario();
-        FlexUser user = new FlexUser();
+        FlexUser user = new FlexUser("test:username", "test:password");
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
         ArticleView aView = new ArticleView(user, article);
-        AbstractOrderedLayout actions = aView.createInfoActions();
+        ArticleViewActions actions = aView.getArticleViewActions();
+        assertNotNull(actions);
         assertEquals(4, actions.getComponentCount());
         
-        aView.handleHideClick(aView.getHideButton());
-        aView.handleFakeClick(aView.getFakeButton());
-        aView.handleFavouriteClick(aView.getFavoriteButton());
+        actions.handleHideClick(actions.getHideButton());
+        actions.handleFakeClick(actions.getFakeButton());
+        actions.handleFavouriteClick(actions.getFavoriteButton());
         //assertTrue(((FlexActionButton) actions.getComponent(0)).getStyleName().contains("purple"));
-        assertTrue(aView.getFavoriteButton().getStyleName().contains("yellow"));
-        assertTrue(aView.getFakeButton().getStyleName().contains("red"));
-        assertTrue(aView.getHideButton().getStyleName().contains("purple"));
+        assertTrue(actions.getFavoriteButton().getStyleName().contains("yellow"));
+        assertTrue(actions.getFakeButton().getStyleName().contains("red"));
+        assertTrue(actions.getHideButton().getStyleName().contains("purple"));
 
-        aView.handleHideClick(aView.getHideButton());
-        aView.handleFakeClick(aView.getFakeButton());
-        aView.handleFavouriteClick(aView.getFavoriteButton());
+        actions.handleHideClick(actions.getHideButton());
+        actions.handleFakeClick(actions.getFakeButton());
+        actions.handleFavouriteClick(actions.getFavoriteButton());
     }
 
     private void initMinimalScenario() {

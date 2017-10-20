@@ -82,53 +82,6 @@ public class AuthorViewTest {
         assertNotNull(authorView.getName());
     }
 
-    /**
-     * Test of createInfoHeader method, of class AuthorView.
-     */
-    @Test
-    public void testCreateInfoHeader() {
-        System.out.println("createInfoHeader");
-        FlexUser user = new FlexUser("test:username", "test:password");
-        NewsAuthor author = new NewsAuthor("test:author");
-        AuthorView authorView = new AuthorView(user, author);
-        assertNotNull(authorView.createInfoHeader());
-    }
 
-    /**
-     * Test of createInfoBody method, of class AuthorView.
-     */
-    @Test
-    public void testCreateInfoBody() {
-        System.out.println("createInfoBody");
-        FlexUser user = new FlexUser("test:username", "test:password");
-        NewsAuthor author = new NewsAuthor("test:author");
-        AuthorView authorView = new AuthorView(user, author);
-        assertNotNull(authorView.createInfoBody());
-    }
-
-    /**
-     * Test of createInfoActions method, of class AuthorView.
-     */
-    @Test
-    public void testCreateInfoActions() {
-        System.out.println("createInfoActions");
-        FlexUser user = new FlexUser("test:username", "test:password");
-        NewsAuthor author = new NewsAuthor("test:author");
-        AuthorView authorView = new AuthorView(user, author);
-        assertNotNull(authorView.createInfoActions());
-    }
-
-    /**
-     * Test of buttonClick method, of class AuthorView.
-     */
-    @Test
-    public void testButtonClick() {
-        System.out.println("buttonClick");
-        FlexUser user = new FlexUser("test:username", "test:password");
-        NewsAuthor author = new NewsAuthor("test:author");
-        AuthorView authorView = new AuthorView(user, author);
-        assertNotNull(authorView.createInfoActions());
-        authorView.buttonClick(new ClickEvent(new FakeButton()));
-    }
     
 }
