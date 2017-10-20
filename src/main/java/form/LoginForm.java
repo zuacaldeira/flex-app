@@ -58,7 +58,7 @@ public class LoginForm extends FlexForm {
         if (dbUser != null && getSession() != null) {
             getSession().setAttribute("user", dbUser);
             ((Window) getParent()).close();
-            Page.getCurrent().setLocation(((FlexAppUI) getUI()).getPageLocation());
+            Page.getCurrent().setLocation(Page.getCurrent().getLocation().getPath() + "news");
         }
     }
 

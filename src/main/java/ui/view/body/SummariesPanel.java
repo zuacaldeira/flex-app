@@ -6,7 +6,6 @@
 package ui.view.body;
 
 import com.vaadin.ui.Component;
-import factory.GraphEntityView;
 import panel.FlexPanel;
 
 /**

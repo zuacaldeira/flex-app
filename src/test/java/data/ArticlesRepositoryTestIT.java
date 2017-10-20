@@ -20,12 +20,12 @@ import org.junit.runner.RunWith;
  * @author zua
  */
 @RunWith(DataProviderRunner.class)
-public class ArticlesRepositoryTest {
+public class ArticlesRepositoryTestIT {
 
     private final String TEST_USERNAME = "test:username";
     private final String TEST_PASSWORD = "test:password";
 
-    public ArticlesRepositoryTest() {
+    public ArticlesRepositoryTestIT() {
     }
 
     @DataProvider

@@ -24,7 +24,12 @@ public class FlexAppUI extends SecuredUI {
 
     @Override
     public String getPageLocation() {
-        return Page.getCurrent().getLocation().getPath() + "news";
+        if(Page.getCurrent() != null) {
+            return Page.getCurrent().getLocation().getPath() + "news";
+        }
+        else {
+            return "/flex-app/news";
+        }
     }
 
     @Override
