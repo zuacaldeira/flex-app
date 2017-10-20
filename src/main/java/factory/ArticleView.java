@@ -41,35 +41,12 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     
     @Override
     public AbstractOrderedLayout createInfoHeader() {
-        initSourceInfo();
-        initTimeLabel();
-        
-        VerticalLayout sourceAndDate = new VerticalLayout();
-        sourceAndDate.setSpacing(false);
-        sourceAndDate.setMargin(false);
-        if(sourceNameLabel != null) {
-            sourceAndDate.addComponent(sourceNameLabel);
-            sourceAndDate.setComponentAlignment(sourceNameLabel, Alignment.MIDDLE_RIGHT);
-        }
-        if(publishedAt != null) {
-            sourceAndDate.addComponent(publishedAt);
-            sourceAndDate.setComponentAlignment(publishedAt, Alignment.MIDDLE_RIGHT);
-        }
+        initImage();
+        addComponent(image);
         header = new HorizontalLayout();
         header.setSizeFull();
-        if(logoImage != null) {
-            header.addComponent(logoImage);
-            header.setExpandRatio(logoImage, .25f);
-            header.setComponentAlignment(logoImage, Alignment.MIDDLE_CENTER);
-        }
-        if(sourceAndDate != null) {
-            header.addComponent(sourceAndDate);
-            header.setExpandRatio(sourceAndDate, .75f);
-            header.setComponentAlignment(sourceAndDate, Alignment.BOTTOM_CENTER);
-        }
         header.setMargin(false);
         header.setSpacing(true);
-        //header.setHeight(HEADER_HEIGHT);
         header.setWidthUndefined();
         header.setStyleName("info-header");
         return header;
@@ -78,15 +55,37 @@ public class ArticleView extends GraphEntityView<NewsArticle>  {
     @Override
     public AbstractOrderedLayout createInfoBody() {
         initTitle();
-        initImage();
         initContent();
+        initSourceInfo();
+        initTimeLabel();
+
+        if(logoImage != null) {
+            header.addComponent(logoImage);
+            header.setExpandRatio(logoImage, .25f);
+            header.setComponentAlignment(logoImage, Alignment.MIDDLE_CENTER);
+        }
+        VerticalLayout sourceAndDate = new VerticalLayout();
+        sourceAndDate.setSpacing(false);
+        sourceAndDate.setMargin(false);
+        
+        if(sourceAndDate != null) {
+            header.addComponent(sourceAndDate);
+            header.setExpandRatio(sourceAndDate, .75f);
+            header.setComponentAlignment(sourceAndDate, Alignment.BOTTOM_CENTER);
+        }
+        
+        if(sourceNameLabel != null) {
+            sourceAndDate.addComponent(sourceNameLabel);
+            sourceAndDate.setComponentAlignment(sourceNameLabel, Alignment.MIDDLE_RIGHT);
+        }
+        if(publishedAt != null) {
+            sourceAndDate.addComponent(publishedAt);
+            sourceAndDate.setComponentAlignment(publishedAt, Alignment.MIDDLE_RIGHT);
+        }
         VerticalLayout view = new VerticalLayout(title);
-        if(image != null) {
-            view.addComponent(image);
-        }   
         view.addComponent(content);
         view.setSpacing(false);
-        view.setMargin(false);
+        view.setMargin(true);
         return view;
     }
     

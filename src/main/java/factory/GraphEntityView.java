@@ -34,14 +34,14 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
         infoBody = this.createInfoBody();
         infoActions = this.createInfoActions();
 
-        VerticalLayout base = new VerticalLayout(infoHeader, infoBody, infoActions);
+        VerticalLayout base = new VerticalLayout(infoBody, infoActions);
         base.setComponentAlignment(infoActions, Alignment.MIDDLE_RIGHT);
-        this.addComponent(base);
+        super.addComponents(infoHeader, base);
 
-        this.setSizeFull();
-        this.setSpacing(true);
-        this.setMargin(false);
-        this.setStyleName("item");
+        super.setSizeFull();
+        super.setSpacing(true);
+        super.setMargin(false);
+        super.setStyleName("item");
     }
 
     public AbstractOrderedLayout getInfoHeader() {
