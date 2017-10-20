@@ -1,5 +1,6 @@
 package factory;
 
+import com.vaadin.shared.ui.MarginInfo;
 import db.FlexUser;
 import db.NewsArticle;
 

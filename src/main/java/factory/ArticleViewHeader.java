@@ -6,9 +6,10 @@
 package factory;
 
 import com.vaadin.server.ExternalResource;
-import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import db.NewsArticle;
 
@@ -16,7 +17,7 @@ import db.NewsArticle;
  *
  * @author zua
  */
-public class ArticleViewHeader extends AbsoluteLayout {
+public class ArticleViewHeader extends VerticalLayout {
     
     private final FlexUser user;
     private final NewsArticle article;
@@ -30,26 +31,23 @@ public class ArticleViewHeader extends AbsoluteLayout {
         initImage();
         initTitle();
         super.addComponent(image);
-        super.addComponent(title, "bottom:5%");
+        super.addComponent(title);
         super.setStyleName("article-image");
+        super.setSizeFull();
+        super.setMargin(false);
     }
     
     private void initImage() {
-        this.image = new Image(null, new ExternalResource(article.getImageUrl()));
+        // Initializes the image and sizes, style name and caption
+        buildImage();
+        configureImageSize();
         this.image.setStyleName("image");
-        this.image.setSizeFull();
-        /*if (this.image.getWidth() >= this.image.getHeight()) {
-            this.image.setWidth("100%");
-            this.image.setHeightUndefined();
-        } else {
-            this.image.setHeight("100%");
-            this.image.setWidthUndefined();
-        }
-        this.image.setCaption(null);*/
+        this.image.setCaption(null);
     }
     
     private void initTitle() {
         this.title = new Label(article.getTitle());
+        this.title.setSizeFull();
         this.title.setStyleName("image-title");
     }
 
@@ -59,6 +57,27 @@ public class ArticleViewHeader extends AbsoluteLayout {
 
     public Label getTitle() {
         return title;
+    }
+
+    private void buildImage() {
+        if(article.getImageUrl() != null) {
+            image = new Image(null, new ExternalResource(article.getImageUrl()));
+        }
+        else {
+            Notification.show("ImageNotFound for article " + article.getTitle());
+            image = new Image();
+        }
+    }
+
+    private void configureImageSize() {
+        if (this.image.getWidth() >= this.image.getHeight()) {
+            this.image.setWidth("100%");
+            this.image.setHeightUndefined();
+        } 
+        else {
+            this.image.setHeight("100%");
+            this.image.setWidthUndefined();
+        }
     }
     
     
