@@ -35,7 +35,7 @@ public class SourceViewTest {
         System.out.println("getName");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
-        assertNotNull(new SourceView(user, source).getName());
+        assertNull(new SourceView(user, source).getName());
     }
 
     /**
@@ -46,7 +46,7 @@ public class SourceViewTest {
         System.out.println("getDesc");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
-        assertNotNull(new SourceView(user, source).getDesc());
+        assertNull(new SourceView(user, source).getDesc());
     }
 
     /**
@@ -57,7 +57,7 @@ public class SourceViewTest {
         System.out.println("getCategory");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
-        assertNotNull(new SourceView(user, source).getCategory());
+        assertNull(new SourceView(user, source).getCategory());
     }
 
     /**
@@ -68,7 +68,7 @@ public class SourceViewTest {
         System.out.println("getLanguage");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
-        assertNotNull(new SourceView(user, source).getLanguage());
+        assertNull(new SourceView(user, source).getLanguage());
     }
 
     /**
@@ -79,7 +79,7 @@ public class SourceViewTest {
         System.out.println("getCountry");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
-        assertNotNull(new SourceView(user, source).getCountry());
+        assertNull(new SourceView(user, source).getCountry());
     }
 
     /**

@@ -34,6 +34,10 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
         this.user = user;
         this.article = article;
         initActions();
+        super.addComponents(commentButton, favoriteButton, fakeButton, hideButton);
+        super.setSizeFull();
+        super.setStyleName("actions");
+        super.setSpacing(true);
     }
 
     private void initActions() {
@@ -59,10 +63,6 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
             hideButton.addStyleName("purple");
         }
 
-        HorizontalLayout actions = new HorizontalLayout(commentButton, favoriteButton, fakeButton, hideButton);
-        actions.setSizeFull();
-        actions.setStyleName("actions");
-        actions.setSpacing(true);
     }
 
     public NewsArticleServiceInterface getService() {

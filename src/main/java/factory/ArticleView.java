@@ -17,6 +17,7 @@ public class ArticleView extends GraphEntityView<NewsArticle> {
         super(user, article);
         this.initHeader();
         this.initBody();
+        this.initActions();
         super.addComponents(articleViewHeader, articleViewBody, articleViewActions);
     }
     
@@ -28,6 +29,9 @@ public class ArticleView extends GraphEntityView<NewsArticle> {
         this.articleViewBody = new ArticleViewBody(getUser(), getItem());
     }
     
+    private void initActions() {
+        this.articleViewActions = new ArticleViewActions(getUser(), getItem());
+    }
     
 
     @Override

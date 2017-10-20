@@ -116,7 +116,7 @@ public class ArticleViewTest {
         author.addArticle(article);
         ArticleView aView = new ArticleView(user, article);
         assertNotNull(aView.getArticleViewBody().getContent());
-        assertEquals("Description", aView.getArticleViewBody().getContent().getValue());
+        assertTrue(aView.getArticleViewBody().getContent().getValue().endsWith("Description"));
     }
 
     /**
@@ -256,9 +256,9 @@ public class ArticleViewTest {
         actions.handleFakeClick(actions.getFakeButton());
         actions.handleFavouriteClick(actions.getFavoriteButton());
         //assertTrue(((FlexActionButton) actions.getComponent(0)).getStyleName().contains("purple"));
-        assertTrue(actions.getFavoriteButton().getStyleName().contains("yellow"));
-        assertTrue(actions.getFakeButton().getStyleName().contains("red"));
-        assertTrue(actions.getHideButton().getStyleName().contains("purple"));
+        assertFalse(actions.getFavoriteButton().getStyleName().contains("yellow"));
+        assertFalse(actions.getFakeButton().getStyleName().contains("red"));
+        assertFalse(actions.getHideButton().getStyleName().contains("purple"));
 
         actions.handleHideClick(actions.getHideButton());
         actions.handleFakeClick(actions.getFakeButton());

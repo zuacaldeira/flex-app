@@ -8,7 +8,7 @@ package ui.view.body;
 import data.DataProviderType;
 import db.FlexUser;
 import db.NewsArticle;
-import factory.ArticleView;
+import java.util.Date;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -55,7 +55,7 @@ public class FlexBodyTest {
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         FlexBody instance = new FlexBody(user);
         
-        instance.addItemView(new NewsArticle());
+        instance.addItemView(new NewsArticle("TEST_USERNAME", "TEST_PASSWORD", "TEST_USERNAME", "TEST_USERNAME", new Date(), "TEST_USERNAME", "TEST_USERNAME", "TEST_USERNAME"));
     }
 
     /**

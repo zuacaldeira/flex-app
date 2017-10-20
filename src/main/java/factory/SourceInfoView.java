@@ -8,7 +8,6 @@ package factory;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
-import com.vaadin.ui.Label;
 import db.NewsArticle;
 import db.NewsSource;
 import utils.ServiceLocator;
@@ -53,7 +52,6 @@ public class SourceInfoView extends HorizontalLayout {
     }
 
     private void initSourceName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
