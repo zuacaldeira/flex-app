@@ -5,6 +5,7 @@
  */
 package factory;
 
+import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
@@ -20,28 +21,22 @@ public class ArticleViewBody extends VerticalLayout {
 
     private final NewsArticle article;
     private final FlexUser user;
-    private SourceInfoView sourceInfo;
     private AuthorsInfoView authors;
     private Label content;
 
     public ArticleViewBody(FlexUser user, NewsArticle article) {
         this.user = user;
         this.article = article;
-        initSourceInfo();
         initContent();
         initAuthors();
-        super.addComponents(sourceInfo, content);
+        super.addComponents(content);
         super.setSpacing(false);
         super.setMargin(true);
     }
 
-    private void initSourceInfo() {
-        sourceInfo = new SourceInfoView(article);
-    }
-
     private void initContent() {
-        String value = toText(article.getPublishedAt()) + "-" + article.getDescription();
-        this.content = new Label(value);
+        String value = "<strong>" + toText(article.getPublishedAt()) + "</strong>:" + article.getDescription();
+        this.content = new Label(value, ContentMode.HTML);
         this.content.setStyleName("content");
         this.content.setSizeFull();
     }
@@ -65,10 +60,6 @@ public class ArticleViewBody extends VerticalLayout {
 
     public FlexUser getUser() {
         return user;
-    }
-
-    public SourceInfoView getSourceInfo() {
-        return sourceInfo;
     }
 
     public AuthorsInfoView getAuthors() {

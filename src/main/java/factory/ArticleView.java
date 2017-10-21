@@ -1,6 +1,5 @@
 package factory;
 
-import com.vaadin.shared.ui.MarginInfo;
 import db.FlexUser;
 import db.NewsArticle;
 
@@ -13,16 +12,20 @@ public class ArticleView extends GraphEntityView<NewsArticle> {
     private ArticleViewHeader articleViewHeader;
     private ArticleViewBody articleViewBody;
     private ArticleViewActions articleViewActions;
+    private SourceInfoView sourceInfo;
 
     public ArticleView(FlexUser user, NewsArticle article) {
         super(user, article);
+        this.initSourceInfo();        
         this.initHeader();
         this.initBody();
         this.initActions();
         super.addComponents(articleViewHeader, articleViewBody, articleViewActions);
         super.setExpandRatio(articleViewBody, 1f);
-        super.setCaptionAsHtml(true);
-        //super.setCaption(articleViewHeader.toHtml());
+    }
+    
+    private void initSourceInfo() {
+        sourceInfo = new SourceInfoView(getArticle());
     }
     
     private void initHeader() {
@@ -58,6 +61,10 @@ public class ArticleView extends GraphEntityView<NewsArticle> {
 
     public ArticleViewActions getArticleViewActions() {
         return articleViewActions;
+    }
+
+    public SourceInfoView getSourceInfo() {
+        return sourceInfo;
     }
 
 

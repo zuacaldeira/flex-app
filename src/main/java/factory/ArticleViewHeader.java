@@ -32,7 +32,7 @@ public class ArticleViewHeader extends VerticalLayout {
         initTitle();
         super.addComponent(image);
         super.addComponent(title);
-        super.setStyleName("article-image");
+        super.setStyleName("article-header");
         super.setSizeFull();
         super.setMargin(false);
     }
@@ -48,7 +48,7 @@ public class ArticleViewHeader extends VerticalLayout {
     private void initTitle() {
         this.title = new Label(article.getTitle());
         this.title.setSizeFull();
-        this.title.setStyleName("image-title");
+        this.title.setStyleName("title");
     }
 
     public Image getImage() {
