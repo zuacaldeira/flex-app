@@ -44,8 +44,9 @@ $v-font-size: 14px;
 //$color-alt: yellow;
 //$color-selected: green;
 //$color-unselected: gainsboro;
-$flex-menu-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(150, 0, 0, 0.4);
-$flex-item-shadow: 2px 2px 4px 2px rgba(0, 0, 0, .2), 2px 3px 10px 2px rgba(150, 0, 0, 0.4);
+$flex-menu-shadow:        0px 6px 6px 0px rgba(150, 0, 0, 0.4);
+$flex-items-shadow: inset 0px 0px 10px rgba(150, 0, 0, 0.4);
+$flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
 
 
 @import "../valo/valo.scss";
@@ -132,40 +133,43 @@ $flex-item-shadow: 2px 2px 4px 2px rgba(0, 0, 0, .2), 2px 3px 10px 2px rgba(150,
     }
     
     .article-header {
-        .image{
-            
-        }
-        
         .title{
-            margin-left: 10px;
+            margin: 10px;
+        }
+    }
+
+    .article-body {
+        .content{
+            margin-left: 15px;
+            margin-right: 10px;
         }
     }
 
     .items {
         //$v-font-family: "JF Flat","Open Sans", sans-serif;
-        background: transparent;
-        box-shadow: $flex-item-shadow;
-        .item {
-            background: white;
-            box-shadow: $flex-item-shadow;
-            color: $color-text-primary;
-            text-align: justify;
-            .title {
-                font-weight: bold;
-            }
-        }
-
-        .item-selected {
-            background: black;
-            color: $color-text-action;
-            text-align: justify;
-            box-shadow: $flex-item-shadow;
-            .title {
-                font-weight: bold;
-            }
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+    }
+    
+    .item {
+        background: whitesmoke;
+        color: $color-text-primary;
+        text-align: justify;
+        .title {
+            font-weight: bold;
         }
     }
-
+    
+    .item-selected {
+        background: black;
+        box-shadow: $flex-item-shadow;
+        color: $color-text-action;
+        text-align: justify;
+        .title {
+            font-weight: bold;
+        }
+    }
+    
 
     .yellow {
         color: yellow;

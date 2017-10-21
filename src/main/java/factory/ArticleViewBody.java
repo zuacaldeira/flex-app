@@ -5,6 +5,7 @@
  */
 package factory;
 
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
@@ -27,15 +28,18 @@ public class ArticleViewBody extends VerticalLayout {
     public ArticleViewBody(FlexUser user, NewsArticle article) {
         this.user = user;
         this.article = article;
+        super.setStyleName("article-body");
         initContent();
         initAuthors();
         super.addComponents(content);
         super.setSpacing(false);
-        super.setMargin(true);
+        super.setMargin(false);
     }
 
     private void initContent() {
-        String value = "<strong>" + toText(article.getPublishedAt()) + "</strong>:" + article.getDescription();
+        String value = VaadinIcons.CLOCK.getHtml()
+                + " <strong>" + toText(article.getPublishedAt()) + "</strong>: "
+                + article.getDescription();
         this.content = new Label(value, ContentMode.HTML);
         this.content.setStyleName("content");
         this.content.setSizeFull();
@@ -69,7 +73,5 @@ public class ArticleViewBody extends VerticalLayout {
     public Label getContent() {
         return content;
     }
-    
-    
 
 }
