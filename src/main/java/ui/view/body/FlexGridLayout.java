@@ -26,7 +26,7 @@ public class FlexGridLayout extends HorizontalLayout {
         for (int i = 0; i < c; i++) {
             VerticalLayout v = new VerticalLayout();
             v.setMargin(false);
-            v.setSpacing(false);
+            v.setSpacing(true);
             v.setSizeFull();
             v.setHeightUndefined();
             super.addComponent(v);

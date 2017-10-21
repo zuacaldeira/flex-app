@@ -20,6 +20,9 @@ public class ArticleView extends GraphEntityView<NewsArticle> {
         this.initBody();
         this.initActions();
         super.addComponents(articleViewHeader, articleViewBody, articleViewActions);
+        super.setExpandRatio(articleViewBody, 1f);
+        super.setCaptionAsHtml(true);
+        //super.setCaption(articleViewHeader.toHtml());
     }
     
     private void initHeader() {

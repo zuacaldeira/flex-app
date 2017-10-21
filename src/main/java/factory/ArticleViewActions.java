@@ -80,7 +80,9 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
             button.setDescription("Mark as Unread");
         }
         if (getParent() != null) {
-            ((VerticalLayout) getParent()).removeComponent(this);
+            ArticleView articleView = (ArticleView) this.getParent();
+            VerticalLayout articleViewParent = (VerticalLayout) articleView.getParent();
+            articleViewParent.removeComponent(articleView);
         }
     }
 

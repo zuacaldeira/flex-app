@@ -35,6 +35,7 @@ public class MasterDetailView extends FlexPanel {
         baseLayout.setExpandRatio(summariesPanel, .25f);
         baseLayout.setExpandRatio(browserFramePanel, 1f);
         baseLayout.setSpacing(true);
+        baseLayout.setMargin(true);
         super.setSizeFull();
         super.setContent(baseLayout);
     }
