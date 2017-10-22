@@ -25,7 +25,6 @@ public class FlexFooterTest {
     public void testSomeMethod() {
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         FlexFooter footer = new FlexFooter(user);
-        assertNotNull(footer.getCopyright());
         assertNotNull(footer.getUser());
     }
 

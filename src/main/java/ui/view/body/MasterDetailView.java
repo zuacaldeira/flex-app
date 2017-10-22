@@ -32,7 +32,7 @@ public class MasterDetailView extends FlexPanel {
         initBrowserFrame();
         baseLayout = new HorizontalLayout(summariesPanel, browserFramePanel);
         baseLayout.setSizeFull();
-        baseLayout.setExpandRatio(summariesPanel, .25f);
+        baseLayout.setExpandRatio(summariesPanel, .33f);
         baseLayout.setExpandRatio(browserFramePanel, 1f);
         baseLayout.setSpacing(true);
         baseLayout.setMargin(true);

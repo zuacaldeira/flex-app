@@ -41,8 +41,9 @@ public class ArticleViewBody extends VerticalLayout {
                 + " <strong>" + toText(article.getPublishedAt()) + "</strong>: "
                 + article.getDescription();
         this.content = new Label(value, ContentMode.HTML);
-        this.content.setStyleName("content");
-        this.content.setSizeFull();
+        this.content.setStyleName("value");
+        this.content.setWidth("100%");
+        //this.content.setHeightUndefined();
     }
 
     private String toText(Date date) {

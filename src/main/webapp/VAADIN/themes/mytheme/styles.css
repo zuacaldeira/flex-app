@@ -14859,21 +14859,20 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .article-header .title {
-	margin: 10px;
+	margin: 10px 10px 10px 10px;
 }
 
-.mytheme .article-body .content {
-	margin-left: 15px;
-	margin-right: 10px;
+.mytheme .article-body .value {
+	margin: 10px 10px 10px 10px;
 }
 
 .mytheme .items {
-	background: rgba(255, 255, 255, 0.2);
+	background: rgba(255, 0, 0, 0.4);
 	border: none;
 }
 
 .mytheme .item {
-	background: whitesmoke;
+	background: wheat;
 	color: #7d7d7d;
 	text-align: justify;
 }
