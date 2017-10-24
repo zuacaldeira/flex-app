@@ -14792,7 +14792,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .v-ui {
-	background: white;
+	background: #141414;
 }
 
 .mytheme .flex-button {
@@ -14809,7 +14809,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-window {
-	background: rgba(10, 10, 10, 0.9);
+	background: rgba(10, 10, 10, 0.8);
 	box-shadow: 0px 6px 6px 0px rgba(150, 0, 0, 0.4);
 }
 
@@ -14819,9 +14819,9 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-menu {
-	background: rgba(10, 10, 10, 0.9);
-	box-shadow: 0px 6px 6px 0px rgba(150, 0, 0, 0.4);
-	color: #7d7d7d;
+	background: rgba(10, 10, 10, 0.8);
+	box-shadow: gray;
+	color: white;
 }
 
 .mytheme .flex-menu-bar {
@@ -14850,46 +14850,58 @@ div.v-layout.v-horizontal.v-widget {
 	background: black;
 }
 
+.mytheme .flex-body {
+	background: rgba(10, 10, 10, 0.2);
+}
+
 .mytheme .flex-footer {
-	background: rgba(10, 10, 10, 0.9);
+	background: rgba(10, 10, 10, 0.8);
 }
 
 .mytheme .v-caption-item {
 	word-wrap: break-word;
 }
 
-.mytheme .article-header .title {
-	margin: 10px 10px 10px 10px;
-}
-
-.mytheme .article-body .value {
-	margin: 10px 10px 10px 10px;
-}
-
 .mytheme .items {
-	background: rgba(255, 0, 0, 0.4);
 	border: none;
 }
 
-.mytheme .item {
-	background: wheat;
-	color: #7d7d7d;
-	text-align: justify;
+.mytheme .article-body .title {
+	font-weight: bold;
 }
 
-.mytheme .item .title {
-	font-weight: bold;
+.mytheme .item {
+	background: white;
+	opacity: 0.75;
+}
+
+.mytheme .item .article-header {
+	background: black;
+	color: white;
+}
+
+.mytheme .item:hover {
+	background: white;
+}
+
+.mytheme .item:hover .article-header {
+	background: black;
+	color: white;
 }
 
 .mytheme .item-selected {
-	background: black;
-	box-shadow: 2px 2px 2px 0px rgba(150, 0, 0, 0.4);
-	color: white;
-	text-align: justify;
+	background: white;
+	border: thin solid red;
 }
 
-.mytheme .item-selected .title {
-	font-weight: bold;
+.mytheme .item-selected .article-header {
+	background: red;
+	color: white;
+}
+
+.mytheme .actions {
+	background: rgba(127, 127, 127, 0.5);
+	color: white;
 }
 
 .mytheme .yellow {

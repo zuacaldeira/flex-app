@@ -23,6 +23,8 @@ import utils.ServiceLocator;
  */
 public class ArticleViewActions extends HorizontalLayout implements Button.ClickListener {
 
+    private static final long serialVersionUID = 5885947852356212404L;
+
     private CommentButton commentButton;
     private FavoriteButton favoriteButton;
     private FakeButton fakeButton;

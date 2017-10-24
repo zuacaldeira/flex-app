@@ -38,7 +38,6 @@ public class FlexMenuBarTest {
         System.out.println("initMenuBar");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         FlexMenuBar menuBar = new FlexMenuBar(user);
-        assertNotNull(menuBar.getHome());
         assertNotNull(menuBar.getNews());
         assertNotNull(menuBar.getPublishers());
         assertNotNull(menuBar.getCategories());
@@ -121,20 +120,6 @@ public class FlexMenuBarTest {
     private void initMinimalScenario() {
         NewsSource source = new NewsSource("sourceId", "Publishing AG", "Source Description", "url", "business", "en", "GB");
         ServiceLocator.getInstance().findSourcesService().save(source);
-    }
-
-    @Test
-    public void testSelectHome() {
-        System.out.println("selectHome");
-        initMinimalScenario();
-        FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMainView view = new FlexMainView(user);
-        view.populate();
-
-        FlexMenuBar menuBar = view.getMenu().getMenuBar();
-        MenuItem menuItem = menuBar.getHome();
-        MenuBar.Command command = menuItem.getCommand();
-        command.menuSelected(menuItem);
     }
 
     @Test

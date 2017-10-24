@@ -28,4 +28,32 @@
                 <glassfish.properties.file.argument>production</glassfish.properties.file.argument>
             </properties>
         </action>
+        <action>
+            <actionName>CUSTOM-Build Skip Tests</actionName>
+            <displayName>Build Skip Tests</displayName>
+            <preAction>build-with-dependencies</preAction>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+                
+            </goals>
+            <properties>
+                <skipTests>true</skipTests>
+                
+            </properties>
+        </action>
+        <action>
+            <actionName>CUSTOM-Build Skip ITs</actionName>
+            <displayName>Build Skip ITs</displayName>
+            <preAction>build-with-dependencies</preAction>
+            <goals>
+                <goal>install</goal>
+                
+            </goals>
+            <properties>
+                <skipITs>true</skipITs>
+            </properties>
+        </action>
+        
+        
     </actions>

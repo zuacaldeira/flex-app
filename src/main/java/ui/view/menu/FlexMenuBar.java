@@ -35,7 +35,6 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
     private final NewsSourceServiceInterface sourcesService;
 
     // Main Menu (top level)
-    private MenuItem home;
     private MenuItem news;
     private MenuItem categories;
     private MenuItem publishers;
@@ -57,15 +56,9 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
         this.user = user;
         sourcesService = ServiceLocator.getInstance().findSourcesService();
         this.initMenuItems();
-        this.setMoreMenuItem(home);
     }
 
     protected void initMenuItems() {
-        home = addItem("", VaadinIcons.HOME, (selectedItem) -> {
-            if (Page.getCurrent() != null) {
-                Page.getCurrent().setLocation(((FlexAppUI) getUI()).getPageLocation());
-            }
-        });
         news = addItem("News", null, null);
         publishers = addItem("Publishers", null, null);
         categories = addItem("Categories", null, null);
@@ -204,9 +197,6 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
                 .replace("-", " ");
     }
 
-    public MenuItem getHome() {
-        return home;
-    }
 
     public MenuItem getNews() {
         return news;

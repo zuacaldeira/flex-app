@@ -5,14 +5,11 @@
  */
 package factory;
 
-import com.vaadin.icons.VaadinIcons;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import db.NewsArticle;
-import java.util.Date;
-import org.apache.commons.lang3.time.DateFormatUtils;
 
 /**
  *
@@ -23,35 +20,33 @@ public class ArticleViewBody extends VerticalLayout {
     private final NewsArticle article;
     private final FlexUser user;
     private AuthorsInfoView authors;
+    private Label title;
     private Label content;
 
     public ArticleViewBody(FlexUser user, NewsArticle article) {
         this.user = user;
         this.article = article;
         super.setStyleName("article-body");
+        initTitle();
         initContent();
         initAuthors();
-        super.addComponents(content);
+        super.addComponents(title, content);
         super.setSpacing(false);
-        super.setMargin(false);
+        super.setMargin(true);
+    }
+
+    private void initTitle() {
+        this.title = new Label(article.getTitle());
+        this.title.setSizeFull();
+        this.title.setStyleName("title");
     }
 
     private void initContent() {
-        String value = VaadinIcons.CLOCK.getHtml()
-                + " <strong>" + toText(article.getPublishedAt()) + "</strong>: "
-                + article.getDescription();
+        String value = article.getDescription();
         this.content = new Label(value, ContentMode.HTML);
         this.content.setStyleName("value");
         this.content.setWidth("100%");
         //this.content.setHeightUndefined();
-    }
-
-    private String toText(Date date) {
-        if (date != null) {
-            return DateFormatUtils.format(date, "dd MMM yyyy, HH:mm:ss");
-        } else {
-            return DateFormatUtils.format(new Date(), "dd MMM yyyy, HH:mm:ss");
-        }
     }
 
     /* TODO: Implement */

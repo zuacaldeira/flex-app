@@ -3,14 +3,15 @@ $v-app-loading-text:        "Nzinga";
 // Global variable overrides. Must be declared before importing Valo.
 
 // App colors
-$color-ui:                  rgba(255, 255, 255, 1);
+$color-ui:                  rgba(20, 20, 20, 1);
 $color-background-primary:  rgba(0, 255, 255, 0.75);
 $color-background-secondary:rgba(127, 255, 127, 0.75);
 $color-background-action:   rgba(255, 255, 0, 0.1);
 $color-text-primary:        rgba(125, 125, 125, 1);
 $color-text-secondary:      rgba(255, 255, 255, 1);
 $color-text-action:         white;
-$color-menu:                rgba(10, 10, 10, .9);
+$color-menu:                rgba(10, 10, 10, .8);
+$color-menu-text:           rgba(255, 255, 255, 1);
 $color-menu-shadow:         gray;
 
 // Defines the plaintext font size, weight and family. Font size affects general component sizing.
@@ -45,7 +46,7 @@ $v-font-size: 14px;
 //$color-selected: green;
 //$color-unselected: gainsboro;
 $flex-menu-shadow:        0px 6px 6px 0px rgba(150, 0, 0, 0.4);
-$flex-items-shadow: inset 0px 0px 10px rgba(150, 0, 0, 0.4);
+$flex-inner-shadow: inset 0px 0px 10px rgba(150, 0, 0, 0.4);
 $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
 
 
@@ -89,8 +90,8 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
 
     .flex-menu {
         background: $color-menu;
-        box-shadow: $flex-menu-shadow;
-        color: $color-text-primary;
+        box-shadow: $color-menu-shadow;
+        color:      $color-menu-text;
     }
 
     .flex-logo {
@@ -121,9 +122,9 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
 
     .flex-body{
         //background: rgba(255, 0, 126, .7);
-        background: rgba(255, 0, 0, 0.2);
+        background: rgba(50, 50, 50, 0.2);
     }
-    
+
     .flex-footer {
         background: $color-menu;
     }
@@ -132,43 +133,51 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     .v-caption-item {
         word-wrap: break-word;
     }
-    
-    .article-header {
-        .title{
-            margin: 10px 10px 10px 10px;
-        }
-    }
-
-    .article-body {
-        .value{
-            margin: 10px 10px 10px 10px;
-        }
-    }
 
     .items {
         //$v-font-family: "JF Flat","Open Sans", sans-serif;
         border: none;
     }
-    
+
+    .article-body {
+        .title{
+            font-weight: bold;
+        }
+        .value{
+        }
+    }
+
     .item {
-        background: wheat;
-        color: $color-text-primary;
-        text-align: justify;
-        .title {
-            font-weight: bold;
+        background: white;
+        opacity: 0.75;
+        .article-header {
+            background: black;
+            color: white;
         }
     }
-    
+
+    .item:hover {
+        background: white;
+        .article-header {
+            background: black;
+            color: white;
+        }
+    }
+
     .item-selected {
-        background: black;
-        box-shadow: $flex-item-shadow;
-        color: $color-text-action;
-        text-align: justify;
-        .title {
-            font-weight: bold;
+        background: white;
+        border: thin solid rgba(255, 0, 0, 1);
+        .article-header {
+            background: rgba(255, 0, 0, 1);
+            color: white;
         }
     }
+
     
+    .actions {
+        background: rgba(127, 127, 127, 0.5);
+        color: white;
+    }
 
     .yellow {
         color: yellow;
