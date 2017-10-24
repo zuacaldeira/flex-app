@@ -5,10 +5,13 @@
  */
 package ui.view.body;
 
+import data.ArticlesRepository;
 import data.DataProviderType;
 import factory.FlexViewFactory;
 import db.FlexUser;
 import db.GraphEntity;
+import db.NewsArticle;
+import java.util.Collection;
 import panel.FlexPanel;
 
 /**
@@ -55,9 +58,9 @@ public class FlexBody extends FlexPanel {
 
     public void initBodyUpdaterThread(DataProviderType type, String value) {
         System.out.println("FlexBodyThread#run(): START");
-        if (bodyWorker != null) {
-            bodyWorker.interrupt();
-        }
+        bodyCleanUp();
+        Collection<NewsArticle> nodes = new ArticlesRepository().loadNodes(type, value, user);
+        bodyUpdate(nodes);
         /* Update body with views for new items */
         bodyWorker = new BodyWorker(this, type, value, user);
         bodyWorker.start();
@@ -72,6 +75,18 @@ public class FlexBody extends FlexPanel {
     protected void cleanUp() {
         initMasterDetail();
         setContent(masterDetailView);
+    }
+
+    private void bodyCleanUp() {
+        cleanUp();
+    }
+
+    private void bodyUpdate(Collection<NewsArticle> nodes) {
+        for (GraphEntity item : nodes) {
+            if (getUI() != null && getUI().isAttached()) {
+                addItemView(item);
+            }
+        }
     }
 
 }
