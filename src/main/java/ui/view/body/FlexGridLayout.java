@@ -7,6 +7,7 @@ package ui.view.body;
 
 import com.vaadin.ui.Alignment;
 import factory.GraphEntityView;
+import factory.ArticleView;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
@@ -16,6 +17,8 @@ import com.vaadin.ui.VerticalLayout;
  * @author zua
  */
 public class FlexGridLayout extends HorizontalLayout {
+
+    private static final long serialVersionUID = 8947690159810342641L;
 
     private GraphEntityView selected;
     private int currentListIndex = 0;
@@ -69,4 +72,39 @@ public class FlexGridLayout extends HorizontalLayout {
         return columns;
     }
 
+    public void full() {
+        int i = getComponentCount();
+        for(int j = 0; j < i; j++) {
+            VerticalLayout l = (VerticalLayout) getComponent(j);
+            int c = l.getComponentCount();
+            for(int k = 0; k < c; k++) {
+                ArticleView v = (ArticleView) l.getComponent(k);
+                v.full();
+            }
+        }
+    }
+
+    public void imagesOnly() {
+        int i = getComponentCount();
+        for(int j = 0; j < i; j++) {
+            VerticalLayout l = (VerticalLayout) getComponent(j);
+            int c = l.getComponentCount();
+            for(int k = 0; k < c; k++) {
+                ArticleView v = (ArticleView) l.getComponent(k);
+                v.imagesOnly();
+            }
+        }
+    }
+
+    public void titlesOnly() {
+        int i = getComponentCount();
+        for(int j = 0; j < i; j++) {
+            VerticalLayout l = (VerticalLayout) getComponent(j);
+            int c = l.getComponentCount();
+            for(int k = 0; k < c; k++) {
+                ArticleView v = (ArticleView) l.getComponent(k);
+                v.titlesOnly();
+            }
+        }
+    }
 }

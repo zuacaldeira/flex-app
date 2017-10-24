@@ -22,6 +22,7 @@ import java.util.TreeSet;
 import services.NewsSourceServiceInterface;
 import ui.ui.FlexAppUI;
 import ui.ui.SecuredUI;
+import ui.view.body.MasterDetailView;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
 
@@ -143,15 +144,11 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
     }
 
     private void populateViews() {
-        full = news.addItem("Full", (selectedMenuItem) -> {
-            updateBody(DataProviderType.FULL, null);
-        });
-        imagesOnly = news.addItem("Images Only", (selectedMenuItem) -> {
-            updateBody(DataProviderType.IMAGES_ONLY, null);
-        });
-        titlesOnly = news.addItem("Titles Only", (selectedMenuItem) -> {
-            updateBody(DataProviderType.TITLES_ONLY, null);
-        });
+        FlexBody body = UIUtils.getInstance().getBody(this);
+        MasterDetailView masterDetail = body.getMasterDetail();
+        full = news.addItem("Full", (selectedItem) -> {masterDetail.full();});
+        imagesOnly = news.addItem("Images Only", (selectedItem) -> {masterDetail.imagesOnly();});
+        titlesOnly = news.addItem("Titles Only", (selectedItem) -> { masterDetail.titlesOnly();});
     }
 
     private void populateNewsByTime() {
@@ -196,7 +193,6 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
                 String.valueOf(Character.toUpperCase(c)))
                 .replace("-", " ");
     }
-
 
     public MenuItem getNews() {
         return news;

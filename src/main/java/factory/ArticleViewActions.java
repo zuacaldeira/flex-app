@@ -137,4 +137,15 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
         return hideButton;
     }
 
+    void full() {
+        setVisible(true);
+    }
+
+    void imagesOnly() {
+        setVisible(false);
+    }
+    
+    void titlesOnly() {
+        setVisible(false);
+    }
 }

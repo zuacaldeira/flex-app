@@ -14,6 +14,8 @@ import panel.FlexPanel;
  */
 public class SummariesPanel extends FlexPanel {
 
+    private static final long serialVersionUID = -1288952601019827111L;
+
     private final FlexGridLayout overviews;
 
     public SummariesPanel(int columns) {
@@ -26,4 +28,17 @@ public class SummariesPanel extends FlexPanel {
     public void addItemView(Component component) {
         overviews.addItemView(component);
     }
+    
+    public void full() {
+        overviews.full();
+    }
+
+    public void imagesOnly() {
+        overviews.imagesOnly();
+    }
+
+    public void titlesOnly() {
+        overviews.titlesOnly();
+    }
 }
+

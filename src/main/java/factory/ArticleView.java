@@ -8,6 +8,8 @@ import db.NewsArticle;
  */
 public class ArticleView extends GraphEntityView<NewsArticle> {
 
+    private static final long serialVersionUID = 7693645013887515529L;
+
     // Info components
     private ArticleViewHeader articleViewHeader;
     private ArticleViewBody articleViewBody;
@@ -67,5 +69,21 @@ public class ArticleView extends GraphEntityView<NewsArticle> {
         super.minimize();
     }
 
-
+    public void full() {
+        articleViewHeader.full();
+        articleViewBody.full();
+        articleViewActions.full();
+    }
+    
+    public void imagesOnly() {
+        articleViewHeader.imagesOnly();
+        articleViewBody.imagesOnly();
+        articleViewActions.imagesOnly();
+    }
+    
+    public void titlesOnly() {
+        articleViewHeader.titlesOnly();
+        articleViewBody.titlesOnly();
+        articleViewActions.titlesOnly();
+    }
 }

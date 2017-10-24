@@ -7,7 +7,6 @@ package factory;
 
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.Image;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import db.NewsArticle;
@@ -82,6 +81,21 @@ public class ArticleViewHeader extends VerticalLayout {
             this.image.setHeight("100%");
             this.image.setWidthUndefined();
         }
+    }
+
+    void full() {
+        image.setVisible(true);
+        sourceInfo.setVisible(true);
+    }
+    
+    void imagesOnly() {
+        image.setVisible(true);
+        sourceInfo.setVisible(true);
+    }
+    
+    void titlesOnly() {
+        image.setVisible(false);
+        sourceInfo.setVisible(true);
     }
     
     

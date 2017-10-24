@@ -55,7 +55,7 @@ public class FlexMenuBarTest {
         initMinimalScenario();
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         FlexMenuBar menuBar = new FlexMenuBar(user);
-        menuBar.populate();
+        //menuBar.populate();
         assertNotNull(menuBar.getPublishers());
         assertNotNull(menuBar.getLanguages());
         assertNotNull(menuBar.getCountries());

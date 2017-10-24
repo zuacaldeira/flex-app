@@ -6,6 +6,7 @@
 package factory;
 
 import com.vaadin.shared.ui.ContentMode;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
@@ -16,6 +17,8 @@ import db.NewsArticle;
  * @author zua
  */
 public class ArticleViewBody extends VerticalLayout {
+
+    private static final long serialVersionUID = -714857695983398055L;
 
     private final NewsArticle article;
     private final FlexUser user;
@@ -32,7 +35,7 @@ public class ArticleViewBody extends VerticalLayout {
         initAuthors();
         super.addComponents(title, content);
         super.setSpacing(false);
-        super.setMargin(true);
+        super.setMargin(new MarginInfo( false, true));
     }
 
     private void initTitle() {
@@ -68,6 +71,21 @@ public class ArticleViewBody extends VerticalLayout {
 
     public Label getContent() {
         return content;
+    }
+
+    void full() {
+        title.setVisible(true);
+        content.setVisible(true);
+    }
+
+    void imagesOnly() {
+        title.setVisible(true);
+        content.setVisible(false);
+    }
+    
+    void titlesOnly() {
+        title.setVisible(true);
+        content.setVisible(false);
     }
 
 }

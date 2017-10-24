@@ -18,6 +18,8 @@ import panel.FlexPanel;
  */
 public class MasterDetailView extends FlexPanel {
 
+    private static final long serialVersionUID = -2414042455007471125L;
+
     private FlexBrowserFramePanel browserFramePanel;
     private SummariesPanel summariesPanel;
     private HorizontalLayout baseLayout;
@@ -88,6 +90,18 @@ public class MasterDetailView extends FlexPanel {
         ((GraphEntityView) component).addLayoutClickListener(event -> {
             updateSelected((GraphEntityView) component);
         });
+    }
+
+    public void full() {
+        summariesPanel.full();
+    }
+
+    public void imagesOnly() {
+        summariesPanel.imagesOnly();
+    }
+
+    public void titlesOnly() {
+        summariesPanel.titlesOnly();
     }
 
 }
