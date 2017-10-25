@@ -221,7 +221,7 @@ public class ArticleViewTest {
         NewsAuthor author = new NewsAuthor("Author");
         author.addArticle(article);
         ArticleView aView = new ArticleView(user, article);
-        aView.minimize();
+        aView.unselect();
         assertTrue(aView.getArticleViewHeader().isVisible());
     }
 

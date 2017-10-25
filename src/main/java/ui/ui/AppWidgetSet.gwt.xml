@@ -30,11 +30,11 @@
     <!-- <set-configuration-property name="devModeRedirectEnabled" value="true" /> -->
 
 
-    <inherits name="com.vaadin.grid.gwt.Grid2Widgetset" />
+    
 
     <inherits name="org.vaadin.addons.searchbox.Widgetset" />
 
     <inherits name="org.vaadin.addons.autocomplete.Widgetset" />
 
-    <inherits name="org.vaadin.hene.popupbutton.widgetset.PopupbuttonWidgetset" />
+    
 </module>
