@@ -107,4 +107,22 @@ public class ArticleViewTestIT {
         ServiceLocator.getInstance().findArticlesService().markAsRead("test:username", article);
     }
 
+        /**
+     * Test of getService method, of class ArticleView.
+     */
+    @Test
+    public void testGetService() {
+        System.out.println("getService");
+        FlexUser user = new FlexUser();
+        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+        article.setTitle("Title");
+        article.setDescription("Description");
+        Date date = new Date();
+        article.setPublishedAt(date);
+        NewsAuthor author = new NewsAuthor("Author");
+        author.addArticle(article);
+        ArticleView aView = new ArticleView(user, article);
+        assertNotNull(aView.getArticleViewActions().getService());
+    }
+
 }
