@@ -60,13 +60,13 @@ public class ArticleView extends GraphEntityView<NewsArticle> {
     }
 
     @Override
-    public void maximize() {
-        super.maximize();
+    public void select() {
+        super.select();
     }
 
     @Override
-    public void minimize() {
-        super.minimize();
+    public void unselect() {
+        super.unselect();
     }
 
     public void full() {

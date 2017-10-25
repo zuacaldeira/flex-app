@@ -32,10 +32,10 @@ public class AuthorView extends GraphEntityView<NewsAuthor> {
     }
 
     @Override
-    public void minimize() {
+    public void unselect() {
     }
 
     @Override
-    public void maximize() {
+    public void select() {
     }
 }

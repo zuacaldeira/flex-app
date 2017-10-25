@@ -192,7 +192,7 @@ public class ArticleViewTest {
     }
 
     /**
-     * Test of maximize method, of class ArticleView.
+     * Test of select method, of class ArticleView.
      */
     @Test
     public void testMaximize() {
@@ -206,7 +206,7 @@ public class ArticleViewTest {
         NewsAuthor author = new NewsAuthor("Author");
         author.addArticle(article);
         ArticleView aView = new ArticleView(user, article);
-        aView.maximize();
+        aView.select();
         assertTrue(aView.getArticleViewHeader().isVisible());
     }
 

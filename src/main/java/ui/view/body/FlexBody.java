@@ -20,6 +20,8 @@ import panel.FlexPanel;
  */
 public class FlexBody extends FlexPanel {
 
+    private static final long serialVersionUID = 6273025631274336910L;
+
     private final FlexUser user;
     private MasterDetailView masterDetailView;
 
@@ -35,7 +37,6 @@ public class FlexBody extends FlexPanel {
                 bodyWorker.interrupt();
             }
         });
-        cleanUp();
         this.initBodyUpdaterThread(DataProviderType.LATEST, "latest");
     }
 
@@ -61,14 +62,11 @@ public class FlexBody extends FlexPanel {
         bodyCleanUp();
         Collection<NewsArticle> nodes = new ArticlesRepository().loadNodes(type, value, user);
         bodyUpdate(nodes);
-        /* Update body with views for new items */
-        bodyWorker = new BodyWorker(this, type, value, user);
-        bodyWorker.start();
         System.out.println("FlexBodyThread#run(): DONE");
     }
 
     private void initMasterDetail() {
-        masterDetailView = new MasterDetailView();
+        masterDetailView = new MasterDetailView(user);
         masterDetailView.setWidth("100%");
     }
 
@@ -82,11 +80,8 @@ public class FlexBody extends FlexPanel {
     }
 
     private void bodyUpdate(Collection<NewsArticle> nodes) {
-        for (GraphEntity item : nodes) {
-            if (getUI() != null && getUI().isAttached()) {
-                addItemView(item);
-            }
-        }
+        masterDetailView.update(nodes);
     }
+
 
 }

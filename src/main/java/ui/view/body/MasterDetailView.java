@@ -10,6 +10,9 @@ import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
+import db.FlexUser;
+import db.NewsArticle;
+import java.util.Collection;
 import panel.FlexPanel;
 
 /**
@@ -26,8 +29,10 @@ public class MasterDetailView extends FlexPanel {
     private GraphEntityView selected;
     private Object myData;
     private BrowserFrame browserFrame;
+    private final FlexUser user;
 
-    public MasterDetailView() {
+    public MasterDetailView(FlexUser user) {
+        this.user = user;
         selected = null;
         myData = null;
         initSummaries(1);
@@ -43,7 +48,7 @@ public class MasterDetailView extends FlexPanel {
     }
 
     private void initSummaries(int c) {
-        summariesPanel = new SummariesPanel(c);
+        summariesPanel = new SummariesPanel(user, c);
         summariesPanel.setSizeFull();
     }
 
@@ -72,10 +77,10 @@ public class MasterDetailView extends FlexPanel {
 
     private void updateSelected(GraphEntityView itemView) {
         if (selected != null) {
-            selected.minimize();
+            selected.unselect();
         }
         selected = itemView;
-        selected.maximize();
+        selected.select();
         String url = selected.getItem().getUrl();
         if (url != null) {
             browserFrame.setSource(new ExternalResource(url));
@@ -104,4 +109,7 @@ public class MasterDetailView extends FlexPanel {
         summariesPanel.titlesOnly();
     }
 
+    public void update(Collection<NewsArticle> nodes) {
+        summariesPanel.update(nodes);
+    }
 }

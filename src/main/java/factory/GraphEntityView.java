@@ -17,6 +17,8 @@ import ui.ui.SecuredUI;
  */
 public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLayout {
 
+    private static final long serialVersionUID = 749607225883641715L;
+
     private final T item;
     private final FlexUser user;
 
@@ -44,11 +46,11 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
     }
 
 
-    public void minimize() {
+    public void unselect() {
         setStyleName("item");
     }
 
-    public void maximize() {
+    public void select() {
         setStyleName("item-selected");
     }
 }

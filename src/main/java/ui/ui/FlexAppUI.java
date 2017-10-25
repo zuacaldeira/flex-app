@@ -38,7 +38,7 @@ public class FlexAppUI extends SecuredUI {
     }
 
     @WebServlet(urlPatterns = "/*", name = "NewsUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = FlexAppUI.class, productionMode = false)
+    @VaadinServletConfiguration(ui = FlexAppUI.class, productionMode = false, widgetset = "ui.ui.AppWidgetSet")
     public static class NewsUIServlet extends VaadinServlet {
     }
 

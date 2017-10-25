@@ -70,7 +70,7 @@ public class AuthorViewTest {
     }
 
     /**
-     * Test of maximize method, of class AuthorView.
+     * Test of select method, of class AuthorView.
      */
     @Test
     public void testMaximize() {
@@ -78,7 +78,7 @@ public class AuthorViewTest {
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsAuthor author = new NewsAuthor("test:author");
         AuthorView authorView = new AuthorView(user, author);
-        authorView.maximize();
+        authorView.select();
         assertNull(authorView.getName());
     }
 
