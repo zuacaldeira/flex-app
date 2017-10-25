@@ -12,6 +12,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import db.FlexUser;
 import db.NewsArticle;
+import factory.FlexViewFactory;
 import java.util.Collection;
 import panel.FlexPanel;
 
@@ -110,6 +111,10 @@ public class MasterDetailView extends FlexPanel {
     }
 
     public void update(Collection<NewsArticle> nodes) {
-        summariesPanel.update(nodes);
+        nodes.forEach(item -> {
+            addComponent(FlexViewFactory.getInstance().createArticleView(user, item));
+        });
     }
+    
+    
 }

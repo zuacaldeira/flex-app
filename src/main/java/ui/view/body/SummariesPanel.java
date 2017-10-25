@@ -61,9 +61,4 @@ public class SummariesPanel extends FlexPanel {
         }
     }
 
-    public void update(Collection<NewsArticle> nodes) {
-        nodes.forEach(item -> {
-            addItemView(FlexViewFactory.getInstance().createArticleView(user, item));
-        });
-    }
 }

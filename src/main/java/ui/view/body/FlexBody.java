@@ -25,18 +25,11 @@ public class FlexBody extends FlexPanel {
     private final FlexUser user;
     private MasterDetailView masterDetailView;
 
-    private transient Thread bodyWorker;
-
     public FlexBody(FlexUser user) {
         this.user = user;
         super.addStyleName("flex-body");
         super.setWidth("100%");
         super.setHeightUndefined();
-        super.addDetachListener(e -> {
-            if (bodyWorker != null && bodyWorker.isAlive()) {
-                bodyWorker.interrupt();
-            }
-        });
         this.initBodyUpdaterThread(DataProviderType.LATEST, "latest");
     }
 
