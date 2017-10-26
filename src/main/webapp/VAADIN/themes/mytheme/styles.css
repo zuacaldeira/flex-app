@@ -14792,7 +14792,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .v-ui {
-	background: #141414;
+	background: rgba(150, 150, 150, 0.5);
 }
 
 .mytheme .flex-button {

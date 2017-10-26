@@ -28,6 +28,7 @@ public class SummariesPanel extends FlexPanel {
     public SummariesPanel(FlexUser user, int columns) {
         this.user = user;
         overviews = new VerticalLayout();
+        overviews.setMargin(false);
         super.setSizeFull();
         super.setContent(overviews);
         super.setStyleName("items");
