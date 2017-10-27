@@ -53,9 +53,11 @@ public class FlexBody extends FlexPanel implements CanPopulate {
     }
 
     public void addItemView(GraphEntity item) {
-        getUI().access(() -> {
-            masterDetailView.addComponent(FlexViewFactory.getInstance().createView(user, item));
-        });
+        if(getUI() != null) {
+            getUI().access(() -> {
+                masterDetailView.addComponent(FlexViewFactory.getInstance().createView(user, item));
+            });
+        }
     }
 
     public FlexUser getUser() {
