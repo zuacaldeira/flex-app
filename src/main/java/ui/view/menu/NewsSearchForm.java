@@ -43,7 +43,7 @@ public class NewsSearchForm extends FlexForm {
         searchBox.addSearchListener(e -> {
             Notification.show("Clicked on search " + e.getSearchTerm());
             FlexBody body = getBody();
-            body.initBodyUpdaterThread(DataProviderType.SEARCH, e.getSearchTerm());
+            body.populate(DataProviderType.SEARCH, e.getSearchTerm());
         });
     }
     

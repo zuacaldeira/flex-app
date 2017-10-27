@@ -11,8 +11,6 @@ import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import db.FlexUser;
-import db.NewsArticle;
-import java.util.Collection;
 import panel.FlexPanel;
 
 /**
@@ -30,7 +28,6 @@ public class MasterDetailView extends FlexPanel {
     private Object myData;
     private BrowserFrame browserFrame;
     private final FlexUser user;
-    private MasterDetailViewWorker worker;
 
     public MasterDetailView(FlexUser user) {
         this.user = user;
@@ -46,11 +43,6 @@ public class MasterDetailView extends FlexPanel {
         baseLayout.setMargin(true);
         super.setSizeFull();
         super.setContent(baseLayout);
-        super.addDetachListener(event -> {
-            if(worker != null) {
-                worker.interrupt();
-            }
-        });
     }
 
     private void initSummaries(int c) {
@@ -113,14 +105,6 @@ public class MasterDetailView extends FlexPanel {
 
     public void titlesOnly() {
         summariesPanel.titlesOnly();
-    }
-
-    public void update(Collection<NewsArticle> nodes) {
-        if(worker != null) {
-            worker.interrupt();
-        }
-        worker = new MasterDetailViewWorker(user, this, nodes);
-        worker.start();
     }
 
 }

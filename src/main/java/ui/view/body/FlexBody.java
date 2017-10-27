@@ -5,32 +5,42 @@
  */
 package ui.view.body;
 
-import data.ArticlesRepository;
 import data.DataProviderType;
 import factory.FlexViewFactory;
 import db.FlexUser;
 import db.GraphEntity;
-import db.NewsArticle;
-import java.util.Collection;
 import panel.FlexPanel;
+import ui.view.menu.CanPopulate;
 
 /**
  *
  * @author zua
  */
-public class FlexBody extends FlexPanel {
+public class FlexBody extends FlexPanel implements CanPopulate {
 
     private static final long serialVersionUID = 6273025631274336910L;
 
     private final FlexUser user;
     private MasterDetailView masterDetailView;
+    private FlexBodyWorker worker;
 
     public FlexBody(FlexUser user) {
         this.user = user;
+        this.initMasterDetailView();
         super.addStyleName("flex-body");
         super.setWidth("100%");
         super.setHeightUndefined();
-        this.initBodyUpdaterThread(DataProviderType.LATEST, "latest");
+        super.addDetachListener(event -> {
+            if (worker != null) {
+                worker.interrupt();
+            }
+        });
+    }
+
+    private void initMasterDetailView() {
+        masterDetailView = new MasterDetailView(user);
+        masterDetailView.setWidth("100%");
+        setContent(masterDetailView);
     }
 
     @Override
@@ -43,38 +53,29 @@ public class FlexBody extends FlexPanel {
     }
 
     public void addItemView(GraphEntity item) {
-        masterDetailView.addComponent(FlexViewFactory.getInstance().createView(user, item));
+        getUI().access(() -> {
+            masterDetailView.addComponent(FlexViewFactory.getInstance().createView(user, item));
+        });
     }
 
     public FlexUser getUser() {
         return user;
     }
 
-    public void initBodyUpdaterThread(DataProviderType type, String value) {
+    @Override
+    public void populate() {
+        this.populate(DataProviderType.LATEST, "latest");
+    }
+
+    public void populate(DataProviderType type, String value) {
         System.out.println("FlexBodyThread#run(): START");
-        bodyCleanUp();
-        Collection<NewsArticle> nodes = new ArticlesRepository().loadNodes(type, value, user);
-        bodyUpdate(nodes);
+        initMasterDetailView();
+        if (worker != null) {
+            worker.interrupt();
+        }
+        worker = new FlexBodyWorker(user, this, type, value);
+        worker.start();
         System.out.println("FlexBodyThread#run(): DONE");
     }
-
-    private void initMasterDetail() {
-        masterDetailView = new MasterDetailView(user);
-        masterDetailView.setWidth("100%");
-    }
-
-    protected void cleanUp() {
-        initMasterDetail();
-        setContent(masterDetailView);
-    }
-
-    private void bodyCleanUp() {
-        cleanUp();
-    }
-
-    private void bodyUpdate(Collection<NewsArticle> nodes) {
-        masterDetailView.update(nodes);
-    }
-
 
 }

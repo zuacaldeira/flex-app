@@ -77,7 +77,7 @@ public class FlexBodyTest {
         System.out.println("updateData");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         FlexBody instance = new FlexBody(user);
-        instance.initBodyUpdaterThread(DataProviderType.FAKE, null);
+        instance.populate(DataProviderType.FAKE, null);
     }
     
 }

@@ -100,6 +100,7 @@ public class FlexMainView extends AbsoluteLayout implements CanPopulate {
     @Override
     public void populate() {
         menu.populate();
+        body.populate();
     }
 
     private float totalHeightInPixels() {

@@ -179,7 +179,7 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
     private void updateBody(DataProviderType dataType, String value) {
         FlexBody body = UIUtils.getInstance().getBody(this);
         if (body != null) {
-            body.initBodyUpdaterThread(dataType, value);
+            body.populate(dataType, value);
         } else {
             Notification.show("Body Not Found");
         }
