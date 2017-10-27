@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.TreeSet;
 import services.NewsSourceServiceInterface;
 import ui.ui.FlexAppUI;
-import ui.ui.SecuredUI;
 import ui.view.body.MasterDetailView;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
@@ -89,8 +88,8 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
         populateNewsByTime();
         news.addSeparator();
         populateNewsByStatus();
-        news.addSeparator();
-        populateViews();
+        //news.addSeparator();
+        //populateViews();
         populateNewsPublisher();
         populateNewsCategory();
         populateNewsLanguages();
@@ -144,7 +143,7 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
     }
 
     private void populateViews() {
-        FlexBody body = UIUtils.getInstance().getBody(this);
+        FlexBody body = getUI().getContent().getBody();
         MasterDetailView masterDetail = body.getMasterDetail();
         full = news.addItem("Full", (selectedItem) -> {masterDetail.full();});
         imagesOnly = news.addItem("Images Only", (selectedItem) -> {masterDetail.imagesOnly();});
@@ -173,8 +172,8 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
     }
 
     @Override
-    public SecuredUI getUI() {
-        return (SecuredUI) super.getUI();
+    public FlexAppUI getUI() {
+        return (FlexAppUI) super.getUI();
     }
 
     private void updateBody(DataProviderType dataType, String value) {

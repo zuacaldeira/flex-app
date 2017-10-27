@@ -89,7 +89,7 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
 
 
     .flex-menu {
-        background: $color-menu;
+        background: rgba(0, 0, 0, .9);           
         box-shadow: $color-menu-shadow;
         color:      $color-menu-text;
     }
@@ -98,25 +98,35 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     }
 
     .flex-menu-bar {
-        background: transparent;
         .v-menubar {
+            background: cornsilk;
         }
         .v-menubar-menuitem {
+           background: rgba(0, 0, 0, .9);           
             color: white;
         }    
         .v-menubar-menuitem:hover {
             font-weight: bold;
         }
         .v-menubar-menuitem-selected {
-            color: $color-text-action;
             font-weight: bold;
+            font-size: 200%;
+            background: rgba(255, 0, 0, 1);
         }
         .v-menubar-menuitem-highlighted {
-            color: $color-text-action;
             font-weight: bold;
+        }
+        .v-menubar-submenu {
+            background: red;
+            color: pink;
         }
         .v-menubar-popup {
             background: black;
+            color: yellow;
+        }
+        .v-menubar-borderless {
+            background: green;
+            color: purple;
         }
     }
 

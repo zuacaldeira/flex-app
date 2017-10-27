@@ -14819,16 +14819,17 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-menu {
-	background: rgba(10, 10, 10, 0.8);
+	background: rgba(0, 0, 0, 0.9);
 	box-shadow: gray;
 	color: white;
 }
 
-.mytheme .flex-menu-bar {
-	background: transparent;
+.mytheme .flex-menu-bar .v-menubar {
+	background: cornsilk;
 }
 
 .mytheme .flex-menu-bar .v-menubar-menuitem {
+	background: rgba(0, 0, 0, 0.9);
 	color: white;
 }
 
@@ -14837,17 +14838,28 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .flex-menu-bar .v-menubar-menuitem-selected {
-	color: white;
 	font-weight: bold;
+	font-size: 200%;
+	background: red;
 }
 
 .mytheme .flex-menu-bar .v-menubar-menuitem-highlighted {
-	color: white;
 	font-weight: bold;
+}
+
+.mytheme .flex-menu-bar .v-menubar-submenu {
+	background: red;
+	color: pink;
 }
 
 .mytheme .flex-menu-bar .v-menubar-popup {
 	background: black;
+	color: yellow;
+}
+
+.mytheme .flex-menu-bar .v-menubar-borderless {
+	background: green;
+	color: purple;
 }
 
 .mytheme .flex-body {

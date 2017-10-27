@@ -84,17 +84,23 @@ public class ArticleViewHeader extends VerticalLayout {
     }
 
     void full() {
-        image.setVisible(true);
+        if(image != null) {
+            image.setVisible(true);
+        }
         sourceInfo.setVisible(true);
     }
     
     void imagesOnly() {
-        image.setVisible(true);
+        if(image != null) {
+            image.setVisible(true);
+        }
         sourceInfo.setVisible(true);
     }
     
     void titlesOnly() {
-        image.setVisible(false);
+        if(image != null) {
+            image.setVisible(false);
+        }
         sourceInfo.setVisible(true);
     }
     
