@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d %5p %40.40c:%4L - %m%n</pattern>
         </encoder>
@@ -13,9 +13,10 @@
       ~ For finer-grained diagnostics, set the level to "debug".
     -->
     <logger name="org.neo4j.ogm" level="info" />
+    <logger name="" level="info" />
 
     <root level="warn">
-        <appender-ref ref="console" />
+        <appender-ref ref="STDOUT" />
     </root>
 
 </configuration>
