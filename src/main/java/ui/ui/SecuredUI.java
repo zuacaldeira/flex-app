@@ -23,22 +23,22 @@ public abstract class SecuredUI extends UI {
     private static final long serialVersionUID = 2637212442082775079L;
 
     private String pageLocation;
-    
-    
+
     @Override
     public void init(VaadinRequest request) {
-        if(getSession() != null && getSession().getAttribute("user") != null) {
-            pageLocation = Page.getCurrent().getLocation().getPath() + "/news";
-            FlexMainView mainView = new FlexMainView((FlexUser)getSession().getAttribute("user"));
-            setContent(mainView);
-            mainView.populate();
-        }        
-        else {
-            pageLocation = Page.getCurrent().getLocation().getPath();
-            login();
+        if (getSession() != null) {
+            if (getSession().getAttribute("user") != null) {
+                pageLocation = Page.getCurrent().getLocation().getPath() + "/news";
+                FlexMainView mainView = new FlexMainView((FlexUser) getSession().getAttribute("user"));
+                setContent(mainView);
+                mainView.populate();
+            } else {
+                pageLocation = Page.getCurrent().getLocation().getPath();
+                login();
+            }
         }
     }
-    
+
     private void login() {
         LoginForm form = new LoginForm();
         Window w = new FlexWindow("Login", form);

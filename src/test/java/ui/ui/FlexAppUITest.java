@@ -25,7 +25,7 @@ public class FlexAppUITest {
     public void testGetPageLocation() {
         System.out.println("getPageLocation");
         FlexAppUI instance = new FlexAppUI();
-        assertTrue(instance.getPageLocation().startsWith("/flex-app"));
+        assertNull(instance.getPageLocation());
     }
 
     /**
