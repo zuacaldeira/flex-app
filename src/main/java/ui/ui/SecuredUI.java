@@ -13,7 +13,6 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 import db.FlexUser;
 import form.LoginForm;
-import java.net.URI;
 
 /**
  *
@@ -21,18 +20,21 @@ import java.net.URI;
  */
 public abstract class SecuredUI extends UI {
 
+    private static final long serialVersionUID = 2637212442082775079L;
+
     private String pageLocation;
     
     
     @Override
     public void init(VaadinRequest request) {
         if(getSession() != null && getSession().getAttribute("user") != null) {
-            pageLocation = Page.getCurrent().getLocation().getPath();
+            pageLocation = Page.getCurrent().getLocation().getPath() + "/news";
             FlexMainView mainView = new FlexMainView((FlexUser)getSession().getAttribute("user"));
             setContent(mainView);
             mainView.populate();
         }        
         else {
+            pageLocation = Page.getCurrent().getLocation().getPath();
             login();
         }
     }
@@ -48,7 +50,7 @@ public abstract class SecuredUI extends UI {
         addWindow(w);
     }
 
-    protected String getPageLocation() {
+    public String getPageLocation() {
         return pageLocation;
     }
 }
