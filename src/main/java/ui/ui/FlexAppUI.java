@@ -22,15 +22,7 @@ import javax.servlet.annotation.WebServlet;
 @Push
 public class FlexAppUI extends SecuredUI {
 
-    @Override
-    public String getPageLocation() {
-        if(Page.getCurrent() != null) {
-            return Page.getCurrent().getLocation().getPath() + "news";
-        }
-        else {
-            return "/flex-app/news";
-        }
-    }
+    private static final long serialVersionUID = -484103282643769272L;
 
     @Override
     public FlexMainView getContent() {
