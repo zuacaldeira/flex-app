@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'ssh -t 127.0.0.1 "sudo ./buildSkipTests"'
+                sh 'ssh -t 127.0.0.1 "sudo scripts/buildSkipTests"'
             }
         }
 
