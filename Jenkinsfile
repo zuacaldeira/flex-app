@@ -28,7 +28,7 @@ pipeline {
             steps{echo  'TODO: Deploy to DEVELOPMENT'}
         }
 
-        stage('Deploy To Development Server') {
+        stage('Release') {
             when {branch 'release'}
             steps{echo  '"TODO: Release"'}
         }
