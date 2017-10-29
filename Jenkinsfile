@@ -26,7 +26,8 @@ pipeline {
     }
     stage('DEPLOY') {
       steps {
-        sh 'mvn properties:read-project-properties -Dglassfish.properties.file.argument=development glassfish:redeploy'
+        sh '''xcopy "/Users/zua/Servers/glassfish4-latest/glassfish" "%WORKSPACE%" /s /e /h /y
+mvn properties:read-project-properties -Dglassfish.properties.file.argument=development glassfish:redeploy'''
       }
     }
   }
