@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh './scripts/buildSkipTests.sh'
+                sh 'sudo ./scripts/buildSkipTests.sh'
             }
         }
 
