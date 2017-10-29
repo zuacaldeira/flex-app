@@ -1,13 +1,13 @@
 pipeline {
     agent any
-    environment {
-        DISABLE_AUTH = 'true'
-        SUDO_ASKPASS = 'askpass'
+    tools{
+        maven 'Maven 3.3.9'
+        jdk 'jdk8'
     }
     stages {
         stage('Build') {
             steps {
-                sh './scripts/buildSkipTests.sh'
+                sh 'mvn build -DskipTests'
             }
         }
 
