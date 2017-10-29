@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'sudo -S ./buildSkipTests'
+                sh 'sudo -A ./buildSkipTests'
             }
         }
 
