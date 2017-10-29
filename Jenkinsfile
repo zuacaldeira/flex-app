@@ -21,7 +21,6 @@ pipeline {
     stage('QA') {
       steps {
         sh 'mvn verify'
-        junit '1'
         jacoco()
       }
     }
