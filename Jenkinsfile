@@ -6,8 +6,50 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'printenv'
+                sh './buildSkipTests'
             }
+        }
+
+        stage('Unit Tests') {
+            steps {
+                sh './runUnitTests'
+            }
+        }
+
+        stage('Integration Tests') {
+            steps{
+                sh './runIntegrationTests' 
+            }
+        }
+
+        stage('Deploy - Staging Server') {
+            steps {
+                sh '/.deployToDevelopment' 
+            }
+        }
+        stage('Deploy - Production Server') {
+            steps {
+                sh '/.deployToProduction' 
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'One way or another, I have finished'
+            deleteDir() /* clean up our workspace */
+        }
+        success {
+            echo 'I succeeeded!'
+        }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+            echo 'I failed :('
+        }
+        changed {
+            echo 'Things were different before...'
         }
     }
 }
