@@ -31,12 +31,17 @@ pipeline {
             milestone 1
           }
         }
-        stage('DEPLOY') {
+        stage('Start Domain') {
+          steps {
+            sh 'mvn properties:read-project-properties -Dglassfish.properties.file.argument=development glassfish:start-domain'
+          }
+        }
+        stage('Deploy') {
           steps {
             sh 'mvn properties:read-project-properties -Dglassfish.properties.file.argument=development glassfish:deploy'
           }
         }
-        stage('REDEPLOY') {
+        stage('Redeploy') {
           steps {
             sh 'mvn properties:read-project-properties -Dglassfish.properties.file.argument=development glassfish:redeploy'
           }
