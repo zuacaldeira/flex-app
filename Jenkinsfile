@@ -34,4 +34,7 @@ pipeline {
     maven 'Maven 3.5.0'
     jdk 'JDK8'
   }
+  environment {
+    password = 'alfarroba?3'
+  }
 }
