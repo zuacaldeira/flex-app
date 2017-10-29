@@ -19,11 +19,6 @@ pipeline {
         
       }
     }
-    stage('QA') {
-      steps {
-        sh 'mvn verify'
-      }
-    }
     stage('RELEASE') {
       steps {
         sh 'mvn release:clean release:prepare -Prelease'
