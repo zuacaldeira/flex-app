@@ -22,30 +22,6 @@ pipeline {
                 sh 'mvn verify' 
             }
         }
-
-        stage('Deploy To Development Server') {
-            environment {
-                ENVIRONMENT = 'development'
-            }
-
-            when {
-                branch 'dev'
-            }
-            steps{
-                echo  'TODO: Deploy to DEVELOPMENT'
-                sh 'mvn properties:read-project-properties glassfish:redeploy -e'
-            }
-        }
-
-        stage('Release') {
-            when {branch 'release'}
-            steps{echo  '"TODO: Release"'}
-        }
-
-        stage('Deploy Production Server') {
-            when {branch 'master'}
-            steps{echo 'TODO: Deploy to PRODUCTION'}
-        }
     }
 
     post {
