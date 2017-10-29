@@ -22,6 +22,12 @@ pipeline {
                 sh 'mvn verify' 
             }
         }
+
+        stage('Archive') {
+            steps{
+                archiveArtifacts artifacts: '**/*.war', onlyIfSuccessful: true
+            }
+        }
     }
 
     post {
