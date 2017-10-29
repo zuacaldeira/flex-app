@@ -1,34 +1,50 @@
 pipeline {
-  agent any
-  stages {
-    stage('INITIALIZE') {
-      steps {
-        sh 'echo "Initializing flex-app build."'
-      }
+    agent any
+    tools{
+        maven 'Maven 3.5.0'
+        jdk 'JDK8'
     }
-    stage('BUILD') {
-      steps {
-        sh 'mvn clean install'
-        jacoco(exclusionPattern: '**/*Test*.class')
-      }
-      post {
-        success {
-          junit 'target/surefire-reports/**/*.xml'
-          
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn install -DskipTests'
+            }
         }
-        
-      }
+
+        stage('Unit Tests') {
+            steps {
+                sh 'mvn test -DskipITs'
+            }
+        }
+
+        stage('Integration Tests') {
+            steps{
+                sh 'mvn verify' 
+            }
+        }
+
+        stage('Archive') {
+            steps{
+                archiveArtifacts artifacts: '**/*.war', onlyIfSuccessful: true
+            }
+        }
     }
-    stage('RELEASE') {
-      steps {
-        sh 'mvn release:clean -Prelease'
-        sh 'mvn release:prepare -Prelease'
-        sh 'mvn release:perform -Prelease'
-      }
+
+    post {
+        always {
+            echo 'One way or another, I have finished'
+        }
+        success {
+            echo 'I succeeeded!'
+        }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+            echo 'I failed :('
+        }
+        changed {
+            echo 'Things were different before...'
+        }
     }
-  }
-  tools {
-    maven 'Maven 3.5.0'
-    jdk 'JDK8'
-  }
 }
