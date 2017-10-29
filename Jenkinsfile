@@ -27,6 +27,13 @@ pipeline {
                 sh '/.deployToDevelopment' 
             }
         }
+
+        stage('Sanity check') {
+            steps {
+                input "Does the staging environment look ok?"
+            }
+        }
+
         stage('Deploy - Production Server') {
             steps {
                 sh '/.deployToProduction' 
