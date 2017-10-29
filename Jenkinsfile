@@ -7,13 +7,13 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'sudo ./scripts/buildSkipTests.sh'
+                sh 'mvn build -DskipTests'
             }
         }
 
         stage('Unit Tests') {
             steps {
-                sh './runUnitTests'
+                sh 'mvn test -DskipITs'
             }
         }
 
