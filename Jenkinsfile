@@ -24,8 +24,17 @@ pipeline {
         }
 
         stage('Deploy To Development Server') {
-            when {branch 'dev'}
-            steps{echo  'TODO: Deploy to DEVELOPMENT'}
+            environment {
+                ENVIRONMENT = 'development'
+            }
+
+            when {
+                branch 'dev'
+            }
+            steps{
+                echo  'TODO: Deploy to DEVELOPMENT'
+                sh 'mvn properties:read-project-properties glassfish:redeploy -e'
+            }
         }
 
         stage('Release') {
