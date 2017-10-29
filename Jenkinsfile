@@ -5,8 +5,11 @@ pipeline {
     }
     stages {
         stage('Build') {
+            environment{
+                SUDO_ASKPASS
+            }
             steps {
-                sh 'sudo ./buildSkipTests'
+                sh 'sudo -S ./buildSkipTests'
             }
         }
 
