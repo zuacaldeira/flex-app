@@ -23,22 +23,19 @@ pipeline {
             }
         }
 
-        stage('Deploy - Staging Server') {
-            steps {
-                echo 'TODO' 
-            }
+        stage('Deploy To Development Server') {
+            when {branch 'dev'}
+            sh 'echo "TODO: Deploy to DEVELOPMENT"'
         }
 
-        stage('Sanity check') {
-            steps {
-                input "Does the staging environment look ok?"
-            }
+        stage('Deploy To Development Server') {
+            when {branch 'release'}
+            sh 'echo "TODO: Release"'
         }
 
-        stage('Deploy - Production Server') {
-            steps {
-                echo 'TODO' 
-            }
+        stage('Deploy Production Server') {
+            when {branch 'master'}
+            sh 'echo "TODO: Deploy to PRODUCTION"'
         }
     }
 
