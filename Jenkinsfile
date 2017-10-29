@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn build -DskipTests'
+                sh 'mvn install -DskipTests'
             }
         }
 
@@ -25,7 +25,7 @@ pipeline {
 
         stage('Deploy - Staging Server') {
             steps {
-                sh 'mvn ' 
+                echo 'TODO' 
             }
         }
 
@@ -37,7 +37,7 @@ pipeline {
 
         stage('Deploy - Production Server') {
             steps {
-                sh '/.deployToProduction' 
+                echo 'TODO' 
             }
         }
     }
