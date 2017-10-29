@@ -8,7 +8,7 @@ pipeline {
     }
     stage('BUILD') {
       steps {
-        sh 'mvn clean install -DskipITs'
+        sh 'mvn install -DskipITs'
       }
       post {
         success {
