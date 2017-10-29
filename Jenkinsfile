@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn build -DskipTests'
+                sh './scripts/buildSkipTests'
             }
         }
 
@@ -19,13 +19,13 @@ pipeline {
 
         stage('Integration Tests') {
             steps{
-                sh './runIntegrationTests' 
+                sh 'mvn verify' 
             }
         }
 
         stage('Deploy - Staging Server') {
             steps {
-                sh '/.deployToDevelopment' 
+                sh 'mvn ' 
             }
         }
 
