@@ -24,28 +24,9 @@ pipeline {
         jacoco()
       }
     }
-    stage('GLASSFISH') {
-      parallel {
-        stage('GLASSFISH') {
-          steps {
-            milestone 1
-          }
-        }
-        stage('Start Domain') {
-          steps {
-            sh 'mvn properties:read-project-properties -Dglassfish.properties.file.argument=development glassfish:start-domain'
-          }
-        }
-        stage('Deploy') {
-          steps {
-            sh 'mvn properties:read-project-properties -Dglassfish.properties.file.argument=development glassfish:deploy'
-          }
-        }
-        stage('Redeploy') {
-          steps {
-            sh 'mvn properties:read-project-properties -Dglassfish.properties.file.argument=development glassfish:redeploy'
-          }
-        }
+    stage('DEPLOY') {
+      steps {
+        sh 'mvn properties:read-project-properties -Dglassfish.properties.file.argument=development glassfish:redeploy'
       }
     }
   }
