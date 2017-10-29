@@ -2,12 +2,12 @@ pipeline {
     agent any
     environment {
         DISABLE_AUTH = 'true'
-        SUDO_ASKPASS = 
+        SUDO_ASKPASS = 'askpass'
     }
     stages {
         stage('Build') {
             steps {
-                sh 'sudo -A ./scripts/buildSkipTests.sh'
+                sh './scripts/buildSkipTests.sh'
             }
         }
 
