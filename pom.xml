@@ -422,7 +422,7 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <gpg.executable>gpg2</gpg.executable>
+                <gpg.executable>gpg</gpg.executable>
                 <gpg.passphrase>Unicidade17!/</gpg.passphrase>
             </properties>
             
