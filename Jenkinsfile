@@ -25,17 +25,17 @@ pipeline {
 
         stage('Deploy To Development Server') {
             when {branch 'dev'}
-            sh 'echo "TODO: Deploy to DEVELOPMENT"'
+            echo  'TODO: Deploy to DEVELOPMENT'
         }
 
         stage('Deploy To Development Server') {
             when {branch 'release'}
-            sh 'echo "TODO: Release"'
+            echo  '"TODO: Release"'
         }
 
         stage('Deploy Production Server') {
             when {branch 'master'}
-            sh 'echo "TODO: Deploy to PRODUCTION"'
+            echo 'TODO: Deploy to PRODUCTION'
         }
     }
 
