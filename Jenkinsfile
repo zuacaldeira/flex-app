@@ -26,7 +26,7 @@ pipeline {
     }
     stage('DEPLOY') {
       steps {
-        sh 'sudo mvn properties:read-project-properties -Dglassfish.properties.file.argument=development glassfish:redeploy'
+        sh 'mvn properties:read-project-properties -Dglassfish.properties.file.argument=development glassfish:redeploy'
       }
     }
   }
