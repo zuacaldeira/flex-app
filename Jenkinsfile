@@ -5,55 +5,25 @@ pipeline {
         jdk 'JDK8'
     }
     stages {
-        stage('Initialization Development Server') {
+        stage('Development CI') {
             when {branch 'dev'}
             steps{
                 sh './scripts/startDevelopment.sh'
-            }
-        }
-
-        stage('Initialization Production Server') {
-            when {branch 'master'}
-            steps{
-                sh './scripts/startProduction.sh'
-            }
-        }
-
-        stage('Build Project') {
-            steps {
                 sh './scripts/build.sh'
-            }
-        }
-
-        stage('Unit Test Project') {
-            steps {
                 sh './scripts/test.sh'
-            }
-        }
-
-        stage('Integration Test Project') {
-            when{branch 'master'}
-            steps{
-                sh './scripts/testITs.sh' 
-            }
-        }
-
-        stage('Archive') {
-            steps{
                 sh './scripts/archive.sh'
-            }
-        }
-
-        stage('Deploy To Development') {
-            when{branch 'dev'}
-            steps {
                 sh './scripts/deployToDevelopment.sh'
             }
         }
 
-        stage('Deploy To Production') {
-            when{branch 'master'}
-            steps {
+        stage('Production CI') {
+            when {branch 'master'}
+            steps{
+                sh './scripts/startProduction.sh'
+                sh './scripts/build.sh'
+                sh './scripts/test.sh'
+                sh './scripts/testITs.sh' 
+                sh './scripts/archive.sh'
                 sh './scripts/deployToProduction.sh'
             }
         }
