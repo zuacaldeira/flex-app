@@ -1,11 +1,14 @@
 pipeline {
     agent any
     tools{
-        maven 'Maven 3.5.0'
-        jdk 'JDK8'
+        maven 'Maven5'
+        jdk 'JDK9'
     }
     stages {
         stage('Initialization') {
+            withEnv{
+                credentials('Jenkins')
+            }
             steps{
                 sh './startDomain1.sh'
                 sh './startProduction.sh'
