@@ -19,7 +19,7 @@ pipeline {
 
         stage('Integration Tests') {
             steps{
-                sh 'mvn verify' 
+                sh './testITs.sh' 
             }
         }
 
