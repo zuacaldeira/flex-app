@@ -13,8 +13,6 @@ pipeline {
                 sh './scripts/test.sh'
                 sh './scripts/archive.sh'
                 sh './scripts/deployToDevelopment.sh'
-                input 'Go test the development app. Come back when done.'
-                sh './scripts/stopDevelopment.sh'
             }
         }
 
