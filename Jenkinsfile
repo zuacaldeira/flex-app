@@ -6,9 +6,6 @@ pipeline {
     }
     stages {
         stage('Initialization') {
-            withEnv{
-                credentials('Jenkins')
-            }
             steps{
                 sh './startDomain1.sh'
                 sh './startProduction.sh'
