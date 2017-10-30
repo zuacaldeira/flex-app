@@ -28,6 +28,28 @@ pipeline {
                 archiveArtifacts artifacts: '**/*.war', onlyIfSuccessful: true
             }
         }
+
+        stage('Deploy To Development') {
+            when{branch 'dev'}
+            steps {
+                build 'DeployToDevelopment'
+            }
+        }
+
+        stage('Release') {
+            when{branch 'release'}
+            steps {
+                build 'Release'
+            }
+        }
+
+        stage('Deploy To Production') {
+            when{branch 'master'}
+            steps {
+                build 'DeployToProduction'
+            }
+        }
+
     }
 
     post {
