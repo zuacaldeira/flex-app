@@ -17,8 +17,9 @@ pipeline {
         }
 
         stage('RELEASE') {
-            when {branch 'release'}
+            when {branch 'dev'}
             steps{
+                input 'Proceed To Release?'
                 sh './release.sh'
             }
         }
