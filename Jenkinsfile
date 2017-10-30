@@ -5,6 +5,11 @@ pipeline {
         jdk 'JDK8'
     }
     stages {
+        stage('Initialization') {
+            sh './startDomai1.sh'
+            sh './startProduction.sh'
+        }
+
         stage('Build') {
             steps {
                 sh './build.sh'
@@ -18,6 +23,7 @@ pipeline {
         }
 
         stage('Integration Tests') {
+            when{branch 'master'}
             steps{
                 sh './testITs.sh' 
             }
@@ -43,6 +49,10 @@ pipeline {
             }
         }
 
+        stage('Conclusion') {
+            sh './undeployStopDomai1.sh'
+            sh './undeployStopProduction.sh'
+        }
     }
 
     post {
