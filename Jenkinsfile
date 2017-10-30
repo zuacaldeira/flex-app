@@ -36,13 +36,6 @@ pipeline {
             }
         }
 
-        stage('Release') {
-            when{branch 'release'}
-            steps {
-                build 'Release'
-            }
-        }
-
         stage('Deploy To Production') {
             when{branch 'master'}
             steps {
