@@ -1,1 +1,1 @@
-mvn properties:read-properties
+mvn properties:read-properties -DENVIRONMENT=development glassfish:start-domain
