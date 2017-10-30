@@ -5,26 +5,33 @@ pipeline {
         jdk 'JDK9'
     }
     stages {
-        stage('Initialization') {
+        stage('Initialization Development Server') {
+            when {branch 'dev'}
             steps{
-                sh './startDomain1.sh'
+                sh './startDevelopment.sh'
+            }
+        }
+
+        stage('Initialization Production Server') {
+            when {branch 'master'}
+            steps{
                 sh './startProduction.sh'
             }
         }
 
-        stage('Build') {
+        stage('Build Project') {
             steps {
                 sh './build.sh'
             }
         }
 
-        stage('Unit Tests') {
+        stage('Unit Test Project') {
             steps {
                 sh './test.sh'
             }
         }
 
-        stage('Integration Tests') {
+        stage('Integration Test Project') {
             when{branch 'master'}
             steps{
                 sh './testITs.sh' 
@@ -40,21 +47,30 @@ pipeline {
         stage('Deploy To Development') {
             when{branch 'dev'}
             steps {
-                build 'DeployToDevelopment'
+                sh './deployToDevelopment.sh'
             }
         }
 
         stage('Deploy To Production') {
             when{branch 'master'}
             steps {
-                build 'DeployToProduction'
+                sh './deployToProduction.sh'
             }
         }
 
-        stage('Conclusion') {
+        stage('Terminate Development') {
+            when{branch 'dev'}
             steps{
-                sh './undeployStopDomai1.sh'
-                sh './undeployStopProduction.sh'
+                sh './undeployDevelopment.sh'
+                sh './stopDevelopment.sh'
+            }
+        }
+
+        stage('Terminate Production') {
+            when{branch 'master'}
+            steps{
+                sh './undeployProduction.sh'
+                sh './stopProduction.sh'
             }
         }
     }
