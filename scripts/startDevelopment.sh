@@ -1,2 +1,2 @@
-echo 'who am i'
-mvn properties:read-project-properties -DENVIRONMENT=development glassfish:restart-domain
+echo 'Retarting domain development'
+~/Users/zua/Servers/glassfish4-latest/glassfish/bin/asadmin restart-domain development
