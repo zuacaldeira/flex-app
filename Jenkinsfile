@@ -5,7 +5,7 @@ pipeline {
         jdk 'JDK8'
     }
     stages {
-        stage('Development CI') {
+        stage('DEVELOPMENT') {
             when {branch 'dev'}
             steps{
                 sh './scripts/startDevelopment.sh'
@@ -16,7 +16,14 @@ pipeline {
             }
         }
 
-        stage('Production CI') {
+        stage('RELEASE') {
+            when {branch 'release'}
+            steps{
+                sh './release.sh'
+            }
+        }
+
+        stage('PRODUCTION') {
             when {branch 'master'}
             steps{
                 sh './scripts/startProduction.sh'
