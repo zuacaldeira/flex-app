@@ -1,2 +1,2 @@
-echo 'who am i'
-mvn properties:read-project-properties -DENVIRONMENT=production glassfish:start-domain
+echo 'Retarting domain production'
+~/Servers/glassfish4-latest/glassfish/bin/asadmin restart-domain production
