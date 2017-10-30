@@ -13,18 +13,8 @@ pipeline {
                 sh './scripts/test.sh'
                 sh './scripts/archive.sh'
                 sh './scripts/deployToDevelopment.sh'
-            }
-        }
-
-        stage('RELEASE') {
-            when {branch 'dev'}
-            steps{
-                input 'Run release.sh. Come back when done.'
-            }
-            post {
-                failure{
-                    echo 'Stage aborted'
-                }
+                input 'Go test the development app. Come back when done.'
+                sh './scripts/stopDevelopment.sh'
             }
         }
 
