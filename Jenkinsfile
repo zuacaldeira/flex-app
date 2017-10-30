@@ -6,9 +6,6 @@ pipeline {
     }
     stages {
         stage('Build') {
-            withEnv{
-                
-            }
             steps {
                 sh './build.sh'
                 sh 'mvn install -DskipTests'
