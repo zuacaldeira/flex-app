@@ -25,7 +25,7 @@ pipeline {
 
         stage('Archive') {
             steps{
-                archiveArtifacts artifacts: '**/*.war', onlyIfSuccessful: true
+                sh './archive.sh'
             }
         }
 
