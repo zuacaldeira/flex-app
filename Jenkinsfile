@@ -19,8 +19,12 @@ pipeline {
         stage('RELEASE') {
             when {branch 'dev'}
             steps{
-                input 'Proceed To Release?'
-                sh './release.sh'
+                input 'Run release.sh. Come back when done.'
+            }
+            post {
+                failure{
+                    echo 'Stage aborted'
+                }
             }
         }
 
