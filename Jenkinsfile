@@ -8,69 +8,69 @@ pipeline {
         stage('Initialization Development Server') {
             when {branch 'dev'}
             steps{
-                sh './startDevelopment.sh'
+                sh './scripts/startDevelopment.sh'
             }
         }
 
         stage('Initialization Production Server') {
             when {branch 'master'}
             steps{
-                sh './startProduction.sh'
+                sh './scripts/startProduction.sh'
             }
         }
 
         stage('Build Project') {
             steps {
-                sh './build.sh'
+                sh './scripts/build.sh'
             }
         }
 
         stage('Unit Test Project') {
             steps {
-                sh './test.sh'
+                sh './scripts/test.sh'
             }
         }
 
         stage('Integration Test Project') {
             when{branch 'master'}
             steps{
-                sh './testITs.sh' 
+                sh './scripts/testITs.sh' 
             }
         }
 
         stage('Archive') {
             steps{
-                sh './archive.sh'
+                sh './scripts/archive.sh'
             }
         }
 
         stage('Deploy To Development') {
             when{branch 'dev'}
             steps {
-                sh './deployToDevelopment.sh'
+                sh './scripts/deployToDevelopment.sh'
             }
         }
 
         stage('Deploy To Production') {
             when{branch 'master'}
             steps {
-                sh './deployToProduction.sh'
+                sh './scripts/deployToProduction.sh'
             }
         }
 
         stage('Terminate Development') {
             when{branch 'dev'}
             steps{
-                sh './undeployDevelopment.sh'
-                sh './stopDevelopment.sh'
+                sh './scripts/undeployDevelopment.sh'
+                sh './scripts/stopDevelopment.sh'
             }
         }
 
         stage('Terminate Production') {
             when{branch 'master'}
             steps{
-                sh './undeployProduction.sh'
-                sh './stopProduction.sh'
+                sh './scripts/undeployProduction.sh'
+                sh './scripts/stopProduction.sh'
             }
         }
     }
