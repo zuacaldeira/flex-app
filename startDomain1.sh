@@ -1,1 +1,1 @@
-mvn properties:read-properties -DENVIRONMENT=development glassfish:start-domain
+sudo ~/Servers/glassfish4-latest/glassfish/bin/asadmin start-domain development
