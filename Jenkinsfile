@@ -6,8 +6,10 @@ pipeline {
     }
     stages {
         stage('Initialization') {
-            sh './startDomai1.sh'
-            sh './startProduction.sh'
+            steps{
+                sh './startDomai1.sh'
+                sh './startProduction.sh'
+            }
         }
 
         stage('Build') {
