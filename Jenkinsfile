@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh './build.sh'
+                sh 'sudo ./build.sh'
                 sh 'mvn install -DskipTests'
             }
         }
