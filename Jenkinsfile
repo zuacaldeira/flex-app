@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Initialization') {
             steps{
-                sh './startDomai1.sh'
+                sh './startDomain1.sh'
                 sh './startProduction.sh'
             }
         }
