@@ -52,8 +52,10 @@ pipeline {
         }
 
         stage('Conclusion') {
-            sh './undeployStopDomai1.sh'
-            sh './undeployStopProduction.sh'
+            steps{
+                sh './undeployStopDomai1.sh'
+                sh './undeployStopProduction.sh'
+            }
         }
     }
 
