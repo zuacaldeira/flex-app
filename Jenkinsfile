@@ -58,21 +58,6 @@ pipeline {
             }
         }
 
-        stage('Terminate Development') {
-            when{branch 'dev'}
-            steps{
-                sh './scripts/undeployDevelopment.sh'
-                sh './scripts/stopDevelopment.sh'
-            }
-        }
-
-        stage('Terminate Production') {
-            when{branch 'master'}
-            steps{
-                sh './scripts/undeployProduction.sh'
-                sh './scripts/stopProduction.sh'
-            }
-        }
     }
 
     post {
