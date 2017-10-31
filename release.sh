@@ -1,26 +1,33 @@
-echo "RELEASE"
-
+echo "Checkout release"
 git checkout release
-git pull --rebase
+
+echo "Merge dev into release"
 git merge dev
-# TODO: unstash
-# Continue...
+
+echo "Clean prepare release"
 mvn release:clean release:prepare -Prelease
-git commit -m "Release prepared."
 
+echo "Add and commit changes on release"
+git add .
+git commit -m "Release Preparation done"
+
+echo "Push changes to origin/release"
+git push origin release
+
+echo "Checkout master"
 git checkout master
-git pull --rebase
-git merge release
-git commit -m "Release to Production."
-git push origin master
-# TODO: unstash
-# Continue...
 
-git checkout dev
-git pull --rebase
+echo "Merge release into master"
 git merge release
-git commit -m "Enter new development cycle."
-git push origin dev
-# TODO: unstash
-# Continue...
+git push origin master
+
+echo "Add and commit changes on master"
+git add .
+git commit -m "Master update to latest release"
+
+echo "Checkout dev"
+git checkout dev
+
+echo "Merge release into dev"
+git merge release
 
