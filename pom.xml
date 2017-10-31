@@ -5,7 +5,7 @@
     <groupId>com.github.zuacaldeira</groupId>
     <artifactId>flex-app</artifactId>
     <packaging>war</packaging>
-    <version>1.1.4</version>
+    <version>1.1.5-SNAPSHOT</version>
     <name>flex-app</name>
     <description>Flex Web App for African Languages</description>
     <developers>
