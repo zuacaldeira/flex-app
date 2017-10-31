@@ -1,2 +1,3 @@
-echo 'mvn properties:read-project-properties -DENVIRONMENT=development glassfish:redeploy'
-mvn properties:read-project-properties -DENVIRONMENT=development glassfish:redeploy
+ENV=$1
+echo 'Redeploying ' $ENV
+mvn properties:read-project-properties -DENVIRONMENT=$ENV glassfish:redeploy

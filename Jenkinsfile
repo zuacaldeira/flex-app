@@ -34,15 +34,15 @@ pipeline {
     	stage('DEPLOYMENT DEV') {
             when {branch 'dev'}
             steps{
-                sh './scripts/startDevelopment.sh'
-                sh './scripts/deployToDevelopment.sh development'
+                sh './scripts/restartServer.sh development'
+                sh './scripts/deploy.sh development'
             }
 	}
     	stage('DEPLOYMENT PRODUCTION') {
             when {branch 'master'}
             steps{
-                sh './scripts/startProduction.sh'
-                sh './scripts/deployToDevelopment.sh production'
+                sh './scripts/restartServer.sh production'
+                sh './scripts/deploy.sh production'
             }
 	}		
     }
