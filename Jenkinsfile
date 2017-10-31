@@ -5,7 +5,6 @@ pipeline {
         jdk 'JDK8'
     }
     stages {
-    	
     	stage('BUILD') {
             steps{
                 sh './scripts/build.sh'
@@ -17,7 +16,12 @@ pipeline {
             }
 	}
     	stage('INTEGRATION TEST') {
-            when anyOf{branch 'release', branch 'master'}
+            when {
+	    	 anyOf {
+	    	       branch 'release'
+		       branch 'master'
+		 }
+	    }
             steps{
                 sh './scripts/testITs.sh'
             }
@@ -27,21 +31,20 @@ pipeline {
                 sh './scripts/archive.sh'
             }
 	}
-    	stage('DEPLOYMENT_DEV') {
+    	stage('DEPLOYMENT DEV') {
             when {branch 'dev'}
             steps{
                 sh './scripts/startDevelopment.sh'
                 sh './scripts/deployToDevelopment.sh'
             }
 	}
-    	stage('DEPLOYMENT_PRODUCTION') {
+    	stage('DEPLOYMENT PRODUCTION') {
             when {branch 'master'}
             steps{
                 sh './scripts/startProduction.sh'
                 sh './scripts/deployToProduction.sh'
             }
-	}	
-	
+	}		
     }
 
     post {
