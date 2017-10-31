@@ -7,12 +7,13 @@ pipeline {
     stages {
     	stage('BUILD') {
             steps{
-                sh 'mvn clean install'
+                sh 'pwd'
+                sh 'mvn clean install -DskipTests'
             }
 	}
     	stage('TEST') {
             steps{
-                sh './scripts/test.sh'
+                sh 'mvn test -DskipITs'
             }
 	}
     	stage('INTEGRATION TEST') {
@@ -23,26 +24,21 @@ pipeline {
 		 }
 	    }
             steps{
-                sh './scripts/testITs.sh'
-            }
-	}
-    	stage('ARCHIVE') {
-            steps{
-                sh './scripts/archive.sh'
+                sh 'mvn verify'
             }
 	}
     	stage('DEPLOYMENT DEV') {
             when {branch 'dev'}
             steps{
-                sh './scripts/restartServer.sh development'
-                sh './scripts/deploy.sh development'
+                sh '~/Servers/glassfish4-latest/glassfish/bin/asadmin restart-domain development'
+                sh 'mvn properties:read-project-properties -DENVIRONMENT=development glassfish:redeploy'
             }
 	}
     	stage('DEPLOYMENT PRODUCTION') {
             when {branch 'master'}
             steps{
-                sh './scripts/restartServer.sh production'
-                sh './scripts/deploy.sh production'
+                sh '~/Servers/glassfish4-latest/glassfish/bin/asadmin restart-domain production'
+                sh 'mvn properties:read-project-properties -DENVIRONMENT=production glassfish:redeploy'
             }
 	}		
     }
