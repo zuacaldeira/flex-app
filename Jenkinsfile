@@ -26,6 +26,12 @@ pipeline {
                 sh 'mvn verify'
             }
 	}
+        stage("ARCHIVE") {
+            steps{
+                sh 'mvn war:war'
+            }
+        }
+
     	stage('DEPLOYMENT DEV') {
             when {branch 'dev'}
             steps{
