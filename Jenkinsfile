@@ -35,14 +35,14 @@ pipeline {
             when {branch 'dev'}
             steps{
                 sh './scripts/startDevelopment.sh'
-                sh './scripts/deployToDevelopment.sh'
+                sh './scripts/deployToDevelopment.sh development'
             }
 	}
     	stage('DEPLOYMENT PRODUCTION') {
             when {branch 'master'}
             steps{
                 sh './scripts/startProduction.sh'
-                sh './scripts/deployToProduction.sh'
+                sh './scripts/deployToDevelopment.sh production'
             }
 	}		
     }
