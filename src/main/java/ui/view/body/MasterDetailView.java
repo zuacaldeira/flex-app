@@ -12,6 +12,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import db.FlexUser;
 import panel.FlexPanel;
+import utils.ShortUrlUtils;
 
 /**
  *
@@ -81,7 +82,7 @@ public class MasterDetailView extends FlexPanel {
         selected.select();
         String url = selected.getItem().getUrl();
         if (url != null) {
-            browserFrame.setSource(new ExternalResource(url));
+            browserFrame.setSource(new ExternalResource(new ShortUrlUtils().getShortUrl(url)));
         }
     }
 
