@@ -11,6 +11,8 @@ import services.NewsAuthorServiceInterface;
 import services.NewsSourceServiceInterface;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import services.FlexAdvertisementService;
+import services.FlexAdvertisementServiceInterface;
 import services.FlexUserService;
 import services.NewsArticleService;
 import services.NewsAuthorService;
@@ -27,6 +29,7 @@ public class ServiceLocator {
     public static final String NEWS_SOURCE_SERVICE = "java:global/flex-app/NewsSourceService!services.NewsSourceServiceInterface";
     public static final String NEWS_AUTHOR_SERVICE = "java:global/flex-app/NewsAuthorService!services.NewsAuthorServiceInterface";
     public static final String FLEX_USER_SERVICE = "java:global/flex-app/FlexUserService!services.FlexUserServiceInterface";
+    public static final String FLEX_ADVERTISEMENT_SERVICE = "java:global/flex-app/FlexAdvertisementService!services.FlexAdvertisementServiceInterface";
 
     private static ServiceLocator INSTANCE;
 
@@ -75,6 +78,14 @@ public class ServiceLocator {
             return (FlexUserServiceInterface) findService(FLEX_USER_SERVICE);
         } catch (NamingException nx) {
             return new FlexUserService();
+        }
+    }
+
+    public FlexAdvertisementServiceInterface findAdvertisementService() {
+        try {
+            return (FlexAdvertisementServiceInterface) findService(FLEX_ADVERTISEMENT_SERVICE);
+        } catch (NamingException ex) {
+            return new FlexAdvertisementService();
         }
     }
 

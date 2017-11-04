@@ -10,9 +10,13 @@ import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
+import db.Advertises;
 import db.FlexUser;
+import java.util.Collection;
+import db.NewsArticle;
 import panel.FlexPanel;
-import utils.ShortUrlUtils;
+import services.FlexAdvertisementServiceInterface;
+import utils.ServiceLocator;
 
 /**
  *
@@ -82,7 +86,7 @@ public class MasterDetailView extends FlexPanel {
         selected.select();
         String url = selected.getItem().getUrl();
         if (url != null) {
-            browserFrame.setSource(new ExternalResource(new ShortUrlUtils().getShortUrl(url)));
+            browserFrame.setSource(new ExternalResource(getAdvertisementUrl((NewsArticle) itemView.getItem())));
         }
     }
 
@@ -106,6 +110,15 @@ public class MasterDetailView extends FlexPanel {
 
     public void titlesOnly() {
         summariesPanel.titlesOnly();
+    }
+    
+    public String getAdvertisementUrl(NewsArticle article) {
+        FlexAdvertisementServiceInterface service = ServiceLocator.getInstance().findAdvertisementService();
+        Collection<Advertises> all = service.findAll(article);
+        if (!all.isEmpty()) {
+            return all.iterator().next().getAdvertisementUrl();
+        }
+        return article.getUrl();
     }
 
 }
