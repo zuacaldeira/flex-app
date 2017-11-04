@@ -33,6 +33,7 @@ public class MasterDetailView extends FlexPanel {
     private Object myData;
     private BrowserFrame browserFrame;
     private final FlexUser user;
+    private AdvertisementPanel advertisementPanel;
 
     public MasterDetailView(FlexUser user) {
         this.user = user;
@@ -40,10 +41,12 @@ public class MasterDetailView extends FlexPanel {
         myData = null;
         initSummaries(1);
         initBrowserFrame();
-        baseLayout = new HorizontalLayout(summariesPanel, browserFramePanel);
+        initAdvertisementPanel();
+        baseLayout = new HorizontalLayout(summariesPanel, browserFramePanel, advertisementPanel);
         baseLayout.setSizeFull();
-        baseLayout.setExpandRatio(summariesPanel, .33f);
+        baseLayout.setExpandRatio(summariesPanel, .2f);
         baseLayout.setExpandRatio(browserFramePanel, 1f);
+        baseLayout.setExpandRatio(advertisementPanel, .2f);
         baseLayout.setSpacing(true);
         baseLayout.setMargin(true);
         super.setSizeFull();
@@ -60,6 +63,10 @@ public class MasterDetailView extends FlexPanel {
         browserFrame.setSizeFull();
         browserFrame.setCaption("You are reading...");
         browserFramePanel = new FlexBrowserFramePanel(null, browserFrame);
+    }
+    
+    private void initAdvertisementPanel() {
+        advertisementPanel = new AdvertisementPanel();
     }
 
     public SummariesPanel getSummaries() {
@@ -86,7 +93,8 @@ public class MasterDetailView extends FlexPanel {
         selected.select();
         String url = selected.getItem().getUrl();
         if (url != null) {
-            browserFrame.setSource(new ExternalResource(getAdvertisementUrl((NewsArticle) itemView.getItem())));
+            browserFrame.setSource(new ExternalResource(url));
+            advertisementPanel.refreshItems((NewsArticle)selected.getItem());
         }
     }
 
