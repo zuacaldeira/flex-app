@@ -14,6 +14,8 @@ import panel.FlexPanel;
  */
 public class FlexBrowserFramePanel extends FlexPanel {
 
+    private static final long serialVersionUID = 418236557923503815L;
+
     public FlexBrowserFramePanel(String caption, BrowserFrame component) {
         super(caption, component);
     }

@@ -13,6 +13,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import services.FlexAdvertisementService;
 import services.FlexAdvertisementServiceInterface;
+import services.FlexAmazonService;
+import services.FlexAmazonServiceInterface;
 import services.FlexUserService;
 import services.NewsArticleService;
 import services.NewsAuthorService;
@@ -30,6 +32,7 @@ public class ServiceLocator {
     public static final String NEWS_AUTHOR_SERVICE = "java:global/flex-app/NewsAuthorService!services.NewsAuthorServiceInterface";
     public static final String FLEX_USER_SERVICE = "java:global/flex-app/FlexUserService!services.FlexUserServiceInterface";
     public static final String FLEX_ADVERTISEMENT_SERVICE = "java:global/flex-app/FlexAdvertisementService!services.FlexAdvertisementServiceInterface";
+    public static final String FLEX_AMAZON_SERVICE = "java:global/flex-app/FlexAmazonService!services.FlexAmazonServiceInterface";
 
     private static ServiceLocator INSTANCE;
 
@@ -86,6 +89,14 @@ public class ServiceLocator {
             return (FlexAdvertisementServiceInterface) findService(FLEX_ADVERTISEMENT_SERVICE);
         } catch (NamingException ex) {
             return new FlexAdvertisementService();
+        }
+    }
+
+    public FlexAmazonServiceInterface findAmazonService() {
+        try {
+            return (FlexAmazonServiceInterface) findService(FLEX_AMAZON_SERVICE);
+        } catch (NamingException ex) {
+            return new FlexAmazonService();
         }
     }
 
