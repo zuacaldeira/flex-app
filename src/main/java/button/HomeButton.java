@@ -6,8 +6,6 @@
 package button;
 
 import com.vaadin.icons.VaadinIcons;
-import com.vaadin.server.Page;
-import ui.ui.FlexAppUI;
 
 /**
  *
@@ -18,9 +16,6 @@ public class HomeButton extends FlexButton {
     public HomeButton() {
         super(FlexCaptions.HOME, VaadinIcons.HOME);
         super.addClickListener(event -> {
-            if (Page.getCurrent() != null) {
-                Page.getCurrent().setLocation(((FlexAppUI) getUI()).getPageLocation());
-            }
         });
     }
 

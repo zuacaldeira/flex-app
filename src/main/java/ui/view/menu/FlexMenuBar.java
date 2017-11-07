@@ -8,7 +8,6 @@ package ui.view.menu;
 import ui.view.body.FlexBody;
 import utils.UIUtils;
 import com.vaadin.icons.VaadinIcons;
-import com.vaadin.server.Page;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Notification;
@@ -20,8 +19,9 @@ import data.DataProviderType;
 import java.util.Collection;
 import java.util.TreeSet;
 import services.NewsSourceServiceInterface;
-import ui.ui.FlexAppUI;
+import ui.ui.NewsUI;
 import ui.view.body.MasterDetailView;
+import ui.view.main.FlexMainView;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
 
@@ -73,7 +73,7 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
             if (UI.getCurrent() != null) {
                 Notification.show("LOGOUT");
                 getSession().setAttribute("user", null);
-                Page.getCurrent().setLocation(((FlexAppUI) getUI()).getPageLocation());
+                //Page.getCurrent().setLocation(((NewsUI) getUI()).getPageLocation());
             }
         });
 
@@ -143,7 +143,7 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
     }
 
     private void populateViews() {
-        FlexBody body = getUI().getContent().getBody();
+        FlexBody body = ((FlexMainView)getUI().getContent()).getBody();
         MasterDetailView masterDetail = body.getMasterDetail();
         full = news.addItem("Full", (selectedItem) -> {masterDetail.full();});
         imagesOnly = news.addItem("Images Only", (selectedItem) -> {masterDetail.imagesOnly();});
@@ -172,8 +172,8 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
     }
 
     @Override
-    public FlexAppUI getUI() {
-        return (FlexAppUI) super.getUI();
+    public NewsUI getUI() {
+        return (NewsUI) super.getUI();
     }
 
     private void updateBody(DataProviderType dataType, String value) {

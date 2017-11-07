@@ -5,7 +5,6 @@
  */
 package ui.ui;
 
-import ui.ui.FlexAppUI;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -19,29 +18,19 @@ public class FlexAppUITest {
     }
 
     /**
-     * Test of getPageLocation method, of class FlexAppUI.
-     */
-    @Test
-    public void testGetPageLocation() {
-        System.out.println("getPageLocation");
-        FlexAppUI instance = new FlexAppUI();
-        assertNull(instance.getPageLocation());
-    }
-
-    /**
-     * Test of getContent method, of class FlexAppUI.
+     * Test of getContent method, of class NewsUI.
      */
     @Test
     public void testGetContent() {
         System.out.println("getContent");
-        FlexAppUI instance = new FlexAppUI();
+        NewsUI instance = new NewsUI();
         assertNull(instance.getContent());
     }
     
     @Test
     public void testInit() {
         System.out.println("getContent");
-        FlexAppUI instance = new FlexAppUI();
+        NewsUI instance = new NewsUI();
         instance.init(null);        
     }
     
