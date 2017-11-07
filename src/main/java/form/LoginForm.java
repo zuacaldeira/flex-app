@@ -44,8 +44,8 @@ public class LoginForm extends FlexForm {
         super.setHeightUndefined();
         super.setSpacing(true);
         super.setMargin(true);
-        username.focus();
         super.setStyleName("login-form");
+        username.focus();
     }
 
     private boolean existsUserNamed(String username) {
