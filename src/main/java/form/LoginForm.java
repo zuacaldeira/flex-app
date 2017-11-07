@@ -39,12 +39,13 @@ public class LoginForm extends FlexForm {
         initSaveButton();
         initRegisterOrSave();
         service = ServiceLocator.getInstance().findUserService();
-        addComponents(username, password, password2, registerOrSave);
-        setSizeFull();
-        setHeightUndefined();
-        setSpacing(true);
-        setMargin(true);
+        super.addComponents(username, password, password2, registerOrSave);
+        super.setSizeFull();
+        super.setHeightUndefined();
+        super.setSpacing(true);
+        super.setMargin(true);
         username.focus();
+        super.setStyleName("login-form");
     }
 
     private boolean existsUserNamed(String username) {

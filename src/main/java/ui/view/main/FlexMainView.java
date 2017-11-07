@@ -34,18 +34,18 @@ public class FlexMainView extends VerticalLayout implements CanPopulate {
         initFooter();
         initMenu();
         super.addComponents(menu, body, footer);
-        super.setExpandRatio(menu, .1f);
-        super.setExpandRatio(body, .8f);
-        super.setExpandRatio(footer, .1f);
+        super.setExpandRatio(body, 1f);
         super.setStyleName("flex-view");
         super.setSizeFull();
         super.setHeight(totalHeightInPixels(), Unit.PIXELS);
+        super.setMargin(false);
+        super.setSpacing(false);
     }
 
     private void initMenu() {
         menu = new FlexMenu(user);
         menu.setWidth("100%");
-        menu.setHeight(64, Unit.PIXELS);
+        menu.setHeight("64px");
     }
 
     private void initBody() {
@@ -59,8 +59,7 @@ public class FlexMainView extends VerticalLayout implements CanPopulate {
 
     private void initFooter() {
         footer = new FlexFooter(user);
-        footer.setWidth("100%");
-        footer.setHeight(64, Unit.PIXELS);
+        footer.setHeight("128px");
     }
     
     

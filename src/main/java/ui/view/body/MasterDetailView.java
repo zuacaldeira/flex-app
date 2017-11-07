@@ -45,7 +45,7 @@ public class MasterDetailView extends FlexPanel {
         initBrowserFrame();
         baseLayout = new HorizontalLayout(summariesPanel, browserFramePanel);
         baseLayout.setSizeFull();
-        baseLayout.setExpandRatio(summariesPanel, .33f);
+        baseLayout.setExpandRatio(summariesPanel, .3f);
         baseLayout.setExpandRatio(browserFramePanel, 1f);
         baseLayout.setSpacing(true);
         baseLayout.setMargin(true);
@@ -63,12 +63,18 @@ public class MasterDetailView extends FlexPanel {
         browserFrame.setSizeFull();
         browserFrame.setCaption("Reading...");
         adsFrame = new BrowserFrame("Advertisement...", new ThemeResource("html/adsense.html"));
-        adsFrame.setSizeFull();
-        adsFrame.setCaption("Advertisement");
+        adsFrame.setHeightUndefined();
+        adsFrame.setWidth("100%");
+        adsFrame.setStyleName("ads-frame");
         VerticalLayout adsAndInfo = new VerticalLayout(adsFrame, browserFrame);
         adsAndInfo.setSpacing(false);
         adsAndInfo.setMargin(false);
+        //adsAndInfo.setExpandRatio(adsFrame, .2f);
+        adsAndInfo.setExpandRatio(browserFrame, 1f);
+        adsAndInfo.setSizeFull();
+        
         browserFramePanel = new FlexBrowserFramePanel(null, adsAndInfo);
+        browserFramePanel.setSizeFull();
     }
 
     public SummariesPanel getSummaries() {
