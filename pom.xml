@@ -24,7 +24,6 @@
         <connection>scm:git:https://github.com/zuacaldeira/flex-app</connection>
         <developerConnection>scm:git:https://github.com/zuacaldeira/flex-app.git</developerConnection>
         <url>https://github.com/zuacaldeira/flex-app</url>
-        <tag>flex-app-1.1.5</tag>
     </scm>
 
     <prerequisites>
@@ -167,7 +166,7 @@
         <dependency>
             <groupId>com.github.zuacaldeira</groupId>
             <artifactId>flex-app-backend</artifactId>
-            <version>1.1.2.a-SNAPSHOT</version>
+            <version>1.1.2</version>
             <type>jar</type>
             <!--scope>compile</scope-->
         </dependency>
