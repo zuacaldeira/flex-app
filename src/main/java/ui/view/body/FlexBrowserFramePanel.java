@@ -5,7 +5,7 @@
  */
 package ui.view.body;
 
-import com.vaadin.ui.BrowserFrame;
+import com.vaadin.ui.Component;
 import panel.FlexPanel;
 
 /**
@@ -14,7 +14,9 @@ import panel.FlexPanel;
  */
 public class FlexBrowserFramePanel extends FlexPanel {
 
-    public FlexBrowserFramePanel(String caption, BrowserFrame component) {
+    private static final long serialVersionUID = 418236557923503815L;
+
+    public FlexBrowserFramePanel(String caption, Component component) {
         super(caption, component);
     }
     

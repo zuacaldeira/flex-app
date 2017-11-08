@@ -6,17 +6,15 @@
 package form;
 
 import com.vaadin.icons.VaadinIcons;
-import com.vaadin.server.Page;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.PasswordField;
-import com.vaadin.ui.Window;
 import db.FlexUser;
 import services.FlexUserServiceInterface;
 import button.SaveButton;
+import com.vaadin.server.Page;
 import text.FlexTextField;
-import ui.ui.FlexAppUI;
 import utils.ServiceLocator;
 
 /**
@@ -41,11 +39,12 @@ public class LoginForm extends FlexForm {
         initSaveButton();
         initRegisterOrSave();
         service = ServiceLocator.getInstance().findUserService();
-        addComponents(username, password, password2, registerOrSave);
-        setSizeFull();
-        setHeightUndefined();
-        setSpacing(true);
-        setMargin(true);
+        super.addComponents(username, password, password2, registerOrSave);
+        super.setSizeFull();
+        super.setHeightUndefined();
+        super.setSpacing(true);
+        super.setMargin(true);
+        super.setStyleName("login-form");
         username.focus();
     }
 
@@ -57,8 +56,8 @@ public class LoginForm extends FlexForm {
         FlexUser dbUser = service.login(user, pass);
         if (dbUser != null && getSession() != null) {
             getSession().setAttribute("user", dbUser);
-            ((Window) getParent()).close();
-            Page.getCurrent().setLocation(Page.getCurrent().getLocation().getPath() + "news");
+            //((Window) getParent()).close();
+            Page.getCurrent().reload();
         }
     }
 

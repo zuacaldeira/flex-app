@@ -1,5 +1,8 @@
 package factory;
 
+import com.ECS.client.jax.Item;
+import com.ECS.client.jax.Items;
+import com.vaadin.ui.Component;
 import db.FlexUser;
 import db.GraphEntity;
 import db.NewsArticle;
@@ -48,5 +51,22 @@ public class FlexViewFactory {
         }
         
         return instance;
+    }
+
+    
+    public Component[] createItemsView(Items items) {
+        if(items.getItem() != null) {
+            Component[] layout = new Component[items.getItem().size()];
+            for(int j = 0; j < items.getItem().size(); j++) {
+                Item item = items.getItem().get(j);
+                layout[j] = createAmazonItemView(item);
+            }
+            return layout;
+        }
+        return null;
+    }
+
+    private Component createAmazonItemView(Item item) {
+        return new AmazonItemView(item);
     }
 }

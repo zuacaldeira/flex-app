@@ -5,17 +5,12 @@
  */
 package ui.ui;
 
-import ui.ui.FlexAppUI;
-import org.junit.Test;
-
 /**
  *
  * @author zua
  */
 public class NewUIServletTest {
     
-    @Test
     public void newServlet() {
-        FlexAppUI.NewsUIServlet servlet = new FlexAppUI.NewsUIServlet();
     }
 }

@@ -10,8 +10,8 @@ import com.vaadin.ui.Notification;
 import data.DataProviderType;
 import form.FlexForm;
 import org.vaadin.addons.searchbox.SearchBox;
-import ui.ui.FlexAppUI;
 import ui.view.body.FlexBody;
+import ui.view.main.FlexMainView;
 
 /**
  *
@@ -49,7 +49,7 @@ public class NewsSearchForm extends FlexForm {
     
     
     public FlexBody getBody() {
-        return ((FlexAppUI)getUI()).getContent().getBody();
+        return ((FlexMainView)getUI().getContent()).getBody();
     }
 
 }

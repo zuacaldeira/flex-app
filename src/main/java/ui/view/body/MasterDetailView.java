@@ -7,11 +7,18 @@ package ui.view.body;
 
 import factory.GraphEntityView;
 import com.vaadin.server.ExternalResource;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.VerticalLayout;
+import db.Advertises;
 import db.FlexUser;
+import java.util.Collection;
+import db.NewsArticle;
 import panel.FlexPanel;
+import services.FlexAdvertisementServiceInterface;
+import utils.ServiceLocator;
 
 /**
  *
@@ -22,11 +29,12 @@ public class MasterDetailView extends FlexPanel {
     private static final long serialVersionUID = -2414042455007471125L;
 
     private FlexBrowserFramePanel browserFramePanel;
+    private BrowserFrame browserFrame;
+    private BrowserFrame adsFrame;
     private SummariesPanel summariesPanel;
     private HorizontalLayout baseLayout;
     private GraphEntityView selected;
     private Object myData;
-    private BrowserFrame browserFrame;
     private final FlexUser user;
 
     public MasterDetailView(FlexUser user) {
@@ -37,7 +45,7 @@ public class MasterDetailView extends FlexPanel {
         initBrowserFrame();
         baseLayout = new HorizontalLayout(summariesPanel, browserFramePanel);
         baseLayout.setSizeFull();
-        baseLayout.setExpandRatio(summariesPanel, .33f);
+        baseLayout.setExpandRatio(summariesPanel, .3f);
         baseLayout.setExpandRatio(browserFramePanel, 1f);
         baseLayout.setSpacing(true);
         baseLayout.setMargin(true);
@@ -53,8 +61,20 @@ public class MasterDetailView extends FlexPanel {
     private void initBrowserFrame() {
         browserFrame = new BrowserFrame();
         browserFrame.setSizeFull();
-        browserFrame.setCaption("You are reading...");
-        browserFramePanel = new FlexBrowserFramePanel(null, browserFrame);
+        browserFrame.setCaption("Reading...");
+        adsFrame = new BrowserFrame("Advertisement...", new ThemeResource("html/adsense.html"));
+        adsFrame.setHeightUndefined();
+        adsFrame.setWidth("100%");
+        adsFrame.setStyleName("ads-frame");
+        VerticalLayout adsAndInfo = new VerticalLayout(adsFrame, browserFrame);
+        adsAndInfo.setSpacing(false);
+        adsAndInfo.setMargin(false);
+        //adsAndInfo.setExpandRatio(adsFrame, .2f);
+        adsAndInfo.setExpandRatio(browserFrame, 1f);
+        adsAndInfo.setSizeFull();
+        
+        browserFramePanel = new FlexBrowserFramePanel(null, adsAndInfo);
+        browserFramePanel.setSizeFull();
     }
 
     public SummariesPanel getSummaries() {
@@ -79,6 +99,7 @@ public class MasterDetailView extends FlexPanel {
         }
         selected = itemView;
         selected.select();
+
         String url = selected.getItem().getUrl();
         if (url != null) {
             browserFrame.setSource(new ExternalResource(url));
@@ -105,6 +126,15 @@ public class MasterDetailView extends FlexPanel {
 
     public void titlesOnly() {
         summariesPanel.titlesOnly();
+    }
+
+    public String getAdvertisementUrl(NewsArticle article) {
+        FlexAdvertisementServiceInterface service = ServiceLocator.getInstance().findAdvertisementService();
+        Collection<Advertises> all = service.findAll(article);
+        if (!all.isEmpty()) {
+            return all.iterator().next().getAdvertisementUrl();
+        }
+        return article.getUrl();
     }
 
 }

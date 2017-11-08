@@ -6,19 +6,21 @@
 package ui.view.main;
 
 import com.vaadin.server.Page;
+import com.vaadin.server.Sizeable.Unit;
 import ui.view.body.FlexBody;
-import com.vaadin.ui.AbsoluteLayout;
+import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import ui.view.menu.CanPopulate;
 import ui.view.footer.FlexFooter;
-import ui.view.logo.FlexLogo;
 import ui.view.menu.FlexMenu;
 
 /**
  *
  * @author zua
  */
-public class FlexMainView extends AbsoluteLayout implements CanPopulate {
+public class FlexMainView extends VerticalLayout implements CanPopulate {
+
+    private static final long serialVersionUID = 8467619842785075810L;
     
     private final FlexUser user;
     private FlexMenu menu;
@@ -28,27 +30,22 @@ public class FlexMainView extends AbsoluteLayout implements CanPopulate {
 
     public FlexMainView(FlexUser user) {
         this.user = user;
-
         initBody();
-        super.addComponent(body, "top:1cm; bottom:1cm");
-
         initFooter();
-        super.addComponent(footer, "bottom:0%");
-
         initMenu();
-        super.addComponent(menu, "top:0cm");
-
-        super.addComponent(new FlexLogo());
-        
+        super.addComponents(menu, body, footer);
+        super.setExpandRatio(body, 1f);
         super.setStyleName("flex-view");
         super.setSizeFull();
         super.setHeight(totalHeightInPixels(), Unit.PIXELS);
+        super.setMargin(false);
+        super.setSpacing(false);
     }
 
     private void initMenu() {
         menu = new FlexMenu(user);
         menu.setWidth("100%");
-        menu.setHeight(40, Unit.PIXELS);
+        menu.setHeight("64px");
     }
 
     private void initBody() {
@@ -62,8 +59,7 @@ public class FlexMainView extends AbsoluteLayout implements CanPopulate {
 
     private void initFooter() {
         footer = new FlexFooter(user);
-        footer.setWidth("100%");
-        footer.setHeight(40, Unit.PIXELS);
+        footer.setHeight("128px");
     }
     
     
