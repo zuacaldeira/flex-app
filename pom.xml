@@ -5,7 +5,7 @@
     <groupId>com.github.zuacaldeira</groupId>
     <artifactId>flex-app</artifactId>
     <packaging>war</packaging>
-    <version>1.1.7-SNAPSHOT</version>
+    <version>1.1.7</version>
     <name>flex-app</name>
     <description>Flex Web App for African Languages</description>
     <developers>
@@ -24,7 +24,8 @@
         <connection>scm:git:https://github.com/zuacaldeira/flex-app</connection>
         <developerConnection>scm:git:https://github.com/zuacaldeira/flex-app.git</developerConnection>
         <url>https://github.com/zuacaldeira/flex-app</url>
-    </scm>
+      <tag>flex-app-1.1.7</tag>
+  </scm>
 
     <prerequisites>
         <maven>3</maven>
