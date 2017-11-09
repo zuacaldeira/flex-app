@@ -35,12 +35,12 @@ public class FlexBody extends FlexPanel implements CanPopulate {
                 worker.interrupt();
             }
         });
-        setContent(masterDetailView);
     }
 
     private void initMasterDetailView() {
         masterDetailView = new MasterDetailView(user);
         masterDetailView.setWidth("100%");
+        super.setContent(masterDetailView);
     }
 
     @Override
