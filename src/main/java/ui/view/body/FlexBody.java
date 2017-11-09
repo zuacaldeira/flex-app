@@ -5,9 +5,6 @@
  */
 package ui.view.body;
 
-import ads.AdSenseFrame;
-import ads.AmazonFrame;
-import com.vaadin.ui.VerticalLayout;
 import data.DataProviderType;
 import factory.FlexViewFactory;
 import db.FlexUser;
@@ -48,7 +45,7 @@ public class FlexBody extends FlexPanel implements CanPopulate {
 
     @Override
     public MasterDetailView getContent() {
-        return masterDetailView;
+        return (MasterDetailView) super.getContent();
     }
 
     public MasterDetailView getMasterDetail() {

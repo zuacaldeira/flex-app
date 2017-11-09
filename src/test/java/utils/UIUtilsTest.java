@@ -52,8 +52,9 @@ public class UIUtilsTest {
         UIUtils result = UIUtils.getInstance();
         FlexUser user = new FlexUser("test:username", "test:password");
         FlexMainView mainView = new FlexMainView(user);
-        Component component = mainView.getBody().getContent();
-        assertNotNull(result.getMainView(component));
+        assertNotNull(mainView.getBody());
+        assertNotNull(mainView.getBody().getContent());
+        assertNotNull(result.getMainView(mainView.getBody().getContent()));
     }
 
 }
