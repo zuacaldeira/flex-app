@@ -66,9 +66,9 @@ public class MasterDetailView extends FlexPanel {
         browserFrame.setStyleName("info-frame");
         adsFrame = new AdSenseFrame();
         VerticalLayout adsAndInfo = new VerticalLayout();
-        //adsAndInfo.addComponent(adsFrame);
+        adsAndInfo.addComponent(adsFrame);
         adsAndInfo.addComponent(browserFrame);
-        //adsAndInfo.addComponent(new AmazonFrame());
+        adsAndInfo.addComponent(new AmazonFrame());
         adsAndInfo.setSizeFull();
         
         browserFramePanel = new FlexBrowserFramePanel(null, adsAndInfo);

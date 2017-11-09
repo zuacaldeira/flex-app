@@ -38,12 +38,7 @@ public class FlexBody extends FlexPanel implements CanPopulate {
                 worker.interrupt();
             }
         });
-        VerticalLayout base = new VerticalLayout(new AdSenseFrame(), masterDetailView, new AmazonFrame());
-        base.setMargin(false);
-        base.setSpacing(true);
-        base.setSizeFull();
-        base.setExpandRatio(masterDetailView, .7f);
-        setContent(base);
+        setContent(masterDetailView);
     }
 
     private void initMasterDetailView() {
