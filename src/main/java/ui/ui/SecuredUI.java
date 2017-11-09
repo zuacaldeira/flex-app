@@ -9,7 +9,6 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
-import form.LoginForm;
 
 /**
  *
@@ -26,7 +25,7 @@ public abstract class SecuredUI extends UI {
             setContent(createUIContent());
         }
         else {
-            setContent(new LoginForm());
+            setContent(new LoginView());
         }
     }
 

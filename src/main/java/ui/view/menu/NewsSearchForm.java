@@ -19,6 +19,8 @@ import ui.view.main.FlexMainView;
  */
 public class NewsSearchForm extends FlexForm {
 
+    private static final long serialVersionUID = 4994164334478341542L;
+
     private SearchBox searchBox;
 
     public NewsSearchForm() {

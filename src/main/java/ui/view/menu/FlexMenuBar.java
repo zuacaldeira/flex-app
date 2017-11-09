@@ -31,6 +31,8 @@ import utils.ServiceLocator;
  */
 public final class FlexMenuBar extends MenuBar implements CanPopulate {
 
+    private static final long serialVersionUID = -1299703352057116843L;
+
     private final FlexUser user;
     private final NewsSourceServiceInterface sourcesService;
 

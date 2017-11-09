@@ -5,9 +5,10 @@
  */
 package ui.view.body;
 
+import ads.AdSenseFrame;
+import ads.AmazonFrame;
 import factory.GraphEntityView;
 import com.vaadin.server.ExternalResource;
-import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
@@ -62,15 +63,12 @@ public class MasterDetailView extends FlexPanel {
         browserFrame = new BrowserFrame();
         browserFrame.setSizeFull();
         browserFrame.setCaption("Reading...");
-        adsFrame = new BrowserFrame("Advertisement...", new ThemeResource("html/adsense.html"));
-        adsFrame.setHeightUndefined();
-        adsFrame.setWidth("100%");
-        adsFrame.setStyleName("ads-frame");
-        VerticalLayout adsAndInfo = new VerticalLayout(adsFrame, browserFrame);
-        adsAndInfo.setSpacing(false);
-        adsAndInfo.setMargin(false);
-        //adsAndInfo.setExpandRatio(adsFrame, .2f);
-        adsAndInfo.setExpandRatio(browserFrame, 1f);
+        browserFrame.setStyleName("info-frame");
+        adsFrame = new AdSenseFrame();
+        VerticalLayout adsAndInfo = new VerticalLayout();
+        //adsAndInfo.addComponent(adsFrame);
+        adsAndInfo.addComponent(browserFrame);
+        //adsAndInfo.addComponent(new AmazonFrame());
         adsAndInfo.setSizeFull();
         
         browserFramePanel = new FlexBrowserFramePanel(null, adsAndInfo);

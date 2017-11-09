@@ -53,7 +53,7 @@ public class FlexMainView extends VerticalLayout implements CanPopulate {
         body.setSizeFull();
         if(Page.getCurrent() != null) {
             browserHeight = Page.getCurrent().getBrowserWindowHeight();
-            body.setHeight(browserHeight, Unit.PIXELS);
+            body.setHeight(3*browserHeight, Unit.PIXELS);
         }        
     }
 

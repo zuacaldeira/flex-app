@@ -40,8 +40,8 @@ public class LoginForm extends FlexForm {
         initRegisterOrSave();
         service = ServiceLocator.getInstance().findUserService();
         super.addComponents(username, password, password2, registerOrSave);
-        super.setSizeFull();
         super.setHeightUndefined();
+        super.setWidth("50%");
         super.setSpacing(true);
         super.setMargin(true);
         super.setStyleName("login-form");

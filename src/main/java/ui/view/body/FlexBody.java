@@ -5,6 +5,9 @@
  */
 package ui.view.body;
 
+import ads.AdSenseFrame;
+import ads.AmazonFrame;
+import com.vaadin.ui.VerticalLayout;
 import data.DataProviderType;
 import factory.FlexViewFactory;
 import db.FlexUser;
@@ -35,17 +38,22 @@ public class FlexBody extends FlexPanel implements CanPopulate {
                 worker.interrupt();
             }
         });
+        VerticalLayout base = new VerticalLayout(new AdSenseFrame(), masterDetailView, new AmazonFrame());
+        base.setMargin(false);
+        base.setSpacing(true);
+        base.setSizeFull();
+        base.setExpandRatio(masterDetailView, .7f);
+        setContent(base);
     }
 
     private void initMasterDetailView() {
         masterDetailView = new MasterDetailView(user);
         masterDetailView.setWidth("100%");
-        setContent(masterDetailView);
     }
 
     @Override
     public MasterDetailView getContent() {
-        return (MasterDetailView) super.getContent();
+        return masterDetailView;
     }
 
     public MasterDetailView getMasterDetail() {

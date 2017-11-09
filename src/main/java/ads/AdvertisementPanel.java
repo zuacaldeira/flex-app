@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui.view.body;
+package ads;
 
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.BrowserFrame;
