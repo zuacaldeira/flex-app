@@ -15,6 +15,7 @@ import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import db.NewsArticle;
 import services.NewsArticleServiceInterface;
+import ui.view.menu.AddThisFrame;
 import utils.ServiceLocator;
 
 /**

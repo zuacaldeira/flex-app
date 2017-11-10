@@ -17,6 +17,8 @@ import ui.view.logo.FlexLogo;
  */
 public class FlexMenu extends HorizontalLayout implements CanPopulate {
 
+    private static final long serialVersionUID = 8366211712669711650L;
+
     private final FlexUser user;
 
     private FlexLogo logo;
@@ -29,7 +31,7 @@ public class FlexMenu extends HorizontalLayout implements CanPopulate {
         initMenuBar();
         super.setSizeFull();
         super.setMargin(false);
-        super.addComponents(menuBar);
+        super.addComponents(menuBar, new AddThisFrame());
         super.setComponentAlignment(menuBar, Alignment.MIDDLE_CENTER);
         super.setStyleName("flex-menu");
     }

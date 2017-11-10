@@ -12,11 +12,11 @@ import panel.FlexPanel;
  *
  * @author zua
  */
-public class FlexBrowserFramePanel extends FlexPanel {
+public class DetailPanel extends FlexPanel {
 
     private static final long serialVersionUID = 418236557923503815L;
 
-    public FlexBrowserFramePanel(String caption, Component component) {
+    public DetailPanel(String caption, Component component) {
         super(caption, component);
     }
     

@@ -29,8 +29,8 @@ public class MasterDetailView extends FlexPanel {
 
     private static final long serialVersionUID = -2414042455007471125L;
 
-    private FlexBrowserFramePanel browserFramePanel;
-    private BrowserFrame browserFrame;
+    private DetailPanel browserFramePanel;
+    private BrowserFrame infoFrame;
     private BrowserFrame adsFrame;
     private SummariesPanel summariesPanel;
     private HorizontalLayout baseLayout;
@@ -60,18 +60,12 @@ public class MasterDetailView extends FlexPanel {
     }
 
     private void initBrowserFrame() {
-        browserFrame = new BrowserFrame();
-        browserFrame.setSizeFull();
-        browserFrame.setCaption("Reading...");
-        browserFrame.setStyleName("info-frame");
-        adsFrame = new AdSenseFrame();
-        VerticalLayout adsAndInfo = new VerticalLayout();
-        adsAndInfo.addComponent(adsFrame);
-        adsAndInfo.addComponent(browserFrame);
-        adsAndInfo.addComponent(new AmazonFrame());
-        adsAndInfo.setSizeFull();
-        
-        browserFramePanel = new FlexBrowserFramePanel(null, adsAndInfo);
+        infoFrame = new BrowserFrame();
+        infoFrame.setSizeFull();
+        infoFrame.setCaption("Reading...");
+        infoFrame.setStyleName("info-frame");
+        //        
+        browserFramePanel = new DetailPanel(null, infoFrame);
         browserFramePanel.setSizeFull();
     }
 
@@ -79,8 +73,8 @@ public class MasterDetailView extends FlexPanel {
         return summariesPanel;
     }
 
-    public BrowserFrame getBrowserFrame() {
-        return browserFrame;
+    public BrowserFrame getInfoFrame() {
+        return infoFrame;
     }
 
     public GraphEntityView getSelected() {
@@ -100,7 +94,7 @@ public class MasterDetailView extends FlexPanel {
 
         String url = selected.getItem().getUrl();
         if (url != null) {
-            browserFrame.setSource(new ExternalResource(url));
+            infoFrame.setSource(new ExternalResource(url));
         }
     }
 
