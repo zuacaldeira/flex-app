@@ -5,7 +5,6 @@
  */
 package ui.view.body;
 
-import ads.AdSenseFrame;
 import ads.AmazonFrame;
 import factory.GraphEntityView;
 import com.vaadin.server.ExternalResource;
@@ -64,8 +63,15 @@ public class MasterDetailView extends FlexPanel {
         infoFrame.setSizeFull();
         infoFrame.setCaption("Reading...");
         infoFrame.setStyleName("info-frame");
-        //        
-        browserFramePanel = new DetailPanel(null, infoFrame);
+        // 
+        adsFrame = new AmazonFrame();
+        VerticalLayout base = new VerticalLayout(infoFrame, adsFrame);
+        base.setSizeFull();
+        base.setMargin(false);
+        base.setSpacing(false);
+        base.setExpandRatio(infoFrame, .9f);
+        base.setExpandRatio(adsFrame, .1f);
+        browserFramePanel = new DetailPanel(null, base);
         browserFramePanel.setSizeFull();
     }
 

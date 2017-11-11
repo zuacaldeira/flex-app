@@ -5,6 +5,8 @@
  */
 package ads;
 
+import com.vaadin.annotations.JavaScript;
+import com.vaadin.server.Page;
 import com.vaadin.server.ThemeResource;
 
 /**
@@ -16,7 +18,7 @@ public class AdSenseFrame extends AdsFrame {
     private static final long serialVersionUID = 1911606664709857426L;
 
     public AdSenseFrame() {
-        super("Powered by AdSense", new ThemeResource("adsense.html"));
+        super("Powered by AdSense", new ThemeResource("html/adsense.html"));
     }
     
 }

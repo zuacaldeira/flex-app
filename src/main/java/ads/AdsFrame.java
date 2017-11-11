@@ -18,7 +18,7 @@ public abstract class AdsFrame extends BrowserFrame {
 
     public AdsFrame(String caption, Resource source) {
         super(caption, source);
-        super.setSizeFull();
+        super.setWidth("100%");
         super.setStyleName("ads-frame");
     }
     

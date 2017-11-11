@@ -16,7 +16,7 @@ public class AmazonFrame extends AdsFrame {
     private static final long serialVersionUID = 1911606664709857426L;
 
     public AmazonFrame() {
-        super("Powered by Amazon", new ThemeResource("amazon.html"));
+        super("Powered by Amazon", new ThemeResource("html/amazon.html"));
     }
     
 }

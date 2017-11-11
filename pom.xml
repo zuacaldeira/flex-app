@@ -45,6 +45,7 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
         <amazon.client.path>/Users/zua/Work/apps/paapi/build/awsJavaClient.jar</amazon.client.path>
+        <properties.dir>/Users/zua/Work/apps/properties/flex-app</properties.dir>
     </properties>
 
     <distributionManagement>
@@ -297,7 +298,7 @@
                 <version>1.0-alpha-2</version>
                 <configuration>
                     <files>
-                        <file>${basedir}/properties/${ENVIRONMENT}.properties</file>
+                        <file>${properties.dir}/${ENVIRONMENT}.properties</file>
                     </files>
                 </configuration>
             </plugin>
@@ -308,7 +309,8 @@
                 <configuration>
                     <glassfishDirectory>${glassfish.home}</glassfishDirectory>
                     <user>${glassfish.user}</user>
-                    <passwordFile>${basedir}/passwords/${glassfish.pwdfile}</passwordFile>
+                    <!-- TODO: Leverage to environemtn variable, or project-properties -->
+                    <passwordFile>${properties.dir}/${glassfish.pwdfile}</passwordFile>
                     <echo>true</echo>
                     <debug>true</debug>
                     <terse>true</terse>

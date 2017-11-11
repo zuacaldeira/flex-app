@@ -17,7 +17,7 @@ public class AddThisFrame extends AdsFrame {
     private static final long serialVersionUID = 7537932676487966201L;
 
     public AddThisFrame() {
-        super(null, new ThemeResource("addThis.html"));
+        super(null, new ThemeResource("html/addThis.html"));
     }
     
 }
