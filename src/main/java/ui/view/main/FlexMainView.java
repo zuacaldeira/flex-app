@@ -5,7 +5,7 @@
  */
 package ui.view.main;
 
-import ads.AdsFrame;
+import ads.AdvertisementPanel;
 import ads.AmazonFrame;
 import com.vaadin.server.Page;
 import com.vaadin.server.Sizeable.Unit;
@@ -27,7 +27,7 @@ public class FlexMainView extends VerticalLayout implements CanPopulate {
     private final FlexUser user;
     private FlexMenu menu;
     private FlexBody body;
-    private AdsFrame ads;
+    private AdvertisementPanel ads;
     private FlexFooter footer;
     private int browserHeight;
 
@@ -66,7 +66,7 @@ public class FlexMainView extends VerticalLayout implements CanPopulate {
     }
     
     private void initAds() {
-        ads = new AmazonFrame();
+        ads = new AdvertisementPanel();
         ads.setHeight(browserHeight, Unit.PIXELS);
     }
     

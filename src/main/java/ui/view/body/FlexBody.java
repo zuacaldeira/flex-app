@@ -22,7 +22,7 @@ public class FlexBody extends FlexPanel implements CanPopulate {
 
     private final FlexUser user;
     private MasterDetailView masterDetailView;
-    private FlexBodyWorker worker;
+    private transient FlexBodyWorker worker;
 
     public FlexBody(FlexUser user) {
         this.user = user;

@@ -3,6 +3,7 @@ package factory;
 import com.ECS.client.jax.Item;
 import com.ECS.client.jax.Items;
 import com.vaadin.ui.Component;
+import db.AmazonBook;
 import db.FlexUser;
 import db.GraphEntity;
 import db.NewsArticle;
@@ -68,5 +69,10 @@ public class FlexViewFactory {
 
     private Component createAmazonItemView(Item item) {
         return new AmazonItemView(item);
+    }
+
+    public Component createAmazonBookView(AmazonBook book) {
+        AmazonBookView amazonBookView = new AmazonBookView(book);
+        return amazonBookView;
     }
 }

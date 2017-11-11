@@ -7,8 +7,10 @@ package ads;
 
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 /**
  *
@@ -28,12 +30,13 @@ public class AmazonProductsGrid extends VerticalLayout {
         
         campaignTarget = new ComboBox();
         campaignTarget.setSizeUndefined();
+        campaignTarget.setStyleName(ValoTheme.COMBOBOX_ALIGN_RIGHT);
         
         body = new GridLayout(5, 2);
         body.setSizeFull();
         
         super.setSizeFull();
-        super.addComponents(campaignName, campaignTarget, body);
+        super.addComponents(new HorizontalLayout(campaignName, campaignTarget), body);
         super.setExpandRatio(body, 1f);
     }
     

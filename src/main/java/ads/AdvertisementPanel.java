@@ -5,8 +5,16 @@
  */
 package ads;
 
-import com.vaadin.ui.TabSheet;
+import com.vaadin.server.ExternalResource;
+import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
+import db.AmazonBook;
+import factory.FlexViewFactory;
+import java.util.Collection;
 import panel.FlexPanel;
+import services.FlexAmazonServiceInterface;
+import utils.ServiceLocator;
 
 /**
  *
@@ -14,23 +22,30 @@ import panel.FlexPanel;
  */
 public class AdvertisementPanel extends FlexPanel {
 
-    private static final long serialVersionUID = -3339604655688381228L;
-    private final TabSheet adContent;
+   private static final long serialVersionUID = -3339604655688381228L;
+    
+    private Image left;
+    private GridLayout right;
+    private HorizontalLayout base;
 
     public AdvertisementPanel() {
-        adContent = new TabSheet();
-        adContent.setSizeFull();
-        initCampaigns();
-        super.setContent(adContent);
+        base = new HorizontalLayout(left, right);
+        base.setSizeFull();
+        super.setContent(base);
         super.setSizeFull();
     }
     
-    private void initCampaigns() {
-        addFavoriteBookOfTab();
+    public void load(String person) {
+        left = new Image("", new ExternalResource(getPhotoUrl(person)));
+        right = new GridLayout(3,3);
+        FlexAmazonServiceInterface service = ServiceLocator.getInstance().findAmazonService();
+        Collection<AmazonBook> favoriteBooks = service.findFavoriteBooks(person);
+        favoriteBooks.stream().forEach(book -> {
+            right.addComponent(FlexViewFactory.getInstance().createAmazonBookView(book));
+        });
     }
 
-    private void addFavoriteBookOfTab() {
-        adContent.addTab(new AmazonProductsGrid(AmazonCampaign.FAVORITE_BOOK_OF), "Favorite Books");
+    private String getPhotoUrl(String person) {
+        return ServiceLocator.getInstance().findPersonService().findPersonNamed(person).getPhotoUrl();
     }
-
 }
