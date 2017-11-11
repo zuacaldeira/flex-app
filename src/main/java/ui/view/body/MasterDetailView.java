@@ -5,13 +5,11 @@
  */
 package ui.view.body;
 
-import ads.AmazonFrame;
 import factory.GraphEntityView;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.VerticalLayout;
 import db.Advertises;
 import db.FlexUser;
 import java.util.Collection;
@@ -28,9 +26,7 @@ public class MasterDetailView extends FlexPanel {
 
     private static final long serialVersionUID = -2414042455007471125L;
 
-    private DetailPanel browserFramePanel;
     private BrowserFrame infoFrame;
-    private BrowserFrame adsFrame;
     private SummariesPanel summariesPanel;
     private HorizontalLayout baseLayout;
     private GraphEntityView selected;
@@ -43,10 +39,10 @@ public class MasterDetailView extends FlexPanel {
         myData = null;
         initSummaries(1);
         initBrowserFrame();
-        baseLayout = new HorizontalLayout(summariesPanel, browserFramePanel);
+        baseLayout = new HorizontalLayout(summariesPanel, infoFrame);
         baseLayout.setSizeFull();
-        baseLayout.setExpandRatio(summariesPanel, .3f);
-        baseLayout.setExpandRatio(browserFramePanel, 1f);
+        baseLayout.setExpandRatio(summariesPanel, .25f);
+        baseLayout.setExpandRatio(infoFrame, 1f);
         baseLayout.setSpacing(true);
         baseLayout.setMargin(true);
         super.setSizeFull();
@@ -63,16 +59,6 @@ public class MasterDetailView extends FlexPanel {
         infoFrame.setSizeFull();
         infoFrame.setCaption("Reading...");
         infoFrame.setStyleName("info-frame");
-        // 
-        adsFrame = new AmazonFrame();
-        VerticalLayout base = new VerticalLayout(infoFrame, adsFrame);
-        base.setSizeFull();
-        base.setMargin(false);
-        base.setSpacing(false);
-        base.setExpandRatio(infoFrame, .9f);
-        base.setExpandRatio(adsFrame, .1f);
-        browserFramePanel = new DetailPanel(null, base);
-        browserFramePanel.setSizeFull();
     }
 
     public SummariesPanel getSummaries() {

@@ -5,6 +5,8 @@
  */
 package ui.view.main;
 
+import ads.AdsFrame;
+import ads.AmazonFrame;
 import com.vaadin.server.Page;
 import com.vaadin.server.Sizeable.Unit;
 import ui.view.body.FlexBody;
@@ -25,6 +27,7 @@ public class FlexMainView extends VerticalLayout implements CanPopulate {
     private final FlexUser user;
     private FlexMenu menu;
     private FlexBody body;
+    private AdsFrame ads;
     private FlexFooter footer;
     private int browserHeight;
 
@@ -33,13 +36,13 @@ public class FlexMainView extends VerticalLayout implements CanPopulate {
         initBody();
         initFooter();
         initMenu();
-        super.addComponents(menu, body, footer);
+        initAds();
+        super.addComponents(menu, body, ads, footer);
         super.setExpandRatio(body, 1f);
         super.setStyleName("flex-view");
         super.setSizeFull();
         super.setHeight(totalHeightInPixels(), Unit.PIXELS);
         super.setMargin(false);
-        super.setSpacing(false);
     }
 
     private void initMenu() {
@@ -53,13 +56,18 @@ public class FlexMainView extends VerticalLayout implements CanPopulate {
         body.setSizeFull();
         if(Page.getCurrent() != null) {
             browserHeight = Page.getCurrent().getBrowserWindowHeight();
-            body.setHeight(3*browserHeight, Unit.PIXELS);
+            body.setHeight(2*browserHeight, Unit.PIXELS);
         }        
     }
 
     private void initFooter() {
         footer = new FlexFooter(user);
         footer.setHeight("128px");
+    }
+    
+    private void initAds() {
+        ads = new AmazonFrame();
+        ads.setHeight(browserHeight, Unit.PIXELS);
     }
     
     
@@ -100,7 +108,7 @@ public class FlexMainView extends VerticalLayout implements CanPopulate {
     }
 
     private float totalHeightInPixels() {
-        return menu.getHeight() + body.getHeight() + footer.getHeight();
+        return menu.getHeight() + body.getHeight() + ads.getHeight() + footer.getHeight();
     }
 
 }
