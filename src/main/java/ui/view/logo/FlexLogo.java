@@ -34,7 +34,7 @@ public class FlexLogo extends HorizontalLayout {
         super.addComponents(ngutu, dot, org);
         super.setStyleName("flex-logo");
         super.setHeightUndefined();
-        super.setMargin(new MarginInfo(false, true));
+        super.setMargin(new MarginInfo(false, false, false, true));
         super.setSpacing(false);
     }
 }
