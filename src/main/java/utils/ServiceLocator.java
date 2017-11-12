@@ -5,6 +5,7 @@
  */
 package utils;
 
+import services.FlexPeopleService;
 import services.FlexUserServiceInterface;
 import services.NewsArticleServiceInterface;
 import services.NewsAuthorServiceInterface;

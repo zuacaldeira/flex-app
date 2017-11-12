@@ -67,11 +67,11 @@ public class FlexViewFactory {
         return null;
     }
 
-    private Component createAmazonItemView(Item item) {
+    private AmazonItemView createAmazonItemView(Item item) {
         return new AmazonItemView(item);
     }
 
-    public Component createAmazonBookView(AmazonBook book) {
+    public AmazonBookView createAmazonBookView(AmazonBook book) {
         AmazonBookView amazonBookView = new AmazonBookView(book);
         return amazonBookView;
     }

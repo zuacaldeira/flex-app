@@ -31,7 +31,7 @@ public class FlexMenu extends HorizontalLayout implements CanPopulate {
         initMenuBar();
         super.setSizeFull();
         super.setMargin(false);
-        super.addComponents(menuBar, new AddThisFrame());
+        super.addComponents(logo, menuBar, new AddThisFrame());
         super.setComponentAlignment(menuBar, Alignment.MIDDLE_CENTER);
         super.setStyleName("flex-menu");
     }
