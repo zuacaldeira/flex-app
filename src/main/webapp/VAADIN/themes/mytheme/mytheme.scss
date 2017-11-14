@@ -211,6 +211,7 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     }
 
     .article-body {
+        text-align: justify;
         .title{
             font-weight: bold;
         }
@@ -219,6 +220,7 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     }
 
     .item {
+        text-align: justify;
         background: white;
         opacity: 0.95;
         .article-header {

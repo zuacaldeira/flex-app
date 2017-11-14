@@ -44,7 +44,6 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
     private MenuItem languages;
     private MenuItem countries;
     private MenuItem logout;
-    private MenuItem search;
 
     private MenuItem read;
     private MenuItem favorite;
@@ -67,11 +66,6 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
         categories = addItem("Categories", null, null);
         languages = addItem("Languages", null, null);
         countries = addItem("Countries", null, null);
-        search = addItem("", VaadinIcons.SEARCH, (selectedItem) -> {
-            if (UI.getCurrent() != null) {
-                UI.getCurrent().addWindow(new SearchWindow(user));
-            }
-        });
         logout = addItem("", VaadinIcons.SIGN_OUT, (selectedItem) -> {
             if (UI.getCurrent() != null) {
                 Notification.show("LOGOUT");
@@ -218,10 +212,6 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
 
     public MenuItem getLogout() {
         return logout;
-    }
-
-    public MenuItem getSearch() {
-        return search;
     }
 
     public NewsSourceServiceInterface getSourcesService() {

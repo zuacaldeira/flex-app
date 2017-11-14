@@ -14943,6 +14943,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .item {
+	text-align: justify;
 	background: white;
 	opacity: 0.95;
 }

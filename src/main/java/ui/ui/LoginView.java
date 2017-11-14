@@ -22,7 +22,7 @@ public class LoginView extends VerticalLayout {
         form = new LoginForm();
         super.addComponent(form);
         super.setSizeFull();
-        setComponentAlignment(form, Alignment.MIDDLE_CENTER);
+        super.setComponentAlignment(form, Alignment.MIDDLE_CENTER);
     }
     
 }

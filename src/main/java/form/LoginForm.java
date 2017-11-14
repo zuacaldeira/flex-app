@@ -23,6 +23,8 @@ import utils.ServiceLocator;
  */
 public class LoginForm extends FlexForm {
 
+    private static final long serialVersionUID = 5363531124855151443L;
+
     private FlexTextField username;
     private PasswordField password;
     private PasswordField password2;

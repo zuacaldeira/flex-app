@@ -12,7 +12,7 @@ import db.NewsSource;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import ui.view.main.FlexMainView;
-import utils.FlexLogger;
+import utils.FlexAppLogger;
 import utils.ServiceLocator;
 
 /**
@@ -23,10 +23,10 @@ public class FlexMenuBarTest {
 
     private static final String TEST_USERNAME = "test:username";
     private static final String TEST_PASSWORD = "test:password";
-    private FlexLogger logger;
+    private FlexAppLogger logger;
 
     public FlexMenuBarTest() {
-        logger = new FlexLogger(getClass());
+        logger = new FlexAppLogger(getClass());
 
     }
 
@@ -120,20 +120,6 @@ public class FlexMenuBarTest {
     private void initMinimalScenario() {
         NewsSource source = new NewsSource("sourceId", "Publishing AG", "Source Description", "url", "business", "en", "GB");
         ServiceLocator.getInstance().findSourcesService().save(source);
-    }
-
-    @Test
-    public void testSelectSearch() {
-        System.out.println("selectSearch");
-        initMinimalScenario();
-        FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMainView view = new FlexMainView(user);
-        view.populate();
-
-        FlexMenuBar menuBar = view.getMenu().getMenuBar();
-        MenuItem menuItem = menuBar.getSearch();
-        MenuBar.Command command = menuItem.getCommand();
-        command.menuSelected(menuItem);
     }
 
     @Test

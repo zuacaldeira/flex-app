@@ -30,6 +30,10 @@ public class NewsUI extends SecuredUI {
         return super.getContent();
     }
     
+    public FlexMainView getMainView() {
+        return (FlexMainView) super.getContent();
+    }
+
     @Override
     protected final FlexMainView createUIContent() {
         FlexMainView mainView = new FlexMainView((FlexUser) getSession().getAttribute("user"));
