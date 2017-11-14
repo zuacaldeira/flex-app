@@ -18,6 +18,8 @@ public class AddThisFrame extends AdsFrame {
 
     public AddThisFrame() {
         super(null, new ThemeResource("html/addThis.html"));
+        setWidth("100%");
+        setHeight("64px");
     }
     
 }

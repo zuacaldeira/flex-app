@@ -42,9 +42,12 @@ public class FlexMenu extends HorizontalLayout implements CanPopulate {
         super.setMargin(false);
         super.addComponent(logo);
         super.addComponent(menuBar);
-        super.addComponent(searchBox);
         super.addComponent(addThis);
-        super.setExpandRatio(menuBar, 1f);
+        super.addComponent(searchBox);
+        super.setExpandRatio(logo, .1f);
+        super.setExpandRatio(menuBar, .6f);
+        super.setExpandRatio(searchBox, .2f);
+        super.setExpandRatio(addThis, .1f);
         super.setComponentAlignment(logo, Alignment.MIDDLE_CENTER);
         super.setComponentAlignment(menuBar, Alignment.MIDDLE_CENTER);
         super.setComponentAlignment(searchBox, Alignment.MIDDLE_CENTER);
@@ -54,6 +57,8 @@ public class FlexMenu extends HorizontalLayout implements CanPopulate {
     
     private void initAddThis() {
         addThis = new AddThisFrame();
+        addThis.setWidth("100%");
+        addThis.setHeight("100%");
     }
 
     private void initSearchBox() {
