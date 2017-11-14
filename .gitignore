@@ -28,3 +28,5 @@ hs_err_pid*
 /target/
 /nbproject/
 *.orig
+src/main/webapp/VAADIN/themes/mytheme/styles.css
+

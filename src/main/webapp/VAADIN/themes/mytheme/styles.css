@@ -14938,6 +14938,10 @@ div.v-layout.v-horizontal.v-widget {
 	border: none;
 }
 
+.mytheme .article-body {
+	text-align: justify;
+}
+
 .mytheme .article-body .title {
 	font-weight: bold;
 }
