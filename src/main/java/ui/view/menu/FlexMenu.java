@@ -5,6 +5,7 @@
  */
 package ui.view.menu;
 
+import com.google.common.collect.Lists;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
@@ -12,16 +13,21 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import data.DataProviderType;
 import db.FlexUser;
+import db.GraphEntity;
+import db.NewsArticle;
+import java.util.List;
+import org.vaadin.addons.autocomplete.generator.SuggestionGenerator;
 import org.vaadin.addons.searchbox.SearchBox;
 import ui.ui.NewsUI;
 import ui.view.body.FlexBody;
 import ui.view.logo.FlexLogo;
+import utils.ServiceLocator;
 
 /**
  *
  * @author zua
  */
-public class FlexMenu extends HorizontalLayout implements CanPopulate {
+public class FlexMenu extends HorizontalLayout implements CanPopulate, SuggestionGenerator<NewsArticle> {
 
     private static final long serialVersionUID = 8366211712669711650L;
 
@@ -29,45 +35,31 @@ public class FlexMenu extends HorizontalLayout implements CanPopulate {
 
     private FlexLogo logo;
     private FlexMenuBar menuBar;
-    private SearchBox searchBox;
-    private AddThisFrame addThis;
+    private transient SearchBox searchBox;
 
     public FlexMenu(FlexUser user) {
         this.user = user;
         initLogo();
         initMenuBar();
         initSearchBox();
-        initAddThis();
         super.setSizeFull();
         super.setMargin(false);
         super.addComponent(logo);
         super.addComponent(menuBar);
-        super.addComponent(addThis);
         super.addComponent(searchBox);
-        super.setExpandRatio(logo, .1f);
-        super.setExpandRatio(menuBar, .6f);
-        super.setExpandRatio(searchBox, .2f);
-        super.setExpandRatio(addThis, .1f);
         super.setComponentAlignment(logo, Alignment.MIDDLE_CENTER);
         super.setComponentAlignment(menuBar, Alignment.MIDDLE_CENTER);
         super.setComponentAlignment(searchBox, Alignment.MIDDLE_CENTER);
-        super.setComponentAlignment(addThis, Alignment.MIDDLE_CENTER);
         super.setStyleName("flex-menu");
     }
     
-    private void initAddThis() {
-        addThis = new AddThisFrame();
-        addThis.setWidth("100%");
-        addThis.setHeight("100%");
-    }
-
     private void initSearchBox() {
         searchBox = new SearchBox(VaadinIcons.SEARCH, SearchBox.ButtonPosition.RIGHT);
         searchBox.setButtonJoined(true);
         searchBox.setStyleName("search-box");
         searchBox.getSearchField().focus();
-        searchBox.getSearchButton().setEnabled(false);
-
+        searchBox.getSearchField().setStyleName("search-term");
+        searchBox.getSearchButton().setStyleName("search-button");
         searchBox.addSearchListener(e -> {
             Notification.show("Clicked on search " + e.getSearchTerm());
             FlexBody body = getBody();
@@ -102,6 +94,11 @@ public class FlexMenu extends HorizontalLayout implements CanPopulate {
     @Override
     public void populate() {
         menuBar.populate();
+    }
+
+    @Override
+    public List<NewsArticle> apply(String query, Integer limit) {
+        return Lists.newLinkedList(ServiceLocator.getInstance().findArticlesService().findArticlesWithText(query));
     }
 
 }

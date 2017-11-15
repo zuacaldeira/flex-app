@@ -15,9 +15,9 @@ $color-menu-text:           rgba(255, 255, 255, 1);
 $color-menu-shadow:         gray;
 
 // Defines the plaintext font size, weight and family. Font size affects general component sizing.
-//$v-font-size: 14px;
+$v-font-size: 12px;
 //$v-font-weight: 300;
-//$v-font-family: "Open Sans", sans-serif;
+$v-font-family: "Open Sans", sans-serif;
 
 // Defines the border used by all components.
 //$v-border: 2px solid (v-shade 0.7);
@@ -123,6 +123,10 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     .flex-action {
         border-radius: 50%;
     }
+    
+    .v-label:hover{
+        font-size: 150%;
+    }
 
     .v-panel, .v-panel-bordeless {
         border: none;
@@ -135,8 +139,14 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     }
 
     .search-box {
-        background: white;
         box-shadow: $flex-item-shadow;
+        
+        .search-term {
+            background: rgba(0, 0, 0, .6);
+        }
+        .search-button {
+            background: rgba(0, 0, 0, .6);
+        }
     }
 
     .flex-view {
@@ -153,6 +163,7 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     .flex-logo {
         font-size: 200%;
         font-variant: small-caps;
+        font-style: bold;
         .ngutu{}
         .dot{}
         .org{}
@@ -160,19 +171,19 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
 
     .flex-menu-bar {
         .v-menubar {
-            background: cornsilk;
+            background: rgba(255, 0, 0, .7);
         }
         .v-menubar-menuitem {
-            background: rgba(0, 0, 0, .9);           
+            background: transparent;
             color: white;
+            font-variant: small-caps;
+            font-size: 120%;
         }    
-        .v-menubar-menuitem:hover {
-            font-weight: bold;
-        }
         .v-menubar-menuitem-selected {
+            background: rgba(0, 0, 0, .7);            
             font-weight: bold;
-            font-size: 200%;
-            background: rgba(255, 0, 0, 1);
+            font-size: 150%;
+            color: rgba(255, 0, 0, .7);
         }
         .v-menubar-menuitem-highlighted {
             font-weight: bold;
@@ -211,7 +222,6 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     }
 
     .article-body {
-        text-align: justify;
         .title{
             font-weight: bold;
         }
@@ -220,9 +230,8 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     }
 
     .item {
-        text-align: justify;
+        margin: 4px;
         background: white;
-        opacity: 0.95;
         .article-header {
             background: black;
             color: white;

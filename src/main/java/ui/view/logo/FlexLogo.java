@@ -6,6 +6,7 @@
 package ui.view.logo;
 
 import com.vaadin.shared.ui.MarginInfo;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 
@@ -20,6 +21,8 @@ public class FlexLogo extends HorizontalLayout {
     private final Label ngutu;
     private final Label dot;
     private final Label org;
+    private final FacebookButton facebookButton;
+    private final TwitterButton twitterButton;
     
     public FlexLogo() {
         ngutu = new Label("Ngutu");
@@ -31,7 +34,11 @@ public class FlexLogo extends HorizontalLayout {
         org = new Label("org");
         org.setStyleName("org");
         
-        super.addComponents(ngutu, dot, org);
+        facebookButton = new FacebookButton();
+        twitterButton = new TwitterButton();
+        super.addComponents(ngutu, dot, org, facebookButton, twitterButton);
+        super.setComponentAlignment(facebookButton, Alignment.MIDDLE_CENTER);
+        super.setComponentAlignment(twitterButton, Alignment.MIDDLE_LEFT);
         super.setStyleName("flex-logo");
         super.setSizeUndefined();
         super.setMargin(new MarginInfo(false, false, false, true));

@@ -43,9 +43,8 @@ public class SourceInfoView extends HorizontalLayout {
         initPublishedAt();
         VerticalLayout info = createInfo();
         super.addComponents(logoImage, info);
-        super.setExpandRatio(logoImage, .3f);
-        super.setExpandRatio(info, 1f);
-        super.setComponentAlignment(logoImage, Alignment.MIDDLE_CENTER);
+        super.setExpandRatio(info, 1);
+        super.setComponentAlignment(logoImage, Alignment.MIDDLE_LEFT);
         super.setComponentAlignment(info, Alignment.MIDDLE_LEFT);
         super.setSizeUndefined();
         super.setWidth("100%");
@@ -89,7 +88,7 @@ public class SourceInfoView extends HorizontalLayout {
 
     private void initPublishedAt() {
         publishedAt = new Label(VaadinIcons.CLOCK.getHtml()
-                + " <strong>" + toText(article.getPublishedAt()) + "</strong>: ", ContentMode.HTML);
+                + " <strong>" + toText(article.getPublishedAt()) + "</strong>", ContentMode.HTML);
     }
 
     private String toText(Date date) {
