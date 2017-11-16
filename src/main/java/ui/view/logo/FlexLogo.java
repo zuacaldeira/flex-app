@@ -19,24 +19,16 @@ public class FlexLogo extends HorizontalLayout {
     private static final long serialVersionUID = 8041620231458973471L;
 
     private final Label ngutu;
-    private final Label dot;
-    private final Label org;
     private final FacebookButton facebookButton;
     private final TwitterButton twitterButton;
     
     public FlexLogo() {
-        ngutu = new Label("Ngutu");
+        ngutu = new Label("Ngutu.org");
         ngutu.setStyleName("ngutu");
-        
-        dot = new Label(".");
-        dot.setStyleName("dot");
-        
-        org = new Label("org");
-        org.setStyleName("org");
         
         facebookButton = new FacebookButton();
         twitterButton = new TwitterButton();
-        super.addComponents(ngutu, dot, org, facebookButton, twitterButton);
+        super.addComponents(ngutu, facebookButton, twitterButton);
         super.setComponentAlignment(facebookButton, Alignment.MIDDLE_CENTER);
         super.setComponentAlignment(twitterButton, Alignment.MIDDLE_LEFT);
         super.setStyleName("flex-logo");

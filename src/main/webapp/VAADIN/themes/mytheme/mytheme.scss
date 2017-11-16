@@ -123,7 +123,7 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     .flex-action {
         border-radius: 50%;
     }
-    
+
     .v-label:hover{
         font-size: 150%;
     }
@@ -140,7 +140,7 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
 
     .search-box {
         box-shadow: $flex-item-shadow;
-        
+
         .search-term {
             background: rgba(0, 0, 0, .6);
         }
@@ -155,9 +155,9 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
 
 
     .flex-menu {
-        background: rgba(0, 0, 0, .9);           
-        box-shadow: $color-menu-shadow;
-        color:      $color-menu-text;
+        background: rgba(0, 0, 0, .7);            
+        box-shadow: 0 4px rgba(255, 0, 0, .7);
+        color: rgba(255, 0, 0, .7);
     }
 
     .flex-logo {
@@ -170,11 +170,14 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     }
 
     .flex-menu-bar {
+        background: rgba(0, 0, 0, .7);            
         .v-menubar {
-            background: rgba(255, 0, 0, .7);
+            background: rgba(0, 0, 0, .7);            
+            font-weight: bold;
+            font-size: 150%;
+            color: rgba(255, 0, 0, .7);
         }
         .v-menubar-menuitem {
-            background: transparent;
             color: white;
             font-variant: small-caps;
             font-size: 120%;
@@ -192,18 +195,11 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
             background: red;
             color: pink;
         }
-        .v-menubar-popup {
-            background: black;
-            color: yellow;
-        }
-        .v-menubar-borderless {
-            background: green;
-            color: purple;
-        }
     }
 
     .flex-body{
         //background: rgba(255, 0, 126, .7);
+        font-family: "Times";
         background: rgba(200, 200, 200, 0.2);
     }
 

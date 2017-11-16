@@ -5,29 +5,22 @@
  */
 package ui.view.menu;
 
-import com.google.common.collect.Lists;
-import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import data.DataProviderType;
 import db.FlexUser;
-import db.GraphEntity;
-import db.NewsArticle;
-import java.util.List;
-import org.vaadin.addons.autocomplete.generator.SuggestionGenerator;
-import org.vaadin.addons.searchbox.SearchBox;
 import ui.ui.NewsUI;
 import ui.view.body.FlexBody;
 import ui.view.logo.FlexLogo;
-import utils.ServiceLocator;
 
 /**
  *
  * @author zua
  */
-public class FlexMenu extends HorizontalLayout implements CanPopulate, SuggestionGenerator<NewsArticle> {
+public class FlexMenu extends HorizontalLayout implements CanPopulate {
 
     private static final long serialVersionUID = 8366211712669711650L;
 
@@ -35,7 +28,7 @@ public class FlexMenu extends HorizontalLayout implements CanPopulate, Suggestio
 
     private FlexLogo logo;
     private FlexMenuBar menuBar;
-    private transient SearchBox searchBox;
+    private TextField searchBox;
 
     public FlexMenu(FlexUser user) {
         this.user = user;
@@ -54,16 +47,14 @@ public class FlexMenu extends HorizontalLayout implements CanPopulate, Suggestio
     }
     
     private void initSearchBox() {
-        searchBox = new SearchBox(VaadinIcons.SEARCH, SearchBox.ButtonPosition.RIGHT);
-        searchBox.setButtonJoined(true);
+        searchBox = new TextField();
+        searchBox.setCaptionAsHtml(true);
+        searchBox.setPlaceholder("Search");
         searchBox.setStyleName("search-box");
-        searchBox.getSearchField().focus();
-        searchBox.getSearchField().setStyleName("search-term");
-        searchBox.getSearchButton().setStyleName("search-button");
-        searchBox.addSearchListener(e -> {
-            Notification.show("Clicked on search " + e.getSearchTerm());
+        searchBox.addValueChangeListener(e -> {
+            Notification.show("Clicked on search " + e.getValue());
             FlexBody body = getBody();
-            body.populate(DataProviderType.SEARCH, e.getSearchTerm());
+            body.populate(DataProviderType.SEARCH, e.getValue());
         });
     }
     
@@ -94,11 +85,6 @@ public class FlexMenu extends HorizontalLayout implements CanPopulate, Suggestio
     @Override
     public void populate() {
         menuBar.populate();
-    }
-
-    @Override
-    public List<NewsArticle> apply(String query, Integer limit) {
-        return Lists.newLinkedList(ServiceLocator.getInstance().findArticlesService().findArticlesWithText(query));
     }
 
 }

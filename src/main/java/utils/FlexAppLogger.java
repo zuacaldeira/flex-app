@@ -5,8 +5,8 @@
  */
 package utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.apache.http.client.utils.DateUtils;
 
 /**
  *
@@ -52,7 +52,7 @@ public class FlexAppLogger {
     private void sout(String format, Object[] values) {
         String newFormat = "[%s] %25s: " + format;
         Object[] newValues = new Object[values.length + 2];
-        newValues[0] = DateUtils.formatDate(new Date(), "dd/MM/yyyy HH:mm:ss");
+        newValues[0] = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
         newValues[1] = aClass.getSimpleName();
         int i = 2;
         for (Object o : values) {
@@ -66,7 +66,7 @@ public class FlexAppLogger {
     private void serr(String format, Object[] values) {
         String newFormat = "[%s] %25s: " + format;
         Object[] newValues = new Object[values.length + 2];
-        newValues[0] = DateUtils.formatDate(new Date(), "dd/MM/yyyy HH:mm:ss");
+        newValues[0] = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
         newValues[1] = aClass.getSimpleName();
         int i = 2;
         for (Object o : values) {
