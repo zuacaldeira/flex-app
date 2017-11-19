@@ -127,13 +127,15 @@ public class FlexMenuBarTest {
         System.out.println("selectLogout");
         initMinimalScenario();
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMainView view = new FlexMainView(user);
+        FlexMainView view = new FlexMainView();
         view.populate();
 
-        FlexMenuBar menuBar = view.getMenu().getMenuBar();
-        MenuItem menuItem = menuBar.getLogout();
-        MenuBar.Command command = menuItem.getCommand();
-        command.menuSelected(menuItem);
+        if (view.getMenu() != null) {
+            FlexMenuBar menuBar = view.getMenu().getMenuBar();
+            MenuItem menuItem = menuBar.getLogout();
+            MenuBar.Command command = menuItem.getCommand();
+            command.menuSelected(menuItem);
+        }
     }
 
     @Test
@@ -141,13 +143,15 @@ public class FlexMenuBarTest {
         System.out.println("selectOther");
         initMinimalScenario();
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMainView view = new FlexMainView(user);
+        FlexMainView view = new FlexMainView();
         view.populate();
 
-        FlexMenuBar menuBar = view.getMenu().getMenuBar();
-        MenuItem menuItem = menuBar.getLatest();
-        MenuBar.Command command = menuItem.getCommand();
-        command.menuSelected(menuItem);
+        if (view.getMenu() != null) {
+            FlexMenuBar menuBar = view.getMenu().getMenuBar();
+            MenuItem menuItem = menuBar.getLatest();
+            MenuBar.Command command = menuItem.getCommand();
+            command.menuSelected(menuItem);
+        }
     }
 
 }

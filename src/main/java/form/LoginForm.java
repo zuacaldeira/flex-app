@@ -14,7 +14,9 @@ import db.FlexUser;
 import services.FlexUserServiceInterface;
 import button.SaveButton;
 import com.vaadin.server.Page;
+import com.vaadin.ui.UI;
 import text.FlexTextField;
+import ui.ui.FlexViews;
 import utils.ServiceLocator;
 
 /**
@@ -59,7 +61,7 @@ public class LoginForm extends FlexForm {
         if (dbUser != null && getSession() != null) {
             getSession().setAttribute("user", dbUser);
             //((Window) getParent()).close();
-            Page.getCurrent().reload();
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS.name());
         }
     }
 

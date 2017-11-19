@@ -8,7 +8,6 @@ package ui.view.menu;
 import ui.view.body.FlexBody;
 import utils.UIUtils;
 import com.vaadin.icons.VaadinIcons;
-import com.vaadin.server.Page;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Notification;
@@ -70,7 +69,7 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
             if (UI.getCurrent() != null) {
                 Notification.show("LOGOUT");
                 getSession().setAttribute("user", null);
-                Page.getCurrent().reload();
+                UI.getCurrent().getNavigator().navigateTo("");
             }
         });
 

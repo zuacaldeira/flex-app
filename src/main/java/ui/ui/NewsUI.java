@@ -6,7 +6,6 @@ import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Component;
-import db.FlexUser;
 import javax.servlet.annotation.WebServlet;
 import ui.view.main.FlexMainView;
 
@@ -34,13 +33,6 @@ public class NewsUI extends SecuredUI {
         return (FlexMainView) super.getContent();
     }
 
-    @Override
-    protected final FlexMainView createUIContent() {
-        FlexMainView mainView = new FlexMainView((FlexUser) getSession().getAttribute("user"));
-        mainView.populate();
-        return mainView;
-    }
-    
     @WebServlet(urlPatterns = "/*", name = "NewsUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = NewsUI.class, productionMode = false, widgetset = "ui.ui.AppWidgetSet")
     public static class NewsUIServlet extends VaadinServlet {

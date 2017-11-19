@@ -34,13 +34,17 @@ public class FlexBodyWorker extends Thread {
     @Override
     public void run() {
         Collection<NewsArticle> nodes = new ArticlesRepository().loadNodes(type, value, user);
+        System.out.println("Loaded " + nodes.size() + " articles");
+
         for(NewsArticle article: nodes) {
-            flexBody.addItemView(article);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(FlexBodyWorker.class.getName()).log(Level.SEVERE, null, ex);
-                break;
+            if(flexBody.getUI() != null && flexBody.getUI().isAttached()) {
+                flexBody.addItemView(article);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(FlexBodyWorker.class.getName()).log(Level.SEVERE, null, ex);
+                    break;
+                }
             }
         }
     }

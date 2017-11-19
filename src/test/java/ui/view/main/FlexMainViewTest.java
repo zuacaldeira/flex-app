@@ -5,6 +5,7 @@
  */
 package ui.view.main;
 
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import db.FlexUser;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -29,11 +30,11 @@ public class FlexMainViewTest {
     public void testConstructor() {
         System.out.println("new");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMainView mainView = new FlexMainView(user);
-        assertNotNull(mainView.getUser());
-        assertNotNull(mainView.getMenu());
-        assertNotNull(mainView.getBody());
-        assertNotNull(mainView.getFooter());
+        FlexMainView mainView = new FlexMainView();
+        assertNull(mainView.getUser());
+        assertNull(mainView.getMenu());
+        assertNull(mainView.getBody());
+        assertNull(mainView.getFooter());
     }
 
     /**
@@ -43,7 +44,7 @@ public class FlexMainViewTest {
     public void testSetMenu() {
         System.out.println("setMenu");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMainView mainView = new FlexMainView(user);
+        FlexMainView mainView = new FlexMainView();
         FlexMenu menu = new FlexMenu(user);
         mainView.setMenu(menu);
         assertEquals(menu, mainView.getMenu());
@@ -56,7 +57,7 @@ public class FlexMainViewTest {
     public void testSetFooter() {
         System.out.println("setFooter");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMainView mainView = new FlexMainView(user);
+        FlexMainView mainView = new FlexMainView();
         FlexFooter footer = new FlexFooter(user);
         mainView.setFooter(footer);
         assertEquals(footer, mainView.getFooter());
@@ -69,7 +70,7 @@ public class FlexMainViewTest {
     public void testGetMenu() {
         System.out.println("getMenu");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMainView mainView = new FlexMainView(user);
+        FlexMainView mainView = new FlexMainView();
         FlexMenu menu = new FlexMenu(user);
         mainView.setMenu(menu);
         assertEquals(menu, mainView.getMenu());
@@ -82,8 +83,8 @@ public class FlexMainViewTest {
     public void testGetBody() {
         System.out.println("getBody");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMainView mainView = new FlexMainView(user);
-        assertNotNull(mainView.getBody());
+        FlexMainView mainView = new FlexMainView();
+        assertNull(mainView.getBody());
     }
 
     /**
@@ -93,8 +94,8 @@ public class FlexMainViewTest {
     public void testGetFooter() {
         System.out.println("getFooter");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMainView mainView = new FlexMainView(user);
-        assertNotNull(mainView.getFooter());
+        FlexMainView mainView = new FlexMainView();
+        assertNull(mainView.getFooter());
     }
 
     /**
@@ -104,7 +105,7 @@ public class FlexMainViewTest {
     public void testReplaceBody() {
         System.out.println("replaceBody");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMainView mainView = new FlexMainView(user);
+        FlexMainView mainView = new FlexMainView();
         FlexBody newBody = new FlexBody(user);
         mainView.replaceBody(newBody);
         assertEquals(newBody, mainView.getBody());
@@ -117,8 +118,8 @@ public class FlexMainViewTest {
     public void testGetUser() {
         System.out.println("getUser");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMainView mainView = new FlexMainView(user);
-        assertNotNull(mainView.getUser());
+        FlexMainView mainView = new FlexMainView();
+        assertNull(mainView.getUser());
     }
 
     /**
@@ -128,7 +129,7 @@ public class FlexMainViewTest {
     public void testPopulate() {
         System.out.println("populate");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMainView mainView = new FlexMainView(user);
+        FlexMainView mainView = new FlexMainView();
         mainView.populate();
     }
     

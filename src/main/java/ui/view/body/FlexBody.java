@@ -5,10 +5,14 @@
  */
 package ui.view.body;
 
+import com.vaadin.ui.Notification;
+import data.ArticlesRepository;
 import data.DataProviderType;
 import factory.FlexViewFactory;
 import db.FlexUser;
 import db.GraphEntity;
+import db.NewsArticle;
+import java.util.Collection;
 import panel.FlexPanel;
 import ui.view.menu.CanPopulate;
 
@@ -22,7 +26,6 @@ public class FlexBody extends FlexPanel implements CanPopulate {
 
     private final FlexUser user;
     private MasterDetailView masterDetailView;
-    private transient FlexBodyWorker worker;
 
     public FlexBody(FlexUser user) {
         this.user = user;
@@ -31,9 +34,7 @@ public class FlexBody extends FlexPanel implements CanPopulate {
         super.setWidth("100%");
         super.setHeightUndefined();
         super.addDetachListener(event -> {
-            if (worker != null) {
-                worker.interrupt();
-            }
+            //initMasterDetailView();
         });
     }
 
@@ -53,11 +54,7 @@ public class FlexBody extends FlexPanel implements CanPopulate {
     }
 
     public void addItemView(GraphEntity item) {
-        if(getUI() != null) {
-            getUI().access(() -> {
-                masterDetailView.addComponent(FlexViewFactory.getInstance().createView(user, item));
-            });
-        }
+        masterDetailView.addComponent(FlexViewFactory.getInstance().createView(user, item));
     }
 
     public FlexUser getUser() {
@@ -71,12 +68,18 @@ public class FlexBody extends FlexPanel implements CanPopulate {
 
     public void populate(DataProviderType type, String value) {
         System.out.println("FlexBodyThread#run(): START");
+        
         initMasterDetailView();
-        if (worker != null) {
-            worker.interrupt();
+        
+        Collection<NewsArticle> nodes = new ArticlesRepository().loadNodes(type, value, user);
+        System.out.println("Loaded " + nodes.size() + " articles");
+
+        int i = 0;
+        for(NewsArticle article: nodes) {
+            addItemView(article);
+            Notification.show("Article #" + i);
+            i++;
         }
-        worker = new FlexBodyWorker(user, this, type, value);
-        worker.start();
         System.out.println("FlexBodyThread#run(): DONE");
     }
 

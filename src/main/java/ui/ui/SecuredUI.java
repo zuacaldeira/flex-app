@@ -6,9 +6,11 @@
 package ui.ui;
 
 import com.vaadin.annotations.Theme;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
+import db.FlexUser;
+import ui.view.main.FlexMainView;
 
 /**
  *
@@ -18,16 +20,23 @@ import com.vaadin.ui.UI;
 public abstract class SecuredUI extends UI {
 
     private static final long serialVersionUID = 2637212442082775079L;
+    Navigator navigator;
 
     @Override
     public void init(VaadinRequest request) {
-        if (getSession() != null && getSession().getAttribute("user") != null) {
-            setContent(createUIContent());
-        }
-        else {
-            setContent(new LoginView());
+        getPage().setTitle("Ngutu. Your portal to the world.");
+        if (navigator == null){
+            navigator = new Navigator(this, this);
+            navigator.addView("", new LoginView());
+            navigator.addView(FlexViews.NEWS.name(), new FlexMainView());
         }
     }
 
-    protected abstract Component createUIContent();
+    public FlexUser getCurrentUser() {
+        if (getSession().getAttribute("user") != null) {
+            return (FlexUser) getSession().getAttribute("user");
+        } else {
+            return null;
+        }
+    }
 }

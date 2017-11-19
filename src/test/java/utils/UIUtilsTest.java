@@ -5,11 +5,8 @@
  */
 package utils;
 
-import com.vaadin.ui.Component;
-import db.FlexUser;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ui.view.main.FlexMainView;
 
 /**
  *
@@ -30,31 +27,5 @@ public class UIUtilsTest {
         assertNotNull(result);
     }
 
-    /**
-     * Test of getBody method, of class UIUtils.
-     */
-    @Test
-    public void testGetBody() {
-        System.out.println("getBody");
-        UIUtils result = UIUtils.getInstance();
-        FlexUser user = new FlexUser("test:username", "test:password");
-        FlexMainView mainView = new FlexMainView(user);
-        Component component = mainView.getBody().getContent();
-        assertNotNull(result.getBody(component));
-    }
-
-    /**
-     * Test of getMainView method, of class UIUtils.
-     */
-    @Test
-    public void testGetMainView() {
-        System.out.println("getMainView");
-        UIUtils result = UIUtils.getInstance();
-        FlexUser user = new FlexUser("test:username", "test:password");
-        FlexMainView mainView = new FlexMainView(user);
-        assertNotNull(mainView.getBody());
-        assertNotNull(mainView.getBody().getContent());
-        assertNotNull(result.getMainView(mainView.getBody().getContent()));
-    }
 
 }

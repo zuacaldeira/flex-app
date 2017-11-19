@@ -5,6 +5,8 @@
  */
 package ui.ui;
 
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.VerticalLayout;
 import form.LoginForm;
@@ -13,16 +15,20 @@ import form.LoginForm;
  *
  * @author zua
  */
-public class LoginView extends VerticalLayout {
+public class LoginView extends VerticalLayout implements View {
 
     private static final long serialVersionUID = 3163305215433154572L;
-    private final LoginForm form;
+    private LoginForm form;
 
     public LoginView() {
+    }
+
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent event) {
         form = new LoginForm();
         super.addComponent(form);
         super.setSizeFull();
         super.setComponentAlignment(form, Alignment.MIDDLE_CENTER);
     }
-    
+
 }
