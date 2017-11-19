@@ -124,10 +124,6 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
         border-radius: 50%;
     }
 
-    .v-label:hover{
-        font-size: 150%;
-    }
-
     .v-panel, .v-panel-bordeless {
         border: none;
         background: transparent;
@@ -169,7 +165,7 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
         .org{}
     }
 
-    .flex-menu-bar {
+    .new-menu-bar {
         background: rgba(0, 0, 0, .7);            
         .v-menubar {
             background: rgba(0, 0, 0, .7);            
@@ -220,6 +216,9 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     .article-body {
         .title{
             font-weight: bold;
+        }
+        .title:hover {
+            font-size: 150%;
         }
         .value{
         }
@@ -284,21 +283,6 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     }
 
     .info-frame {
-        animation: animationFrames ease 0.7s;
-        animation-iteration-count: 1;
-        transform-origin: 50% 50%;
-        -webkit-animation: animationFrames ease 0.7s;
-        -webkit-animation-iteration-count: 1;
-        -webkit-transform-origin: 50% 50%;
-        -moz-animation: animationFrames ease 0.7s;
-        -moz-animation-iteration-count: 1;
-        -moz-transform-origin: 50% 50%;
-        -o-animation: animationFrames ease 0.7s;
-        -o-animation-iteration-count: 1;
-        -o-transform-origin: 50% 50%;
-        -ms-animation: animationFrames ease 0.7s;
-        -ms-animation-iteration-count: 1;
-        -ms-transform-origin: 50% 50%;
     }
 
 

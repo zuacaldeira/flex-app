@@ -25,58 +25,58 @@ public class FlexBodyTest {
     }
 
     /**
-     * Test of getContent method, of class FlexBody.
+     * Test of getContent method, of class NewsBody.
      */
     @Test
     public void testGetContent() {
         System.out.println("getContent");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexBody instance = new FlexBody(user);
+        NewsBody instance = new NewsBody(user);
         assertNotNull(instance.getContent());
     }
 
     /**
-     * Test of getMasterDetail method, of class FlexBody.
+     * Test of getMasterDetail method, of class NewsBody.
      */
     @Test
     public void testGetMasterDetail() {
         System.out.println("getMasterDetail");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexBody instance = new FlexBody(user);
+        NewsBody instance = new NewsBody(user);
         assertNotNull(instance.getMasterDetail());
     }
 
     /**
-     * Test of addItemView method, of class FlexBody.
+     * Test of addItemView method, of class NewsBody.
      */
     @Test
     public void testAddItemView() {
         System.out.println("addItemView");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexBody instance = new FlexBody(user);
+        NewsBody instance = new NewsBody(user);
         
         instance.addItemView(new NewsArticle("TEST_USERNAME", "TEST_PASSWORD", "TEST_USERNAME", "TEST_USERNAME", new Date(), "TEST_USERNAME", "TEST_USERNAME", "TEST_USERNAME"));
     }
 
     /**
-     * Test of getUser method, of class FlexBody.
+     * Test of getUser method, of class NewsBody.
      */
     @Test
     public void testGetUser() {
         System.out.println("getUser");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexBody instance = new FlexBody(user);
+        NewsBody instance = new NewsBody(user);
         assertNotNull(instance.getUser());
     }
 
     /**
-     * Test of updateData method, of class FlexBody.
+     * Test of updateData method, of class NewsBody.
      */
     @Test
     public void testUpdateData() {
         System.out.println("updateData");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexBody instance = new FlexBody(user);
+        NewsBody instance = new NewsBody(user);
         instance.populate(DataProviderType.FAKE, null);
     }
     

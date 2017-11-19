@@ -13,24 +13,24 @@ import com.vaadin.ui.UI;
 import data.DataProviderType;
 import db.FlexUser;
 import ui.ui.NewsUI;
-import ui.view.body.FlexBody;
+import ui.view.body.NewsBody;
 import ui.view.logo.FlexLogo;
 
 /**
  *
  * @author zua
  */
-public class FlexMenu extends HorizontalLayout implements CanPopulate {
+public class NewsMenu extends HorizontalLayout implements CanPopulate {
 
     private static final long serialVersionUID = 8366211712669711650L;
 
     private final FlexUser user;
 
     private FlexLogo logo;
-    private FlexMenuBar menuBar;
+    private NewsMenuBar menuBar;
     private TextField searchBox;
 
-    public FlexMenu(FlexUser user) {
+    public NewsMenu(FlexUser user) {
         this.user = user;
         initLogo();
         initMenuBar();
@@ -53,12 +53,12 @@ public class FlexMenu extends HorizontalLayout implements CanPopulate {
         searchBox.setStyleName("search-box");
         searchBox.addValueChangeListener(e -> {
             Notification.show("Clicked on search " + e.getValue());
-            FlexBody body = getBody();
+            NewsBody body = getBody();
             body.populate(DataProviderType.SEARCH, e.getValue());
         });
     }
     
-    private FlexBody getBody() {
+    private NewsBody getBody() {
         return ((NewsUI) UI.getCurrent()).getMainView().getBody();
     }
 
@@ -70,12 +70,12 @@ public class FlexMenu extends HorizontalLayout implements CanPopulate {
         return logo;
     }
 
-    public FlexMenuBar getMenuBar() {
+    public NewsMenuBar getMenuBar() {
         return menuBar;
     }
 
     private void initMenuBar() {
-        this.menuBar = new FlexMenuBar(user);
+        this.menuBar = new NewsMenuBar(user);
     }
 
     private void initLogo() {

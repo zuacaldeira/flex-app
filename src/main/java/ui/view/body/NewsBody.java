@@ -20,14 +20,14 @@ import ui.view.menu.CanPopulate;
  *
  * @author zua
  */
-public class FlexBody extends FlexPanel implements CanPopulate {
+public class NewsBody extends FlexPanel implements CanPopulate {
 
     private static final long serialVersionUID = 6273025631274336910L;
 
     private final FlexUser user;
     private MasterDetailView masterDetailView;
 
-    public FlexBody(FlexUser user) {
+    public NewsBody(FlexUser user) {
         this.user = user;
         this.initMasterDetailView();
         super.addStyleName("flex-body");
@@ -71,7 +71,7 @@ public class FlexBody extends FlexPanel implements CanPopulate {
         
         initMasterDetailView();
         
-        Collection<NewsArticle> nodes = new ArticlesRepository().loadNodes(type, value, user);
+        Collection<NewsArticle> nodes = new ArticlesRepository().loadNodesWithoutBackend(type, value, user);
         System.out.println("Loaded " + nodes.size() + " articles");
 
         int i = 0;

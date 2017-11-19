@@ -8,43 +8,42 @@ package ui.view.main;
 import ads.AdvertisementPanel;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.Page;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.UI;
-import ui.view.body.FlexBody;
+import ui.view.body.NewsBody;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import ui.ui.SecuredUI;
 import ui.view.menu.CanPopulate;
 import ui.view.footer.FlexFooter;
-import ui.view.menu.FlexMenu;
+import ui.view.menu.NewsMenu;
 
 /**
  *
  * @author zua
  */
-public class FlexMainView extends VerticalLayout implements View, CanPopulate {
+public class FlexNewsView extends VerticalLayout implements View, CanPopulate {
 
     private static final long serialVersionUID = 8467619842785075810L;
 
     private FlexUser user;
-    private FlexMenu menu;
-    private FlexBody body;
+    private NewsMenu menu;
+    private NewsBody body;
     private AdvertisementPanel ads;
     private FlexFooter footer;
     private int browserHeight;
 
-    public FlexMainView() {
+    public FlexNewsView() {
     }
 
     private void initMenu() {
-        menu = new FlexMenu(user);
+        menu = new NewsMenu(user);
         menu.setWidth("100%");
         menu.setHeight("64px");
     }
 
     private void initBody() {
-        body = new FlexBody(user);
+        body = new NewsBody(user);
         body.setSizeFull();
         /*if (Page.getCurrent() != null) {
             browserHeight = Page.getCurrent().getBrowserWindowHeight();
@@ -62,7 +61,7 @@ public class FlexMainView extends VerticalLayout implements View, CanPopulate {
         ads.setHeight(browserHeight, Unit.PIXELS);
     }
 
-    public void setMenu(FlexMenu menu) {
+    public void setMenu(NewsMenu menu) {
         this.menu = menu;
     }
 
@@ -70,11 +69,11 @@ public class FlexMainView extends VerticalLayout implements View, CanPopulate {
         this.footer = footer;
     }
 
-    public FlexMenu getMenu() {
+    public NewsMenu getMenu() {
         return menu;
     }
 
-    public FlexBody getBody() {
+    public NewsBody getBody() {
         return body;
     }
 
@@ -82,7 +81,7 @@ public class FlexMainView extends VerticalLayout implements View, CanPopulate {
         return footer;
     }
 
-    public void replaceBody(FlexBody flexBody) {
+    public void replaceBody(NewsBody flexBody) {
         replaceComponent(body, flexBody);
         this.body = flexBody;
     }

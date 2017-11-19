@@ -5,7 +5,7 @@
  */
 package ui.view.menu;
 
-import ui.view.body.FlexBody;
+import ui.view.body.NewsBody;
 import utils.UIUtils;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.MenuBar;
@@ -14,27 +14,21 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
-import java.util.Set;
 import data.DataProviderType;
-import java.util.Collection;
-import java.util.TreeSet;
-import services.NewsSourceServiceInterface;
+import services.FlexBooksServiceInterface;
 import ui.ui.NewsUI;
-import ui.view.body.MasterDetailView;
-import ui.view.main.FlexMainView;
-import utils.MyDateUtils;
 import utils.ServiceLocator;
 
 /**
  *
  * @author zua
  */
-public final class FlexMenuBar extends MenuBar implements CanPopulate {
+public final class BooksMenuBar extends MenuBar implements CanPopulate {
 
     private static final long serialVersionUID = -1299703352057116843L;
 
     private final FlexUser user;
-    private final NewsSourceServiceInterface sourcesService;
+    private final FlexBooksServiceInterface booksService;
 
     // Main Menu (top level)
     private MenuItem news;
@@ -49,13 +43,10 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
     private MenuItem fake;
     private MenuItem oldest;
     private MenuItem latest;
-    private MenuItem full;
-    private MenuItem imagesOnly;
-    private MenuItem titlesOnly;
 
-    public FlexMenuBar(FlexUser user) {
+    public BooksMenuBar(FlexUser user) {
         this.user = user;
-        sourcesService = ServiceLocator.getInstance().findSourcesService();
+        booksService = ServiceLocator.getInstance().findBooksService();
         this.initMenuItems();
     }
 
@@ -75,7 +66,7 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
 
         setSizeUndefined();
         setAutoOpen(true);
-        setStyleName("flex-menu-bar");
+        setStyleName("books-menu-bar");
         addStyleName(ValoTheme.MENUBAR_BORDERLESS);
     }
 
@@ -93,26 +84,26 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
     }
 
     protected void populateNewsCategory() {
-        Collection<String> cats = sourcesService.findCategories();
+        /*Collection<String> cats = booksService.findCategories();
         cats.forEach(cat -> {
             categories.addItem(getCategoryCaption(cat), (selectedMenuItem) -> {
                 updateBody(DataProviderType.CATEGORY, selectedMenuItem.getText());
             });
-        });
+        });*/
     }
 
     protected void populateNewsPublisher() {
-        Collection<String> names = sourcesService.findNames();
+        /*Collection<String> names = booksService.findNames();
         names.forEach(name -> {
             publishers.addItem(name, (selectedMenuItem -> {
                 updateBody(DataProviderType.PUBLISHER, selectedMenuItem.getText());
             }));
-        });
+        });*/
     }
 
     protected void populateNewsLanguages() {
-        Set<String> result = new TreeSet<>();
-        Collection<String> locales = sourcesService.findLocales();
+        /*Set<String> result = new TreeSet<>();
+        Collection<String> locales = booksService.findLocales();
         locales.forEach(localeString -> {
             if (localeString != null && !localeString.isEmpty()) {
                 result.add(MyDateUtils.getLanguageNameFromPattern(localeString));
@@ -122,12 +113,12 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
             languages.addItem(lang, (selectedMenuItem) -> {
                 updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
             });
-        });
+        });*/
     }
 
     protected void populateNewsCountries() {
-        Set<String> result = new TreeSet<>();
-        Collection<String> locales = sourcesService.findLocales();
+        /*Set<String> result = new TreeSet<>();
+        Collection<String> locales = booksService.findLocales();
         locales.forEach(localeString -> {
             result.add(MyDateUtils.getCountryNameFromPattern(localeString));
         });
@@ -135,15 +126,7 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
             countries.addItem(country, (selectedMenuItem) -> {
                 updateBody(DataProviderType.COUNTRIES, selectedMenuItem.getText());
             });
-        });
-    }
-
-    private void populateViews() {
-        FlexBody body = ((FlexMainView)getUI().getContent()).getBody();
-        MasterDetailView masterDetail = body.getMasterDetail();
-        full = news.addItem("Full", (selectedItem) -> {masterDetail.full();});
-        imagesOnly = news.addItem("Images Only", (selectedItem) -> {masterDetail.imagesOnly();});
-        titlesOnly = news.addItem("Titles Only", (selectedItem) -> { masterDetail.titlesOnly();});
+        });*/
     }
 
     private void populateNewsByTime() {
@@ -173,7 +156,7 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
     }
 
     private void updateBody(DataProviderType dataType, String value) {
-        FlexBody body = UIUtils.getInstance().getBody(this);
+        NewsBody body = UIUtils.getInstance().getBody(this);
         if (body != null) {
             body.populate(dataType, value);
         } else {
@@ -213,10 +196,6 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
         return logout;
     }
 
-    public NewsSourceServiceInterface getSourcesService() {
-        return sourcesService;
-    }
-
     public MenuItem getRead() {
         return read;
     }
@@ -235,18 +214,6 @@ public final class FlexMenuBar extends MenuBar implements CanPopulate {
 
     public MenuItem getLatest() {
         return latest;
-    }
-
-    public MenuItem getFull() {
-        return full;
-    }
-
-    public MenuItem getImagesOnly() {
-        return imagesOnly;
-    }
-
-    public MenuItem getTitlesOnly() {
-        return titlesOnly;
     }
 
     public FlexUser getUser() {

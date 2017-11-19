@@ -10,7 +10,8 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import db.FlexUser;
-import ui.view.main.FlexMainView;
+import ui.view.main.FlexBooksView;
+import ui.view.main.FlexNewsView;
 
 /**
  *
@@ -28,7 +29,8 @@ public abstract class SecuredUI extends UI {
         if (navigator == null){
             navigator = new Navigator(this, this);
             navigator.addView("", new LoginView());
-            navigator.addView(FlexViews.NEWS.name(), new FlexMainView());
+            navigator.addView(FlexViews.NEWS.name(), new FlexNewsView());
+            navigator.addView(FlexViews.BOOKS.name(), new FlexBooksView());
         }
     }
 

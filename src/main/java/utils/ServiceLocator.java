@@ -16,6 +16,8 @@ import services.FlexAdvertisementService;
 import services.FlexAdvertisementServiceInterface;
 import services.FlexAmazonService;
 import services.FlexAmazonServiceInterface;
+import services.FlexBooksService;
+import services.FlexBooksServiceInterface;
 import services.FlexUserService;
 import services.NewsArticleService;
 import services.NewsAuthorService;
@@ -36,6 +38,7 @@ public class ServiceLocator {
     public static final String FLEX_ADVERTISEMENT_SERVICE = "java:global/flex-app/FlexAdvertisementService!services.FlexAdvertisementServiceInterface";
     public static final String FLEX_AMAZON_SERVICE = "java:global/flex-app/FlexAmazonService!services.FlexAmazonServiceInterface";
     public static final String FLEX_PEOPLE_SERVICE = "java:global/flex-app/FlexPeopleService!services.FlexPeopleServiceInterface";
+    public static final String FLEX_BOOK_SERVICE = "java:global/flex-app/FlexBooksService!services.FlexBooksServiceInterface";
 
     private static ServiceLocator INSTANCE;
 
@@ -108,6 +111,14 @@ public class ServiceLocator {
             return (FlexPeopleServiceInterface) findService(FLEX_PEOPLE_SERVICE);
         } catch (NamingException ex) {
             return new FlexPeopleService();
+        }
+    }
+
+    public FlexBooksServiceInterface findBooksService() {
+        try {
+            return (FlexBooksServiceInterface) findService(FLEX_PEOPLE_SERVICE);
+        } catch (NamingException ex) {
+            return new FlexBooksService();
         }
     }
 

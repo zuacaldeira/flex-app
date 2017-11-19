@@ -6,8 +6,8 @@
 package utils;
 
 import com.vaadin.ui.Component;
-import ui.view.body.FlexBody;
-import ui.view.main.FlexMainView;
+import ui.view.body.NewsBody;
+import ui.view.main.FlexNewsView;
 
 /**
  *
@@ -27,19 +27,19 @@ public class UIUtils {
         return instance;
     }
 
-    public FlexBody getBody(Component component) {
-        FlexMainView mainView = getMainView(component);
+    public NewsBody getBody(Component component) {
+        FlexNewsView mainView = getMainView(component);
         return mainView.getBody();
     }
 
 
-    public FlexMainView getMainView(Component component) {
+    public FlexNewsView getMainView(Component component) {
         if(component == null) {
             return null;
         }
         
-        if(component instanceof FlexMainView) {
-            return (FlexMainView) component;
+        if(component instanceof FlexNewsView) {
+            return (FlexNewsView) component;
         }
         
         return getMainView(component.getParent());        

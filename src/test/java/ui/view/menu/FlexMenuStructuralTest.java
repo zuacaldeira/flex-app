@@ -23,25 +23,25 @@ public class FlexMenuStructuralTest {
     }
 
     /**
-     * Test of getUser method, of class FlexMenu.
+     * Test of getUser method, of class NewsMenu.
      */
     @Test
     public void testGetUser() {
         System.out.println("getUser");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMenu menu = new FlexMenu(user);
+        NewsMenu menu = new NewsMenu(user);
         assertEquals(user, menu.getUser());
     }
 
     /**
-     * Test of populate method, of class FlexMenu.
+     * Test of populate method, of class NewsMenu.
      */
     @Test
     @Ignore
     public void testPopulate() {
         System.out.println("populate");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMenu menu = new FlexMenu(user);
+        NewsMenu menu = new NewsMenu(user);
         assertEquals(user, menu.getUser());
         assertNull(menu.getMenuBar());
         assertNull(menu.getLogo());        
@@ -51,24 +51,24 @@ public class FlexMenuStructuralTest {
     }
 
     /**
-     * Test of getLogo method, of class FlexMenu.
+     * Test of getLogo method, of class NewsMenu.
      */
     @Test
     public void testGetLogo() {
         System.out.println("getLogo");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMenu menu = new FlexMenu(user);
+        NewsMenu menu = new NewsMenu(user);
         assertNotNull(menu.getLogo());
     }
 
     /**
-     * Test of getMenuBar method, of class FlexMenu.
+     * Test of getMenuBar method, of class NewsMenu.
      */
     @Test
     public void testGetMenuBar() {
         System.out.println("getMenuBar");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMenu menu = new FlexMenu(user);
+        NewsMenu menu = new NewsMenu(user);
         assertNotNull(menu.getMenuBar());
     }
 

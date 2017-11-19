@@ -10,5 +10,5 @@ package ui.ui;
  * @author zua
  */
 public enum FlexViews {
-    NEWS    
+    NEWS, BOOKS    
 }

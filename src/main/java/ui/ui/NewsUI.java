@@ -7,7 +7,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Component;
 import javax.servlet.annotation.WebServlet;
-import ui.view.main.FlexMainView;
+import ui.view.main.FlexNewsView;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser
@@ -29,8 +29,8 @@ public class NewsUI extends SecuredUI {
         return super.getContent();
     }
     
-    public FlexMainView getMainView() {
-        return (FlexMainView) super.getContent();
+    public FlexNewsView getMainView() {
+        return (FlexNewsView) super.getContent();
     }
 
     @WebServlet(urlPatterns = "/*", name = "NewsUIServlet", asyncSupported = true)

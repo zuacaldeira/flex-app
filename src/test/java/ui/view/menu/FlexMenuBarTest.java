@@ -11,7 +11,7 @@ import db.FlexUser;
 import db.NewsSource;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ui.view.main.FlexMainView;
+import ui.view.main.FlexNewsView;
 import utils.FlexAppLogger;
 import utils.ServiceLocator;
 
@@ -31,13 +31,13 @@ public class FlexMenuBarTest {
     }
 
     /**
-     * Test of initMenuItems method, of class FlexMenuBar.
+     * Test of initMenuItems method, of class NewsMenuBar.
      */
     @Test
     public void testInitMenuBar() {
         System.out.println("initMenuBar");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMenuBar menuBar = new FlexMenuBar(user);
+        NewsMenuBar menuBar = new NewsMenuBar(user);
         assertNotNull(menuBar.getNews());
         assertNotNull(menuBar.getPublishers());
         assertNotNull(menuBar.getCategories());
@@ -47,14 +47,14 @@ public class FlexMenuBarTest {
     }
 
     /**
-     * Test of populate method, of class FlexMenuBar.
+     * Test of populate method, of class NewsMenuBar.
      */
     @Test
     public void testPopulate() {
         System.out.println("populate");
         initMinimalScenario();
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMenuBar menuBar = new FlexMenuBar(user);
+        NewsMenuBar menuBar = new NewsMenuBar(user);
         //menuBar.populate();
         assertNotNull(menuBar.getPublishers());
         assertNotNull(menuBar.getLanguages());
@@ -62,58 +62,58 @@ public class FlexMenuBarTest {
     }
 
     /**
-     * Test of populateNewsCategory method, of class FlexMenuBar.
+     * Test of populateNewsCategory method, of class NewsMenuBar.
      */
     @Test
     public void testPopulateNewsCategory() {
         System.out.println("updateNewsCategory");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMenuBar menuBar = new FlexMenuBar(user);
+        NewsMenuBar menuBar = new NewsMenuBar(user);
         menuBar.populateNewsCategory();
 
     }
 
     /**
-     * Test of populateNewsPublisher method, of class FlexMenuBar.
+     * Test of populateNewsPublisher method, of class NewsMenuBar.
      */
     @Test
     public void testPopulateNewsPublisher() {
         System.out.println("updateNewsPublisher");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMenuBar menuBar = new FlexMenuBar(user);
+        NewsMenuBar menuBar = new NewsMenuBar(user);
         menuBar.populateNewsPublisher();
     }
 
     /**
-     * Test of populateNewsLanguages method, of class FlexMenuBar.
+     * Test of populateNewsLanguages method, of class NewsMenuBar.
      */
     @Test
     public void testUpdateNewsLanguages() {
         System.out.println("updateNewsLanguages");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMenuBar menuBar = new FlexMenuBar(user);
+        NewsMenuBar menuBar = new NewsMenuBar(user);
         menuBar.populateNewsLanguages();
     }
 
     /**
-     * Test of populateNewsCountries method, of class FlexMenuBar.
+     * Test of populateNewsCountries method, of class NewsMenuBar.
      */
     @Test
     public void testUpdateNewsCountries() {
         System.out.println("updateNewsCountries");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMenuBar menuBar = new FlexMenuBar(user);
+        NewsMenuBar menuBar = new NewsMenuBar(user);
         menuBar.populateNewsCountries();
     }
 
     /**
-     * Test of getUI method, of class FlexMenuBar.
+     * Test of getUI method, of class NewsMenuBar.
      */
     @Test
     public void testGetUI() {
         System.out.println("getUI");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMenuBar menuBar = new FlexMenuBar(user);
+        NewsMenuBar menuBar = new NewsMenuBar(user);
         assertNull(menuBar.getUI());
     }
 
@@ -127,11 +127,11 @@ public class FlexMenuBarTest {
         System.out.println("selectLogout");
         initMinimalScenario();
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMainView view = new FlexMainView();
+        FlexNewsView view = new FlexNewsView();
         view.populate();
 
         if (view.getMenu() != null) {
-            FlexMenuBar menuBar = view.getMenu().getMenuBar();
+            NewsMenuBar menuBar = view.getMenu().getMenuBar();
             MenuItem menuItem = menuBar.getLogout();
             MenuBar.Command command = menuItem.getCommand();
             command.menuSelected(menuItem);
@@ -143,11 +143,11 @@ public class FlexMenuBarTest {
         System.out.println("selectOther");
         initMinimalScenario();
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexMainView view = new FlexMainView();
+        FlexNewsView view = new FlexNewsView();
         view.populate();
 
         if (view.getMenu() != null) {
-            FlexMenuBar menuBar = view.getMenu().getMenuBar();
+            NewsMenuBar menuBar = view.getMenu().getMenuBar();
             MenuItem menuItem = menuBar.getLatest();
             MenuBar.Command command = menuItem.getCommand();
             command.menuSelected(menuItem);

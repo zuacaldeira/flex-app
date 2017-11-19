@@ -20,11 +20,11 @@ import java.util.logging.Logger;
 public class FlexBodyWorker extends Thread {
 
     private final FlexUser user;
-    private final FlexBody flexBody;
+    private final NewsBody flexBody;
     private final DataProviderType type;
     private final String value;
 
-    public FlexBodyWorker(FlexUser user, FlexBody flexBody, DataProviderType type, String value) {
+    public FlexBodyWorker(FlexUser user, NewsBody flexBody, DataProviderType type, String value) {
         this.user = user;
         this.flexBody = flexBody;
         this.type = type;
