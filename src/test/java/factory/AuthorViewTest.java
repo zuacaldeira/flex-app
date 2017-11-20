@@ -5,7 +5,7 @@
  */
 package factory;
 
-import button.FakeButton;
+import components.FakeButton;
 import com.vaadin.ui.Button.ClickEvent;
 import db.FlexUser;
 import db.NewsAuthor;

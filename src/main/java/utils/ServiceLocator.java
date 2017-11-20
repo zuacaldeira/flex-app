@@ -116,7 +116,7 @@ public class ServiceLocator {
 
     public FlexBooksServiceInterface findBooksService() {
         try {
-            return (FlexBooksServiceInterface) findService(FLEX_PEOPLE_SERVICE);
+            return (FlexBooksServiceInterface) findService(FLEX_BOOK_SERVICE);
         } catch (NamingException ex) {
             return new FlexBooksService();
         }

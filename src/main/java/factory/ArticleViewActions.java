@@ -5,17 +5,17 @@
  */
 package factory;
 
-import button.CommentButton;
-import button.FakeButton;
-import button.FavoriteButton;
-import button.HideButton;
+import components.CommentButton;
+import components.FakeButton;
+import components.FavoriteButton;
+import components.HideButton;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import db.NewsArticle;
 import services.NewsArticleServiceInterface;
-import ui.view.menu.AddThisFrame;
+import view.menu.AddThisFrame;
 import utils.ServiceLocator;
 
 /**

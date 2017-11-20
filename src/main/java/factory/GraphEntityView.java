@@ -8,7 +8,7 @@ package factory;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import db.GraphEntity;
-import ui.ui.SecuredUI;
+import ui.SecuredUI;
 
 /**
  *

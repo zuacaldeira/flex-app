@@ -6,8 +6,8 @@
 package utils;
 
 import com.vaadin.ui.Component;
-import ui.view.body.NewsBody;
-import ui.view.main.FlexNewsView;
+import view.body.NewsBody;
+import view.main.FlexNewsView;
 
 /**
  *

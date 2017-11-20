@@ -12,6 +12,7 @@ import db.NewsArticle;
 import db.NewsSource;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import org.neo4j.ogm.cypher.query.SortOrder;
 import org.neo4j.ogm.session.Session;
 import services.Neo4jQueries;
@@ -31,18 +32,21 @@ public class ArticlesRepository {
     }
 
     public Collection<NewsArticle> loadNodesWithoutBackend(DataProviderType type, String value, FlexUser user) {
-        System.out.println("INSIDE loadNodesWithoutBackend");
-        String query = createQuery(type, value, user);
-        return Lists.newArrayList(session.query(NewsArticle.class, query, new HashMap<>()));
+        if (user != null) {
+            System.out.println("INSIDE loadNodesWithoutBackend");
+            String query = createQuery(type, value, user);
+            return Lists.newLinkedList(session.query(NewsArticle.class, query, new HashMap<>()));
+        }
+        return new LinkedList<>();
     }
 
     private String createQuery(DataProviderType type, String value, FlexUser user) {
         int limit = 10;
         switch (type) {
             case LATEST:
-                return Neo4jQueries.getFindAllQuery(NewsArticle.class, user.getUsername(), null, null, new SortOrder().add(SortOrder.Direction.DESC, "title"), limit);
+                return Neo4jQueries.getFindAllQuery(NewsArticle.class, user.getUsername(), null, null, new SortOrder().add(SortOrder.Direction.DESC, "publishedAt"), limit);
             case OLDEST:
-                return Neo4jQueries.getFindAllQuery(NewsArticle.class, user.getUsername(), null, null, new SortOrder().add(SortOrder.Direction.ASC, "title"), limit);
+                return Neo4jQueries.getFindAllQuery(NewsArticle.class, user.getUsername(), null, null, new SortOrder().add(SortOrder.Direction.ASC, "publishedAt"), limit);
             case READ:
                 return Neo4jQueries.getMatchStateQuery(NewsArticle.class, "READ", user.getUsername(), null, null, limit);
             case FAVORITE:
@@ -68,24 +72,26 @@ public class ArticlesRepository {
         if (value == null || value.isEmpty()) {
             return loadNodes(type, user);
         }
-
+        String username = (user != null) ? user.getUsername() : null;
+        
         switch (type) {
             case CATEGORY:
-                return ServiceLocator.getInstance().findArticlesService().findArticlesWithCategory(user.getUsername(), getCategoryDBCaption(value));
+                return ServiceLocator.getInstance().findArticlesService().findArticlesWithCategory(username, getCategoryDBCaption(value));
             case PUBLISHER:
-                return ServiceLocator.getInstance().findArticlesService().findArticlesWithSource(user.getUsername(), getSourceIdForSourceName(value));
+                return ServiceLocator.getInstance().findArticlesService().findArticlesWithSource(username, getSourceIdForSourceName(value));
             case LANGUAGES:
-                return ServiceLocator.getInstance().findArticlesService().findArticlesWithLanguage(user.getUsername(), MyDateUtils.getLanguageCode(value));
+                return ServiceLocator.getInstance().findArticlesService().findArticlesWithLanguage(username, MyDateUtils.getLanguageCode(value));
             case COUNTRIES:
-                return ServiceLocator.getInstance().findArticlesService().findArticlesWithCountry(user.getUsername(), MyDateUtils.getCountryCode(value));
+                return ServiceLocator.getInstance().findArticlesService().findArticlesWithCountry(username, MyDateUtils.getCountryCode(value));
             case SEARCH:
                 return ServiceLocator.getInstance().findArticlesService().findArticlesWithText(value);
             default:
-                return ServiceLocator.getInstance().findArticlesService().findLatest(user.getUsername());
+                return ServiceLocator.getInstance().findArticlesService().findLatest(username);
         }
     }
 
     public Collection<NewsArticle> loadNodes(DataProviderType type, FlexUser user) {
+        String username = (user != null) ? user.getUsername() : null;
         switch (type) {
             case LATEST:
                 return ServiceLocator.getInstance().findArticlesService().findLatest(user.getUsername());
