@@ -19,6 +19,7 @@ public class FlexCaptions {
     public static final String FAVORITE = "Favorite";
     public static final String HIDE = "Hide";
     public static final String HOME = "Home";
+    public static final String LOGIN = "Login";
     public static final String LOGOUT = "Logout";
     public static final String SAVE = "Save";
     public static final String SEARCH = "Search";

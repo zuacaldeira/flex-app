@@ -27,7 +27,7 @@ public class BooksMenu extends HorizontalLayout implements CanPopulate {
     private final FlexUser user;
 
     private FlexLogo logo;
-    private NewsMenuBar menuBar;
+    private BooksMenuBar menuBar;
     private TextField searchBox;
 
     public BooksMenu(FlexUser user) {
@@ -73,12 +73,12 @@ public class BooksMenu extends HorizontalLayout implements CanPopulate {
         return logo;
     }
 
-    public NewsMenuBar getMenuBar() {
+    public BooksMenuBar getMenuBar() {
         return menuBar;
     }
 
     private void initMenuBar() {
-        this.menuBar = new NewsMenuBar(user);
+        this.menuBar = new BooksMenuBar(user);
     }
 
     private void initLogo() {

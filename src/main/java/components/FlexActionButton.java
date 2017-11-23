@@ -13,6 +13,8 @@ import com.vaadin.server.Resource;
  */
 public abstract class FlexActionButton extends FlexButton {
 
+    private static final long serialVersionUID = 1703002983017827112L;
+
     public FlexActionButton(String caption, Resource icon) {
         super(icon);
         super.setDescription(caption);

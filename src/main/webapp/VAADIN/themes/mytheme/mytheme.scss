@@ -136,13 +136,7 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
 
     .search-box {
         box-shadow: $flex-item-shadow;
-
-        .search-term {
-            background: rgba(0, 0, 0, .6);
-        }
-        .search-button {
-            background: rgba(0, 0, 0, .6);
-        }
+        background: transparent;
     }
 
     .flex-view {
@@ -156,6 +150,12 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
         color: rgba(255, 0, 0, .7);
     }
 
+    .books-button {
+        background: rgba(255, 255, 0, .7);            
+        box-shadow: 0 4px rgba(255, 0, 0, .7);
+        color: rgba(255, 0, 0, .7);
+    }
+    
     .books-menu {
         background: rgba(255, 255, 0, .7);            
         box-shadow: 0 4px rgba(255, 0, 0, .7);

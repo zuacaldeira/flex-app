@@ -20,12 +20,18 @@ public class NewsBody extends FlexPanel implements CanPopulate {
 
     private final FlexUser user;
     private MasterDetailView masterDetailView;
-
+    private FlexBodyWorker worker;
+    
     public NewsBody(FlexUser user) {
         this.user = user;
         this.initMasterDetailView();
         super.addStyleName("flex-body");
         super.setSizeFull();
+        super.addDetachListener(e -> {
+            if(worker != null) {
+                worker.interrupt();
+            }
+        });
     }
 
     private void initMasterDetailView() {
@@ -55,7 +61,11 @@ public class NewsBody extends FlexPanel implements CanPopulate {
     public void populate(DataProviderType type, String value) {
         System.out.println("FlexBodyThread#run(): START");
         initMasterDetailView();
-        new FlexBodyWorker(user, masterDetailView, type, value).start();
+        if(worker != null) {
+            worker.interrupt();
+        }
+        worker = new FlexBodyWorker(user, masterDetailView, type, value);
+        worker.start();
         System.out.println("FlexBodyThread#run(): DONE");
     }
 

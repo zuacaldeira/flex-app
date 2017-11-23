@@ -5,14 +5,9 @@
  */
 package components;
 
-import components.LoginForm;
-import components.SaveButton;
-import com.vaadin.ui.CheckBox;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.PasswordField;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import components.FlexTextField;
 
 /**
  *
@@ -28,10 +23,7 @@ public class LoginFormTest {
         LoginForm form = new LoginForm();
         assertNotNull(form.getUsername());
         assertNotNull(form.getPassword());
-        assertNotNull(form.getPassword2());
-        assertNotNull(form.getRegister());
-        assertNotNull(form.getRegisterOrSave());
-        assertNotNull(form.getSaveButton());
+        assertNotNull(form.getLoginButton());
     }
     
     /**
@@ -58,29 +50,6 @@ public class LoginFormTest {
         password.setValue("Password");
     }
 
-    /**
-     * Test of getPassword2 method, of class LoginForm.
-     */
-    @Test
-    public void testGetPassword2() {
-        System.out.println("getPassword2");
-        LoginForm instance = new LoginForm();
-        PasswordField password2 = instance.getPassword2();
-        assertNotNull(password2);
-        password2.setValue("Password2");
-    }
-
-    /**
-     * Test of getRegister method, of class LoginForm.
-     */
-    @Test
-    public void testGetRegister() {
-        System.out.println("getRegister");
-        LoginForm instance = new LoginForm();
-        CheckBox register = instance.getRegister();
-        assertNotNull(register);
-        register.setValue(true);
-    }
 
     /**
      * Test of getSaveButton method, of class LoginForm.
@@ -91,36 +60,7 @@ public class LoginFormTest {
         LoginForm instance = new LoginForm();
         instance.getUsername().setValue("username");
         instance.getPassword().setValue("pass");
-        SaveButton save = instance.getSaveButton();
+        LoginButton save = instance.getLoginButton();
         assertNotNull(save);
-        save.click();
     }
-
-    /**
-     * Test of getSaveButton method, of class LoginForm.
-     */
-    @Test
-    public void testGetSaveButton2() {
-        System.out.println("getSaveButton");
-        LoginForm instance = new LoginForm();
-        instance.getUsername().setValue("username");
-        instance.getPassword().setValue("pass");
-        instance.getPassword2().setValue("pass2");
-        instance.getRegister().setValue(true);
-        SaveButton save = instance.getSaveButton();
-        assertNotNull(save);
-        save.click();
-    }
-
-    /**
-     * Test of getRegisterOrSave method, of class LoginForm.
-     */
-    @Test
-    public void testGetRegisterOrSave() {
-        System.out.println("getRegisterOrSave");
-        LoginForm instance = new LoginForm();
-        HorizontalLayout register = instance.getRegisterOrSave();
-        assertNotNull(register);
-    }
-    
 }

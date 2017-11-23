@@ -11,9 +11,9 @@ import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
+import com.vaadin.ui.UI;
 import db.FlexUser;
 import services.FlexUserServiceInterface;
-import com.vaadin.ui.UI;
 import ui.FlexViews;
 import utils.ServiceLocator;
 
@@ -21,7 +21,7 @@ import utils.ServiceLocator;
  *
  * @author zua
  */
-public class LoginForm extends FlexForm {
+public class RegisterForm extends FlexForm {
 
     private static final long serialVersionUID = 5363531124855151443L;
 
@@ -29,19 +29,19 @@ public class LoginForm extends FlexForm {
     private FlexUser user;
 
     private Binder<FlexUser> binder;
-
     private FlexTextField username;
     private PasswordField password;
-    private LoginButton loginButton;
+    private PasswordField password2;
+    private FlexButton registerButton;
 
-    public LoginForm() {
+    public RegisterForm() {
         binder = new Binder<>();
-        user = new FlexUser();
         initUsername();
         initPassword();
-        initSaveButton();
+        initPassword2();
+        initRegisterButton();
         service = ServiceLocator.getInstance().findUserService();
-        super.addComponents(username, password, loginButton);
+        super.addComponents(username, password, password2, registerButton);
         super.setHeightUndefined();
         super.setWidth("50%");
         super.setSpacing(true);
@@ -64,7 +64,6 @@ public class LoginForm extends FlexForm {
         binder.forField(username)
                 .asRequired("Username missing. Please enter your email address")
                 .withValidator(new EmailValidator("Username must be a valid email."))
-                .withValidator(u -> existsUserNamed(u), "There is already a user registered with this email")
                 .bind(FlexUser::getUsername, FlexUser::setUsername);
     }
 
@@ -80,14 +79,24 @@ public class LoginForm extends FlexForm {
                 .bind(FlexUser::getPassword, FlexUser::setPassword);
     }
 
+    private void initPassword2() {
+        password2 = new PasswordField("Password 2");
+        password2.setSizeFull();
+        password2.setIcon(VaadinIcons.LOCK);
+        password2.setRequiredIndicatorVisible(true);
+        binder.forField(password2)
+                .asRequired("Password 2 is missing. Please choose a pasword")
+                .withValidator(pass -> pass.equals(password.getValue()), "Passwords must be equal")
+                .bind(FlexUser::getPassword, FlexUser::setPassword);
+    }
 
-    private void initSaveButton() {
-        loginButton = new LoginButton();
-        loginButton.addClickListener(event -> {
+    private void initRegisterButton() {
+        registerButton = new FlexButton("Register", VaadinIcons.CHECK);
+        registerButton.addClickListener(event -> {
             try {
                 binder.writeBean(user);
-                loginButton.setEnabled(false);
-                user = service.login(user.getUsername(), user.getPassword());
+                registerButton.setEnabled(false);
+                user = ServiceLocator.getInstance().findUserService().register(user.getUsername(), user.getPassword());
                 getSession().setAttribute("user", user);
                 UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS);
             } catch (ValidationException ex) {
@@ -104,8 +113,8 @@ public class LoginForm extends FlexForm {
         return password;
     }
 
-    public LoginButton getLoginButton() {
-        return loginButton;
+    public PasswordField getPassword2() {
+        return password2;
     }
 
 }

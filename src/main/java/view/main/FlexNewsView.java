@@ -8,6 +8,7 @@ package view.main;
 import components.AdvertisementPanel;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Page;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.UI;
 import view.body.NewsBody;
@@ -44,10 +45,6 @@ public class FlexNewsView extends VerticalLayout implements View, CanPopulate {
     private void initBody() {
         body = new NewsBody(user);
         body.setSizeFull();
-        /*if (Page.getCurrent() != null) {
-            browserHeight = Page.getCurrent().getBrowserWindowHeight();
-            body.setHeight(2 * browserHeight, Unit.PIXELS);
-        }*/
     }
 
     private void initFooter() {
@@ -113,6 +110,7 @@ public class FlexNewsView extends VerticalLayout implements View, CanPopulate {
         super.setExpandRatio(body, 1f);
         super.setStyleName("flex-view");
         super.setSizeFull();
+        //super.setHeightUndefined();
         super.setMargin(false);
         populate();
     }

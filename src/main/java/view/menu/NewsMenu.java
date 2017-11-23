@@ -29,22 +29,27 @@ public class NewsMenu extends HorizontalLayout implements CanPopulate {
     private FlexLogo logo;
     private NewsMenuBar menuBar;
     private TextField searchBox;
+    //private BooksButton booksButton;
+    
 
     public NewsMenu(FlexUser user) {
         this.user = user;
         initLogo();
         initMenuBar();
         initSearchBox();
+        //initBooksButton();
         super.setWidth("100%");
         super.setMargin(false);
         super.addComponent(logo);
         super.addComponent(menuBar);
+        //super.addComponent(booksButton);
         super.addComponent(searchBox);
         super.setExpandRatio(logo, .2f);
         super.setExpandRatio(menuBar, .6f);
         super.setExpandRatio(searchBox, .2f);
         super.setComponentAlignment(logo, Alignment.MIDDLE_CENTER);
         super.setComponentAlignment(menuBar, Alignment.MIDDLE_CENTER);
+        //super.setComponentAlignment(booksButton, Alignment.MIDDLE_CENTER);
         super.setComponentAlignment(searchBox, Alignment.MIDDLE_CENTER);
         super.setStyleName("flex-menu");
     }
@@ -60,6 +65,13 @@ public class NewsMenu extends HorizontalLayout implements CanPopulate {
             body.populate(DataProviderType.SEARCH, e.getValue());
         });
     }
+    
+    /*private void initBooksButton() {
+        booksButton = new BooksButton();
+        booksButton.addClickListener(e -> {
+            getUI().getNavigator().navigateTo(FlexViews.BOOKS);
+        });
+    }*/
     
     private NewsBody getBody() {
         return ((NewsUI) UI.getCurrent()).getMainView().getBody();

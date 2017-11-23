@@ -41,12 +41,6 @@ public class FlexBodyWorker extends Thread {
         }
         Collection<NewsArticle> nodes = new ArticlesRepository().loadNodes(type, value, user);
         System.out.println("Loaded " + nodes.size() + " articles");
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(FlexBodyWorker.class.getName()).log(Level.SEVERE, null, ex);
-            return;
-        }
 
         int i = 1;
         for (NewsArticle article : nodes) {
