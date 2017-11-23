@@ -64,7 +64,7 @@ public class LoginForm extends FlexForm {
         binder.forField(username)
                 .asRequired("Username missing. Please enter your email address")
                 .withValidator(new EmailValidator("Username must be a valid email."))
-                .withValidator(u -> existsUserNamed(u), "There is already a user registered with this email")
+                .withValidator(u -> existsUserNamed(u), "There is no user registered with this email")
                 .bind(FlexUser::getUsername, FlexUser::setUsername);
     }
 

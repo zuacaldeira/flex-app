@@ -28,7 +28,7 @@ public class RegisterForm extends FlexForm {
     private FlexUserServiceInterface service;
     private FlexUser user;
 
-    private Binder<FlexUser> binder;
+    private final Binder<FlexUser> binder;
     private FlexTextField username;
     private PasswordField password;
     private PasswordField password2;
@@ -36,6 +36,7 @@ public class RegisterForm extends FlexForm {
 
     public RegisterForm() {
         binder = new Binder<>();
+        user = new FlexUser();
         initUsername();
         initPassword();
         initPassword2();
@@ -64,6 +65,7 @@ public class RegisterForm extends FlexForm {
         binder.forField(username)
                 .asRequired("Username missing. Please enter your email address")
                 .withValidator(new EmailValidator("Username must be a valid email."))
+                .withValidator(u -> !existsUserNamed(u), "There is already a user registered with this email")
                 .bind(FlexUser::getUsername, FlexUser::setUsername);
     }
 
