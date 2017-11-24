@@ -5,10 +5,10 @@
  */
 package view.main;
 
+import com.vaadin.annotations.JavaScript;
 import components.AdvertisementPanel;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.Page;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.UI;
 import view.body.NewsBody;
@@ -23,6 +23,7 @@ import view.menu.NewsMenu;
  *
  * @author zua
  */
+@JavaScript("app://VAADIN/themes/mytheme/js/adsense.js")
 public class FlexNewsView extends VerticalLayout implements View, CanPopulate {
 
     private static final long serialVersionUID = 8467619842785075810L;

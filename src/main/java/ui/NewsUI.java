@@ -1,7 +1,9 @@
 package ui;
 
+import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
@@ -19,6 +21,8 @@ import view.main.FlexNewsView;
  * initialize non-component functionality.
  */
 @Theme("mytheme")
+@Title("Ngutu Productive Reader")
+@JavaScript("//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
 @Push
 public class NewsUI extends SecuredUI {
 
