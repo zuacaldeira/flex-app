@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui;
+package org.ngutu.ui.news;
 
 import com.vaadin.navigator.Navigator.ClassBasedViewProvider;
-import view.main.FlexNewsView;
+import org.ngutu.ui.news.NewsView;
+import ui.FlexViews;
 
 /**
  *
@@ -17,7 +18,7 @@ public class NewsViewProvider extends ClassBasedViewProvider {
     private static final long serialVersionUID = -7126689158013262916L;
 
     public NewsViewProvider() {
-        super(FlexViews.NEWS, FlexNewsView.class);
+        super(FlexViews.NEWS, NewsView.class);
     }
     
     

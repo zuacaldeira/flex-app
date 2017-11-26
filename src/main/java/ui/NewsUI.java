@@ -9,7 +9,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Component;
 import javax.servlet.annotation.WebServlet;
-import view.main.FlexNewsView;
+import org.ngutu.ui.news.NewsView;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser
@@ -22,7 +22,8 @@ import view.main.FlexNewsView;
  */
 @Theme("mytheme")
 @Title("Ngutu Productive Reader")
-@JavaScript("//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+@JavaScript("app://VAADIN/themes/mytheme/js/adsense.js")
+//@HtmlImport("app://VAADIN/themes/mytheme/html/adsense.html")
 @Push
 public class NewsUI extends SecuredUI {
 
@@ -33,8 +34,8 @@ public class NewsUI extends SecuredUI {
         return super.getContent();
     }
     
-    public FlexNewsView getMainView() {
-        return (FlexNewsView) super.getContent();
+    public NewsView getMainView() {
+        return (NewsView) super.getContent();
     }
 
     @WebServlet(urlPatterns = "/*", name = "NewsUIServlet", asyncSupported = true)

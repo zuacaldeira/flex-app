@@ -5,12 +5,12 @@
  */
 package ui;
 
+import org.ngutu.ui.news.NewsViewProvider;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import db.FlexUser;
-import db.Neo4jSessionFactory;
 
 /**
  *
@@ -21,7 +21,6 @@ public abstract class SecuredUI extends UI {
 
     private static final long serialVersionUID = 2637212442082775079L;
     private Navigator navigator;
-    private Neo4jSessionFactory factory = Neo4jSessionFactory.getInstance();
     
     @Override
     public void init(VaadinRequest request) {

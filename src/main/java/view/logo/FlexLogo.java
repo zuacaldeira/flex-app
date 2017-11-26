@@ -5,9 +5,11 @@
  */
 package view.logo;
 
+import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 
 /**
@@ -18,22 +20,27 @@ public class FlexLogo extends HorizontalLayout {
 
     private static final long serialVersionUID = 8041620231458973471L;
 
-    private final Label ngutu;
-    private final FacebookButton facebookButton;
-    private final TwitterButton twitterButton;
+    private Image image;
+    private Label ngutu;
     
     public FlexLogo() {
-        ngutu = new Label("Ngutu.org");
-        ngutu.setStyleName("ngutu");
-        
-        facebookButton = new FacebookButton();
-        twitterButton = new TwitterButton();
-        super.addComponents(ngutu, facebookButton, twitterButton);
-        super.setComponentAlignment(facebookButton, Alignment.MIDDLE_CENTER);
-        super.setComponentAlignment(twitterButton, Alignment.MIDDLE_LEFT);
-        super.setStyleName("flex-logo");
+        initLabel();
+        initImage();
+        super.addComponents(image, ngutu);
+        super.setComponentAlignment(ngutu, Alignment.MIDDLE_CENTER);
         super.setSizeUndefined();
         super.setMargin(new MarginInfo(false, false, false, true));
         super.setSpacing(false);
+    }
+
+    private void initLabel() {
+        ngutu = new Label("Ngutu.org");
+        ngutu.setStyleName("flex-logo");
+    }
+
+    private void initImage() {
+        image = new Image(null, new ThemeResource("logo1.png"));
+        image.setWidth("64px");
+        image.setHeight("64px");
     }
 }

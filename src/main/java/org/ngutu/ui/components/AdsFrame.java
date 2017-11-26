@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package components;
+package org.ngutu.ui.components;
 
 import com.vaadin.server.Resource;
 import com.vaadin.ui.BrowserFrame;
@@ -22,4 +22,9 @@ public abstract class AdsFrame extends BrowserFrame {
         super.setStyleName("ads-frame");
     }
     
+    public AdsFrame(String caption) {
+        super(caption);
+        super.setSizeFull();
+        super.setStyleName("ads-frame");
+    }
 }

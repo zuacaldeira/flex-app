@@ -13,7 +13,7 @@ import com.vaadin.ui.UI;
 import data.DataProviderType;
 import db.FlexUser;
 import ui.NewsUI;
-import view.body.NewsBody;
+import org.ngutu.ui.news.NewsBody;
 import view.logo.FlexLogo;
 
 /**

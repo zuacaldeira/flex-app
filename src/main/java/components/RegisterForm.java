@@ -5,6 +5,7 @@
  */
 package components;
 
+import org.ngutu.ui.components.FlexForm;
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationException;
 import com.vaadin.data.validator.EmailValidator;

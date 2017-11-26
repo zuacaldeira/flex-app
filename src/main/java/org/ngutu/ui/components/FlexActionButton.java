@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package components;
+package org.ngutu.ui.components;
 
 import com.vaadin.server.Resource;
+import components.FlexButton;
+import components.FlexStyleNames;
 
 /**
  *

@@ -3,22 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package components;
+package org.ngutu.ui.amazon;
 
-import com.vaadin.annotations.JavaScript;
-import com.vaadin.server.Page;
+import org.ngutu.ui.components.AdsFrame;
 import com.vaadin.server.ThemeResource;
 
 /**
  *
  * @author zua
  */
-public class AdSenseFrame extends AdsFrame {
+public class AmazonFrame extends AdsFrame {
 
     private static final long serialVersionUID = 1911606664709857426L;
 
-    public AdSenseFrame() {
-        super("Powered by AdSense", new ThemeResource("html/adsense.html"));
+    public AmazonFrame() {
+        super("Powered by Amazon", new ThemeResource("html/amazon.html"));
     }
     
 }

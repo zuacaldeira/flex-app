@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.menu;
+package org.ngutu.ui.news;
 
-import view.menu.NewsMenu;
+import org.ngutu.ui.news.NewsMenu;
 import db.FlexUser;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -15,12 +15,12 @@ import org.junit.Ignore;
  *
  * @author zua
  */
-public class FlexMenuStructuralTest {
+public class NewsMenuStructuralTest {
 
     private static final String TEST_USERNAME = "test:username";
     private static final String TEST_PASSWORD = "test:password";
 
-    public FlexMenuStructuralTest() {
+    public NewsMenuStructuralTest() {
     }
 
     /**

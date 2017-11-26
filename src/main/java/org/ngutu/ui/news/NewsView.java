@@ -3,44 +3,39 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.main;
+package org.ngutu.ui.news;
 
-import com.vaadin.annotations.JavaScript;
-import components.AdvertisementPanel;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.UI;
-import view.body.NewsBody;
 import com.vaadin.ui.VerticalLayout;
+import org.ngutu.ui.adsense.AdSenseFrame;
 import db.FlexUser;
 import ui.SecuredUI;
 import view.menu.CanPopulate;
 import view.footer.FlexFooter;
-import view.menu.NewsMenu;
 
 /**
  *
  * @author zua
  */
-@JavaScript("app://VAADIN/themes/mytheme/js/adsense.js")
-public class FlexNewsView extends VerticalLayout implements View, CanPopulate {
+public class NewsView extends VerticalLayout implements View, CanPopulate {
 
     private static final long serialVersionUID = 8467619842785075810L;
 
     private FlexUser user;
     private NewsMenu menu;
     private NewsBody body;
-    private AdvertisementPanel ads;
+    private AdSenseFrame ads;
     private FlexFooter footer;
     private int browserHeight;
 
-    public FlexNewsView() {
+    public NewsView() {
     }
 
     private void initMenu() {
         menu = new NewsMenu(user);
-        menu.setWidth("100%");
+        menu.setHeight("64px");
     }
 
     private void initBody() {
@@ -50,11 +45,11 @@ public class FlexNewsView extends VerticalLayout implements View, CanPopulate {
 
     private void initFooter() {
         footer = new FlexFooter(user);
+        footer.setHeight("48px");
     }
 
     private void initAds() {
-        ads = new AdvertisementPanel("Barak Obama");
-        ads.setHeight(browserHeight, Unit.PIXELS);
+        ads = new AdSenseFrame();
     }
 
     public void setMenu(NewsMenu menu) {
@@ -106,7 +101,7 @@ public class FlexNewsView extends VerticalLayout implements View, CanPopulate {
         initBody();
         initFooter();
         initMenu();
-        //initAds();
+        initAds();
         super.addComponents(menu, body, footer);
         super.setExpandRatio(body, 1f);
         super.setStyleName("flex-view");

@@ -3,20 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package components;
-
-import com.vaadin.ui.FormLayout;
+package org.ngutu.ui.amazon;
 
 /**
  *
  * @author zua
  */
-public abstract class FlexForm extends FormLayout {
-
-    public FlexForm() {
-        setStyleName("flex-form");
-    }
-    
-    
+public class AmazonCampaign {
+    public static final String FAVORITE_BOOK_OF = "Favorite Book Of";
     
 }

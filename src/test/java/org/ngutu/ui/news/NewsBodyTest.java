@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.body;
+package org.ngutu.ui.news;
 
-import view.body.NewsBody;
+import org.ngutu.ui.news.NewsBody;
 import data.DataProviderType;
 import db.FlexUser;
 import db.NewsArticle;
@@ -17,12 +17,12 @@ import static org.junit.Assert.*;
  *
  * @author zua
  */
-public class FlexBodyTest {
+public class NewsBodyTest {
     
     private static final String TEST_USERNAME = "test:username";
     private static final String TEST_PASSWORD = "test:password";
     
-    public FlexBodyTest() {
+    public NewsBodyTest() {
     }
 
     /**

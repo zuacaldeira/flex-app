@@ -3,23 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.body;
+package org.ngutu.ui.news;
 
 import factory.GraphEntityView;
 import com.vaadin.server.ExternalResource;
-import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
-import db.Advertises;
 import db.FlexUser;
 import db.GraphEntity;
-import java.util.Collection;
-import db.NewsArticle;
 import factory.FlexViewFactory;
 import components.FlexPanel;
-import services.FlexAdvertisementServiceInterface;
-import utils.ServiceLocator;
 
 /**
  *
@@ -31,7 +25,6 @@ public class MasterDetailView extends FlexPanel {
 
     private SummariesPanel summariesPanel;
     private BrowserFrame infoFrame;
-    private BrowserFrame amazonAds;
     private HorizontalLayout baseLayout;
     private GraphEntityView selected;
     private Object myData;
@@ -43,12 +36,10 @@ public class MasterDetailView extends FlexPanel {
         myData = null;
         initSummaries(1);
         initBrowserFrame();
-        initAmazonAds();
-        baseLayout = new HorizontalLayout(summariesPanel, infoFrame, amazonAds);
+        baseLayout = new HorizontalLayout(summariesPanel, infoFrame);
         baseLayout.setSizeFull();
         baseLayout.setExpandRatio(summariesPanel, .25f);
         baseLayout.setExpandRatio(infoFrame, 1f);
-        baseLayout.setExpandRatio(amazonAds, .25f);
         baseLayout.setSpacing(true);
         baseLayout.setMargin(true);
         super.setSizeFull();
@@ -67,14 +58,6 @@ public class MasterDetailView extends FlexPanel {
         infoFrame.setStyleName("info-frame");
     }
 
-    private void initAmazonAds() {
-        amazonAds = new BrowserFrame();
-        amazonAds.setSource(new ThemeResource("./html/amazon.html"));
-        amazonAds.setSizeFull();
-        amazonAds.setCaption("");
-        amazonAds.setStyleName("info-frame");
-    }
-    
     public SummariesPanel getSummaries() {
         return summariesPanel;
     }
@@ -101,7 +84,8 @@ public class MasterDetailView extends FlexPanel {
         String url = selected.getItem().getUrl();
         if (url != null) {
             infoFrame.setSource(new ExternalResource(url));
-            infoFrame.setCaption("Reading: " + url);
+            infoFrame.setCaptionAsHtml(true);
+            infoFrame.setCaption("<a href=\"" + url + "\"> Read this article outside Ngutu.org </a>");
         }
     }
 
@@ -125,15 +109,6 @@ public class MasterDetailView extends FlexPanel {
 
     public void titlesOnly() {
         summariesPanel.titlesOnly();
-    }
-
-    public String getAdvertisementUrl(NewsArticle article) {
-        FlexAdvertisementServiceInterface service = ServiceLocator.getInstance().findAdvertisementService();
-        Collection<Advertises> all = service.findAll(article);
-        if (!all.isEmpty()) {
-            return all.iterator().next().getAdvertisementUrl();
-        }
-        return article.getUrl();
     }
 
     public void addItemView(GraphEntity item) {

@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.menu;
+package org.ngutu.ui.news;
 
-import view.body.NewsBody;
-import utils.UIUtils;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
 import java.util.Set;
@@ -19,12 +16,10 @@ import data.DataProviderType;
 import java.util.Collection;
 import java.util.TreeSet;
 import services.NewsSourceServiceInterface;
-import ui.FlexViews;
 import ui.NewsUI;
-import view.body.MasterDetailView;
-import view.main.FlexNewsView;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
+import view.menu.CanPopulate;
 
 /**
  *
@@ -43,7 +38,6 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
     private MenuItem publishers;
     private MenuItem languages;
     private MenuItem countries;
-    private MenuItem logout;
 
     private MenuItem read;
     private MenuItem favorite;
@@ -66,14 +60,6 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
         categories = addItem("Categories", null, null);
         languages = addItem("Languages", null, null);
         countries = addItem("Countries", null, null);
-        logout = addItem("", VaadinIcons.SIGN_OUT, (selectedItem) -> {
-            if (UI.getCurrent() != null) {
-                Notification.show("LOGOUT");
-                getSession().setAttribute("user", null);
-                UI.getCurrent().getNavigator().navigateTo(FlexViews.WELCOME);
-            }
-        });
-
         setSizeUndefined();
         setAutoOpen(true);
         setStyleName("news-menu-bar");
@@ -140,7 +126,7 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
     }
 
     private void populateViews() {
-        NewsBody body = ((FlexNewsView)getUI().getContent()).getBody();
+        NewsBody body = ((NewsView)getUI().getContent()).getBody();
         MasterDetailView masterDetail = body.getMasterDetail();
         full = news.addItem("Full", (selectedItem) -> {masterDetail.full();});
         imagesOnly = news.addItem("Images Only", (selectedItem) -> {masterDetail.imagesOnly();});
@@ -157,15 +143,17 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
     }
 
     private void populateNewsByStatus() {
-        read = news.addItem("Read", VaadinIcons.EYE_SLASH, (selectedMenuItem) -> {
-            updateBody(DataProviderType.READ, null);
-        });
-        favorite = news.addItem("Favorite", VaadinIcons.STAR, (selectedMenuItem) -> {
-            updateBody(DataProviderType.FAVORITE, null);
-        });
-        fake = news.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, (selectMenuItem) -> {
-            updateBody(DataProviderType.FAKE, null);
-        });
+        if(user != null) {
+            read = news.addItem("Read", VaadinIcons.EYE_SLASH, (selectedMenuItem) -> {
+                updateBody(DataProviderType.READ, null);
+            });
+            favorite = news.addItem("Favorite", VaadinIcons.STAR, (selectedMenuItem) -> {
+                updateBody(DataProviderType.FAVORITE, null);
+            });
+            fake = news.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, (selectMenuItem) -> {
+                updateBody(DataProviderType.FAKE, null);
+            });
+        }
     }
 
     @Override
@@ -174,7 +162,7 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
     }
 
     private void updateBody(DataProviderType dataType, String value) {
-        NewsBody body = ((FlexNewsView) ((NewsUI)getUI()).getContent()).getBody();
+        NewsBody body = ((NewsView) ((NewsUI)getUI()).getContent()).getBody();
         if (body != null) {
             body.populate(dataType, value);
         } else {
@@ -208,10 +196,6 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
 
     public MenuItem getCountries() {
         return countries;
-    }
-
-    public MenuItem getLogout() {
-        return logout;
     }
 
     public NewsSourceServiceInterface getSourcesService() {

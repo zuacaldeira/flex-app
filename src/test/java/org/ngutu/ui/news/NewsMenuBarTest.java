@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.menu;
+package org.ngutu.ui.news;
 
-import view.menu.NewsMenuBar;
+import org.ngutu.ui.news.NewsMenuBar;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import db.FlexUser;
 import db.NewsSource;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import view.main.FlexNewsView;
+import org.ngutu.ui.news.NewsView;
 import utils.FlexAppLogger;
 import utils.ServiceLocator;
 
@@ -20,13 +20,13 @@ import utils.ServiceLocator;
  *
  * @author zua
  */
-public class FlexMenuBarTest {
+public class NewsMenuBarTest {
 
     private static final String TEST_USERNAME = "test:username";
     private static final String TEST_PASSWORD = "test:password";
     private FlexAppLogger logger;
 
-    public FlexMenuBarTest() {
+    public NewsMenuBarTest() {
         logger = new FlexAppLogger(getClass());
 
     }
@@ -44,7 +44,6 @@ public class FlexMenuBarTest {
         assertNotNull(menuBar.getCategories());
         assertNotNull(menuBar.getCountries());
         assertNotNull(menuBar.getLanguages());
-        assertNotNull(menuBar.getLogout());
     }
 
     /**
@@ -124,27 +123,11 @@ public class FlexMenuBarTest {
     }
 
     @Test
-    public void testSelectLogout() {
-        System.out.println("selectLogout");
-        initMinimalScenario();
-        FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexNewsView view = new FlexNewsView();
-        view.populate();
-
-        if (view.getMenu() != null) {
-            NewsMenuBar menuBar = view.getMenu().getMenuBar();
-            MenuItem menuItem = menuBar.getLogout();
-            MenuBar.Command command = menuItem.getCommand();
-            command.menuSelected(menuItem);
-        }
-    }
-
-    @Test
     public void testSelectOther() {
         System.out.println("selectOther");
         initMinimalScenario();
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        FlexNewsView view = new FlexNewsView();
+        NewsView view = new NewsView();
         view.populate();
 
         if (view.getMenu() != null) {

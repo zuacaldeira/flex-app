@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.body;
+package org.ngutu.ui.news;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;

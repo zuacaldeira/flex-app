@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.menu;
+package org.ngutu.ui.addThis;
 
-import components.AdsFrame;
+import org.ngutu.ui.components.AdsFrame;
 import com.vaadin.server.ThemeResource;
 
 /**

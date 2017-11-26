@@ -15,7 +15,7 @@ import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import db.NewsArticle;
 import services.NewsArticleServiceInterface;
-import view.menu.AddThisFrame;
+import org.ngutu.ui.addThis.AddThisFrame;
 import utils.ServiceLocator;
 
 /**
@@ -36,11 +36,13 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
     public ArticleViewActions(FlexUser user, NewsArticle article) {
         this.user = user;
         this.article = article;
-        initActions();
-        super.addComponents(commentButton, favoriteButton, fakeButton, hideButton);
-        super.setSizeFull();
-        super.setStyleName("actions");
-        super.setSpacing(true);
+        if(user != null) {
+            initActions();
+            super.addComponents(commentButton, favoriteButton, fakeButton, hideButton);
+            super.setSizeFull();
+            super.setStyleName("actions");
+            super.setSpacing(true);
+        }
     }
 
     private void initActions() {

@@ -5,7 +5,7 @@
  */
 package view.logo;
 
-import components.FlexActionButton;
+import org.ngutu.ui.components.FlexActionButton;
 import com.vaadin.icons.VaadinIcons;
 
 /**

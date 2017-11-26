@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.body;
+package org.ngutu.ui.news;
 
 import data.DataProviderType;
 import db.FlexUser;
@@ -14,24 +14,29 @@ import view.menu.CanPopulate;
  *
  * @author zua
  */
-public class WelcomeBody extends FlexPanel implements CanPopulate {
+public class NewsBody extends FlexPanel implements CanPopulate {
 
     private static final long serialVersionUID = 6273025631274336910L;
 
     private final FlexUser user;
     private MasterDetailView masterDetailView;
-
-    public WelcomeBody(FlexUser user) {
+    private transient FlexBodyWorker worker;
+    
+    public NewsBody(FlexUser user) {
         this.user = user;
         this.initMasterDetailView();
         super.addStyleName("flex-body");
         super.setSizeFull();
+        super.addDetachListener(e -> {
+            if(worker != null) {
+                worker.interrupt();
+            }
+        });
     }
 
     private void initMasterDetailView() {
         masterDetailView = new MasterDetailView(user);
         masterDetailView.setSizeFull();
-        masterDetailView.getInfoFrame().setVisible(false);
         super.setContent(masterDetailView);
     }
 
@@ -56,7 +61,11 @@ public class WelcomeBody extends FlexPanel implements CanPopulate {
     public void populate(DataProviderType type, String value) {
         System.out.println("FlexBodyThread#run(): START");
         initMasterDetailView();
-        new FlexBodyWorker(user, masterDetailView, type, value).start();
+        if(worker != null) {
+            worker.interrupt();
+        }
+        worker = new FlexBodyWorker(user, masterDetailView, type, value);
+        worker.start();
         System.out.println("FlexBodyThread#run(): DONE");
     }
 
