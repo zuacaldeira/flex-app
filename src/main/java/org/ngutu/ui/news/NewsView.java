@@ -7,6 +7,7 @@ package org.ngutu.ui.news;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.ngutu.ui.adsense.AdSenseFrame;
@@ -97,6 +98,7 @@ public class NewsView extends VerticalLayout implements View, CanPopulate {
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         user = new FlexUser((String) UI.getCurrent().getSession().getAttribute("user"), null);
+        Notification.show("Entering as " + user.getUsername());
         initBody();
         initFooter();
         initMenu();
