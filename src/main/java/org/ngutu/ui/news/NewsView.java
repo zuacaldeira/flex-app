@@ -11,7 +11,6 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.ngutu.ui.adsense.AdSenseFrame;
 import db.FlexUser;
-import ui.SecuredUI;
 import view.menu.CanPopulate;
 import view.footer.FlexFooter;
 
@@ -35,7 +34,7 @@ public class NewsView extends VerticalLayout implements View, CanPopulate {
 
     private void initMenu() {
         menu = new NewsMenu(user);
-        menu.setHeight("64px");
+        menu.setHeight("48px");
     }
 
     private void initBody() {
@@ -45,7 +44,7 @@ public class NewsView extends VerticalLayout implements View, CanPopulate {
 
     private void initFooter() {
         footer = new FlexFooter(user);
-        footer.setHeight("48px");
+        footer.setHeight("32px");
     }
 
     private void initAds() {
@@ -97,7 +96,7 @@ public class NewsView extends VerticalLayout implements View, CanPopulate {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        user = ((SecuredUI) UI.getCurrent()).getCurrentUser();
+        user = new FlexUser((String) UI.getCurrent().getSession().getAttribute("user"), null);
         initBody();
         initFooter();
         initMenu();

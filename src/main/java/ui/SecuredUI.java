@@ -10,7 +10,6 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
-import db.FlexUser;
 
 /**
  *
@@ -32,9 +31,9 @@ public abstract class SecuredUI extends UI {
         //navigator.navigateTo(FlexViews.WELCOME);
     }
 
-    public FlexUser getCurrentUser() {
+    public String getCurrentUser() {
         if (getSession().getAttribute("user") != null) {
-            return (FlexUser) getSession().getAttribute("user");
+            return (String) getSession().getAttribute("user");
         } else {
             return null;
         }

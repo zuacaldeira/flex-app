@@ -93,7 +93,7 @@ public class FlexBooksView extends VerticalLayout implements View, CanPopulate {
 
     @Override
     public void populate() {
-        user = ((SecuredUI) UI.getCurrent()).getCurrentUser();
+        user = new FlexUser(((SecuredUI) UI.getCurrent()).getCurrentUser(), null);
         initBody();
         initFooter();
         initMenu();

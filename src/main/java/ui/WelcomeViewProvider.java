@@ -6,6 +6,7 @@
 package ui;
 
 import com.vaadin.navigator.Navigator.ClassBasedViewProvider;
+import org.ngutu.ui.news.NewsView;
 
 /**
  *
@@ -16,7 +17,7 @@ public class WelcomeViewProvider extends ClassBasedViewProvider {
     private static final long serialVersionUID = -7126689158013262916L;
 
     public WelcomeViewProvider() {
-        super(FlexViews.WELCOME, LoginView.class);
+        super(FlexViews.WELCOME, NewsView.class);
     }
     
     
