@@ -8,7 +8,11 @@ import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Component;
+import java.io.IOException;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.ngutu.ui.news.NewsView;
 
 /**
@@ -42,5 +46,13 @@ public class NewsUI extends SecuredUI {
     @VaadinServletConfiguration(ui = NewsUI.class, productionMode = false, widgetset = "ui.AppWidgetSet")
     public static class NewsUIServlet extends VaadinServlet {
         private static final long serialVersionUID = -3509795582956287827L;
+
+        @Override
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            super.doGet(req, resp); //To change body of generated methods, choose Tools | Templates.
+            System.out.println("Entering as " + req.getRemoteUser());
+        }
+        
+        
     }
 }
