@@ -8,6 +8,7 @@ package components;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.UI;
 import db.FlexUser;
+import ui.FlexViews;
 
 /**
  *
@@ -34,11 +35,11 @@ public class LogoutButton extends FlexButton {
     }
 
     private void login() {
-        getUI().getPage().setLocation("https://ngutu.eu.auth0.com/login?client=K8hEG_ew0eF4fv9tRDY1RZ72RjPK-n_Q");
+        getUI().getNavigator().navigateTo(FlexViews.NEWS);
     }
     
     private void logout() {
-        UI.getCurrent().getSession().setAttribute("userId", null);
+        UI.getCurrent().getSession().setAttribute("user", null);
     }
     
     private String getLogoutCaption() {
@@ -47,7 +48,7 @@ public class LogoutButton extends FlexButton {
     
     private static String getUsername() {
         if (UI.getCurrent() != null && UI.getCurrent().getSession() != null && UI.getCurrent().getSession().getAttribute("user") != null) {
-            return ((FlexUser) UI.getCurrent().getSession().getAttribute("userId")).getUsername();
+            return ((FlexUser) UI.getCurrent().getSession().getAttribute("user")).getUsername();
         } else {
             return null;
         }
