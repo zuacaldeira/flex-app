@@ -25,7 +25,9 @@ public abstract class SecuredUI extends UI {
     @Override
     public void init(VaadinRequest request) {
         getPage().setTitle("Ngutu. Your portal to the world.");
-        System.out.println(request.getUserPrincipal().getName());
+        if(request.getUserPrincipal() != null) {
+            System.out.println(request.getUserPrincipal().getName());
+        }
         navigator = new Navigator(this, this);
         navigator.addProvider(new WelcomeViewProvider());
         navigator.addProvider(new NewsViewProvider());
