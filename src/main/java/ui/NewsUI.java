@@ -46,13 +46,5 @@ public class NewsUI extends SecuredUI {
     @VaadinServletConfiguration(ui = NewsUI.class, productionMode = false, widgetset = "ui.AppWidgetSet")
     public static class NewsUIServlet extends VaadinServlet {
         private static final long serialVersionUID = -3509795582956287827L;
-
-        @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            super.doGet(req, resp); //To change body of generated methods, choose Tools | Templates.
-            System.out.println("Entering as " + req.getRemoteUser());
-        }
-        
-        
     }
 }

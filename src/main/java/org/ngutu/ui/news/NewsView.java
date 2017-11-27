@@ -97,7 +97,7 @@ public class NewsView extends VerticalLayout implements View, CanPopulate {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        user = new FlexUser((String) UI.getCurrent().getSession().getAttribute("user"), null);
+        user = new FlexUser((String) UI.getCurrent().getSession().getAttribute("userId"), null);
         Notification.show("Entering as " + user.getUsername());
         initBody();
         initFooter();

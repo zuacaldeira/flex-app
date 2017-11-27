@@ -38,7 +38,7 @@ public class LogoutButton extends FlexButton {
     }
     
     private void logout() {
-        UI.getCurrent().getSession().setAttribute("user", null);
+        UI.getCurrent().getSession().setAttribute("userId", null);
     }
     
     private String getLogoutCaption() {
@@ -47,7 +47,7 @@ public class LogoutButton extends FlexButton {
     
     private static String getUsername() {
         if (UI.getCurrent() != null && UI.getCurrent().getSession() != null && UI.getCurrent().getSession().getAttribute("user") != null) {
-            return ((FlexUser) UI.getCurrent().getSession().getAttribute("user")).getUsername();
+            return ((FlexUser) UI.getCurrent().getSession().getAttribute("userId")).getUsername();
         } else {
             return null;
         }
