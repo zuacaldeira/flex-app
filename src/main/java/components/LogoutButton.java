@@ -8,6 +8,9 @@ package components;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.UI;
 import db.FlexUser;
+import com.auth0.client.auth.AuthAPI;
+import com.vaadin.server.Page;
+import ui.NgutuAuthAPI;
 
 /**
  *
@@ -24,27 +27,32 @@ public class LogoutButton extends FlexButton {
         super.setIcon(VaadinIcons.USER);
         super.setSizeUndefined();
         super.addClickListener(event -> {
-            if(username == null) {
+            if (username == null) {
                 login();
-            }
-            else {
+            } else {
                 logout();
             }
         });
     }
 
     private void login() {
-        getUI().getPage().open("https://ngutu.eu.auth0.com/login?client=K8hEG_ew0eF4fv9tRDY1RZ72RjPK-n_Q", "neww");
+        AuthAPI authAPI = new NgutuAuthAPI();
+        String url = authAPI.authorizeUrl("https://ngutu.herokuapp.com/news")
+                .withConnection("facebook")
+                .withScope("openid contacts")
+                .withState("state123")
+                .build();
+        Page.getCurrent().open(url, "_self");
     }
-    
+
     private void logout() {
         UI.getCurrent().getSession().setAttribute("user", null);
     }
-    
+
     private String getLogoutCaption() {
         return (username != null) ? username : "Login";
     }
-    
+
     private static String getUsername() {
         if (UI.getCurrent() != null && UI.getCurrent().getSession() != null && UI.getCurrent().getSession().getAttribute("user") != null) {
             return ((FlexUser) UI.getCurrent().getSession().getAttribute("user")).getUsername();
