@@ -67,7 +67,8 @@ public class NewsUI extends SecuredUI {
 
     @Override
     public void init(VaadinRequest request) {
-        Notification.show("Request Atributes = " + request.getAttributeNames());
+        
+        Notification.show("Request Atributes = " + request.getAttributeNames().hasMoreElements());
         
         if (request.getAttribute("code") != null) {
             Notification.show("Authorization code = " + request.getAttribute("code").toString());
