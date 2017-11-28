@@ -68,11 +68,14 @@ public class NewsUI extends SecuredUI {
 
     @Override
     public void init(VaadinRequest request) {
-        if (getSession().getAttribute("code") != null) {
-            Notification.show("Authorization code = " + getSession().getAttribute("code").toString());
+        if (request.getAttribute("code") != null) {
+            Notification.show("Authorization code = " + request.getAttribute("code").toString());
             try {
-                String token = sendPost(getSession().getAttribute("code").toString());
+                String token = sendPost(request.getAttribute("code").toString());
+                System.out.println("TOKEN = " + token.toUpperCase());
+
                 String email = sendGet(token);
+                System.out.println("EMAIL = " + email.toUpperCase());
             } catch (Exception ex) {
                 Logger.getLogger(NewsUI.class.getName()).log(Level.SEVERE, null, ex);
             }

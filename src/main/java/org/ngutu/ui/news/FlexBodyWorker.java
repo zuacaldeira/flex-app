@@ -47,7 +47,7 @@ public class FlexBodyWorker extends Thread {
             masterDetailView.getUI().access(() -> {
                 masterDetailView.addItemView(article);
             });
-            System.out.println("Article #" + i);
+            //System.out.println("Article #" + i);
             i++;
             try {
                 Thread.sleep(500);
