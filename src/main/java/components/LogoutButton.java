@@ -34,7 +34,13 @@ public class LogoutButton extends FlexButton {
     }
 
     private void login() {
-        getUI().getPage().setLocation("https://ngutu.eu.auth0.com/login?client=K8hEG_ew0eF4fv9tRDY1RZ72RjPK-n_Q");
+        String audience = "https://ngutu.eu.auth0.com/api/v2/";
+        String scope = "openid profile email";
+        String responseType = "id_token token";
+        String clientId = "K8hEG_ew0eF4fv9tRDY1RZ72RjPK-n_Q";
+        String redirectUri = "https://ngutu.herokuapp.com/#!news";
+        String state = "MyState";
+        getUI().getPage().setLocation(getAuthorizationUrl(audience, scope, responseType, clientId, redirectUri, state));
     }
     
     private void logout() {
@@ -51,6 +57,15 @@ public class LogoutButton extends FlexButton {
         } else {
             return null;
         }
+    }
+
+    private String getAuthorizationUrl(String audience, String scope, String responseType, String clientId, String redirectUri, String state) {
+        return "https://ngutu.eu.auth0.com/authorize?" 
+                + "audience=" + audience + "&" 
+                + "scope=" + scope + "&" 
+                + "response_type=" + responseType + "&" 
+                + "client_id=" + clientId + "&" 
+                + "redirect_uri=" + redirectUri;
     }
 
 }
