@@ -20,24 +20,10 @@ import com.vaadin.ui.UI;
 public abstract class SecuredUI extends UI {
 
     private static final long serialVersionUID = 2637212442082775079L;
-    private Navigator navigator;
     
-    @Override
-    public void init(VaadinRequest request) {
-        getPage().setTitle("Ngutu. Your portal to the world.");
-        if(getSession() != null) {
-            Notification.show("Session attributes = " + getSession().getSession().getAttributeNames());
-        }
-        navigator = new Navigator(this, this);
-        navigator.addProvider(new WelcomeViewProvider());
-        navigator.addProvider(new NewsViewProvider());
-        //navigator.addProvider(new BooksViewProvider());
-        //navigator.navigateTo(FlexViews.WELCOME);
-    }
-
     public String getCurrentUser() {
-        if (getSession().getAttribute("user") != null) {
-            return (String) getSession().getAttribute("user");
+        if (getSession().getAttribute("userId") != null) {
+            return (String) getSession().getAttribute("userId");
         } else {
             return null;
         }
