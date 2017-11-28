@@ -9,6 +9,7 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.UI;
 import db.FlexUser;
 import com.auth0.client.auth.AuthAPI;
+import com.vaadin.server.Page;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Window;
 import ui.NgutuAuthAPI;
@@ -44,7 +45,7 @@ public class LogoutButton extends FlexButton {
                 .withScope("openid contacts")
                 .withState("state123")
                 .build();
-        getUI().addWindow(new Window("", new BrowserFrame(url)));
+        Page.getCurrent().open(url, "_top");
     }
 
     private void logout() {
