@@ -180,5 +180,7 @@ public class NewsUI extends SecuredUI {
     private void printAttributes(VaadinRequest request) {
         System.out.println("Auth type" + request.getAuthType());
         System.out.println("Parameter map " + request.getParameterMap());
+        System.out.println("Has code parameter " + request.getParameterMap().containsKey("code"));
+        
     }
 }
