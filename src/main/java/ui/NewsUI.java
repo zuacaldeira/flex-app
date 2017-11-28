@@ -63,9 +63,10 @@ public class NewsUI extends SecuredUI {
                 NgutuAuthAPI api = new NgutuAuthAPI();
                 AuthRequest authRequest = api.exchangeCode(request.getParameter("code"), "https://ngutu.herokuapp.com/news");
                 TokenHolder tokenHolder = authRequest.execute();
+                System.out.println("ACCESS_TOKEN --> " + tokenHolder.getAccessToken());
                 Request<UserInfo> req = api.userInfo(tokenHolder.getAccessToken());
                 UserInfo userInfo = req.execute();
-                System.out.println("EMAIL --> " + userInfo.getValues().get("email"));
+                System.out.println("EMAIL --> " + userInfo);
             } catch (Exception ex) {
                 Logger.getLogger(NewsUI.class.getName()).log(Level.SEVERE, null, ex);
             }
