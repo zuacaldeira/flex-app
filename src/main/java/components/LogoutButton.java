@@ -39,10 +39,10 @@ public class LogoutButton extends FlexButton {
 
     private void login() {
         AuthAPI authAPI = new NgutuAuthAPI();
-        String url = authAPI.authorizeUrl("https://ngutu.herokuapp.com/news")
+        String url = authAPI.authorizeUrl("https://ngutu.herokuapp.com")
                 .withConnection("gmail")
                 .withAudience("https://ngutu.eu.auth0.com/api/v2/")
-                .withScope("openid contacts")
+                .withScope("openid email profile")
                 .withState("state123")
                 .build();
         Page.getCurrent().open(url, "_top");
