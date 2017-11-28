@@ -9,7 +9,8 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.UI;
 import db.FlexUser;
 import com.auth0.client.auth.AuthAPI;
-import com.vaadin.server.Page;
+import com.vaadin.ui.BrowserFrame;
+import com.vaadin.ui.Window;
 import ui.NgutuAuthAPI;
 
 /**
@@ -36,7 +37,14 @@ public class LogoutButton extends FlexButton {
     }
 
     private void login() {
-        Page.getCurrent().open("https://ngutu.eu.auth0.com/login?client=K8hEG_ew0eF4fv9tRDY1RZ72RjPK-n_Q", "_self");
+        AuthAPI authAPI = new NgutuAuthAPI();
+        String url = authAPI.authorizeUrl("https://ngutu.org/news")
+                .withConnection("facebook")
+                .withAudience("https://ngutu.eu.auth0.com/api/v2/")
+                .withScope("openid contacts")
+                .withState("state123")
+                .build();
+        getUI().addWindow(new Window("", new BrowserFrame(url)));
     }
 
     private void logout() {
