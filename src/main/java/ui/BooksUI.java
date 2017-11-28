@@ -8,8 +8,8 @@ import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.ui.Component;
 import javax.servlet.annotation.WebServlet;
-import org.ngutu.ui.news.NewsViewProvider;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser
@@ -25,31 +25,25 @@ import org.ngutu.ui.news.NewsViewProvider;
 @JavaScript("app://VAADIN/themes/mytheme/js/adsense.js")
 //@HtmlImport("app://VAADIN/themes/mytheme/html/adsense.html")
 @Push
-public class NewsUI extends SecuredUI {
+public class BooksUI extends SecuredUI {
 
     private static final long serialVersionUID = -484103282643769272L;
-
     private Navigator navigator;
     
     @Override
     public void init(VaadinRequest request) {
         getPage().setTitle("Ngutu. Your portal to the world.");
-        if(request != null && request.getUserPrincipal() != null) {
-            System.out.println(" <-----> " + request.getUserPrincipal().getName());
-        }
-        navigator = new Navigator(this, this);
-        navigator.addProvider(new WelcomeViewProvider());
-        navigator.addProvider(new NewsViewProvider());
-        //navigator.addProvider(new BooksViewProvider());
-        //navigator.navigateTo(FlexViews.WELCOME);
     }
 
-    @WebServlet(urlPatterns = "/news/*", name = "NewsUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = NewsUI.class, productionMode = false, widgetset = "ui.AppWidgetSet")
-    public static class NewsUIServlet extends VaadinServlet {
-
-        private static final long serialVersionUID = -8686335209096238794L;
+    @Override
+    public Component getContent() {
+        return super.getContent();
     }
-
-
+    
+    @WebServlet(urlPatterns = "/books/*", name = "BooksUIServlet", asyncSupported = true)
+    @VaadinServletConfiguration(ui = BooksUI.class, productionMode = false, widgetset = "ui.AppWidgetSet")
+    public static class BooksUIServlet extends VaadinServlet {
+        private static final long serialVersionUID = 6335912660173166675L;
+    }
+    
 }
