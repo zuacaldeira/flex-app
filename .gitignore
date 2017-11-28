@@ -27,10 +27,6 @@ hs_err_pid*
 # Maven files
 /target/
 /nbproject/
-
-nb-actions.xml
-nb-configuration.xml
-
 *.orig
 src/main/webapp/VAADIN/themes/mytheme/styles.css
 

@@ -98,7 +98,7 @@ public class NewsMenu extends HorizontalLayout implements CanPopulate {
     }*/
     
     private NewsBody getBody() {
-        return ((NewsView) ((NewsUI) UI.getCurrent()).getContent()).getBody();
+        return ((NewsUI) UI.getCurrent()).getMainView().getBody();
     }
 
     public FlexUser getUser() {

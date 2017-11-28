@@ -9,7 +9,11 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
+import data.DataProviderType;
 import db.FlexUser;
+import ui.NewsUI;
+import org.ngutu.ui.news.NewsBody;
 import view.logo.FlexLogo;
 
 /**
@@ -52,9 +56,15 @@ public class BooksMenu extends HorizontalLayout implements CanPopulate {
         searchBox.setStyleName("search-box");
         searchBox.addValueChangeListener(e -> {
             Notification.show("Clicked on search " + e.getValue());
+            NewsBody body = getBody();
+            body.populate(DataProviderType.SEARCH, e.getValue());
         });
     }
     
+    private NewsBody getBody() {
+        return ((NewsUI) UI.getCurrent()).getMainView().getBody();
+    }
+
     public FlexUser getUser() {
         return user;
     }
