@@ -2,7 +2,6 @@ package ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.annotations.JavaScript;
-import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -68,7 +67,7 @@ public class NewsUI extends SecuredUI {
     @Override
     public void init(VaadinRequest request) {
         
-        Notification.show("Request Atributes = " + request.getAttributeNames().hasMoreElements());
+        printAttributes(request);
         
         if (request.getAttribute("code") != null) {
             Notification.show("Authorization code = " + request.getAttribute("code").toString());
@@ -82,7 +81,9 @@ public class NewsUI extends SecuredUI {
                 Logger.getLogger(NewsUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        initNavigator();
+        else {
+            initNavigator();
+        }
     }
 
     // HTTP POST request
@@ -176,4 +177,11 @@ public class NewsUI extends SecuredUI {
         }
     }
 
+    private void printAttributes(VaadinRequest request) {
+        while(request.getAttributeNames().hasMoreElements()) {
+            System.out.println("Attribute " + request.getAttributeNames().nextElement());
+        }
+        System.out.println("Auth type" + request.getAuthType());
+        System.out.println("Parameter map " + request.getParameterMap());
+    }
 }
