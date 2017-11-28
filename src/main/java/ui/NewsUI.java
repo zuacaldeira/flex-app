@@ -1,5 +1,6 @@
 package ui;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
@@ -10,6 +11,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Notification;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,7 @@ public class NewsUI extends SecuredUI {
     @WebServlet(urlPatterns = "/*", name = "NewsUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = NewsUI.class, productionMode = false, widgetset = "ui.AppWidgetSet")
     public static class NewsUIServlet extends VaadinServlet {
+
         private static final long serialVersionUID = -3509795582956287827L;
     }
 
@@ -147,12 +150,25 @@ public class NewsUI extends SecuredUI {
     }
 
     private String extractAccessToken(String response) {
-        return "";
-    }
-    
-    private String extractEmail(String response) {
-        return "";
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            Auth0CallbackResponse value = objectMapper.readValue(response, Auth0CallbackResponse.class);
+            return value.getAccess_token();
+        } catch (IOException ex) {
+            Logger.getLogger(NewsUI.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
+    private String extractEmail(String response) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            Auth0UserInfoResponse value = objectMapper.readValue(response, Auth0UserInfoResponse.class);
+            return value.getEmail();
+        } catch (IOException ex) {
+            Logger.getLogger(NewsUI.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 
 }
