@@ -42,7 +42,6 @@ import org.apache.http.message.BasicNameValuePair;
 @Theme("mytheme")
 @Title("Ngutu Productive Reader: your portal to the world.")
 @JavaScript("app://VAADIN/themes/mytheme/js/adsense.js")
-@Push
 public class NewsUI extends SecuredUI {
 
     @WebServlet(urlPatterns = "/*", name = "NewsUIServlet", asyncSupported = true)
@@ -68,6 +67,8 @@ public class NewsUI extends SecuredUI {
 
     @Override
     public void init(VaadinRequest request) {
+        Notification.show("Request Atributes = " + request.getAttributeNames());
+        
         if (request.getAttribute("code") != null) {
             Notification.show("Authorization code = " + request.getAttribute("code").toString());
             try {
