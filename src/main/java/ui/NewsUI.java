@@ -61,7 +61,7 @@ public class NewsUI extends SecuredUI {
             Notification.show("Authorization code = " + request.getParameter("code"));
             try {
                 NgutuAuthAPI api = new NgutuAuthAPI();
-                AuthRequest authRequest = api.requestToken("https://ngutu.eu.auth0.com/api/v2/");
+                AuthRequest authRequest = api.requestToken("https://your.endpoint.com");
                 TokenHolder tokenHolder = authRequest.execute();
                 Request<UserInfo> req = api.userInfo(tokenHolder.getAccessToken());
                 UserInfo userInfo = req.execute();
