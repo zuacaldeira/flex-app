@@ -9,6 +9,7 @@ import org.ngutu.ui.news.NewsViewProvider;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 /**
@@ -24,6 +25,9 @@ public abstract class SecuredUI extends UI {
     @Override
     public void init(VaadinRequest request) {
         getPage().setTitle("Ngutu. Your portal to the world.");
+        if(getSession() != null) {
+            Notification.show("Session attributes = " + getSession().getSession().getAttributeNames());
+        }
         navigator = new Navigator(this, this);
         navigator.addProvider(new WelcomeViewProvider());
         navigator.addProvider(new NewsViewProvider());
