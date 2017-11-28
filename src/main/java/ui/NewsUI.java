@@ -66,7 +66,7 @@ public class NewsUI extends SecuredUI {
                 System.out.println("ACCESS_TOKEN --> " + tokenHolder.getAccessToken());
                 Request<UserInfo> req = api.userInfo(tokenHolder.getAccessToken());
                 UserInfo userInfo = req.execute();
-                System.out.println("EMAIL --> " + userInfo);
+                System.out.println("EMAIL --> " + userInfo.getValues().keySet());
             } catch (Exception ex) {
                 Logger.getLogger(NewsUI.class.getName()).log(Level.SEVERE, null, ex);
             }
