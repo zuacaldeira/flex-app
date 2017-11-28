@@ -88,7 +88,7 @@ public class NewsUI extends SecuredUI {
     // HTTP POST request
     private String sendPost(String code) throws Exception {
 
-        String url = "https://ngutu.eu.auth0.com/oauth/userinfo";
+        String url = "https://ngutu.eu.auth0.com/oauth/token";
 
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(url);
