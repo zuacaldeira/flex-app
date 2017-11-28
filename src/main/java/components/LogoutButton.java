@@ -40,7 +40,7 @@ public class LogoutButton extends FlexButton {
         String clientId = "K8hEG_ew0eF4fv9tRDY1RZ72RjPK-n_Q";
         String redirectUri = "https://ngutu.herokuapp.com/#!news";
         String state = "MyState";
-        getUI().getPage().setLocation(getAuthorizationUrl(audience, scope, responseType, clientId, redirectUri, state));
+        getUI().getPage().open(getAuthorizationUrl(audience, scope, responseType, clientId, redirectUri, state), "top");
     }
     
     private void logout() {
@@ -60,8 +60,7 @@ public class LogoutButton extends FlexButton {
     }
 
     private String getAuthorizationUrl(String audience, String scope, String responseType, String clientId, String redirectUri, String state) {
-        return "https://ngutu.eu.auth0.com/authorize?" 
-                + "audience=" + audience + "&" 
+        return "https://ngutu.eu.auth0.com/login?" 
                 + "scope=" + scope + "&" 
                 + "response_type=" + responseType + "&" 
                 + "client_id=" + clientId + "&" 

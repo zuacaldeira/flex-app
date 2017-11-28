@@ -46,7 +46,6 @@ public class NewsUI extends SecuredUI {
     @WebServlet(urlPatterns = "/*", name = "NewsUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = NewsUI.class, productionMode = false, widgetset = "ui.AppWidgetSet")
     public static class NewsUIServlet extends VaadinServlet {
-
         private static final long serialVersionUID = -3509795582956287827L;
     }
 
@@ -89,7 +88,7 @@ public class NewsUI extends SecuredUI {
     // HTTP POST request
     private String sendPost(String code) throws Exception {
 
-        String url = "https://ngutu.eu.auth0.com/oauth/token";
+        String url = "https://ngutu.eu.auth0.com/oauth/userinfo";
 
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(url);
