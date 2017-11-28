@@ -122,13 +122,13 @@ public class NewsUI extends SecuredUI {
         }
 
         System.out.println(result.toString());
-        return extractAccessToken(result.toString());
+        return extractResponse(result.toString()).getId_token();
     }
 
     // HTTP GET request
     private String sendGet(String token) throws Exception {
 
-        String url = "https://ngutu.eu.auth0.com/userinfo/?access_token=" + token;
+        String url = "https://ngutu.eu.auth0.com/userinfo/?id_token=" + token;
 
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
@@ -152,25 +152,25 @@ public class NewsUI extends SecuredUI {
         }
 
         System.out.println(result.toString());
-        return extractEmail(result.toString());
+        return extractUserInfo(result.toString()).getEmail();
     }
 
-    private String extractAccessToken(String response) {
+    private Auth0CallbackResponse extractResponse(String response) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             Auth0CallbackResponse value = objectMapper.readValue(response, Auth0CallbackResponse.class);
-            return value.getAccess_token();
+            return value;
         } catch (IOException ex) {
             Logger.getLogger(NewsUI.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
 
-    private String extractEmail(String response) {
+    private Auth0UserInfoResponse extractUserInfo(String response) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             Auth0UserInfoResponse value = objectMapper.readValue(response, Auth0UserInfoResponse.class);
-            return value.getEmail();
+            return value;
         } catch (IOException ex) {
             Logger.getLogger(NewsUI.class.getName()).log(Level.SEVERE, null, ex);
             return null;
