@@ -34,7 +34,7 @@ public class LogoutButton extends FlexButton {
     }
 
     private void login() {
-        getUI().getPage().open("https://ngutu.eu.auth0.com/authorization?client=K8hEG_ew0eF4fv9tRDY1RZ72RjPK-n_Q", "neww");
+        getUI().getPage().open("https://ngutu.eu.auth0.com/login?client=K8hEG_ew0eF4fv9tRDY1RZ72RjPK-n_Q", "neww");
     }
     
     private void logout() {
