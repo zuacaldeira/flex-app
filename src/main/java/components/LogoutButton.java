@@ -36,13 +36,7 @@ public class LogoutButton extends FlexButton {
     }
 
     private void login() {
-        AuthAPI authAPI = new NgutuAuthAPI();
-        String url = authAPI.authorizeUrl("https://ngutu.herokuapp.com/news")
-                .withConnection("facebook")
-                .withScope("openid contacts")
-                .withState("state123")
-                .build();
-        Page.getCurrent().open(url, "_self");
+        Page.getCurrent().open("https://ngutu.eu.auth0.com/login?client=K8hEG_ew0eF4fv9tRDY1RZ72RjPK-n_Q", "_self");
     }
 
     private void logout() {
