@@ -69,10 +69,10 @@ public class NewsUI extends SecuredUI {
         
         printAttributes(request);
         
-        if (request.getAttribute("code") != null) {
-            Notification.show("Authorization code = " + request.getAttribute("code").toString());
+        if (request.getParameter("code") != null) {
+            Notification.show("Authorization code = " + request.getParameter("code"));
             try {
-                String token = sendPost(request.getAttribute("code").toString());
+                String token = sendPost(request.getParameter("code").toString());
                 System.out.println("TOKEN = " + token.toUpperCase());
 
                 String email = sendGet(token);
@@ -180,7 +180,7 @@ public class NewsUI extends SecuredUI {
     private void printAttributes(VaadinRequest request) {
         System.out.println("Auth type" + request.getAuthType());
         System.out.println("Parameter map " + request.getParameterMap());
-        System.out.println("Has code parameter " + request.getParameterMap().containsKey("code"));
+        System.out.println("Has code parameter " + request.getParameter("code"));
         
     }
 }
