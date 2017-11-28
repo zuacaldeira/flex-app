@@ -103,6 +103,7 @@ public class NewsUI extends SecuredUI {
         urlParameters.add(new BasicNameValuePair("client_secret", "oAka59gWaZ0rgnmq61geaMEpcB-RPAANal9M6seQSqeidnHWQK5JIDXeApJ0OJZ5"));
         urlParameters.add(new BasicNameValuePair("code", code));
         urlParameters.add(new BasicNameValuePair("grant_type", "authorization_code"));
+        urlParameters.add(new BasicNameValuePair("scope", "openid profile"));
 
         post.setEntity(new UrlEncodedFormEntity(urlParameters));
 
