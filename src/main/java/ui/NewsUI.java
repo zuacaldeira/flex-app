@@ -9,9 +9,24 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Notification;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.annotation.WebServlet;
 import org.ngutu.ui.news.NewsView;
 import org.ngutu.ui.news.NewsViewProvider;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser
@@ -28,20 +43,15 @@ import org.ngutu.ui.news.NewsViewProvider;
 @Push
 public class NewsUI extends SecuredUI {
 
+    @WebServlet(urlPatterns = "/*", name = "NewsUIServlet", asyncSupported = true)
+    @VaadinServletConfiguration(ui = NewsUI.class, productionMode = false, widgetset = "ui.AppWidgetSet")
+    public static class NewsUIServlet extends VaadinServlet {
+        private static final long serialVersionUID = -3509795582956287827L;
+    }
+
     private static final long serialVersionUID = -484103282643769272L;
     private Navigator navigator;
-
-    @Override
-    public void init(VaadinRequest request) {
-        if(getSession().getAttribute("code") != null) {
-            Notification.show("Authorization code = " + getSession().getAttribute("code"));
-        }
-        initNavigator();
-    }
-    
-    public NewsView getMainView() {
-        return (NewsView) super.getContent();
-    }
+    private final String USER_AGENT = "Mozilla/5.0";
 
     private void initNavigator() {
         navigator = new Navigator(this, this);
@@ -49,9 +59,100 @@ public class NewsUI extends SecuredUI {
         navigator.addProvider(new NewsViewProvider());
     }
 
-    @WebServlet(urlPatterns = "/*", name = "NewsUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = NewsUI.class, productionMode = false, widgetset = "ui.AppWidgetSet")
-    public static class NewsUIServlet extends VaadinServlet {
-        private static final long serialVersionUID = -3509795582956287827L;
+    public NewsView getMainView() {
+        return (NewsView) super.getContent();
     }
+
+    @Override
+    public void init(VaadinRequest request) {
+        if (getSession().getAttribute("code") != null) {
+            Notification.show("Authorization code = " + getSession().getAttribute("code").toString());
+            try {
+                String token = sendPost(getSession().getAttribute("code").toString());
+                String email = sendGet(token);
+            } catch (Exception ex) {
+                Logger.getLogger(NewsUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        initNavigator();
+    }
+
+    // HTTP POST request
+    private String sendPost(String code) throws Exception {
+
+        String url = "https://ngutu.eu.auth0.com/oauth/token";
+
+        HttpClient client = new DefaultHttpClient();
+        HttpPost post = new HttpPost(url);
+
+        // add header
+        post.setHeader("User-Agent", USER_AGENT);
+        post.setHeader("Content-type", "application/x-www-form-urlencoded");
+        List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
+        urlParameters.add(new BasicNameValuePair("client_id", "K8hEG_ew0eF4fv9tRDY1RZ72RjPK-n_Q"));
+        urlParameters.add(new BasicNameValuePair("redirect_uri", "https://ngutu.herokuapp.com/#!news"));
+        urlParameters.add(new BasicNameValuePair("client_secret", "oAka59gWaZ0rgnmq61geaMEpcB-RPAANal9M6seQSqeidnHWQK5JIDXeApJ0OJZ5"));
+        urlParameters.add(new BasicNameValuePair("code", code));
+        urlParameters.add(new BasicNameValuePair("grant_type", "authorization_code"));
+
+        post.setEntity(new UrlEncodedFormEntity(urlParameters));
+
+        HttpResponse response = client.execute(post);
+        System.out.println("\nSending 'POST' request to URL : " + url);
+        System.out.println("Post parameters : " + post.getEntity());
+        System.out.println("Response Code : "
+                + response.getStatusLine().getStatusCode());
+
+        BufferedReader rd = new BufferedReader(
+                new InputStreamReader(response.getEntity().getContent()));
+
+        StringBuffer result = new StringBuffer();
+        String line = "";
+        while ((line = rd.readLine()) != null) {
+            result.append(line);
+        }
+
+        System.out.println(result.toString());
+        return extractAccessToken(result.toString());
+    }
+
+    // HTTP GET request
+    private String sendGet(String token) throws Exception {
+
+        String url = "https://ngutu.eu.auth0.com/userinfo/?access_token=" + token;
+
+        HttpClient client = new DefaultHttpClient();
+        HttpGet request = new HttpGet(url);
+
+        // add request header
+        request.addHeader("User-Agent", USER_AGENT);
+
+        HttpResponse response = client.execute(request);
+
+        System.out.println("\nSending 'GET' request to URL : " + url);
+        System.out.println("Response Code : "
+                + response.getStatusLine().getStatusCode());
+
+        BufferedReader rd = new BufferedReader(
+                new InputStreamReader(response.getEntity().getContent()));
+
+        StringBuffer result = new StringBuffer();
+        String line = "";
+        while ((line = rd.readLine()) != null) {
+            result.append(line);
+        }
+
+        System.out.println(result.toString());
+        return extractEmail(result.toString());
+    }
+
+    private String extractAccessToken(String response) {
+        return "";
+    }
+    
+    private String extractEmail(String response) {
+        return "";
+    }
+
+
 }
