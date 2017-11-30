@@ -5,7 +5,9 @@
  */
 package org.ngutu.ui.news;
 
+import com.vaadin.server.Page;
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
@@ -19,6 +21,8 @@ import view.logo.FacebookButton;
 import view.logo.FlexLogo;
 import view.logo.TwitterButton;
 import components.CanPopulate;
+import components.LoginButton;
+import org.ngutu.ui.auth0.NgutuAuthAPI;
 
 /**
  *
@@ -37,10 +41,10 @@ public class NewsMenu extends HorizontalLayout implements CanPopulate {
     private HorizontalLayout actions;
 
     private LogoutButton logoutButton;
+    private LoginButton loginButton;
     private FacebookButton facebookButton;
     private TwitterButton twitterButton;
     private HorizontalLayout userActions;
-    
 
     public NewsMenu(FlexUser user) {
         this.user = user;
@@ -48,6 +52,7 @@ public class NewsMenu extends HorizontalLayout implements CanPopulate {
         initMenuBar();
         initSearchBox();
         initLogoutButton();
+        initLoginButton();
         initSocialButtons();
         initActions();
         initUserActions();
@@ -64,7 +69,7 @@ public class NewsMenu extends HorizontalLayout implements CanPopulate {
         super.setComponentAlignment(userActions, Alignment.MIDDLE_RIGHT);
         super.setStyleName("flex-menu");
     }
-    
+
     private void initSearchBox() {
         searchBox = new TextField();
         searchBox.setCaptionAsHtml(true);
@@ -76,7 +81,7 @@ public class NewsMenu extends HorizontalLayout implements CanPopulate {
             body.populate(DataProviderType.SEARCH, e.getValue());
         });
     }
-    
+
     private void initLogoutButton() {
         logoutButton = new LogoutButton();
         logoutButton.addClickListener(e -> {
@@ -84,12 +89,20 @@ public class NewsMenu extends HorizontalLayout implements CanPopulate {
             getUI().getNavigator().navigateTo(FlexViews.WELCOME);
         });
     }
-    
+
+    private void initLoginButton() {
+        loginButton = new LoginButton();
+        loginButton.addClickListener((Button.ClickEvent event) -> {
+            NgutuAuthAPI authAPI = new NgutuAuthAPI(getUI().getNavigator().getState());
+            authAPI.authorize();
+        });
+    }
+
     private void initSocialButtons() {
         facebookButton = new FacebookButton();
         twitterButton = new TwitterButton();
     }
-    
+
     private NewsBody getBody() {
         return ((NgutuUI) UI.getCurrent()).getMainView().getBody();
     }
@@ -128,7 +141,13 @@ public class NewsMenu extends HorizontalLayout implements CanPopulate {
     }
 
     private void initUserActions() {
-        userActions = new HorizontalLayout(facebookButton, twitterButton, logoutButton);
+        userActions = new HorizontalLayout(facebookButton, twitterButton);
+        if(getUI() != null && getUI().getSession().getAttribute("user") != null) {
+            userActions.addComponent(logoutButton);
+        }
+        else {
+            userActions.addComponent(loginButton);
+        }
         userActions.setSizeUndefined();
     }
 

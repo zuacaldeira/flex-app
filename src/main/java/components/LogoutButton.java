@@ -8,11 +8,7 @@ package components;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.UI;
 import db.FlexUser;
-import com.auth0.client.auth.AuthAPI;
-import com.vaadin.server.Page;
-import com.vaadin.ui.BrowserFrame;
-import com.vaadin.ui.Window;
-import org.ngutu.ui.auth0.NgutuAuthAPI;
+import ui.FlexViews;
 
 /**
  *
@@ -29,27 +25,13 @@ public class LogoutButton extends FlexButton {
         super.setIcon(VaadinIcons.USER);
         super.setSizeUndefined();
         super.addClickListener(event -> {
-            if (username == null) {
-                login();
-            } else {
-                logout();
-            }
+            logout();
         });
-    }
-
-    private void login() {
-        AuthAPI authAPI = new NgutuAuthAPI();
-        String url = authAPI.authorizeUrl("https://ngutu.herokuapp.com/news")
-                .withConnection("facebook")
-                .withAudience("https://ngutu.eu.auth0.com/api/v2/")
-                .withScope("openid email profile contacts")
-                .withState("state123")
-                .build();
-        Page.getCurrent().open(url, "_self");
     }
 
     private void logout() {
         UI.getCurrent().getSession().setAttribute("user", null);
+        getUI().getNavigator().navigateTo(FlexViews.WELCOME);
     }
 
     private String getLogoutCaption() {

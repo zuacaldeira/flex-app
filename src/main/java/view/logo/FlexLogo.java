@@ -5,11 +5,11 @@
  */
 package view.logo;
 
-import com.vaadin.server.ThemeResource;
+import com.vaadin.icons.VaadinIcons;
+import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 
 /**
@@ -20,7 +20,7 @@ public class FlexLogo extends HorizontalLayout {
 
     private static final long serialVersionUID = 8041620231458973471L;
 
-    private Image image;
+    private Label image;
     private Label ngutu;
     
     public FlexLogo() {
@@ -31,15 +31,15 @@ public class FlexLogo extends HorizontalLayout {
         super.setSizeUndefined();
         super.setMargin(new MarginInfo(false, false, false, true));
         super.setSpacing(false);
+        super.setStyleName("flex-logo");
     }
 
     private void initLabel() {
-        ngutu = new Label("Ngutu.org");
-        ngutu.setStyleName("flex-logo");
+        ngutu = new Label("Ngutu");
     }
 
     private void initImage() {
-        image = new Image(null, new ThemeResource("logo1.png"));
+        image = new Label(VaadinIcons.CLUSTER.getHtml(), ContentMode.HTML);
         image.setWidth("64px");
         image.setHeight("64px");
     }

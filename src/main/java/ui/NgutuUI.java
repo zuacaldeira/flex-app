@@ -12,6 +12,8 @@ import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.navigator.PushStateNavigation;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Notification;
@@ -32,6 +34,7 @@ import org.ngutu.ui.news.NewsView;
  */
 @Theme("mytheme")
 @Title("Ngutu Productive Reader: your portal to the world.")
+@PushStateNavigation
 @JavaScript("app://VAADIN/themes/mytheme/js/adsense.js")
 public class NgutuUI extends SecuredUI {
 
@@ -43,18 +46,27 @@ public class NgutuUI extends SecuredUI {
 
     @Override
     public void init(VaadinRequest request) {
-        if (request != null && request.getParameter("code") != null) {
-            Notification.show("Authorization code = " + request.getParameter("code"));
-            try {
-                NgutuAuthAPI api = new NgutuAuthAPI();
-                AuthRequest authRequest = api.exchangeCode(request.getParameter("code"), "https://ngutu.herokuapp.com/news");
-                TokenHolder tokenHolder = authRequest.execute();
-                System.out.println("ACCESS_TOKEN --> " + tokenHolder.getAccessToken());
-                Request<UserInfo> req = api.userInfo(tokenHolder.getAccessToken());
-                UserInfo userInfo = req.execute();
-                System.out.println("EMAIL --> " + userInfo.getValues().keySet());
-            } catch (Exception ex) {
-                Logger.getLogger(NgutuUI.class.getName()).log(Level.SEVERE, null, ex);
+        Notification.show("State = " + getNavigator().getState() + " View = " + getNavigator().getCurrentView());
+        Notification.show("URI Fragment = " + Page.getCurrent().getUriFragment());
+        if (request != null) {
+            String authorizationCode = request.getParameter("code");
+            if (authorizationCode != null) {
+                Notification.show("Authorization code = " + authorizationCode);
+                try {
+                    NgutuAuthAPI api = new NgutuAuthAPI(Page.getCurrent().getUriFragment());
+                    AuthRequest authRequest = api.exchangeCode(authorizationCode, api.getRedirectUrl());
+                    TokenHolder tokenHolder = authRequest.execute();
+                    
+                    Notification.show("ACCESS_TOKEN --> " + tokenHolder.getAccessToken());
+                    
+                    Request<UserInfo> req = api.userInfo(tokenHolder.getAccessToken());
+                    UserInfo userInfo = req.execute();
+                    
+                    Notification.show("EMAIL --> " + userInfo.getValues().keySet());
+                    getSession().setAttribute("user", userInfo.getValues().get("email"));
+                } catch (Exception ex) {
+                    Logger.getLogger(NgutuUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         // TODO: Check navigation

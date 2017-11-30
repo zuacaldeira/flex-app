@@ -32,8 +32,8 @@ public abstract class SecuredUI extends UI {
     
     
     public String getCurrentUser() {
-        if (getSession().getAttribute("userId") != null) {
-            return (String) getSession().getAttribute("userId");
+        if (getSession().getAttribute("user") != null) {
+            return (String) getSession().getAttribute("user");
         } else {
             return null;
         }

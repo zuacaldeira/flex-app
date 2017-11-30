@@ -9,10 +9,8 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 import components.FlexButton;
-import components.LoginButton;
 import db.FlexUser;
 import ui.FlexViews;
-import org.ngutu.ui.auth0.NgutuAuthAPI;
 import view.logo.FlexLogo;
 
 /**
@@ -28,7 +26,6 @@ public class WelcomeMenu extends HorizontalLayout {
     private FlexLogo logo;
     private HorizontalLayout actions;
     private FlexButton aboutUsButton;
-    private LoginButton loginButton;
     private FlexButton ngutuNewsButton;
     private FlexButton ngutuBooksButton;
     private FlexButton ngutuBlogButton;
@@ -47,7 +44,7 @@ public class WelcomeMenu extends HorizontalLayout {
         super.addComponents(logo, actions);
         super.setComponentAlignment(logo, Alignment.MIDDLE_LEFT);
         super.setComponentAlignment(actions, Alignment.MIDDLE_RIGHT);
-        super.setStyleName("flex-menu");
+        super.setStyleName("welcome-menu");
     }
 
     private void initActions() {
@@ -76,19 +73,12 @@ public class WelcomeMenu extends HorizontalLayout {
             getUI().getNavigator().navigateTo(FlexViews.CONTACTS);
         });
 
-        loginButton = new LoginButton();
-        loginButton.addClickListener(e -> {
-            NgutuAuthAPI authAPI = new NgutuAuthAPI();
-            authAPI.authorize();
-        });
-        
         actions = new HorizontalLayout(
                 aboutUsButton, 
                 ngutuNewsButton, 
                 ngutuBooksButton, 
                 ngutuBlogButton,
-                contactUsButton,
-                loginButton);
+                contactUsButton);
     }
 
     public FlexUser getUser() {
