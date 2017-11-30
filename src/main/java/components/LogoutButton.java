@@ -12,7 +12,7 @@ import com.auth0.client.auth.AuthAPI;
 import com.vaadin.server.Page;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Window;
-import ui.NgutuAuthAPI;
+import org.ngutu.ui.auth0.NgutuAuthAPI;
 
 /**
  *
@@ -39,13 +39,13 @@ public class LogoutButton extends FlexButton {
 
     private void login() {
         AuthAPI authAPI = new NgutuAuthAPI();
-        String url = authAPI.authorizeUrl("https://ngutu.herokuapp.com")
-                .withConnection("gmail")
+        String url = authAPI.authorizeUrl("https://ngutu.herokuapp.com/news")
+                .withConnection("facebook")
                 .withAudience("https://ngutu.eu.auth0.com/api/v2/")
-                .withScope("openid email profile")
+                .withScope("openid email profile contacts")
                 .withState("state123")
                 .build();
-        Page.getCurrent().open(url, "_top");
+        Page.getCurrent().open(url, "_self");
     }
 
     private void logout() {

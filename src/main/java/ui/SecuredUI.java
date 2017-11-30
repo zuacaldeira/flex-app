@@ -5,12 +5,13 @@
  */
 package ui;
 
-import org.ngutu.ui.news.NewsViewProvider;
+import org.ngutu.ui.viewproviders.BooksViewProvider;
+import org.ngutu.ui.viewproviders.NewsViewProvider;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
+import org.ngutu.ui.viewproviders.WelcomeViewProvider;
 
 /**
  *
@@ -20,6 +21,15 @@ import com.vaadin.ui.UI;
 public abstract class SecuredUI extends UI {
 
     private static final long serialVersionUID = 2637212442082775079L;
+    private Navigator navigator;
+
+    public SecuredUI() {
+        navigator = new Navigator(this, this);
+        navigator.addProvider(new WelcomeViewProvider());
+        navigator.addProvider(new NewsViewProvider());
+        navigator.addProvider(new BooksViewProvider());
+    }
+    
     
     public String getCurrentUser() {
         if (getSession().getAttribute("userId") != null) {

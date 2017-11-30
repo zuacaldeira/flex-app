@@ -16,10 +16,10 @@ import data.DataProviderType;
 import java.util.Collection;
 import java.util.TreeSet;
 import services.NewsSourceServiceInterface;
-import ui.NewsUI;
+import ui.NgutuUI;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
-import view.menu.CanPopulate;
+import components.CanPopulate;
 
 /**
  *
@@ -51,7 +51,6 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
     public NewsMenuBar(FlexUser user) {
         this.user = user;
         sourcesService = ServiceLocator.getInstance().findSourcesService();
-        this.initMenuItems();
     }
 
     protected void initMenuItems() {
@@ -68,11 +67,10 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
 
     @Override
     public void populate() {
+        this.initMenuItems();
         populateNewsByTime();
         news.addSeparator();
         populateNewsByStatus();
-        //news.addSeparator();
-        //populateViews();
         populateNewsPublisher();
         populateNewsCategory();
         populateNewsLanguages();
@@ -80,70 +78,88 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
     }
 
     protected void populateNewsCategory() {
-        Collection<String> cats = sourcesService.findCategories();
-        cats.forEach(cat -> {
-            categories.addItem(getCategoryCaption(cat), (selectedMenuItem) -> {
-                updateBody(DataProviderType.CATEGORY, selectedMenuItem.getText());
+        if (categories != null) {
+            Collection<String> cats = sourcesService.findCategories();
+            cats.forEach(cat -> {
+                categories.addItem(getCategoryCaption(cat), (selectedMenuItem) -> {
+                    updateBody(DataProviderType.CATEGORY, selectedMenuItem.getText());
+                });
             });
-        });
+        }
     }
 
     protected void populateNewsPublisher() {
-        Collection<String> names = sourcesService.findNames();
-        names.forEach(name -> {
-            publishers.addItem(name, (selectedMenuItem -> {
-                updateBody(DataProviderType.PUBLISHER, selectedMenuItem.getText());
-            }));
-        });
+        if (publishers != null) {
+            Collection<String> names = sourcesService.findNames();
+            names.forEach(name -> {
+                publishers.addItem(name, (selectedMenuItem -> {
+                    updateBody(DataProviderType.PUBLISHER, selectedMenuItem.getText());
+                }));
+            });
+        }
     }
 
     protected void populateNewsLanguages() {
-        Set<String> result = new TreeSet<>();
-        Collection<String> locales = sourcesService.findLocales();
-        locales.forEach(localeString -> {
-            if (localeString != null && !localeString.isEmpty()) {
-                result.add(MyDateUtils.getLanguageNameFromPattern(localeString));
-            }
-        });
-        result.forEach(lang -> {
-            languages.addItem(lang, (selectedMenuItem) -> {
-                updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
+        if (languages != null) {
+            Set<String> result = new TreeSet<>();
+            Collection<String> locales = sourcesService.findLocales();
+            locales.forEach(localeString -> {
+                if (localeString != null && !localeString.isEmpty()) {
+                    result.add(MyDateUtils.getLanguageNameFromPattern(localeString));
+                }
             });
-        });
+            result.forEach(lang -> {
+                languages.addItem(lang, (selectedMenuItem) -> {
+                    updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
+                });
+            });
+        }
     }
 
     protected void populateNewsCountries() {
-        Set<String> result = new TreeSet<>();
-        Collection<String> locales = sourcesService.findLocales();
-        locales.forEach(localeString -> {
-            result.add(MyDateUtils.getCountryNameFromPattern(localeString));
-        });
-        result.forEach(country -> {
-            countries.addItem(country, (selectedMenuItem) -> {
-                updateBody(DataProviderType.COUNTRIES, selectedMenuItem.getText());
+        if (countries != null) {
+            Set<String> result = new TreeSet<>();
+            Collection<String> locales = sourcesService.findLocales();
+            locales.forEach(localeString -> {
+                result.add(MyDateUtils.getCountryNameFromPattern(localeString));
             });
-        });
+            result.forEach(country -> {
+                countries.addItem(country, (selectedMenuItem) -> {
+                    updateBody(DataProviderType.COUNTRIES, selectedMenuItem.getText());
+                });
+            });
+        }
     }
 
     private void populateViews() {
-        NewsBody body = ((NewsView)getUI().getContent()).getBody();
-        MasterDetailView masterDetail = body.getMasterDetail();
-        full = news.addItem("Full", (selectedItem) -> {masterDetail.full();});
-        imagesOnly = news.addItem("Images Only", (selectedItem) -> {masterDetail.imagesOnly();});
-        titlesOnly = news.addItem("Titles Only", (selectedItem) -> { masterDetail.titlesOnly();});
+        if (news != null) {
+            NewsBody body = ((NewsView) getUI().getContent()).getBody();
+            MasterDetailView masterDetail = body.getMasterDetail();
+            full = news.addItem("Full", (selectedItem) -> {
+                masterDetail.full();
+            });
+            imagesOnly = news.addItem("Images Only", (selectedItem) -> {
+                masterDetail.imagesOnly();
+            });
+            titlesOnly = news.addItem("Titles Only", (selectedItem) -> {
+                masterDetail.titlesOnly();
+            });
+        }
     }
 
     private void populateNewsByTime() {
-        latest = news.addItem("Latest", VaadinIcons.ARROW_CIRCLE_DOWN, (selectdMenuItem) -> {
-            updateBody(DataProviderType.LATEST, null);
-        });
-        oldest = news.addItem("Oldest", VaadinIcons.ARROW_CIRCLE_UP, (selectedMenuItem) -> {
-            updateBody(DataProviderType.OLDEST, null);
-        });
+        if (news != null && getUI() != null) {
+            latest = news.addItem("Latest", (selectedItem) -> {
+                updateBody(DataProviderType.LATEST, null);
+            });
+            oldest = news.addItem("Oldest", (selectedItem) -> {
+                updateBody(DataProviderType.OLDEST, null);
+            });
+        }
     }
 
     private void populateNewsByStatus() {
-        if(user != null) {
+        if (user != null) {
             read = news.addItem("Read", VaadinIcons.EYE_SLASH, (selectedMenuItem) -> {
                 updateBody(DataProviderType.READ, null);
             });
@@ -156,13 +172,8 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
         }
     }
 
-    @Override
-    public NewsUI getUI() {
-        return (NewsUI) super.getUI();
-    }
-
     private void updateBody(DataProviderType dataType, String value) {
-        NewsBody body = ((NewsView) ((NewsUI)getUI()).getContent()).getBody();
+        NewsBody body = ((NewsView) ((NgutuUI) getUI()).getContent()).getBody();
         if (body != null) {
             body.populate(dataType, value);
         } else {

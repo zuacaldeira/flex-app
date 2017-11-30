@@ -14,11 +14,11 @@ import components.LogoutButton;
 import data.DataProviderType;
 import db.FlexUser;
 import ui.FlexViews;
-import ui.NewsUI;
+import ui.NgutuUI;
 import view.logo.FacebookButton;
 import view.logo.FlexLogo;
 import view.logo.TwitterButton;
-import view.menu.CanPopulate;
+import components.CanPopulate;
 
 /**
  *
@@ -90,15 +90,8 @@ public class NewsMenu extends HorizontalLayout implements CanPopulate {
         twitterButton = new TwitterButton();
     }
     
-    /*private void initBooksButton() {
-        booksButton = new BooksButton();
-        booksButton.addClickListener(e -> {
-            getUI().getNavigator().navigateTo(FlexViews.BOOKS);
-        });
-    }*/
-    
     private NewsBody getBody() {
-        return ((NewsUI) UI.getCurrent()).getMainView().getBody();
+        return ((NgutuUI) UI.getCurrent()).getMainView().getBody();
     }
 
     public FlexUser getUser() {

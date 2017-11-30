@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ngutu.ui.amazon;
+package org.ngutu.ui.books;
 
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.GridLayout;

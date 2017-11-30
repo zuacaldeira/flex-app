@@ -8,7 +8,7 @@ package org.ngutu.ui.news;
 import data.DataProviderType;
 import db.FlexUser;
 import components.FlexPanel;
-import view.menu.CanPopulate;
+import components.CanPopulate;
 
 /**
  *

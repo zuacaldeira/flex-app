@@ -5,61 +5,37 @@
  */
 package org.ngutu.ui.welcome;
 
-import data.DataProviderType;
-import db.FlexUser;
 import components.FlexPanel;
-import org.ngutu.ui.news.FlexBodyWorker;
-import org.ngutu.ui.news.MasterDetailView;
-import view.menu.CanPopulate;
+import db.FlexUser;
 
 /**
  *
  * @author zua
  */
-public class WelcomeBody extends FlexPanel implements CanPopulate {
+public class WelcomeBody extends FlexPanel {
 
     private static final long serialVersionUID = 6273025631274336910L;
 
     private final FlexUser user;
-    private MasterDetailView masterDetailView;
+    private AboutUs aboutUs;
 
     public WelcomeBody(FlexUser user) {
         this.user = user;
-        this.initMasterDetailView();
-        super.addStyleName("flex-body");
-        super.setSizeFull();
-    }
-
-    private void initMasterDetailView() {
-        masterDetailView = new MasterDetailView(user);
-        masterDetailView.setSizeFull();
-        masterDetailView.getInfoFrame().setVisible(false);
-        super.setContent(masterDetailView);
-    }
-
-    @Override
-    public MasterDetailView getContent() {
-        return (MasterDetailView) super.getContent();
-    }
-
-    public MasterDetailView getMasterDetail() {
-        return masterDetailView;
+        initBody();
     }
 
     public FlexUser getUser() {
         return user;
     }
 
-    @Override
-    public void populate() {
-        this.populate(DataProviderType.LATEST, "latest");
+    private void initBody() {
+        initAboutUs();
+        setContent(aboutUs);
+        super.addStyleName("welcome-body");
+        super.setSizeUndefined();
     }
 
-    public void populate(DataProviderType type, String value) {
-        System.out.println("FlexBodyThread#run(): START");
-        initMasterDetailView();
-        new FlexBodyWorker(user, masterDetailView, type, value).start();
-        System.out.println("FlexBodyThread#run(): DONE");
+    private void initAboutUs() {
+        aboutUs = new AboutUs();
     }
-
 }

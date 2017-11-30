@@ -14,9 +14,9 @@ import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import ui.SecuredUI;
 import view.body.BooksBody;
-import view.menu.CanPopulate;
+import components.CanPopulate;
 import view.footer.FlexFooter;
-import view.menu.BooksMenu;
+import org.ngutu.ui.books.BooksMenu;
 
 /**
  *

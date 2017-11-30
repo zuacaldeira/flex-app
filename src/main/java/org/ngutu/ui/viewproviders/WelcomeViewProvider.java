@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui;
+package org.ngutu.ui.viewproviders;
 
 import com.vaadin.navigator.Navigator.ClassBasedViewProvider;
-import org.ngutu.ui.news.NewsView;
-
+import org.ngutu.ui.welcome.WelcomeView;
+import ui.FlexViews;
 /**
  *
  * @author zua
@@ -17,7 +17,7 @@ public class WelcomeViewProvider extends ClassBasedViewProvider {
     private static final long serialVersionUID = -7126689158013262916L;
 
     public WelcomeViewProvider() {
-        super(FlexViews.WELCOME, NewsView.class);
+        super(FlexViews.WELCOME, WelcomeView.class);
     }
     
     

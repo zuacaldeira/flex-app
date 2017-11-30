@@ -5,7 +5,7 @@
  */
 package ui;
 
-import ui.NewsUI;
+import ui.NgutuUI;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -19,19 +19,19 @@ public class FlexAppUITest {
     }
 
     /**
-     * Test of getContent method, of class NewsUI.
+     * Test of getContent method, of class NgutuUI.
      */
     @Test
     public void testGetContent() {
         System.out.println("getContent");
-        NewsUI instance = new NewsUI();
+        NgutuUI instance = new NgutuUI();
         assertNull(instance.getContent());
     }
     
     @Test
     public void testInit() {
         System.out.println("getContent");
-        NewsUI instance = new NewsUI();
+        NgutuUI instance = new NgutuUI();
         instance.init(null);        
     }
     

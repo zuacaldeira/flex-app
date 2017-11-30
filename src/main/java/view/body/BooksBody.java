@@ -17,7 +17,7 @@ import db.NewsArticle;
 import factory.FlexViewFactory;
 import java.util.Collection;
 import utils.ServiceLocator;
-import view.menu.CanPopulate;
+import components.CanPopulate;
 
 /**
  *

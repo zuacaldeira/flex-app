@@ -5,14 +5,12 @@
  */
 package org.ngutu.ui.news;
 
-import org.ngutu.ui.news.NewsMenuBar;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import db.FlexUser;
 import db.NewsSource;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.ngutu.ui.news.NewsView;
 import utils.FlexAppLogger;
 import utils.ServiceLocator;
 
@@ -39,11 +37,11 @@ public class NewsMenuBarTest {
         System.out.println("initMenuBar");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsMenuBar menuBar = new NewsMenuBar(user);
-        assertNotNull(menuBar.getNews());
-        assertNotNull(menuBar.getPublishers());
-        assertNotNull(menuBar.getCategories());
-        assertNotNull(menuBar.getCountries());
-        assertNotNull(menuBar.getLanguages());
+        assertNull(menuBar.getNews());
+        assertNull(menuBar.getPublishers());
+        assertNull(menuBar.getCategories());
+        assertNull(menuBar.getCountries());
+        assertNull(menuBar.getLanguages());
     }
 
     /**
@@ -55,10 +53,10 @@ public class NewsMenuBarTest {
         initMinimalScenario();
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsMenuBar menuBar = new NewsMenuBar(user);
+        assertNull(menuBar.getPublishers());
+        assertNull(menuBar.getLanguages());
+        assertNull(menuBar.getCountries());
         //menuBar.populate();
-        assertNotNull(menuBar.getPublishers());
-        assertNotNull(menuBar.getLanguages());
-        assertNotNull(menuBar.getCountries());
     }
 
     /**
@@ -133,8 +131,10 @@ public class NewsMenuBarTest {
         if (view.getMenu() != null) {
             NewsMenuBar menuBar = view.getMenu().getMenuBar();
             MenuItem menuItem = menuBar.getLatest();
-            MenuBar.Command command = menuItem.getCommand();
-            command.menuSelected(menuItem);
+            if (menuItem != null) {
+                MenuBar.Command command = menuItem.getCommand();
+                command.menuSelected(menuItem);
+            }
         }
     }
 

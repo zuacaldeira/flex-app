@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.menu;
+package org.ngutu.ui.books;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.themes.ValoTheme;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.menu;
+package org.ngutu.ui.books;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.MenuBar;
@@ -12,12 +12,9 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
-import data.DataProviderType;
 import services.FlexBooksServiceInterface;
-import ui.NewsUI;
 import utils.ServiceLocator;
-import view.body.BooksBody;
-import view.main.FlexBooksView;
+import components.CanPopulate;
 
 /**
  *
@@ -68,20 +65,6 @@ public final class BooksMenuBar extends MenuBar implements CanPopulate {
     @Override
     public void populate() {
         this.initMenuItems();
-    }
-
-    @Override
-    public NewsUI getUI() {
-        return (NewsUI) super.getUI();
-    }
-
-    private void updateBody(DataProviderType dataType, String value) {
-        BooksBody body = ((FlexBooksView) ((NewsUI)getUI()).getContent()).getBody();
-        if (body != null) {
-            body.populate(dataType, value);
-        } else {
-            Notification.show("Body Not Found");
-        }
     }
 
     private String getCategoryCaption(String cat) {

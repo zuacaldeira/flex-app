@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.menu;
+package org.ngutu.ui.books;
 
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
@@ -12,9 +12,10 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import data.DataProviderType;
 import db.FlexUser;
-import ui.NewsUI;
+import ui.NgutuUI;
 import org.ngutu.ui.news.NewsBody;
 import view.logo.FlexLogo;
+import components.CanPopulate;
 
 /**
  *
@@ -62,7 +63,7 @@ public class BooksMenu extends HorizontalLayout implements CanPopulate {
     }
     
     private NewsBody getBody() {
-        return ((NewsUI) UI.getCurrent()).getMainView().getBody();
+        return ((NgutuUI) UI.getCurrent()).getMainView().getBody();
     }
 
     public FlexUser getUser() {
