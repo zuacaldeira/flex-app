@@ -10,7 +10,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 import components.FlexButton;
 import db.FlexUser;
-import ui.FlexViews;
+import org.ngutu.ui.viewproviders.FlexViews;
 import view.logo.FlexLogo;
 
 /**

@@ -6,7 +6,6 @@
 package org.ngutu.ui.viewproviders;
 
 import com.vaadin.navigator.Navigator.ClassBasedViewProvider;
-import ui.FlexViews;
 import view.main.FlexBooksView;
 
 /**

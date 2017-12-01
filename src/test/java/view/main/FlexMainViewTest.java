@@ -30,6 +30,7 @@ public class FlexMainViewTest {
     public void testConstructor() {
         System.out.println("new");
         NewsView mainView = new NewsView();
+        mainView.enter(null);
         assertNull(mainView.getUser());
         assertNotNull(mainView.getMenu());
         assertNotNull(mainView.getBody());
@@ -83,6 +84,7 @@ public class FlexMainViewTest {
         System.out.println("getBody");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsView mainView = new NewsView();
+        mainView.enter(null);
         assertNotNull(mainView.getBody());
     }
 
@@ -94,6 +96,7 @@ public class FlexMainViewTest {
         System.out.println("getFooter");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsView mainView = new NewsView();
+        mainView.enter(null);
         assertNotNull(mainView.getFooter());
     }
 
@@ -105,6 +108,7 @@ public class FlexMainViewTest {
         System.out.println("replaceBody");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsView mainView = new NewsView();
+        mainView.enter(null);
         NewsBody newBody = new NewsBody(user);
         mainView.replaceBody(newBody);
         assertEquals(newBody, mainView.getBody());
@@ -129,7 +133,6 @@ public class FlexMainViewTest {
         System.out.println("populate");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsView mainView = new NewsView();
-        mainView.populate();
     }
     
 }

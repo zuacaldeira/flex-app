@@ -5,7 +5,6 @@
  */
 package org.ngutu.ui.news;
 
-import org.ngutu.ui.news.NewsMenu;
 import db.FlexUser;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -44,11 +43,7 @@ public class NewsMenuStructuralTest {
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsMenu menu = new NewsMenu(user);
         assertEquals(user, menu.getUser());
-        assertNull(menu.getMenuBar());
         assertNull(menu.getLogo());        
-        menu.populate();
-        assertNotNull(menu.getMenuBar());
-        assertNotNull(menu.getLogo());
     }
 
     /**
@@ -60,17 +55,6 @@ public class NewsMenuStructuralTest {
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsMenu menu = new NewsMenu(user);
         assertNotNull(menu.getLogo());
-    }
-
-    /**
-     * Test of getMenuBar method, of class NewsMenu.
-     */
-    @Test
-    public void testGetMenuBar() {
-        System.out.println("getMenuBar");
-        FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsMenu menu = new NewsMenu(user);
-        assertNotNull(menu.getMenuBar());
     }
 
 }

@@ -51,6 +51,7 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
     public NewsMenuBar(FlexUser user) {
         this.user = user;
         sourcesService = ServiceLocator.getInstance().findSourcesService();
+        this.initMenuItems();
     }
 
     protected void initMenuItems() {
@@ -60,14 +61,13 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
         languages = addItem("Languages", null, null);
         countries = addItem("Countries", null, null);
         setSizeUndefined();
-        setAutoOpen(true);
+        setAutoOpen(false);
         setStyleName("news-menu-bar");
         addStyleName(ValoTheme.MENUBAR_BORDERLESS);
     }
 
     @Override
     public void populate() {
-        this.initMenuItems();
         populateNewsByTime();
         news.addSeparator();
         populateNewsByStatus();

@@ -39,7 +39,7 @@ public class WelcomeView extends VerticalLayout implements View {
 
     private void initMenu() {
         menu = new WelcomeMenu(user);
-        menu.setHeight("40px");
+        menu.setHeight("48px");
     }
 
     private void initBody() {

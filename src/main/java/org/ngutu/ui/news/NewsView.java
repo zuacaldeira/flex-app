@@ -10,14 +10,13 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
-import components.CanPopulate;
 import view.footer.FlexFooter;
 
 /**
  *
  * @author zua
  */
-public class NewsView extends VerticalLayout implements View, CanPopulate {
+public class NewsView extends VerticalLayout implements View {
 
     private static final long serialVersionUID = 8467619842785075810L;
 
@@ -27,26 +26,19 @@ public class NewsView extends VerticalLayout implements View, CanPopulate {
     private FlexFooter footer;
 
     public NewsView() {
-        initUser();
-        initBody();
-        initFooter();
-        initMenu();
-        super.addComponents(menu, body, footer);
-        super.setExpandRatio(body, 1f);
-        super.setStyleName("flex-view");
-        super.setSizeFull();
-        super.setMargin(false);
     }
-    
+
     private void initUser() {
-        if(UI.getCurrent() != null) {
-            user = new FlexUser((String) UI.getCurrent().getSession().getAttribute("user"), null);
+        if (UI.getCurrent() != null) {
+            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
+            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+            System.out.println("NEWS VIEW USER -> " + user);
         }
     }
 
     private void initMenu() {
         menu = new NewsMenu(user);
-        menu.setHeight("40px");
+        menu.setHeight("48px");
     }
 
     private void initBody() {
@@ -89,14 +81,17 @@ public class NewsView extends VerticalLayout implements View, CanPopulate {
     }
 
     @Override
-    public void populate() {
-        menu.populate();
-        body.populate();
-    }
-
-    @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        populate();
+        System.out.println("Enctering News VIEWS!!!!");
+        initUser();
+        initBody();
+        initFooter();
+        initMenu();
+        super.addComponents(menu, body, footer);
+        super.setExpandRatio(body, 1f);
+        super.setStyleName("flex-view");
+        super.setSizeFull();
+        super.setMargin(false);
     }
 
 }

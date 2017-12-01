@@ -7,7 +7,6 @@ package org.ngutu.ui.viewproviders;
 
 import com.vaadin.navigator.Navigator.ClassBasedViewProvider;
 import org.ngutu.ui.welcome.WelcomeView;
-import ui.FlexViews;
 /**
  *
  * @author zua

@@ -11,6 +11,7 @@ import db.FlexUser;
 import db.NewsSource;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 import utils.FlexAppLogger;
 import utils.ServiceLocator;
 
@@ -18,6 +19,7 @@ import utils.ServiceLocator;
  *
  * @author zua
  */
+@Ignore
 public class NewsMenuBarTest {
 
     private static final String TEST_USERNAME = "test:username";
@@ -118,24 +120,6 @@ public class NewsMenuBarTest {
     private void initMinimalScenario() {
         NewsSource source = new NewsSource("sourceId", "Publishing AG", "Source Description", "url", "business", "en", "GB");
         ServiceLocator.getInstance().findSourcesService().save(source);
-    }
-
-    @Test
-    public void testSelectOther() {
-        System.out.println("selectOther");
-        initMinimalScenario();
-        FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsView view = new NewsView();
-        view.populate();
-
-        if (view.getMenu() != null) {
-            NewsMenuBar menuBar = view.getMenu().getMenuBar();
-            MenuItem menuItem = menuBar.getLatest();
-            if (menuItem != null) {
-                MenuBar.Command command = menuItem.getCommand();
-                command.menuSelected(menuItem);
-            }
-        }
     }
 
 }

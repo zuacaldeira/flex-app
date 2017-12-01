@@ -8,7 +8,7 @@ package components;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.UI;
 import db.FlexUser;
-import ui.FlexViews;
+import org.ngutu.ui.viewproviders.FlexViews;
 
 /**
  *
@@ -22,7 +22,7 @@ public class LogoutButton extends FlexButton {
     public LogoutButton() {
         username = getUsername();
         super.setCaption(getLogoutCaption());
-        super.setIcon(VaadinIcons.USER);
+        super.setIcon(VaadinIcons.SIGN_OUT);
         super.setSizeUndefined();
         super.addClickListener(event -> {
             logout();

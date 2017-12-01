@@ -32,6 +32,7 @@ public class NewsBody extends FlexPanel implements CanPopulate {
                 worker.interrupt();
             }
         });
+        populate();
     }
 
     private void initMasterDetailView() {

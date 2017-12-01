@@ -36,6 +36,9 @@ public class NgutuAuthAPI extends AuthAPI {
     }
 
     public String getRedirectUrl() {
+        if(Page.getCurrent().getLocation().getHost().contains("localhost")) {
+            return "http://localhost:8080/" + redirectUrlFragment;
+        }
         return APP_URL + redirectUrlFragment;
     }
 }

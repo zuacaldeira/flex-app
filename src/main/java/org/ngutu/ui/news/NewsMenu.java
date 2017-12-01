@@ -5,69 +5,71 @@
  */
 package org.ngutu.ui.news;
 
-import com.vaadin.server.Page;
+import com.vaadin.server.ExternalResource;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
-import components.LogoutButton;
 import data.DataProviderType;
 import db.FlexUser;
-import ui.FlexViews;
+import org.ngutu.ui.viewproviders.FlexViews;
 import ui.NgutuUI;
-import view.logo.FacebookButton;
 import view.logo.FlexLogo;
-import view.logo.TwitterButton;
-import components.CanPopulate;
-import components.LoginButton;
+import components.FlexButton;
+import components.HomeButton;
 import org.ngutu.ui.auth0.NgutuAuthAPI;
 
 /**
  *
  * @author zua
  */
-public class NewsMenu extends HorizontalLayout implements CanPopulate {
+public class NewsMenu extends HorizontalLayout {
 
     private static final long serialVersionUID = 8366211712669711650L;
 
-    private final FlexUser user;
+    private FlexUser user;
 
     private FlexLogo logo;
-
-    private NewsMenuBar menuBar;
-    private TextField searchBox;
     private HorizontalLayout actions;
-
-    private LogoutButton logoutButton;
-    private LoginButton loginButton;
-    private FacebookButton facebookButton;
-    private TwitterButton twitterButton;
-    private HorizontalLayout userActions;
+    private FlexButton home;
+    private FlexButton news;
+    private FlexButton publishers;
+    private FlexButton categories;
+    private FlexButton languages;
+    private FlexButton countries;
+    private FlexButton search;
+    private TextField searchBox;
+    private Image picture;
+    private FlexButton login;
+    private FlexButton logout;
 
     public NewsMenu(FlexUser user) {
         this.user = user;
-        initLogo();
-        initMenuBar();
-        initSearchBox();
-        initLogoutButton();
-        initLoginButton();
-        initSocialButtons();
+        initLogo();        
         initActions();
-        initUserActions();
         super.setSizeFull();
-        super.setMargin(false);
-        super.addComponent(logo);
-        super.addComponent(actions);
-        super.addComponent(userActions);
-        super.setExpandRatio(logo, .2f);
-        super.setExpandRatio(actions, .6f);
-        super.setExpandRatio(userActions, .2f);
+        super.setMargin(new MarginInfo(false, true, false, false));
+        super.addComponents(logo, actions);
+        super.setExpandRatio(actions, 1f);
         super.setComponentAlignment(logo, Alignment.MIDDLE_LEFT);
-        super.setComponentAlignment(actions, Alignment.MIDDLE_CENTER);
-        super.setComponentAlignment(userActions, Alignment.MIDDLE_RIGHT);
+        super.setComponentAlignment(actions, Alignment.MIDDLE_RIGHT);
         super.setStyleName("flex-menu");
+        initAccount();
+    }
+
+    private void initActions() {
+        home = new HomeButton();
+        news = new FlexButton("Overview");
+        categories = new FlexButton("Categories");
+        publishers = new FlexButton("Publishers");
+        languages = new FlexButton("Languages");
+        countries = new FlexButton("Countries");
+        actions = new HorizontalLayout(home, news, categories, publishers, languages, countries);
+        actions.setMargin(new MarginInfo(false, true));
+        actions.setSpacing(false);
     }
 
     private void initSearchBox() {
@@ -82,26 +84,6 @@ public class NewsMenu extends HorizontalLayout implements CanPopulate {
         });
     }
 
-    private void initLogoutButton() {
-        logoutButton = new LogoutButton();
-        logoutButton.addClickListener(e -> {
-            getUI().getSession().setAttribute("user", null);
-            getUI().getNavigator().navigateTo(FlexViews.WELCOME);
-        });
-    }
-
-    private void initLoginButton() {
-        loginButton = new LoginButton();
-        loginButton.addClickListener((Button.ClickEvent event) -> {
-            NgutuAuthAPI authAPI = new NgutuAuthAPI(getUI().getNavigator().getState());
-            authAPI.authorize();
-        });
-    }
-
-    private void initSocialButtons() {
-        facebookButton = new FacebookButton();
-        twitterButton = new TwitterButton();
-    }
 
     private NewsBody getBody() {
         return ((NgutuUI) UI.getCurrent()).getMainView().getBody();
@@ -115,14 +97,6 @@ public class NewsMenu extends HorizontalLayout implements CanPopulate {
         return logo;
     }
 
-    public NewsMenuBar getMenuBar() {
-        return menuBar;
-    }
-
-    private void initMenuBar() {
-        this.menuBar = new NewsMenuBar(user);
-    }
-
     private void initLogo() {
         logo = new FlexLogo();
         logo.addLayoutClickListener(event -> {
@@ -130,25 +104,41 @@ public class NewsMenu extends HorizontalLayout implements CanPopulate {
         });
     }
 
-    @Override
-    public void populate() {
-        menuBar.populate();
-    }
-
-    private void initActions() {
-        actions = new HorizontalLayout(menuBar, searchBox);
-        actions.setSizeUndefined();
-    }
-
-    private void initUserActions() {
-        userActions = new HorizontalLayout(facebookButton, twitterButton);
-        if(getUI() != null && getUI().getSession().getAttribute("user") != null) {
-            userActions.addComponent(logoutButton);
+    private void initAccount() {
+        if(user != null && user.getUserInfo() != null) {
+            initPicture();
+            initLogoutButton();
+            actions.addComponent(logout);
+            super.addComponent(picture);
+            setComponentAlignment(picture, Alignment.MIDDLE_CENTER);
         }
         else {
-            userActions.addComponent(loginButton);
+            initLoginButton();
+            actions.addComponent(login);
         }
-        userActions.setSizeUndefined();
     }
 
+    private void initPicture() {
+        picture = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
+        picture.setWidth("32px");
+        picture.setHeight("32px");
+        picture.setStyleName("circle");
+    }
+    
+    private void initLoginButton() {
+        login = new FlexButton("Login");
+        login.addClickListener(event -> {
+            NgutuAuthAPI authAPI = new NgutuAuthAPI(getUI().getNavigator().getState());
+            authAPI.authorize();
+        });
+    }
+    
+    private void initLogoutButton() {
+        logout = new FlexButton("Logout");
+        logout.addClickListener(e -> {
+            getUI().getSession().setAttribute("user", null);
+            getUI().getNavigator().navigateTo(FlexViews.WELCOME);
+        });
+    }
+    
 }
