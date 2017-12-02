@@ -13,7 +13,7 @@ import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
-//import com.vaadin.navigator.PushStateNavigation;
+import com.vaadin.navigator.PushStateNavigation;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Notification;
@@ -43,7 +43,7 @@ import utils.ServiceLocator;
  */
 @Theme("mytheme")
 @Title("Ngutu °°° Connecting the Unconnected Dots")
-//@PushStateNavigation
+@PushStateNavigation
 @Push
 @JavaScript("app://VAADIN/themes/mytheme/js/adsense.js")
 public class NgutuUI extends SecuredUI {

@@ -68,11 +68,6 @@ public class SummariesPanel extends FlexPanel {
             getUI().access(() -> {
                 overviews.addComponent(FlexViewFactory.getInstance().createArticleView(user, next));
             });
-            try {
-                Thread.sleep(1000);
-            } catch(InterruptedException ex) {
-                return;
-            }
         });
     }
     
