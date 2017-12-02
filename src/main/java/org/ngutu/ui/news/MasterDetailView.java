@@ -14,6 +14,8 @@ import db.FlexUser;
 import db.GraphEntity;
 import factory.FlexViewFactory;
 import components.FlexPanel;
+import db.NewsArticle;
+import io.reactivex.Observable;
 
 /**
  *
@@ -98,7 +100,7 @@ public class MasterDetailView extends FlexPanel {
             updateSelected((GraphEntityView) component);
         });
     }
-
+    
     public void full() {
         summariesPanel.full();
     }
@@ -113,5 +115,9 @@ public class MasterDetailView extends FlexPanel {
 
     public void addItemView(GraphEntity item) {
         addComponent(FlexViewFactory.getInstance().createView(user, item));
+    }
+    
+    public void refresh(Observable<NewsArticle> observable) {
+        summariesPanel.refresh(observable);
     }
 }

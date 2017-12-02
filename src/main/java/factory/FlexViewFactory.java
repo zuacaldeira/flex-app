@@ -17,8 +17,7 @@ import db.NewsAuthor;
 public class FlexViewFactory {
 
     private static FlexViewFactory instance;
-    
-    
+
     private FlexViewFactory() {}
     
     public  SourceView createSourceView(FlexUser user, NewsSource source) {

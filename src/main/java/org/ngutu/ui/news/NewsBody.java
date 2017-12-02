@@ -8,31 +8,27 @@ package org.ngutu.ui.news;
 import data.DataProviderType;
 import db.FlexUser;
 import components.FlexPanel;
-import components.CanPopulate;
+import data.ArticlesRepository;
+import db.NewsArticle;
+import factory.FlexViewFactory;
+import io.reactivex.Observable;
 
 /**
  *
  * @author zua
  */
-public class NewsBody extends FlexPanel implements CanPopulate {
+public class NewsBody extends FlexPanel {
 
     private static final long serialVersionUID = 6273025631274336910L;
 
     private final FlexUser user;
     private MasterDetailView masterDetailView;
-    private transient FlexBodyWorker worker;
     
     public NewsBody(FlexUser user) {
         this.user = user;
         this.initMasterDetailView();
         super.addStyleName("flex-body");
         super.setSizeFull();
-        super.addDetachListener(e -> {
-            if(worker != null) {
-                worker.interrupt();
-            }
-        });
-        populate();
     }
 
     private void initMasterDetailView() {
@@ -54,20 +50,28 @@ public class NewsBody extends FlexPanel implements CanPopulate {
         return user;
     }
 
-    @Override
-    public void populate() {
-        this.populate(DataProviderType.LATEST, "latest");
-    }
-
     public void populate(DataProviderType type, String value) {
         System.out.println("FlexBodyThread#run(): START");
-        initMasterDetailView();
-        if(worker != null) {
-            worker.interrupt();
-        }
-        worker = new FlexBodyWorker(user, masterDetailView, type, value);
-        worker.start();
+        masterDetailView.refresh(getNodes(type, value));
         System.out.println("FlexBodyThread#run(): DONE");
+    }
+    
+    
+    private Observable<NewsArticle> getNodes(DataProviderType type, String value) {
+        Observable<NewsArticle> nodes = null;
+        if(user != null && value != null) {
+            nodes = new ArticlesRepository().loadNodes(type, value, user);
+        }
+        else if(user != null && value == null) {
+            nodes = new ArticlesRepository().loadNodes(type, user);
+        }
+        else if(user == null && value != null) {
+            nodes = new ArticlesRepository().loadNodes(type, value);
+        }
+        else if(user == null && value == null) {
+            nodes = new ArticlesRepository().loadNodes(type);
+        }
+        return nodes;
     }
 
 }

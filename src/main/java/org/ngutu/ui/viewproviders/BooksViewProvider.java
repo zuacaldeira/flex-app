@@ -6,7 +6,7 @@
 package org.ngutu.ui.viewproviders;
 
 import com.vaadin.navigator.Navigator.ClassBasedViewProvider;
-import view.main.FlexBooksView;
+import org.ngutu.ui.books.BooksView;
 
 /**
  *
@@ -17,7 +17,7 @@ public class BooksViewProvider extends ClassBasedViewProvider {
     private static final long serialVersionUID = -7126689158013262916L;
 
     public BooksViewProvider() {
-        super(FlexViews.BOOKS, FlexBooksView.class);
+        super(FlexViews.BOOKS, BooksView.class);
     }
     
     

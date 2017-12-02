@@ -27,6 +27,20 @@ public class NewsView extends VerticalLayout implements View {
 
     public NewsView() {
     }
+    
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent event) {
+        System.out.println("Enctering News VIEWS!!!!");
+        initUser();
+        initBody();
+        initFooter();
+        initMenu();
+        super.addComponents(menu, body, footer);
+        super.setExpandRatio(body, 1f);
+        super.setStyleName("flex-view");
+        super.setSizeFull();
+        super.setMargin(false);
+    }
 
     private void initUser() {
         if (UI.getCurrent() != null) {
@@ -80,18 +94,5 @@ public class NewsView extends VerticalLayout implements View {
         return user;
     }
 
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
-        System.out.println("Enctering News VIEWS!!!!");
-        initUser();
-        initBody();
-        initFooter();
-        initMenu();
-        super.addComponents(menu, body, footer);
-        super.setExpandRatio(body, 1f);
-        super.setStyleName("flex-view");
-        super.setSizeFull();
-        super.setMargin(false);
-    }
 
 }

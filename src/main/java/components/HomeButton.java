@@ -19,8 +19,14 @@ public class HomeButton extends FlexButton {
     public HomeButton() {
         super(FlexCaptions.HOME, VaadinIcons.HOME);
         super.addClickListener(event -> {
-            getUI().getNavigator().navigateTo(FlexViews.WELCOME);
+            goHome();
         });
+    }
+
+    private void goHome() {
+        if(getUI() != null) {
+            getUI().getNavigator().navigateTo(FlexViews.WELCOME);
+        }
     }
 
 }

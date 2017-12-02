@@ -10,7 +10,7 @@ import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import db.FlexUser;
 import db.NewsArticle;
-import java.util.Collection;
+import io.reactivex.Observable;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
@@ -67,7 +67,7 @@ public class ArticlesRepositoryTestIT {
         System.out.println("loadNodes");
         ArticlesRepository instance = new ArticlesRepository();
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        Collection<NewsArticle> result = instance.loadNodes(type, value, user);
+        Observable<NewsArticle> result = instance.loadNodes(type, value, user);
         assertNotNull(result);
     }
 

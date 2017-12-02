@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.main;
+package org.ngutu.ui.books;
 
 import components.AdvertisementPanel;
 import com.vaadin.navigator.View;
@@ -13,16 +13,14 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import ui.SecuredUI;
-import view.body.BooksBody;
 import components.CanPopulate;
 import view.footer.FlexFooter;
-import org.ngutu.ui.books.BooksMenu;
 
 /**
  *
  * @author zua
  */
-public class FlexBooksView extends VerticalLayout implements View, CanPopulate {
+public class BooksView extends VerticalLayout implements View, CanPopulate {
 
     private static final long serialVersionUID = 3485805360419205354L;
 
@@ -34,7 +32,7 @@ public class FlexBooksView extends VerticalLayout implements View, CanPopulate {
     private FlexFooter footer;
     private int browserHeight;
 
-    public FlexBooksView() {
+    public BooksView() {
     }
 
     private void initMenu() {

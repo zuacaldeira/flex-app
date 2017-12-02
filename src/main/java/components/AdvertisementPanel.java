@@ -18,7 +18,7 @@ import db.AmazonBook;
 import db.Person;
 import factory.AmazonBookView;
 import factory.FlexViewFactory;
-import java.util.Collection;
+import io.reactivex.Observable;
 import services.FlexAmazonServiceInterface;
 import utils.ServiceLocator;
 
@@ -69,8 +69,8 @@ public class AdvertisementPanel extends FlexPanel implements LayoutClickListener
     private void initRight(String name) {
         right = new GridLayout(3, 3);
         FlexAmazonServiceInterface service = ServiceLocator.getInstance().findAmazonService();
-        Collection<AmazonBook> favoriteBooks = service.findFavoriteBooks(name);
-        favoriteBooks.stream().forEach(book -> {
+        Observable<AmazonBook> favoriteBooks = service.findFavoriteBooks(name);
+        favoriteBooks.subscribe(book -> {
             AmazonBookView amazonBookView = FlexViewFactory.getInstance().createAmazonBookView(book);
             amazonBookView.addLayoutClickListener(this);
             right.addComponent(amazonBookView);

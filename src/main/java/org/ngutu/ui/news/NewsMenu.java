@@ -19,7 +19,6 @@ import org.ngutu.ui.viewproviders.FlexViews;
 import ui.NgutuUI;
 import view.logo.FlexLogo;
 import components.FlexButton;
-import components.HomeButton;
 import org.ngutu.ui.auth0.NgutuAuthAPI;
 
 /**
@@ -34,13 +33,7 @@ public class NewsMenu extends HorizontalLayout {
 
     private FlexLogo logo;
     private HorizontalLayout actions;
-    private FlexButton home;
-    private FlexButton news;
-    private FlexButton publishers;
-    private FlexButton categories;
-    private FlexButton languages;
-    private FlexButton countries;
-    private FlexButton search;
+    private NewsMenuBar newsMenuBar;
     private TextField searchBox;
     private Image picture;
     private FlexButton login;
@@ -49,7 +42,9 @@ public class NewsMenu extends HorizontalLayout {
     public NewsMenu(FlexUser user) {
         this.user = user;
         initLogo();        
+        initSearchBox();
         initActions();
+        initAccount();
         super.setSizeFull();
         super.setMargin(new MarginInfo(false, true, false, false));
         super.addComponents(logo, actions);
@@ -61,13 +56,8 @@ public class NewsMenu extends HorizontalLayout {
     }
 
     private void initActions() {
-        home = new HomeButton();
-        news = new FlexButton("Overview");
-        categories = new FlexButton("Categories");
-        publishers = new FlexButton("Publishers");
-        languages = new FlexButton("Languages");
-        countries = new FlexButton("Countries");
-        actions = new HorizontalLayout(home, news, categories, publishers, languages, countries);
+        newsMenuBar = new NewsMenuBar(user);
+        actions = new HorizontalLayout(newsMenuBar);
         actions.setMargin(new MarginInfo(false, true));
         actions.setSpacing(false);
     }

@@ -11,10 +11,7 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
-import java.util.Set;
 import data.DataProviderType;
-import java.util.Collection;
-import java.util.TreeSet;
 import services.NewsSourceServiceInterface;
 import ui.NgutuUI;
 import utils.MyDateUtils;
@@ -55,22 +52,20 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
     }
 
     protected void initMenuItems() {
-        news = addItem("News", null, null);
-        publishers = addItem("Publishers", null, null);
-        categories = addItem("Categories", null, null);
-        languages = addItem("Languages", null, null);
-        countries = addItem("Countries", null, null);
+        news = addItem("Articles", null, selected -> {populateNewsOverviews(); news.setCommand(null);});
+        publishers = addItem("Publishers", null, selected -> {populateNewsPublisher(); publishers.setCommand(null);});
+        categories = addItem("Categories", null, selected -> {populateNewsCategory();});
+        languages = addItem("Languages", null, selected -> {populateNewsLanguages();});
+        countries = addItem("Countries", null, selected -> {populateNewsCountries();});
         setSizeUndefined();
-        setAutoOpen(false);
+        setAutoOpen(true);
         setStyleName("news-menu-bar");
         addStyleName(ValoTheme.MENUBAR_BORDERLESS);
     }
 
     @Override
     public void populate() {
-        populateNewsByTime();
-        news.addSeparator();
-        populateNewsByStatus();
+        populateNewsOverviews();
         populateNewsPublisher();
         populateNewsCategory();
         populateNewsLanguages();
@@ -79,8 +74,7 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
 
     protected void populateNewsCategory() {
         if (categories != null) {
-            Collection<String> cats = sourcesService.findCategories();
-            cats.forEach(cat -> {
+            sourcesService.findCategories().subscribe(cat -> {
                 categories.addItem(getCategoryCaption(cat), (selectedMenuItem) -> {
                     updateBody(DataProviderType.CATEGORY, selectedMenuItem.getText());
                 });
@@ -90,8 +84,7 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
 
     protected void populateNewsPublisher() {
         if (publishers != null) {
-            Collection<String> names = sourcesService.findNames();
-            names.forEach(name -> {
+            sourcesService.findNames().subscribe(name -> {
                 publishers.addItem(name, (selectedMenuItem -> {
                     updateBody(DataProviderType.PUBLISHER, selectedMenuItem.getText());
                 }));
@@ -101,32 +94,26 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
 
     protected void populateNewsLanguages() {
         if (languages != null) {
-            Set<String> result = new TreeSet<>();
-            Collection<String> locales = sourcesService.findLocales();
-            locales.forEach(localeString -> {
+            sourcesService.findLocales().subscribe(localeString -> {
                 if (localeString != null && !localeString.isEmpty()) {
-                    result.add(MyDateUtils.getLanguageNameFromPattern(localeString));
+                    String lang = MyDateUtils.getLanguageNameFromPattern(localeString);
+                    languages.addItem(lang, (selectedMenuItem) -> {
+                        updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
+                    });
                 }
-            });
-            result.forEach(lang -> {
-                languages.addItem(lang, (selectedMenuItem) -> {
-                    updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
-                });
             });
         }
     }
 
     protected void populateNewsCountries() {
         if (countries != null) {
-            Set<String> result = new TreeSet<>();
-            Collection<String> locales = sourcesService.findLocales();
-            locales.forEach(localeString -> {
-                result.add(MyDateUtils.getCountryNameFromPattern(localeString));
-            });
-            result.forEach(country -> {
-                countries.addItem(country, (selectedMenuItem) -> {
-                    updateBody(DataProviderType.COUNTRIES, selectedMenuItem.getText());
-                });
+            sourcesService.findLocales().subscribe(localeString -> {
+                if (localeString != null && !localeString.isEmpty()) {
+                    String country = MyDateUtils.getCountryNameFromPattern(localeString);
+                    countries.addItem(country, (selectedMenuItem) -> {
+                        updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
+                    });
+                }
             });
         }
     }
@@ -173,12 +160,8 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
     }
 
     private void updateBody(DataProviderType dataType, String value) {
-        NewsBody body = ((NewsView) ((NgutuUI) getUI()).getContent()).getBody();
-        if (body != null) {
-            body.populate(dataType, value);
-        } else {
-            Notification.show("Body Not Found");
-        }
+        NewsBody body = ((NewsView) getUI().getNavigator().getCurrentView()).getBody();
+        body.populate(dataType, value);
     }
 
     private String getCategoryCaption(String cat) {
@@ -247,5 +230,11 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
 
     public FlexUser getUser() {
         return user;
+    }
+
+    private void populateNewsOverviews() {
+        populateNewsByTime();
+        news.addSeparator();
+        populateNewsByStatus();
     }
 }

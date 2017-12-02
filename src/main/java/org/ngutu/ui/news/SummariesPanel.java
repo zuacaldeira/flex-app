@@ -11,8 +11,8 @@ import db.FlexUser;
 import db.NewsArticle;
 import factory.ArticleView;
 import factory.FlexViewFactory;
-import java.util.Collection;
 import components.FlexPanel;
+import io.reactivex.Observable;
 
 /**
  *
@@ -61,5 +61,21 @@ public class SummariesPanel extends FlexPanel {
             v.titlesOnly();
         }
     }
+
+    public void refresh(Observable<NewsArticle> observable) {
+        overviews.removeAllComponents();
+        observable.subscribe(next -> {
+            getUI().access(() -> {
+                overviews.addComponent(FlexViewFactory.getInstance().createArticleView(user, next));
+            });
+            try {
+                Thread.sleep(1000);
+            } catch(InterruptedException ex) {
+                return;
+            }
+        });
+    }
+    
+    
 
 }

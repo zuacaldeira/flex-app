@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.body;
+package org.ngutu.ui.books;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Grid;
@@ -14,9 +14,6 @@ import data.DataProviderType;
 import db.FlexUser;
 import components.FlexPanel;
 import db.NewsArticle;
-import factory.FlexViewFactory;
-import java.util.Collection;
-import utils.ServiceLocator;
 import components.CanPopulate;
 
 /**
@@ -45,16 +42,7 @@ public class BooksBody extends FlexPanel implements CanPopulate {
     }
 
     private void initGrid() {
-        Collection<NewsArticle> articleList = ServiceLocator.getInstance().findArticlesService().findAll(0, 100);
-        
-        grid = new Grid<>("The Articles Grid", articleList);
-        grid.addComponentColumn(b -> FlexViewFactory.getInstance().createArticleView(user, b)).setCaption("ISBN");
-
-        if(isAdmin(user) || isDeveloper(user) || isOwner(user)) {
-            grid.getEditor().setEnabled(true);
-        }
-        grid.setSizeFull();
-        
+        grid = new Grid<>();
     }
     
     private void initActions() {

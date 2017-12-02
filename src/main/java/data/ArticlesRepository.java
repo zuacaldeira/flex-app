@@ -8,7 +8,7 @@ package data;
 import db.FlexUser;
 import db.NewsArticle;
 import db.NewsSource;
-import java.util.Collection;
+import io.reactivex.Observable;
 import services.NewsArticleServiceInterface;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
@@ -22,12 +22,9 @@ public class ArticlesRepository {
     public ArticlesRepository() {
     }
 
-    public Collection<NewsArticle> loadNodes(DataProviderType type, String value, FlexUser user) {
-        if (value == null || value.isEmpty()) {
-            return loadNodes(type, user);
-        }
-        String username = (user != null) ? user.getUsername() : null;
+    public Observable<NewsArticle> loadNodes(DataProviderType type, String value, FlexUser user) {
         NewsArticleServiceInterface service = ServiceLocator.getInstance().findArticlesService();
+        String username = (user != null) ? user.getUsername() : null;
         switch (type) {
             case CATEGORY:
                 return service.findArticlesWithCategory(username, getCategoryDBCaption(value));
@@ -44,9 +41,27 @@ public class ArticlesRepository {
         }
     }
 
-    public Collection<NewsArticle> loadNodes(DataProviderType type, FlexUser user) {
-        String username = (user != null) ? user.getUsername() : null;
+    public Observable<NewsArticle> loadNodes(DataProviderType type, String value) {
         NewsArticleServiceInterface service = ServiceLocator.getInstance().findArticlesService();
+        switch (type) {
+            case CATEGORY:
+                return service.findArticlesWithCategory(getCategoryDBCaption(value));
+            case PUBLISHER:
+                return service.findArticlesWithSource(getSourceIdForSourceName(value));
+            case LANGUAGES:
+                return service.findArticlesWithLanguage(MyDateUtils.getLanguageCode(value));
+            case COUNTRIES:
+                return service.findArticlesWithCountry(MyDateUtils.getCountryCode(value));
+            case SEARCH:
+                return service.findArticlesWithText(value);
+            default:
+                return service.findLatest();
+        }
+    }
+
+    public Observable<NewsArticle> loadNodes(DataProviderType type, FlexUser user) {
+        NewsArticleServiceInterface service = ServiceLocator.getInstance().findArticlesService();
+        String username = (user != null) ? user.getUsername() : null;
         switch (type) {
             case LATEST:
                 return service.findLatest(username);
@@ -60,6 +75,18 @@ public class ArticlesRepository {
                 return service.findAllFake(username);
             default:
                 return service.findLatest(username);
+        }
+    }
+
+    public Observable<NewsArticle> loadNodes(DataProviderType type) {
+        NewsArticleServiceInterface service = ServiceLocator.getInstance().findArticlesService();
+        switch (type) {
+            case LATEST:
+                return service.findLatest();
+            case OLDEST:
+                return service.findOldest();
+            default:
+                return service.findLatest();
         }
     }
 
