@@ -1,7 +1,6 @@
 package factory;
 
 import com.vaadin.ui.Label;
-import db.FlexUser;
 import db.NewsSource;
 
 /**
@@ -9,14 +8,16 @@ import db.NewsSource;
  */
 public class SourceView extends GraphEntityView<NewsSource> {
 
+    private static final long serialVersionUID = -3396435155506131790L;
+
     private Label name;
     private Label desc;
     private Label category;
     private Label language;
     private Label country;
 
-    public SourceView(FlexUser user, NewsSource apiSource) {
-        super(user, apiSource);
+    public SourceView(NewsSource apiSource) {
+        super(apiSource);
     }
 
     public Label getName() {

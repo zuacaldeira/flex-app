@@ -29,7 +29,7 @@ public class ArticleViewTest {
         System.out.println("new()");
         FlexUser user = new FlexUser();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(article);
         assertEquals(user, aView.getUser());
         assertEquals(article, aView.getArticle());
     }
@@ -42,7 +42,7 @@ public class ArticleViewTest {
         System.out.println("getArticle");
         FlexUser user = new FlexUser();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(article);
         assertEquals(article, aView.getArticle());
     }
 
@@ -54,7 +54,7 @@ public class ArticleViewTest {
         System.out.println("getTitle");
         FlexUser user = new FlexUser();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(article);
         assertEquals("title", aView.getArticle().getTitle());
     }
 
@@ -69,7 +69,7 @@ public class ArticleViewTest {
         article.setTitle("title");
         NewsAuthor author = new NewsAuthor("Author");
         author.addArticle(article);
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(article);
         assertNull(aView.getArticleViewBody().getAuthors());
         //assertEquals(1, aView.getAuthors().getComponentCount());
     }
@@ -86,7 +86,7 @@ public class ArticleViewTest {
         article.setDescription("Description");
         NewsAuthor author = new NewsAuthor("Author");
         author.addArticle(article);
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(article);
         assertNotNull(aView.getArticleViewBody().getContent());
         assertTrue(aView.getArticleViewBody().getContent().getValue().endsWith("Description"));
     }
@@ -104,7 +104,7 @@ public class ArticleViewTest {
         article.setImageUrl("imageUrl");
         NewsAuthor author = new NewsAuthor("Author");
         author.addArticle(article);
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(article);
     }
 
     /**
@@ -121,7 +121,7 @@ public class ArticleViewTest {
         article.setPublishedAt(date);
         NewsAuthor author = new NewsAuthor("Author");
         author.addArticle(article);
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(article);
     }
 
     /**
@@ -139,7 +139,7 @@ public class ArticleViewTest {
         article.setPublishedAt(date);
         NewsAuthor author = new NewsAuthor("Author");
         author.addArticle(article);
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(article);
         assertEquals(article, aView.getItem());
     }
 
@@ -158,7 +158,7 @@ public class ArticleViewTest {
         article.setPublishedAt(date);
         NewsAuthor author = new NewsAuthor("Author");
         author.addArticle(article);
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(article);
         aView.select();
     }
 
@@ -172,7 +172,7 @@ public class ArticleViewTest {
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
         NewsAuthor author = new NewsAuthor("Author");
         author.addArticle(article);
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(article);
         aView.unselect();
     }
 

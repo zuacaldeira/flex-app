@@ -5,6 +5,7 @@
  */
 package factory;
 
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import db.GraphEntity;
@@ -20,11 +21,11 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
     private static final long serialVersionUID = 749607225883641715L;
 
     private final T item;
-    private final FlexUser user;
+    private FlexUser user;
 
 
-    public GraphEntityView(FlexUser user, T entity) {
-        this.user = user;
+    public GraphEntityView(T entity) {
+        initUser();
         this.item = entity;
         super.setSizeFull();
         super.setSpacing(true);
@@ -32,6 +33,13 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
         super.setStyleName("item");
     }
 
+    private void initUser() {
+        if (UI.getCurrent() != null) {
+            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
+            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+            System.out.println("NEWS VIEW USER -> " + user);
+        }
+    }
     public FlexUser getUser() {
         return user;
     }

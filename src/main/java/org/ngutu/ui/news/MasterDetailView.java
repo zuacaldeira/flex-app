@@ -146,7 +146,7 @@ public class MasterDetailView extends FlexPanel {
         public void run() {
             Observable<NewsArticle> observable = new ArticlesRepository().loadNodes(type, value, user);
             observable.subscribe(next -> {
-                ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, next);
+                ArticleView aView = FlexViewFactory.getInstance().createArticleView(next);
                 addSingleSummary(aView);
             });
         }

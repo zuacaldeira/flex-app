@@ -1,7 +1,6 @@
 package factory;
 
 import com.vaadin.ui.*;
-import db.FlexUser;
 import db.NewsAuthor;
 
 
@@ -11,8 +10,8 @@ import db.NewsAuthor;
 public class AuthorView extends GraphEntityView<NewsAuthor> {
     private Label name;
 
-    public AuthorView(FlexUser user, NewsAuthor author) {
-        super(user, author);
+    public AuthorView(NewsAuthor author) {
+        super(author);
     }
 
     

@@ -4,7 +4,6 @@ import com.ECS.client.jax.Item;
 import com.ECS.client.jax.Items;
 import com.vaadin.ui.Component;
 import db.AmazonBook;
-import db.FlexUser;
 import db.GraphEntity;
 import db.NewsArticle;
 import db.NewsSource;
@@ -20,27 +19,27 @@ public class FlexViewFactory {
 
     private FlexViewFactory() {}
     
-    public  SourceView createSourceView(FlexUser user, NewsSource source) {
-        return new SourceView(user, source);
+    public  SourceView createSourceView(NewsSource source) {
+        return new SourceView(source);
     }
 
-    public  ArticleView createArticleView(FlexUser user, NewsArticle article) {
-        return new ArticleView(user, article);
+    public  ArticleView createArticleView(NewsArticle article) {
+        return new ArticleView(article);
     }
 
-    public  AuthorView createAuthorView(FlexUser user, NewsAuthor author) {
-        return new AuthorView(user, author);
+    public  AuthorView createAuthorView(NewsAuthor author) {
+        return new AuthorView(author);
     }
     
-    public  GraphEntityView createView(FlexUser user, GraphEntity entity) {
+    public  GraphEntityView createView(GraphEntity entity) {
         if(entity instanceof NewsArticle) {
-            return createArticleView(user, (NewsArticle) entity);
+            return createArticleView((NewsArticle) entity);
         }
         else if(entity instanceof NewsSource) {
-            return createSourceView(user, (NewsSource) entity);
+            return createSourceView((NewsSource) entity);
         }
         else if(entity instanceof NewsAuthor) {
-            return createAuthorView(user, (NewsAuthor) entity);
+            return createAuthorView((NewsAuthor) entity);
         }
         return null;
     }

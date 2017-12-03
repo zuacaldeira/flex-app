@@ -24,7 +24,7 @@ public class SourceViewTest {
         System.out.println("new SourceView()");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
-        assertNotNull(new SourceView(user, source));
+        assertNotNull(new SourceView(source));
     }
 
     /**
@@ -35,7 +35,7 @@ public class SourceViewTest {
         System.out.println("getName");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
-        assertNull(new SourceView(user, source).getName());
+        assertNull(new SourceView(source).getName());
     }
 
     /**
@@ -46,7 +46,7 @@ public class SourceViewTest {
         System.out.println("getDesc");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
-        assertNull(new SourceView(user, source).getDesc());
+        assertNull(new SourceView(source).getDesc());
     }
 
     /**
@@ -57,7 +57,7 @@ public class SourceViewTest {
         System.out.println("getCategory");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
-        assertNull(new SourceView(user, source).getCategory());
+        assertNull(new SourceView(source).getCategory());
     }
 
     /**
@@ -68,7 +68,7 @@ public class SourceViewTest {
         System.out.println("getLanguage");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
-        assertNull(new SourceView(user, source).getLanguage());
+        assertNull(new SourceView(source).getLanguage());
     }
 
     /**
@@ -79,7 +79,7 @@ public class SourceViewTest {
         System.out.println("getCountry");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
-        assertNull(new SourceView(user, source).getCountry());
+        assertNull(new SourceView(source).getCountry());
     }
 
     /**
@@ -90,7 +90,7 @@ public class SourceViewTest {
         System.out.println("buttonClick");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
-        SourceView view = new SourceView(user, source);
+        SourceView view = new SourceView(source);
         assertNotNull(view);
     }
 

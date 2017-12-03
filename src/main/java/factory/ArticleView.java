@@ -1,6 +1,5 @@
 package factory;
 
-import db.FlexUser;
 import db.NewsArticle;
 
 /**
@@ -15,27 +14,30 @@ public class ArticleView extends GraphEntityView<NewsArticle> {
     private ArticleViewBody articleViewBody;
     private ArticleViewActions articleViewActions;
 
-    public ArticleView(FlexUser user, NewsArticle article) {
-        super(user, article);
+    public ArticleView(NewsArticle article) {
+        super(article);
         this.initHeader();
         this.initBody();
         this.initActions();
-        super.addComponents(articleViewHeader, articleViewBody, articleViewActions);
         super.setExpandRatio(articleViewBody, 1f);
     }
-    
+
     private void initHeader() {
         this.articleViewHeader = new ArticleViewHeader(getUser(), getItem());
+        super.addComponent(articleViewHeader);
     }
-    
+
     private void initBody() {
         this.articleViewBody = new ArticleViewBody(getUser(), getItem());
+        super.addComponent(articleViewBody);
     }
-    
+
     private void initActions() {
-        this.articleViewActions = new ArticleViewActions(getUser(), getItem());
+        if (getUser() != null) {
+            this.articleViewActions = new ArticleViewActions(getUser(), getItem());
+            super.addComponent(articleViewBody);
+        }
     }
-    
 
     @Override
     public NewsArticle getItem() {
@@ -74,13 +76,13 @@ public class ArticleView extends GraphEntityView<NewsArticle> {
         articleViewBody.full();
         articleViewActions.full();
     }
-    
+
     public void imagesOnly() {
         articleViewHeader.imagesOnly();
         articleViewBody.imagesOnly();
         articleViewActions.imagesOnly();
     }
-    
+
     public void titlesOnly() {
         articleViewHeader.titlesOnly();
         articleViewBody.titlesOnly();
