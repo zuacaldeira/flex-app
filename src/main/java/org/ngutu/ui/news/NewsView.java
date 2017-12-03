@@ -41,6 +41,7 @@ public class NewsView extends VerticalLayout implements View {
         super.setStyleName("flex-view");
         super.setSizeFull();
         super.setMargin(false);
+        body.getMasterDetail().refresh(user, DataProviderType.LATEST, null);
     }
 
     private void initUser() {
@@ -59,7 +60,6 @@ public class NewsView extends VerticalLayout implements View {
     private void initBody() {
         body = new NewsBody(user);
         body.setSizeFull();
-        body.getMasterDetail().refresh(user, DataProviderType.LATEST, null);
     }
 
     private void initFooter() {
