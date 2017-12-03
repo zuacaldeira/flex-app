@@ -247,9 +247,17 @@ public final class NewsMenuBar extends MenuBar {
         public void run() {
             getUI().access(() -> {
                 populateNewsOverviews();
+            });
+            getUI().access(() -> {
                 populateNewsPublisher();
+            });
+            getUI().access(() -> {
                 populateNewsCategory();
+            });
+            getUI().access(() -> {
                 populateNewsLanguages();
+            });
+            getUI().access(() -> {
                 populateNewsCountries();
             });
         }
