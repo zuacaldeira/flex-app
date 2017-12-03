@@ -17,6 +17,7 @@ import ui.NgutuUI;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
 import components.CanPopulate;
+import io.reactivex.disposables.Disposable;
 
 /**
  *
@@ -52,11 +53,23 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
     }
 
     protected void initMenuItems() {
-        news = addItem("Articles", null, selected -> {populateNewsOverviews(); news.setCommand(null);});
-        publishers = addItem("Publishers", null, selected -> {populateNewsPublisher(); publishers.setCommand(null);});
-        categories = addItem("Categories", null, selected -> {populateNewsCategory();});
-        languages = addItem("Languages", null, selected -> {populateNewsLanguages();});
-        countries = addItem("Countries", null, selected -> {populateNewsCountries();});
+        news = addItem("Articles", null, selected -> {
+            populateNewsOverviews();
+            news.setCommand(null);
+        });
+        publishers = addItem("Publishers", null, selected -> {
+            populateNewsPublisher();
+            publishers.setCommand(null);
+        });
+        categories = addItem("Categories", null, selected -> {
+            populateNewsCategory();
+        });
+        languages = addItem("Languages", null, selected -> {
+            populateNewsLanguages();
+        });
+        countries = addItem("Countries", null, selected -> {
+            populateNewsCountries();
+        });
         setSizeUndefined();
         setAutoOpen(true);
         setStyleName("news-menu-bar");

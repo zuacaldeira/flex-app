@@ -10,7 +10,6 @@ import db.FlexUser;
 import components.FlexPanel;
 import data.ArticlesRepository;
 import db.NewsArticle;
-import factory.FlexViewFactory;
 import io.reactivex.Observable;
 
 /**
@@ -52,7 +51,7 @@ public class NewsBody extends FlexPanel {
 
     public void populate(DataProviderType type, String value) {
         System.out.println("FlexBodyThread#run(): START");
-        masterDetailView.refresh(getNodes(type, value));
+        masterDetailView.refresh(user, type, value);
         System.out.println("FlexBodyThread#run(): DONE");
     }
     

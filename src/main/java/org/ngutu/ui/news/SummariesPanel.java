@@ -8,11 +8,8 @@ package org.ngutu.ui.news;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
-import db.NewsArticle;
 import factory.ArticleView;
-import factory.FlexViewFactory;
 import components.FlexPanel;
-import io.reactivex.Observable;
 
 /**
  *
@@ -62,15 +59,9 @@ public class SummariesPanel extends FlexPanel {
         }
     }
 
-    public void refresh(Observable<NewsArticle> observable) {
-        overviews.removeAllComponents();
-        observable.subscribe(next -> {
-            getUI().access(() -> {
-                overviews.addComponent(FlexViewFactory.getInstance().createArticleView(user, next));
-            });
-        });
+    public VerticalLayout getOverviews() {
+        return overviews;
     }
-    
-    
+
 
 }

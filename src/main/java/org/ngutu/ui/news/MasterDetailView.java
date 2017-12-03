@@ -11,10 +11,12 @@ import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import db.FlexUser;
-import db.GraphEntity;
 import factory.FlexViewFactory;
 import components.FlexPanel;
+import data.ArticlesRepository;
+import data.DataProviderType;
 import db.NewsArticle;
+import factory.ArticleView;
 import io.reactivex.Observable;
 
 /**
@@ -25,17 +27,15 @@ public class MasterDetailView extends FlexPanel {
 
     private static final long serialVersionUID = -2414042455007471125L;
 
+    private MasterDetailThread worker;
+    private final HorizontalLayout baseLayout;
     private SummariesPanel summariesPanel;
     private BrowserFrame infoFrame;
-    private HorizontalLayout baseLayout;
     private GraphEntityView selected;
-    private Object myData;
     private final FlexUser user;
 
     public MasterDetailView(FlexUser user) {
         this.user = user;
-        selected = null;
-        myData = null;
         initSummaries(1);
         initBrowserFrame();
         baseLayout = new HorizontalLayout(summariesPanel, infoFrame);
@@ -46,6 +46,7 @@ public class MasterDetailView extends FlexPanel {
         baseLayout.setMargin(true);
         super.setSizeFull();
         super.setContent(baseLayout);
+        refresh(user, DataProviderType.LATEST, null);
     }
 
     private void initSummaries(int c) {
@@ -72,10 +73,6 @@ public class MasterDetailView extends FlexPanel {
         return selected;
     }
 
-    public Object getMyData() {
-        return myData;
-    }
-
     private void updateSelected(GraphEntityView itemView) {
         if (selected != null) {
             selected.unselect();
@@ -91,7 +88,7 @@ public class MasterDetailView extends FlexPanel {
         }
     }
 
-    public void addComponent(Component component) {
+    public void addSingleSummary(Component component) {
         summariesPanel.addItemView(component);
         if (selected == null) {
             updateSelected((GraphEntityView) component);
@@ -100,7 +97,7 @@ public class MasterDetailView extends FlexPanel {
             updateSelected((GraphEntityView) component);
         });
     }
-    
+
     public void full() {
         summariesPanel.full();
     }
@@ -113,11 +110,36 @@ public class MasterDetailView extends FlexPanel {
         summariesPanel.titlesOnly();
     }
 
-    public void addItemView(GraphEntity item) {
-        addComponent(FlexViewFactory.getInstance().createView(user, item));
+    public final void refresh(FlexUser user, DataProviderType type, String value) {
+        if(worker != null) {
+            worker.interrupt();
+        }
+        worker = new MasterDetailThread(user, type, value);
+        worker.start();
     }
-    
-    public void refresh(Observable<NewsArticle> observable) {
-        summariesPanel.refresh(observable);
+
+    private class MasterDetailThread extends Thread {
+
+        private FlexUser user;
+        private DataProviderType type;
+        private String value;
+
+        public MasterDetailThread(FlexUser user, DataProviderType type, String value) {
+            this.user = user;
+            this.type = type;
+            this.value = value;
+        }
+
+        @Override
+        public void run() {
+            summariesPanel.getOverviews().removeAllComponents();
+            Observable<NewsArticle> observable = new ArticlesRepository().loadNodes(type, value, user);
+            observable.subscribe(next -> {
+                getUI().access(() -> {
+                    ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, next);
+                    addSingleSummary(aView);
+                });
+            });
+        }
     }
 }
