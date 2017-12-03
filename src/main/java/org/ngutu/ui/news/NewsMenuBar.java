@@ -8,22 +8,19 @@ package org.ngutu.ui.news;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
 import data.DataProviderType;
 import services.NewsSourceServiceInterface;
-import ui.NgutuUI;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
 import components.CanPopulate;
-import io.reactivex.disposables.Disposable;
 
 /**
  *
  * @author zua
  */
-public final class NewsMenuBar extends MenuBar implements CanPopulate {
+public final class NewsMenuBar extends MenuBar {
 
     private static final long serialVersionUID = -1299703352057116843L;
 
@@ -31,6 +28,7 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
     private final NewsSourceServiceInterface sourcesService;
 
     // Main Menu (top level)
+    private MenuBarThread worker;
     private MenuItem news;
     private MenuItem categories;
     private MenuItem publishers;
@@ -49,7 +47,9 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
     public NewsMenuBar(FlexUser user) {
         this.user = user;
         sourcesService = ServiceLocator.getInstance().findSourcesService();
+        worker = new MenuBarThread();
         this.initMenuItems();
+        refresh();
     }
 
     protected void initMenuItems() {
@@ -62,23 +62,14 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
         setAutoOpen(true);
         setStyleName("news-menu-bar");
         addStyleName(ValoTheme.MENUBAR_BORDERLESS);
-        populate();
     }
 
-    @Override
-    public void populate() {
-        new Thread() {
-            @Override
-            public void run() {
-                getUI().access(() -> {
-                    populateNewsOverviews();
-                    populateNewsPublisher();
-                    populateNewsCategory();
-                    populateNewsLanguages();
-                    populateNewsCountries();
-                });
-            }
-        }.start();
+    private void refresh() {
+        if (worker != null) {
+            worker.interrupt();
+        }
+        worker = new MenuBarThread();
+        worker.start();
     }
 
     protected void populateNewsCategory() {
@@ -245,5 +236,23 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
         populateNewsByTime();
         news.addSeparator();
         populateNewsByStatus();
+    }
+
+    private class MenuBarThread extends Thread {
+
+        public MenuBarThread() {
+        }
+
+        @Override
+        public void run() {
+            getUI().access(() -> {
+                populateNewsOverviews();
+                populateNewsPublisher();
+                populateNewsCategory();
+                populateNewsLanguages();
+                populateNewsCountries();
+            });
+        }
+
     }
 }
