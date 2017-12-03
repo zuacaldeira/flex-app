@@ -5,6 +5,8 @@
  */
 package org.ngutu.ui.news;
 
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
 import factory.GraphEntityView;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.BrowserFrame;
@@ -24,18 +26,22 @@ import io.reactivex.Observable;
  *
  * @author zua
  */
-public class MasterDetailView extends FlexPanel {
+public class MasterDetailView extends FlexPanel implements View {
 
     private static final long serialVersionUID = -2414042455007471125L;
 
     private MasterDetailThread worker;
-    private final HorizontalLayout baseLayout;
+    private HorizontalLayout baseLayout;
     private SummariesPanel summariesPanel;
     private BrowserFrame infoFrame;
     private GraphEntityView selected;
     private FlexUser user;
 
     public MasterDetailView() {
+    }
+
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent event) {
         initUser();
         initSummaries(1);
         initBrowserFrame();
@@ -50,6 +56,7 @@ public class MasterDetailView extends FlexPanel {
         refresh(DataProviderType.LATEST, null);
     }
 
+    
     private void initUser() {
         if (UI.getCurrent() != null) {
             System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
@@ -129,6 +136,8 @@ public class MasterDetailView extends FlexPanel {
         worker = new MasterDetailThread(user, type, value);
         worker.start();
     }
+    
+    
 
     private class MasterDetailThread extends Thread {
 
