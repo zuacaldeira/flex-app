@@ -91,8 +91,5 @@ public class WelcomeMenu extends HorizontalLayout {
 
     private void initLogo() {
         logo = new FlexLogo();
-        logo.addLayoutClickListener(event -> {
-            UI.getCurrent().getNavigator().navigateTo(FlexViews.WELCOME);
-        });
     }
 }

@@ -11,6 +11,8 @@ import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.UI;
+import org.ngutu.ui.viewproviders.FlexViews;
 
 /**
  *
@@ -33,6 +35,9 @@ public class FlexLogo extends HorizontalLayout {
         super.setMargin(new MarginInfo(false, false, false, true));
         super.setSpacing(false);
         super.setStyleName("flex-logo");
+        super.addLayoutClickListener(event -> {
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.WELCOME);
+        });
     }
 
     private void initLabel() {
