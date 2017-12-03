@@ -27,6 +27,7 @@ public final class NewsMenuBar extends MenuBar {
     private final NewsSourceServiceInterface sourcesService;
 
     // Main Menu (top level)
+    private MenuItem top;
     private MenuItem news;
     private MenuItem categories;
     private MenuItem publishers;
@@ -53,11 +54,12 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     protected void initMenuItems() {
-        news = addItem("Articles", null, null);
-        publishers = addItem("Publishers", null, null);
-        categories = addItem("Categories", null, null);
-        languages = addItem("Languages", null, null);
-        countries = addItem("Countries", null, null);
+        top = addItem("Menu", VaadinIcons.GRID_SMALL, null);
+        news = top.addItem("Articles", null, null);
+        publishers = top.addItem("Publishers", null, null);
+        categories = top.addItem("Categories", null, null);
+        languages = top.addItem("Languages", null, null);
+        countries = top.addItem("Countries", null, null);
         populate();
         latest.getCommand().menuSelected(latest);
         //refresh();
