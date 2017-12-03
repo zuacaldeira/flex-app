@@ -9,6 +9,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import data.DataProviderType;
 import db.FlexUser;
 import view.footer.FlexFooter;
 
@@ -40,6 +41,7 @@ public class NewsView extends VerticalLayout implements View {
         super.setStyleName("flex-view");
         super.setSizeFull();
         super.setMargin(false);
+        getBody().populate(DataProviderType.LATEST, null);
     }
 
     private void initUser() {

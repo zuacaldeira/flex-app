@@ -24,8 +24,6 @@ public final class WelcomeMenuBar extends MenuBar {
     private final FlexUser user;
 
     // Main Menu (top level)
-    private MenuItem top;
-    private MenuItem home;
     private MenuItem news;
     private MenuItem books;
     private MenuItem login;
@@ -40,17 +38,11 @@ public final class WelcomeMenuBar extends MenuBar {
         addStyleName(ValoTheme.MENUBAR_BORDERLESS);
     }
 
-    protected void initMenuItems() {
-        home = addItem("", VaadinIcons.HOME, (item -> {
-            getUI().getNavigator().navigateTo(FlexViews.WELCOME);
-        }));
-        top = addItem("", VaadinIcons.GRID_SMALL, null);
-        top.setStyleName("menu-bar-top");
-        
-        news = top.addItem("News", VaadinIcons.NEWSPAPER, (item -> {
+    protected void initMenuItems() {        
+        news = addItem("News", null, (item -> {
             getUI().getNavigator().navigateTo(FlexViews.NEWS);
         }));
-        books = top.addItem("Books", VaadinIcons.BOOK, (item -> {
+        books = addItem("Books", null, (item -> {
             getUI().getNavigator().navigateTo(FlexViews.BOOKS);
         }));
         if (user == null) {
