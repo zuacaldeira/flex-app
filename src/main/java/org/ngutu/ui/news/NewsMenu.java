@@ -5,11 +5,9 @@
  */
 package org.ngutu.ui.news;
 
-import com.vaadin.server.ExternalResource;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Image;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
@@ -18,8 +16,6 @@ import db.FlexUser;
 import org.ngutu.ui.viewproviders.FlexViews;
 import ui.NgutuUI;
 import view.logo.FlexLogo;
-import components.FlexButton;
-import org.ngutu.ui.auth0.NgutuAuthAPI;
 
 /**
  *
@@ -35,16 +31,12 @@ public class NewsMenu extends HorizontalLayout {
     private HorizontalLayout actions;
     private NewsMenuBar newsMenuBar;
     private TextField searchBox;
-    private Image picture;
-    private FlexButton login;
-    private FlexButton logout;
 
     public NewsMenu(FlexUser user) {
         this.user = user;
-        initLogo();        
+        initLogo();
         initSearchBox();
         initActions();
-        initAccount();
         super.setSizeFull();
         super.setMargin(new MarginInfo(false, true, false, false));
         super.addComponents(logo, actions);
@@ -52,7 +44,6 @@ public class NewsMenu extends HorizontalLayout {
         super.setComponentAlignment(logo, Alignment.MIDDLE_LEFT);
         super.setComponentAlignment(actions, Alignment.MIDDLE_RIGHT);
         super.setStyleName("flex-menu");
-        initAccount();
     }
 
     private void initActions() {
@@ -74,7 +65,6 @@ public class NewsMenu extends HorizontalLayout {
         });
     }
 
-
     private NewsBody getBody() {
         return ((NgutuUI) UI.getCurrent()).getMainView().getBody();
     }
@@ -94,41 +84,4 @@ public class NewsMenu extends HorizontalLayout {
         });
     }
 
-    private void initAccount() {
-        if(user != null && user.getUserInfo() != null) {
-            initPicture();
-            initLogoutButton();
-            actions.addComponent(logout);
-            super.addComponent(picture);
-            setComponentAlignment(picture, Alignment.MIDDLE_CENTER);
-        }
-        else {
-            initLoginButton();
-            actions.addComponent(login);
-        }
-    }
-
-    private void initPicture() {
-        picture = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
-        picture.setWidth("32px");
-        picture.setHeight("32px");
-        picture.setStyleName("circle");
-    }
-    
-    private void initLoginButton() {
-        login = new FlexButton("Login");
-        login.addClickListener(event -> {
-            NgutuAuthAPI authAPI = new NgutuAuthAPI(getUI().getNavigator().getState());
-            authAPI.authorize();
-        });
-    }
-    
-    private void initLogoutButton() {
-        logout = new FlexButton("Logout");
-        logout.addClickListener(e -> {
-            getUI().getSession().setAttribute("user", null);
-            getUI().getNavigator().navigateTo(FlexViews.WELCOME);
-        });
-    }
-    
 }

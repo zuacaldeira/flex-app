@@ -6,11 +6,15 @@
 package org.ngutu.ui.news;
 
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.server.ExternalResource;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
 import data.DataProviderType;
+import org.ngutu.ui.auth0.NgutuAuthAPI;
+import org.ngutu.ui.viewproviders.FlexViews;
 import services.NewsSourceServiceInterface;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
@@ -43,6 +47,8 @@ public final class NewsMenuBar extends MenuBar {
     private MenuItem imagesOnly;
     private MenuItem titlesOnly;
 
+    private Image picture;
+
     public NewsMenuBar(FlexUser user) {
         this.user = user;
         sourcesService = ServiceLocator.getInstance().findSourcesService();
@@ -60,7 +66,26 @@ public final class NewsMenuBar extends MenuBar {
         categories = top.addItem("Categories", null, null);
         languages = top.addItem("Languages", null, null);
         countries = top.addItem("Countries", null, null);
+        if (user == null) {
+            addItem("Login", VaadinIcons.SIGN_IN, (selectedItem) -> {
+                NgutuAuthAPI authAPI = new NgutuAuthAPI(getUI().getNavigator().getState());
+                authAPI.authorize();
+            });
+        }
+        if (user != null) {
+            addItem("Logout", VaadinIcons.SIGN_OUT, (selectedItem) -> {
+                getUI().getSession().setAttribute("user", null);
+                getUI().getNavigator().navigateTo(FlexViews.WELCOME);
+            });
+            addPicture();
+        }
         populate();
+    }
+
+    private void addPicture() {
+        picture = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
+        picture.setWidth("40px");
+        picture.setHeight("40px");
     }
 
     protected void populateNewsCategory() {
