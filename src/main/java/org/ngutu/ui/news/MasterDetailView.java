@@ -10,6 +10,7 @@ import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.UI;
 import db.FlexUser;
 import factory.FlexViewFactory;
 import components.FlexPanel;
@@ -32,10 +33,10 @@ public class MasterDetailView extends FlexPanel {
     private SummariesPanel summariesPanel;
     private BrowserFrame infoFrame;
     private GraphEntityView selected;
-    private final FlexUser user;
+    private FlexUser user;
 
-    public MasterDetailView(FlexUser user) {
-        this.user = user;
+    public MasterDetailView() {
+        initUser();
         initSummaries(1);
         initBrowserFrame();
         baseLayout = new HorizontalLayout(summariesPanel, infoFrame);
@@ -46,7 +47,15 @@ public class MasterDetailView extends FlexPanel {
         baseLayout.setMargin(true);
         super.setSizeFull();
         super.setContent(baseLayout);
-        refresh(user, DataProviderType.LATEST, null);
+        refresh(DataProviderType.LATEST, null);
+    }
+
+    private void initUser() {
+        if (UI.getCurrent() != null) {
+            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
+            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+            System.out.println("NEWS VIEW USER -> " + user);
+        }
     }
 
     private void initSummaries(int c) {
@@ -112,7 +121,7 @@ public class MasterDetailView extends FlexPanel {
         summariesPanel.titlesOnly();
     }
 
-    public final void refresh(FlexUser user, DataProviderType type, String value) {
+    public final void refresh(DataProviderType type, String value) {
         if (worker != null) {
             worker.interrupt();
         }

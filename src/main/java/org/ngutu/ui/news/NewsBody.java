@@ -39,7 +39,7 @@ public class NewsBody extends FlexPanel {
         }
     }
     private void initMasterDetailView() {
-        masterDetailView = new MasterDetailView(user);
+        masterDetailView = new MasterDetailView();
         masterDetailView.setSizeFull();
         super.setContent(masterDetailView);
     }
@@ -59,7 +59,7 @@ public class NewsBody extends FlexPanel {
 
     public void populate(DataProviderType type, String value) {
         System.out.println("FlexBodyThread#run(): START");
-        masterDetailView.refresh(user, type, value);
+        masterDetailView.refresh(type, value);
         System.out.println("FlexBodyThread#run(): DONE");
     }
     
