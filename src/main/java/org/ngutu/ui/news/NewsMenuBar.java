@@ -11,8 +11,6 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
 import data.DataProviderType;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import services.NewsSourceServiceInterface;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
@@ -236,7 +234,7 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     private class MenuBarThread extends Thread {
-        
+
         private NewsMenuBar menuBar;
 
         private MenuBarThread(NewsMenuBar menuBar) {
@@ -245,29 +243,13 @@ public final class NewsMenuBar extends MenuBar {
 
         @Override
         public void run() {
-            try {
-                getUI().access(() -> {
-                    menuBar.populateNewsOverviews();
-                });
-                Thread.sleep(1000);
-                getUI().access(() -> {
-                    menuBar.populateNewsPublisher();
-                });
-                Thread.sleep(1000);
-                getUI().access(() -> {
-                    menuBar.populateNewsCategory();
-                });
-                Thread.sleep(1000);
-                getUI().access(() -> {
-                    menuBar.populateNewsLanguages();
-                });
-                Thread.sleep(1000);
-                getUI().access(() -> {
-                    menuBar.populateNewsCountries();
-                });
-            } catch (InterruptedException ex) {
-                Logger.getLogger(NewsMenuBar.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            getUI().access(() -> {
+                menuBar.populateNewsOverviews();
+                menuBar.populateNewsPublisher();
+                menuBar.populateNewsCategory();
+                menuBar.populateNewsLanguages();
+                menuBar.populateNewsCountries();
+            });
         }
 
     }
