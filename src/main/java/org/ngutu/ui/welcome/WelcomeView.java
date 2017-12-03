@@ -7,7 +7,6 @@ package org.ngutu.ui.welcome;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
@@ -46,8 +45,7 @@ public class WelcomeView extends VerticalLayout implements View {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        user = new FlexUser((String) UI.getCurrent().getSession().getAttribute("user"), null);
-        Notification.show("user@welcomeView is Null? " + String.valueOf(user==null));
+        initUser();
         initMenu();
         initBody();
         initFooter();
@@ -58,6 +56,12 @@ public class WelcomeView extends VerticalLayout implements View {
         super.setMargin(false);
     }
 
+    private void initUser() {
+        if (UI.getCurrent() != null) {
+            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+        }
+    }
+
     public void replaceBody(WelcomeBody flexBody) {
         replaceComponent(body, flexBody);
         this.body = flexBody;
@@ -66,6 +70,5 @@ public class WelcomeView extends VerticalLayout implements View {
     public FlexUser getUser() {
         return user;
     }
-
 
 }
