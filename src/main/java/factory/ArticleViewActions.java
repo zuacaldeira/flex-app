@@ -36,13 +36,11 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
     public ArticleViewActions(FlexUser user, NewsArticle article) {
         this.user = user;
         this.article = article;
-        if(user != null) {
-            initActions();
-            super.addComponents(commentButton, favoriteButton, fakeButton, hideButton);
-            super.setSizeFull();
-            super.setStyleName("actions");
-            super.setSpacing(true);
-        }
+        initActions();
+        super.addComponents(commentButton, favoriteButton, fakeButton, hideButton);
+        super.setSizeFull();
+        super.setStyleName("actions");
+        super.setSpacing(true);
     }
 
     private void initActions() {

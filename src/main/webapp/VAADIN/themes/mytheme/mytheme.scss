@@ -288,6 +288,10 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
         border-radius: 50%;
     }
 
+    .gravatar{
+        box-shadow: inset 4px rgba(125, 125, 125, 0.5);
+    }
+
     .info-frame {
     }
 }

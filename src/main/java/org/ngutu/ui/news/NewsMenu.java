@@ -51,7 +51,7 @@ public class NewsMenu extends HorizontalLayout {
 
     private void initActions() {
         actions = new HorizontalLayout();
-        actions.setMargin(new MarginInfo(false, true));
+        actions.setMargin(false);
         actions.setSpacing(false);
         initMenuBar();
         initPicture();
@@ -62,6 +62,7 @@ public class NewsMenu extends HorizontalLayout {
             picture = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
             picture.setWidth("40px");
             picture.setHeight("40px");
+            picture.setStyleName("circle gravatar");
             actions.addComponent(picture);
         }
     }
@@ -77,6 +78,7 @@ public class NewsMenu extends HorizontalLayout {
         searchBox.setCaptionAsHtml(true);
         searchBox.setPlaceholder("Search");
         searchBox.setStyleName("search-box");
+        searchBox.setWidth("100%");
         searchBox.addValueChangeListener(e -> {
             Notification.show("Clicked on search " + e.getValue());
             NewsBody body = getBody();
