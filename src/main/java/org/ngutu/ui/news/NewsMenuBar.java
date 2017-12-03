@@ -65,7 +65,9 @@ public final class NewsMenuBar extends MenuBar {
         }));
         top = addItem("", VaadinIcons.GRID_SMALL, null);
         top.setStyleName("menu-bar-top");
-        news = top.addItem("Articles", null, null);
+        news = top.addItem("Articles", null, item -> {
+            getUI().getNavigator().navigateTo(FlexViews.NEWS + "/articles");
+        });
         publishers = top.addItem("Publishers", null, null);
         categories = top.addItem("Categories", null, null);
         languages = top.addItem("Languages", null, null);
@@ -145,6 +147,7 @@ public final class NewsMenuBar extends MenuBar {
 
     private void populateNewsByTime() {
         latest = news.addItem("Latest", (selectedItem) -> {
+            getUI().getNavigator().navigateTo(FlexViews.NEWS + "/articles/latest");
             updateBody(DataProviderType.LATEST, null);
         });
         oldest = news.addItem("Oldest", (selectedItem) -> {
