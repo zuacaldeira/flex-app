@@ -29,7 +29,7 @@ public class NewsMenuStructuralTest {
     public void testGetUser() {
         System.out.println("getUser");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsMenu menu = new NewsMenu(user);
+        NewsMenu menu = new NewsMenu();
         assertEquals(user, menu.getUser());
     }
 
@@ -41,7 +41,7 @@ public class NewsMenuStructuralTest {
     public void testPopulate() {
         System.out.println("populate");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsMenu menu = new NewsMenu(user);
+        NewsMenu menu = new NewsMenu();
         assertEquals(user, menu.getUser());
         assertNull(menu.getLogo());        
     }
@@ -53,7 +53,7 @@ public class NewsMenuStructuralTest {
     public void testGetLogo() {
         System.out.println("getLogo");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsMenu menu = new NewsMenu(user);
+        NewsMenu menu = new NewsMenu();
         assertNotNull(menu.getLogo());
     }
 

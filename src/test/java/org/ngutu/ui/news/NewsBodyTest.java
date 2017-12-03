@@ -32,7 +32,7 @@ public class NewsBodyTest {
     public void testGetContent() {
         System.out.println("getContent");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsBody instance = new NewsBody(user);
+        NewsBody instance = new NewsBody();
         assertNotNull(instance.getContent());
     }
 
@@ -43,7 +43,7 @@ public class NewsBodyTest {
     public void testGetMasterDetail() {
         System.out.println("getMasterDetail");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsBody instance = new NewsBody(user);
+        NewsBody instance = new NewsBody();
         assertNotNull(instance.getMasterDetail());
     }
 
@@ -54,7 +54,7 @@ public class NewsBodyTest {
     public void testAddItemView() {
         System.out.println("addItemView");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsBody instance = new NewsBody(user);
+        NewsBody instance = new NewsBody();
         
         //instance.addItemView(new NewsArticle("TEST_USERNAME", "TEST_PASSWORD", "TEST_USERNAME", "TEST_USERNAME", new Date(), "TEST_USERNAME", "TEST_USERNAME", "TEST_USERNAME"));
     }
@@ -66,7 +66,7 @@ public class NewsBodyTest {
     public void testGetUser() {
         System.out.println("getUser");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsBody instance = new NewsBody(user);
+        NewsBody instance = new NewsBody();
         assertNotNull(instance.getUser());
     }
 
@@ -77,7 +77,7 @@ public class NewsBodyTest {
     public void testUpdateData() {
         System.out.println("updateData");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsBody instance = new NewsBody(user);
+        NewsBody instance = new NewsBody();
         instance.populate(DataProviderType.FAKE, null);
     }
     

@@ -45,7 +45,7 @@ public class FlexMainViewTest {
         System.out.println("setMenu");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsView mainView = new NewsView();
-        NewsMenu menu = new NewsMenu(user);
+        NewsMenu menu = new NewsMenu();
         mainView.setMenu(menu);
         assertEquals(menu, mainView.getMenu());
     }
@@ -58,7 +58,7 @@ public class FlexMainViewTest {
         System.out.println("setFooter");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsView mainView = new NewsView();
-        FlexFooter footer = new FlexFooter(user);
+        FlexFooter footer = new FlexFooter();
         mainView.setFooter(footer);
         assertEquals(footer, mainView.getFooter());
     }
@@ -71,7 +71,7 @@ public class FlexMainViewTest {
         System.out.println("getMenu");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsView mainView = new NewsView();
-        NewsMenu menu = new NewsMenu(user);
+        NewsMenu menu = new NewsMenu();
         mainView.setMenu(menu);
         assertEquals(menu, mainView.getMenu());
     }
@@ -109,7 +109,7 @@ public class FlexMainViewTest {
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsView mainView = new NewsView();
         mainView.enter(null);
-        NewsBody newBody = new NewsBody(user);
+        NewsBody newBody = new NewsBody();
         mainView.replaceBody(newBody);
         assertEquals(newBody, mainView.getBody());
     }
