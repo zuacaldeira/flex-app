@@ -14,7 +14,7 @@ import data.DataProviderType;
 import db.FlexUser;
 import ui.NgutuUI;
 import org.ngutu.ui.news.NewsBody;
-import view.logo.FlexLogo;
+import org.ngutu.ui.logo.FlexLogo;
 import components.CanPopulate;
 
 /**

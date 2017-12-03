@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.logo;
+package org.ngutu.ui.logo;
 
 import org.ngutu.ui.components.FlexActionButton;
 import com.vaadin.icons.VaadinIcons;
@@ -12,12 +12,13 @@ import com.vaadin.icons.VaadinIcons;
  *
  * @author zua
  */
-public class FacebookButton extends FlexActionButton {
+public class TwitterButton extends FlexActionButton {
 
-    private static final long serialVersionUID = -4146017971684793445L;
+    private static final long serialVersionUID = 3486777831042559114L;
 
-    public FacebookButton() {
-        super("Follow us on Facebook", VaadinIcons.FACEBOOK);
+
+    public TwitterButton() {
+        super("Follow us on Twitter", VaadinIcons.TWITTER);
     }
     
 }

@@ -15,7 +15,7 @@ import data.DataProviderType;
 import db.FlexUser;
 import org.ngutu.ui.viewproviders.FlexViews;
 import ui.NgutuUI;
-import view.logo.FlexLogo;
+import org.ngutu.ui.logo.FlexLogo;
 
 /**
  *

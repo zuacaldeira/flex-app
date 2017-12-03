@@ -11,7 +11,7 @@ import com.vaadin.ui.UI;
 import components.FlexButton;
 import db.FlexUser;
 import org.ngutu.ui.viewproviders.FlexViews;
-import view.logo.FlexLogo;
+import org.ngutu.ui.logo.FlexLogo;
 
 /**
  *

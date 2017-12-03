@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.logo;
+package org.ngutu.ui.logo;
 
-import view.logo.FlexLogo;
+import org.ngutu.ui.logo.FlexLogo;
 import db.FlexUser;
 import org.junit.Test;
 import static org.junit.Assert.*;
