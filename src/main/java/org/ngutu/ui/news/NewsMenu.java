@@ -39,8 +39,7 @@ public class NewsMenu extends HorizontalLayout {
         this.user = user;
         initLogo();
         initSearchBox();
-        initMenuBar();
-        initPicture();
+        initActions();
         super.setSizeFull();
         super.setMargin(new MarginInfo(false, true, false, false));
         super.addComponents(logo, searchBox, actions);
@@ -51,9 +50,11 @@ public class NewsMenu extends HorizontalLayout {
     }
 
     private void initActions() {
-        actions = new HorizontalLayout(newsMenuBar);
+        actions = new HorizontalLayout();
         actions.setMargin(new MarginInfo(false, true));
         actions.setSpacing(false);
+        initMenuBar();
+        initPicture();
     }
 
     private void initPicture() {
