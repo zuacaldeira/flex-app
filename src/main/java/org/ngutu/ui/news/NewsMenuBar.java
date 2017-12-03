@@ -70,11 +70,13 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
         new Thread() {
             @Override
             public void run() {
-                populateNewsOverviews();
-                populateNewsPublisher();
-                populateNewsCategory();
-                populateNewsLanguages();
-                populateNewsCountries();
+                getUI().access(() -> {
+                    populateNewsOverviews();
+                    populateNewsPublisher();
+                    populateNewsCategory();
+                    populateNewsLanguages();
+                    populateNewsCountries();
+                });
             }
         }.start();
     }
