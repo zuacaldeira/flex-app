@@ -5,9 +5,11 @@
  */
 package org.ngutu.ui.news;
 
+import com.vaadin.server.ExternalResource;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
@@ -29,28 +31,43 @@ public class NewsMenu extends HorizontalLayout {
 
     private FlexLogo logo;
     private HorizontalLayout actions;
-    private NewsMenuBar newsMenuBar;
     private TextField searchBox;
+    private NewsMenuBar newsMenuBar;
+    private Image picture;
 
     public NewsMenu(FlexUser user) {
         this.user = user;
         initLogo();
         initSearchBox();
-        initActions();
+        initMenuBar();
+        initPicture();
         super.setSizeFull();
         super.setMargin(new MarginInfo(false, true, false, false));
-        super.addComponents(logo, actions);
-        super.setExpandRatio(actions, 1f);
+        super.addComponents(logo, searchBox, actions);
         super.setComponentAlignment(logo, Alignment.MIDDLE_LEFT);
+        super.setComponentAlignment(searchBox, Alignment.MIDDLE_CENTER);
         super.setComponentAlignment(actions, Alignment.MIDDLE_RIGHT);
         super.setStyleName("flex-menu");
     }
 
     private void initActions() {
-        newsMenuBar = new NewsMenuBar(user);
         actions = new HorizontalLayout(newsMenuBar);
         actions.setMargin(new MarginInfo(false, true));
         actions.setSpacing(false);
+    }
+
+    private void initPicture() {
+        if (user != null) {
+            picture = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
+            picture.setWidth("40px");
+            picture.setHeight("40px");
+            actions.addComponent(picture);
+        }
+    }
+
+    private void initMenuBar() {
+        newsMenuBar = new NewsMenuBar(user);
+        actions.addComponent(newsMenuBar);
     }
 
     private void initSearchBox() {

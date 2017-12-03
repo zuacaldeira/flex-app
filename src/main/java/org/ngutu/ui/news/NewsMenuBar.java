@@ -6,8 +6,6 @@
 package org.ngutu.ui.news;
 
 import com.vaadin.icons.VaadinIcons;
-import com.vaadin.server.ExternalResource;
-import com.vaadin.ui.Image;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.themes.ValoTheme;
@@ -47,8 +45,6 @@ public final class NewsMenuBar extends MenuBar {
     private MenuItem imagesOnly;
     private MenuItem titlesOnly;
 
-    private MenuItem picture;
-
     public NewsMenuBar(FlexUser user) {
         this.user = user;
         sourcesService = ServiceLocator.getInstance().findSourcesService();
@@ -77,18 +73,8 @@ public final class NewsMenuBar extends MenuBar {
                 getUI().getSession().setAttribute("user", null);
                 getUI().getNavigator().navigateTo(FlexViews.WELCOME);
             });
-            addPicture();
         }
         populate();
-    }
-
-    private void addPicture() {
-        setHtmlContentAllowed(true);
-        picture = addItem("<img src=\"" + user.getUserInfo().getPicture() + "style=\"width=40px;height=40px\">", null, null);
-        Image image = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
-        image.setWidth("40px");
-        image.setHeight("40px");
-        
     }
 
     protected void populateNewsCategory() {
