@@ -27,7 +27,6 @@ public final class NewsMenuBar extends MenuBar {
     private final NewsSourceServiceInterface sourcesService;
 
     // Main Menu (top level)
-    private MenuBarThread worker;
     private MenuItem news;
     private MenuItem categories;
     private MenuItem publishers;
@@ -47,10 +46,6 @@ public final class NewsMenuBar extends MenuBar {
         this.user = user;
         sourcesService = ServiceLocator.getInstance().findSourcesService();
         this.initMenuItems();
-        super.addDetachListener(event -> {
-            interruptWorker();
-        });
-        refresh();
     }
 
     protected void initMenuItems() {
@@ -59,22 +54,12 @@ public final class NewsMenuBar extends MenuBar {
         categories = addItem("Categories", null, null);
         languages = addItem("Languages", null, null);
         countries = addItem("Countries", null, null);
+        populate();
+        //refresh();
         setSizeUndefined();
         setAutoOpen(true);
         setStyleName("news-menu-bar");
         addStyleName(ValoTheme.MENUBAR_BORDERLESS);
-    }
-
-    private void refresh() {
-        interruptWorker();
-        worker = new MenuBarThread(this);
-        worker.start();
-    }
-
-    private void interruptWorker() {
-        if (worker != null) {
-            worker.interrupt();
-        }
     }
 
     protected void populateNewsCategory() {
@@ -227,30 +212,14 @@ public final class NewsMenuBar extends MenuBar {
         return user;
     }
 
-    private void populateNewsOverviews() {
+    private void populate() {
         populateNewsByTime();
         news.addSeparator();
         populateNewsByStatus();
+        populateNewsPublisher();
+        populateNewsCategory();
+        populateNewsLanguages();
+        populateNewsCountries();
     }
 
-    private class MenuBarThread extends Thread {
-
-        private NewsMenuBar menuBar;
-
-        private MenuBarThread(NewsMenuBar menuBar) {
-            this.menuBar = menuBar;
-        }
-
-        @Override
-        public void run() {
-            getUI().access(() -> {
-                menuBar.populateNewsOverviews();
-                menuBar.populateNewsPublisher();
-                menuBar.populateNewsCategory();
-                menuBar.populateNewsLanguages();
-                menuBar.populateNewsCountries();
-            });
-        }
-
-    }
 }
