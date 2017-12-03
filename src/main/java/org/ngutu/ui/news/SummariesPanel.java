@@ -6,6 +6,7 @@
 package org.ngutu.ui.news;
 
 import com.vaadin.ui.Component;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import factory.ArticleView;
@@ -20,15 +21,23 @@ public class SummariesPanel extends FlexPanel {
     private static final long serialVersionUID = -1288952601019827111L;
 
     private final VerticalLayout overviews;
-    private final FlexUser user;
+    private FlexUser user;
 
-    public SummariesPanel(FlexUser user, int columns) {
-        this.user = user;
+    public SummariesPanel(int columns) {
+        initUser();
         overviews = new VerticalLayout();
         overviews.setMargin(false);
         super.setSizeFull();
         super.setContent(overviews);
         super.setStyleName("items");
+    }
+
+    private void initUser() {
+        if (UI.getCurrent() != null) {
+            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
+            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+            System.out.println("NEWS VIEW USER -> " + user);
+        }
     }
 
     public void addItemView(Component component) {

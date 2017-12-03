@@ -59,7 +59,7 @@ public class MasterDetailView extends FlexPanel {
     }
 
     private void initSummaries(int c) {
-        summariesPanel = new SummariesPanel(user, c);
+        summariesPanel = new SummariesPanel(c);
         summariesPanel.setSizeFull();
     }
 
