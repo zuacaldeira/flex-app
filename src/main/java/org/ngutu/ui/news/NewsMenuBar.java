@@ -48,7 +48,6 @@ public final class NewsMenuBar extends MenuBar {
     public NewsMenuBar(FlexUser user) {
         this.user = user;
         sourcesService = ServiceLocator.getInstance().findSourcesService();
-        worker = new MenuBarThread();
         this.initMenuItems();
         super.addDetachListener(event -> {
             interruptWorker();
@@ -70,7 +69,7 @@ public final class NewsMenuBar extends MenuBar {
 
     private void refresh() {
         interruptWorker();
-        worker = new MenuBarThread();
+        worker = new MenuBarThread(this);
         worker.start();
     }
 
@@ -237,31 +236,34 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     private class MenuBarThread extends Thread {
+        
+        private NewsMenuBar menuBar;
 
-        public MenuBarThread() {
+        private MenuBarThread(NewsMenuBar menuBar) {
+            this.menuBar = menuBar;
         }
 
         @Override
         public void run() {
             try {
                 getUI().access(() -> {
-                    populateNewsOverviews();
+                    menuBar.populateNewsOverviews();
                 });
                 Thread.sleep(1000);
                 getUI().access(() -> {
-                    populateNewsPublisher();
+                    menuBar.populateNewsPublisher();
                 });
                 Thread.sleep(1000);
                 getUI().access(() -> {
-                    populateNewsCategory();
+                    menuBar.populateNewsCategory();
                 });
                 Thread.sleep(1000);
                 getUI().access(() -> {
-                    populateNewsLanguages();
+                    menuBar.populateNewsLanguages();
                 });
                 Thread.sleep(1000);
                 getUI().access(() -> {
-                    populateNewsCountries();
+                    menuBar.populateNewsCountries();
                 });
             } catch (InterruptedException ex) {
                 Logger.getLogger(NewsMenuBar.class.getName()).log(Level.SEVERE, null, ex);
