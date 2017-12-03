@@ -92,6 +92,7 @@ public final class NewsMenuBar extends MenuBar {
     protected void populateNewsCategory() {
         sourcesService.findCategories().subscribe(cat -> {
             categories.addItem(getCategoryCaption(cat), (selectedMenuItem) -> {
+                getUI().getNavigator().navigateTo(FlexViews.NEWS + "/articles/" + cat);
                 updateBody(DataProviderType.CATEGORY, selectedMenuItem.getText());
             });
         });
@@ -100,6 +101,7 @@ public final class NewsMenuBar extends MenuBar {
     protected void populateNewsPublisher() {
         sourcesService.findNames().subscribe(name -> {
             publishers.addItem(name, (selectedMenuItem -> {
+                getUI().getNavigator().navigateTo(FlexViews.NEWS + "/articles/" + name);
                 updateBody(DataProviderType.PUBLISHER, selectedMenuItem.getText());
             }));
         });
@@ -110,6 +112,7 @@ public final class NewsMenuBar extends MenuBar {
             if (localeString != null && !localeString.isEmpty()) {
                 String lang = MyDateUtils.getLanguageNameFromPattern(localeString);
                 languages.addItem(lang, (selectedMenuItem) -> {
+                    getUI().getNavigator().navigateTo(FlexViews.NEWS + "/articles/" + lang);
                     updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
                 });
             }
@@ -121,6 +124,7 @@ public final class NewsMenuBar extends MenuBar {
             if (localeString != null && !localeString.isEmpty()) {
                 String country = MyDateUtils.getCountryNameFromPattern(localeString);
                 countries.addItem(country, (selectedMenuItem) -> {
+                    getUI().getNavigator().navigateTo(FlexViews.NEWS + "/articles/" + country);
                     updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
                 });
             }
@@ -129,16 +133,19 @@ public final class NewsMenuBar extends MenuBar {
 
     private void populateViews() {
         full = news.addItem("Full", (selectedItem) -> {
+            getUI().getNavigator().navigateTo(FlexViews.NEWS + "/articles/full");
             NewsBody body = ((NewsView) getUI().getContent()).getBody();
             MasterDetailView masterDetail = body.getMasterDetail();
             masterDetail.full();
         });
         imagesOnly = news.addItem("Images Only", (selectedItem) -> {
+            getUI().getNavigator().navigateTo(FlexViews.NEWS + "/articles/images");
             NewsBody body = ((NewsView) getUI().getContent()).getBody();
             MasterDetailView masterDetail = body.getMasterDetail();
             masterDetail.imagesOnly();
         });
         titlesOnly = news.addItem("Titles Only", (selectedItem) -> {
+            getUI().getNavigator().navigateTo(FlexViews.NEWS + "/articles/titles");
             NewsBody body = ((NewsView) getUI().getContent()).getBody();
             MasterDetailView masterDetail = body.getMasterDetail();
             masterDetail.titlesOnly();
@@ -151,20 +158,27 @@ public final class NewsMenuBar extends MenuBar {
             updateBody(DataProviderType.LATEST, null);
         });
         oldest = news.addItem("Oldest", (selectedItem) -> {
+            getUI().getNavigator().navigateTo(FlexViews.NEWS + "/articles/oldest");
             updateBody(DataProviderType.OLDEST, null);
         });
     }
 
     private void populateNewsByStatus() {
-        read = news.addItem("Read", VaadinIcons.EYE_SLASH, (selectedMenuItem) -> {
-            updateBody(DataProviderType.READ, null);
-        });
-        favorite = news.addItem("Favorite", VaadinIcons.STAR, (selectedMenuItem) -> {
-            updateBody(DataProviderType.FAVORITE, null);
-        });
-        fake = news.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, (selectMenuItem) -> {
-            updateBody(DataProviderType.FAKE, null);
-        });
+        if (user != null) {
+            news.addSeparator();
+            read = news.addItem("Read", VaadinIcons.EYE_SLASH, (selectedMenuItem) -> {
+                getUI().getNavigator().navigateTo(FlexViews.NEWS + "/articles/read");
+                updateBody(DataProviderType.READ, null);
+            });
+            favorite = news.addItem("Favorite", VaadinIcons.STAR, (selectedMenuItem) -> {
+                getUI().getNavigator().navigateTo(FlexViews.NEWS + "/articles/favorite");
+                updateBody(DataProviderType.FAVORITE, null);
+            });
+            fake = news.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, (selectMenuItem) -> {
+                getUI().getNavigator().navigateTo(FlexViews.NEWS + "/articles/fake");
+                updateBody(DataProviderType.FAKE, null);
+            });
+        }
     }
 
     private void updateBody(DataProviderType dataType, String value) {
@@ -242,7 +256,6 @@ public final class NewsMenuBar extends MenuBar {
 
     private void populate() {
         populateNewsByTime();
-        news.addSeparator();
         populateNewsByStatus();
         populateNewsPublisher();
         populateNewsCategory();
