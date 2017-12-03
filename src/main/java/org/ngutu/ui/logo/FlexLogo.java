@@ -33,7 +33,7 @@ public class FlexLogo extends HorizontalLayout {
         super.setComponentAlignment(ngutu, Alignment.MIDDLE_CENTER);
         super.setSizeUndefined();
         super.setMargin(new MarginInfo(false, false, false, true));
-        super.setSpacing(false);
+        super.setSpacing(true);
         super.setStyleName("flex-logo");
         super.addLayoutClickListener(event -> {
             UI.getCurrent().getNavigator().navigateTo(FlexViews.WELCOME);

@@ -58,7 +58,7 @@ public class NewsMenu extends HorizontalLayout {
     }
 
     private void initPicture() {
-        if (user != null) {
+        if (user != null && user.getUserInfo() != null && user.getUserInfo().getPicture() != null) {
             picture = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
             picture.setWidth("40px");
             picture.setHeight("40px");

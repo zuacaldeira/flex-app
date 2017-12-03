@@ -30,6 +30,9 @@ public final class NewsMenuBar extends MenuBar {
 
     // Main Menu (top level)
     private MenuItem top;
+    private MenuItem login;
+    private MenuItem logout;
+    
     private MenuItem news;
     private MenuItem categories;
     private MenuItem publishers;
@@ -56,23 +59,26 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     protected void initMenuItems() {
-        top = addItem("Menu", VaadinIcons.GRID_SMALL, null);
+        top = addItem("", VaadinIcons.GRID_SMALL, null);
+        top.setStyleName("menu-bar-top");
         news = top.addItem("Articles", null, null);
         publishers = top.addItem("Publishers", null, null);
         categories = top.addItem("Categories", null, null);
         languages = top.addItem("Languages", null, null);
         countries = top.addItem("Countries", null, null);
         if (user == null) {
-            addItem("Login", VaadinIcons.SIGN_IN, (selectedItem) -> {
+            login = addItem("", VaadinIcons.SIGN_IN, (selectedItem) -> {
                 NgutuAuthAPI authAPI = new NgutuAuthAPI(getUI().getNavigator().getState());
                 authAPI.authorize();
             });
+            login.setDescription("LOGIN");
         }
         if (user != null) {
-            addItem("Logout", VaadinIcons.SIGN_OUT, (selectedItem) -> {
+            logout = addItem("", VaadinIcons.SIGN_OUT, (selectedItem) -> {
                 getUI().getSession().setAttribute("user", null);
                 getUI().getNavigator().navigateTo(FlexViews.WELCOME);
             });
+            logout.setDescription("LOGOUT");
         }
         populate();
     }
