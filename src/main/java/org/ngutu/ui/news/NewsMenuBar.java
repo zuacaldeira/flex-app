@@ -47,7 +47,7 @@ public final class NewsMenuBar extends MenuBar {
     private MenuItem imagesOnly;
     private MenuItem titlesOnly;
 
-    private Image picture;
+    private MenuItem picture;
 
     public NewsMenuBar(FlexUser user) {
         this.user = user;
@@ -83,9 +83,13 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     private void addPicture() {
-        picture = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
-        picture.setWidth("40px");
-        picture.setHeight("40px");
+        setHtmlContentAllowed(true);
+        picture = addItem("<img src=\"" + user.getUserInfo().getPicture() + ">", null, null);
+        //setHtmlContentAllowed(false);
+        Image image = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
+        image.setWidth("40px");
+        image.setHeight("40px");
+        
     }
 
     protected void populateNewsCategory() {
