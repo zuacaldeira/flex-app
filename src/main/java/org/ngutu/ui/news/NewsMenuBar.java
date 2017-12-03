@@ -83,7 +83,7 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     private void addPicture() {
-        setCaptionAsHtml(true);
+        setHtmlContentAllowed(true);
         picture = addItem("<img src=\"" + user.getUserInfo().getPicture() + "style=\"width=40px;height=40px\">", null, null);
         Image image = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
         image.setWidth("40px");
