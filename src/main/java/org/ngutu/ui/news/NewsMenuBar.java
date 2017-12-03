@@ -30,9 +30,10 @@ public final class NewsMenuBar extends MenuBar {
 
     // Main Menu (top level)
     private MenuItem top;
+    private MenuItem home;
     private MenuItem login;
     private MenuItem logout;
-    
+
     private MenuItem news;
     private MenuItem categories;
     private MenuItem publishers;
@@ -59,6 +60,9 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     protected void initMenuItems() {
+        home = addItem("", VaadinIcons.HOME, (item -> {
+            getUI().getNavigator().navigateTo(FlexViews.WELCOME);
+        }));
         top = addItem("", VaadinIcons.GRID_SMALL, null);
         top.setStyleName("menu-bar-top");
         news = top.addItem("Articles", null, null);
