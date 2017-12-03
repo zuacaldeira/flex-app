@@ -114,6 +114,7 @@ public class MasterDetailView extends FlexPanel {
         if(worker != null) {
             worker.interrupt();
         }
+        summariesPanel.getOverviews().removeAllComponents();
         worker = new MasterDetailThread(user, type, value);
         worker.start();
     }
@@ -132,7 +133,6 @@ public class MasterDetailView extends FlexPanel {
 
         @Override
         public void run() {
-            summariesPanel.getOverviews().removeAllComponents();
             Observable<NewsArticle> observable = new ArticlesRepository().loadNodes(type, value, user);
             observable.subscribe(next -> {
                 getUI().access(() -> {
