@@ -46,6 +46,10 @@ public final class NewsMenuBar extends MenuBar {
         this.user = user;
         sourcesService = ServiceLocator.getInstance().findSourcesService();
         this.initMenuItems();
+        setSizeUndefined();
+        setAutoOpen(true);
+        setStyleName("news-menu-bar");
+        addStyleName(ValoTheme.MENUBAR_BORDERLESS);
     }
 
     protected void initMenuItems() {
@@ -55,11 +59,8 @@ public final class NewsMenuBar extends MenuBar {
         languages = addItem("Languages", null, null);
         countries = addItem("Countries", null, null);
         populate();
+        latest.getCommand().menuSelected(latest);
         //refresh();
-        setSizeUndefined();
-        setAutoOpen(true);
-        setStyleName("news-menu-bar");
-        addStyleName(ValoTheme.MENUBAR_BORDERLESS);
     }
 
     protected void populateNewsCategory() {
