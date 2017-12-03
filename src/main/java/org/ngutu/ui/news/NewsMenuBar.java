@@ -11,10 +11,11 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
 import data.DataProviderType;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import services.NewsSourceServiceInterface;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
-import components.CanPopulate;
 
 /**
  *
@@ -49,6 +50,7 @@ public final class NewsMenuBar extends MenuBar {
         sourcesService = ServiceLocator.getInstance().findSourcesService();
         worker = new MenuBarThread();
         this.initMenuItems();
+        super.addDetachListener(event -> {interruptWorker();});
         refresh();
     }
 
@@ -65,11 +67,15 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     private void refresh() {
+        interruptWorker();
+        worker = new MenuBarThread();
+        worker.start();
+    }
+    
+    private void interruptWorker() {
         if (worker != null) {
             worker.interrupt();
         }
-        worker = new MenuBarThread();
-        worker.start();
     }
 
     protected void populateNewsCategory() {
@@ -248,15 +254,35 @@ public final class NewsMenuBar extends MenuBar {
             getUI().access(() -> {
                 populateNewsOverviews();
             });
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(NewsMenuBar.class.getName()).log(Level.SEVERE, null, ex);
+            }
             getUI().access(() -> {
                 populateNewsPublisher();
             });
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(NewsMenuBar.class.getName()).log(Level.SEVERE, null, ex);
+            }
             getUI().access(() -> {
                 populateNewsCategory();
             });
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(NewsMenuBar.class.getName()).log(Level.SEVERE, null, ex);
+            }
             getUI().access(() -> {
                 populateNewsLanguages();
             });
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(NewsMenuBar.class.getName()).log(Level.SEVERE, null, ex);
+            }
             getUI().access(() -> {
                 populateNewsCountries();
             });
