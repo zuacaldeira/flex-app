@@ -62,6 +62,7 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
         setAutoOpen(true);
         setStyleName("news-menu-bar");
         addStyleName(ValoTheme.MENUBAR_BORDERLESS);
+        populate();
     }
 
     @Override
