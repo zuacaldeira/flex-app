@@ -20,21 +20,12 @@ public class WelcomeView extends VerticalLayout implements View {
 
     private static final long serialVersionUID = 8467619842785075810L;
 
-    private final FlexUser user;
+    private FlexUser user;
     private WelcomeMenu menu;
     private WelcomeBody body;
     private FlexFooter footer;
 
     public WelcomeView() {
-        user = new FlexUser((String) UI.getCurrent().getSession().getAttribute("user"), null);
-        initMenu();
-        initBody();
-        initFooter();
-        super.addComponents(menu, body, footer);
-        super.setExpandRatio(body, 1f);
-        super.setStyleName("welcome-view");
-        super.setSizeFull();
-        super.setMargin(false);
     }
 
     private void initMenu() {
@@ -54,6 +45,15 @@ public class WelcomeView extends VerticalLayout implements View {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
+        user = new FlexUser((String) UI.getCurrent().getSession().getAttribute("user"), null);
+        initMenu();
+        initBody();
+        initFooter();
+        super.addComponents(menu, body, footer);
+        super.setExpandRatio(body, 1f);
+        super.setStyleName("welcome-view");
+        super.setSizeFull();
+        super.setMargin(false);
     }
 
     public void replaceBody(WelcomeBody flexBody) {
