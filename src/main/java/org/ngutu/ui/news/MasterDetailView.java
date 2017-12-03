@@ -89,12 +89,14 @@ public class MasterDetailView extends FlexPanel {
     }
 
     public void addSingleSummary(Component component) {
-        summariesPanel.addItemView(component);
-        if (selected == null) {
-            updateSelected((GraphEntityView) component);
-        }
-        ((GraphEntityView) component).addLayoutClickListener(event -> {
-            updateSelected((GraphEntityView) component);
+        getUI().access(() -> {
+            summariesPanel.addItemView(component);
+            if (selected == null) {
+                updateSelected((GraphEntityView) component);
+            }
+            ((GraphEntityView) component).addLayoutClickListener(event -> {
+                updateSelected((GraphEntityView) component);
+            });
         });
     }
 
@@ -111,7 +113,7 @@ public class MasterDetailView extends FlexPanel {
     }
 
     public final void refresh(FlexUser user, DataProviderType type, String value) {
-        if(worker != null) {
+        if (worker != null) {
             worker.interrupt();
         }
         summariesPanel.getOverviews().removeAllComponents();
@@ -135,10 +137,8 @@ public class MasterDetailView extends FlexPanel {
         public void run() {
             Observable<NewsArticle> observable = new ArticlesRepository().loadNodes(type, value, user);
             observable.subscribe(next -> {
-                getUI().access(() -> {
-                    ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, next);
-                    addSingleSummary(aView);
-                });
+                ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, next);
+                addSingleSummary(aView);
             });
         }
     }

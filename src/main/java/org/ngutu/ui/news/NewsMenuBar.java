@@ -81,90 +81,110 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     protected void populateNewsCategory() {
-        if (categories != null) {
-            sourcesService.findCategories().subscribe(cat -> {
-                categories.addItem(getCategoryCaption(cat), (selectedMenuItem) -> {
-                    updateBody(DataProviderType.CATEGORY, selectedMenuItem.getText());
+        getUI().access(() -> {
+            if (categories != null) {
+                sourcesService.findCategories().subscribe(cat -> {
+                    categories.addItem(getCategoryCaption(cat), (selectedMenuItem) -> {
+                        updateBody(DataProviderType.CATEGORY, selectedMenuItem.getText());
+                    });
                 });
-            });
-        }
+            }
+        });
     }
 
     protected void populateNewsPublisher() {
-        if (publishers != null) {
-            sourcesService.findNames().subscribe(name -> {
-                publishers.addItem(name, (selectedMenuItem -> {
-                    updateBody(DataProviderType.PUBLISHER, selectedMenuItem.getText());
-                }));
-            });
-        }
+        getUI().access(() -> {
+            if (publishers != null) {
+                sourcesService.findNames().subscribe(name -> {
+                    publishers.addItem(name, (selectedMenuItem -> {
+                        updateBody(DataProviderType.PUBLISHER, selectedMenuItem.getText());
+                    }));
+                });
+            }
+        });
     }
 
     protected void populateNewsLanguages() {
-        if (languages != null) {
-            sourcesService.findLocales().subscribe(localeString -> {
-                if (localeString != null && !localeString.isEmpty()) {
-                    String lang = MyDateUtils.getLanguageNameFromPattern(localeString);
-                    languages.addItem(lang, (selectedMenuItem) -> {
-                        updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
-                    });
-                }
-            });
-        }
+        getUI().access(() -> {
+            if (languages != null) {
+                sourcesService.findLocales().subscribe(localeString -> {
+                    if (localeString != null && !localeString.isEmpty()) {
+                        String lang = MyDateUtils.getLanguageNameFromPattern(localeString);
+                        languages.addItem(lang, (selectedMenuItem) -> {
+                            updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
+                        });
+                    }
+                });
+            }
+        });
     }
 
     protected void populateNewsCountries() {
-        if (countries != null) {
-            sourcesService.findLocales().subscribe(localeString -> {
-                if (localeString != null && !localeString.isEmpty()) {
-                    String country = MyDateUtils.getCountryNameFromPattern(localeString);
-                    countries.addItem(country, (selectedMenuItem) -> {
-                        updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
-                    });
-                }
-            });
-        }
+        getUI().access(() -> {
+            if (countries != null) {
+                sourcesService.findLocales().subscribe(localeString -> {
+                    if (localeString != null && !localeString.isEmpty()) {
+                        String country = MyDateUtils.getCountryNameFromPattern(localeString);
+                        countries.addItem(country, (selectedMenuItem) -> {
+                            updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
+                        });
+                    }
+                });
+            }
+        });
     }
 
     private void populateViews() {
-        if (news != null) {
-            NewsBody body = ((NewsView) getUI().getContent()).getBody();
-            MasterDetailView masterDetail = body.getMasterDetail();
-            full = news.addItem("Full", (selectedItem) -> {
-                masterDetail.full();
-            });
-            imagesOnly = news.addItem("Images Only", (selectedItem) -> {
-                masterDetail.imagesOnly();
-            });
-            titlesOnly = news.addItem("Titles Only", (selectedItem) -> {
-                masterDetail.titlesOnly();
-            });
-        }
+        getUI().access(() -> {
+            if (news != null) {
+                NewsBody body = ((NewsView) getUI().getContent()).getBody();
+                MasterDetailView masterDetail = body.getMasterDetail();
+                full = news.addItem("Full", (selectedItem) -> {
+                    masterDetail.full();
+                });
+                imagesOnly = news.addItem("Images Only", (selectedItem) -> {
+                    masterDetail.imagesOnly();
+                });
+                titlesOnly = news.addItem("Titles Only", (selectedItem) -> {
+                    masterDetail.titlesOnly();
+                });
+            }
+        });
+    }
+
+    private void populateNewsOverviews() {
+        populateNewsByTime();
+        news.addSeparator();
+        populateNewsByStatus();
     }
 
     private void populateNewsByTime() {
-        if (news != null && getUI() != null) {
-            latest = news.addItem("Latest", (selectedItem) -> {
-                updateBody(DataProviderType.LATEST, null);
-            });
-            oldest = news.addItem("Oldest", (selectedItem) -> {
-                updateBody(DataProviderType.OLDEST, null);
-            });
-        }
+        getUI().access(() -> {
+            if (news != null && getUI() != null) {
+                latest = news.addItem("Latest", (selectedItem) -> {
+                    updateBody(DataProviderType.LATEST, null);
+                });
+                oldest = news.addItem("Oldest", (selectedItem) -> {
+                    updateBody(DataProviderType.OLDEST, null);
+                });
+            }
+        });
     }
 
     private void populateNewsByStatus() {
-        if (user != null) {
-            read = news.addItem("Read", VaadinIcons.EYE_SLASH, (selectedMenuItem) -> {
-                updateBody(DataProviderType.READ, null);
-            });
-            favorite = news.addItem("Favorite", VaadinIcons.STAR, (selectedMenuItem) -> {
-                updateBody(DataProviderType.FAVORITE, null);
-            });
-            fake = news.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, (selectMenuItem) -> {
-                updateBody(DataProviderType.FAKE, null);
-            });
-        }
+        getUI().access(() -> {
+            if (user != null) {
+                read = news.addItem("Read", VaadinIcons.EYE_SLASH, (selectedMenuItem) -> {
+                    updateBody(DataProviderType.READ, null);
+                });
+                favorite = news.addItem("Favorite", VaadinIcons.STAR, (selectedMenuItem) -> {
+                    updateBody(DataProviderType.FAVORITE, null);
+                });
+                fake = news.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, (selectMenuItem) -> {
+                    updateBody(DataProviderType.FAKE, null);
+                });
+            }
+        });
     }
 
     private void updateBody(DataProviderType dataType, String value) {
@@ -240,12 +260,6 @@ public final class NewsMenuBar extends MenuBar {
 
     public FlexUser getUser() {
         return user;
-    }
-
-    private void populateNewsOverviews() {
-        populateNewsByTime();
-        news.addSeparator();
-        populateNewsByStatus();
     }
 
     private class MenuBarThread extends Thread {
