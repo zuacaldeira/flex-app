@@ -251,41 +251,29 @@ public final class NewsMenuBar extends MenuBar {
 
         @Override
         public void run() {
-            getUI().access(() -> {
-                populateNewsOverviews();
-            });
             try {
+                getUI().access(() -> {
+                    populateNewsOverviews();
+                });
                 Thread.sleep(1000);
+                getUI().access(() -> {
+                    populateNewsPublisher();
+                });
+                Thread.sleep(1000);
+                getUI().access(() -> {
+                    populateNewsCategory();
+                });
+                Thread.sleep(1000);
+                getUI().access(() -> {
+                    populateNewsLanguages();
+                });
+                Thread.sleep(1000);
+                getUI().access(() -> {
+                    populateNewsCountries();
+                });
             } catch (InterruptedException ex) {
                 Logger.getLogger(NewsMenuBar.class.getName()).log(Level.SEVERE, null, ex);
             }
-            getUI().access(() -> {
-                populateNewsPublisher();
-            });
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(NewsMenuBar.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            getUI().access(() -> {
-                populateNewsCategory();
-            });
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(NewsMenuBar.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            getUI().access(() -> {
-                populateNewsLanguages();
-            });
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(NewsMenuBar.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            getUI().access(() -> {
-                populateNewsCountries();
-            });
         }
 
     }
