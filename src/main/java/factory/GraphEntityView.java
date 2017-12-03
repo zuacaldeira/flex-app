@@ -5,6 +5,8 @@
  */
 package factory;
 
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
@@ -16,7 +18,7 @@ import ui.SecuredUI;
  * @author zua
  * @param <T> A sub type of {@code GraphEntity}.
  */
-public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLayout {
+public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLayout implements View {
 
     private static final long serialVersionUID = 749607225883641715L;
 
@@ -25,14 +27,21 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
 
 
     public GraphEntityView(T entity) {
-        initUser();
         this.item = entity;
+    }
+
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent event) {
+        View.super.enter(event);
+        initUser();
         super.setSizeFull();
         super.setSpacing(true);
         super.setMargin(false);
         super.setStyleName("item");
     }
 
+   
+    
     private void initUser() {
         if (UI.getCurrent() != null) {
             System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));

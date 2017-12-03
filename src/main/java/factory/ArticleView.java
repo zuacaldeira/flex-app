@@ -1,5 +1,6 @@
 package factory;
 
+import com.vaadin.navigator.ViewChangeListener;
 import db.NewsArticle;
 
 /**
@@ -16,12 +17,18 @@ public class ArticleView extends GraphEntityView<NewsArticle> {
 
     public ArticleView(NewsArticle article) {
         super(article);
+    }
+
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent event) {
+        super.enter(event); 
         this.initHeader();
         this.initBody();
         this.initActions();
         super.setExpandRatio(articleViewBody, 1f);
     }
 
+    
     private void initHeader() {
         this.articleViewHeader = new ArticleViewHeader(getUser(), getItem());
         super.addComponent(articleViewHeader);
