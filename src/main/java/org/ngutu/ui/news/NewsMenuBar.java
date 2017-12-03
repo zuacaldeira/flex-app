@@ -53,23 +53,11 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
     }
 
     protected void initMenuItems() {
-        news = addItem("Articles", null, selected -> {
-            populateNewsOverviews();
-            news.setCommand(null);
-        });
-        publishers = addItem("Publishers", null, selected -> {
-            populateNewsPublisher();
-            publishers.setCommand(null);
-        });
-        categories = addItem("Categories", null, selected -> {
-            populateNewsCategory();
-        });
-        languages = addItem("Languages", null, selected -> {
-            populateNewsLanguages();
-        });
-        countries = addItem("Countries", null, selected -> {
-            populateNewsCountries();
-        });
+        news = addItem("Articles", null, null);
+        publishers = addItem("Publishers", null, null);
+        categories = addItem("Categories", null, null);
+        languages = addItem("Languages", null, null);
+        countries = addItem("Countries", null, null);
         setSizeUndefined();
         setAutoOpen(true);
         setStyleName("news-menu-bar");
@@ -78,11 +66,16 @@ public final class NewsMenuBar extends MenuBar implements CanPopulate {
 
     @Override
     public void populate() {
-        populateNewsOverviews();
-        populateNewsPublisher();
-        populateNewsCategory();
-        populateNewsLanguages();
-        populateNewsCountries();
+        new Thread() {
+            @Override
+            public void run() {
+                populateNewsOverviews();
+                populateNewsPublisher();
+                populateNewsCategory();
+                populateNewsLanguages();
+                populateNewsCountries();
+            }
+        }.start();
     }
 
     protected void populateNewsCategory() {
