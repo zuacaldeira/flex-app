@@ -50,7 +50,9 @@ public final class NewsMenuBar extends MenuBar {
         sourcesService = ServiceLocator.getInstance().findSourcesService();
         worker = new MenuBarThread();
         this.initMenuItems();
-        super.addDetachListener(event -> {interruptWorker();});
+        super.addDetachListener(event -> {
+            interruptWorker();
+        });
         refresh();
     }
 
@@ -71,7 +73,7 @@ public final class NewsMenuBar extends MenuBar {
         worker = new MenuBarThread();
         worker.start();
     }
-    
+
     private void interruptWorker() {
         if (worker != null) {
             worker.interrupt();
@@ -166,8 +168,10 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     private void updateBody(DataProviderType dataType, String value) {
-        NewsBody body = ((NewsView) getUI().getNavigator().getCurrentView()).getBody();
-        body.populate(dataType, value);
+        getUI().access(() -> {
+            NewsBody body = ((NewsView) getUI().getNavigator().getCurrentView()).getBody();
+            body.populate(dataType, value);
+        });
     }
 
     private String getCategoryCaption(String cat) {
@@ -251,29 +255,11 @@ public final class NewsMenuBar extends MenuBar {
 
         @Override
         public void run() {
-            try {
-                getUI().access(() -> {
-                    populateNewsOverviews();
-                });
-                Thread.sleep(1000);
-                getUI().access(() -> {
-                    populateNewsPublisher();
-                });
-                Thread.sleep(1000);
-                getUI().access(() -> {
-                    populateNewsCategory();
-                });
-                Thread.sleep(1000);
-                getUI().access(() -> {
-                    populateNewsLanguages();
-                });
-                Thread.sleep(1000);
-                getUI().access(() -> {
-                    populateNewsCountries();
-                });
-            } catch (InterruptedException ex) {
-                Logger.getLogger(NewsMenuBar.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            populateNewsOverviews();
+            populateNewsPublisher();
+            populateNewsCategory();
+            populateNewsLanguages();
+            populateNewsCountries();
         }
 
     }
