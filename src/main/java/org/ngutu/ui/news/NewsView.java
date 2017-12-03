@@ -41,7 +41,6 @@ public class NewsView extends VerticalLayout implements View {
         super.setStyleName("flex-view");
         super.setSizeFull();
         super.setMargin(false);
-        body.getMasterDetail().refresh(user, DataProviderType.LATEST, null);
     }
 
     private void initUser() {
