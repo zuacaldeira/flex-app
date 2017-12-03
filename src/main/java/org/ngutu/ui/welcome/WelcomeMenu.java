@@ -5,12 +5,12 @@
  */
 package org.ngutu.ui.welcome;
 
+import com.vaadin.server.ExternalResource;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.UI;
-import components.FlexButton;
+import com.vaadin.ui.Image;
 import db.FlexUser;
-import org.ngutu.ui.viewproviders.FlexViews;
 import org.ngutu.ui.logo.FlexLogo;
 
 /**
@@ -25,60 +25,43 @@ public class WelcomeMenu extends HorizontalLayout {
 
     private FlexLogo logo;
     private HorizontalLayout actions;
-    private FlexButton aboutUsButton;
-    private FlexButton ngutuNewsButton;
-    private FlexButton ngutuBooksButton;
-    private FlexButton ngutuBlogButton;
-    private FlexButton contactUsButton;
+    private WelcomeMenuBar welcomeMenuBar;
+    private Image picture;
 
     public WelcomeMenu(FlexUser user) {
         this.user = user;
-        initMenu();
-    }
-
-    private void initMenu() {
         initLogo();
         initActions();
         super.setSizeFull();
-        super.setMargin(false);
+        super.setMargin(new MarginInfo(false, true, false, false));
         super.addComponents(logo, actions);
         super.setComponentAlignment(logo, Alignment.MIDDLE_LEFT);
         super.setComponentAlignment(actions, Alignment.MIDDLE_RIGHT);
-        super.setStyleName("welcome-menu");
+        super.setStyleName("flex-menu");
     }
 
     private void initActions() {
-        aboutUsButton = new FlexButton("About Us");
-        aboutUsButton.addClickListener(event -> {
-            getUI().getNavigator().navigateTo(FlexViews.WELCOME + "/aboutUs");
-        });
-        
-        ngutuNewsButton = new FlexButton("Ngutu News");
-        ngutuNewsButton.addClickListener(event -> {
-            getUI().getNavigator().navigateTo(FlexViews.NEWS);
-        });
-        
-        ngutuBooksButton = new FlexButton("Ngutu Books");
-        ngutuBooksButton.addClickListener(event -> {
-            getUI().getNavigator().navigateTo(FlexViews.BOOKS);
-        });
+        actions = new HorizontalLayout();
+        actions.setMargin(false);
+        actions.setSpacing(false);
+        initMenuBar();
+        initPicture();
+    }
 
-        ngutuBlogButton = new FlexButton("Ngutu Blog");
-        ngutuBlogButton.addClickListener(event -> {
-            getUI().getNavigator().navigateTo(FlexViews.BLOG);
-        });
+    private void initPicture() {
+        if (user != null && user.getUserInfo() != null && user.getUserInfo().getPicture() != null) {
+            picture = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
+            picture.setWidth("40px");
+            picture.setHeight("40px");
+            picture.setStyleName("circle gravatar");
+            actions.addComponent(picture);
+        }
+    }
 
-        contactUsButton = new FlexButton("Contact Us");
-        contactUsButton.addClickListener(event -> {
-            getUI().getNavigator().navigateTo(FlexViews.CONTACTS);
-        });
-
-        actions = new HorizontalLayout(
-                aboutUsButton, 
-                ngutuNewsButton, 
-                ngutuBooksButton, 
-                ngutuBlogButton,
-                contactUsButton);
+    private void initMenuBar() {
+        welcomeMenuBar = new WelcomeMenuBar(user);
+        actions.addComponent(welcomeMenuBar);
+        actions.setComponentAlignment(welcomeMenuBar, Alignment.MIDDLE_CENTER);
     }
 
     public FlexUser getUser() {

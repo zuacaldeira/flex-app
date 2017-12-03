@@ -15,7 +15,6 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import data.DataProviderType;
 import db.FlexUser;
-import org.ngutu.ui.viewproviders.FlexViews;
 import ui.NgutuUI;
 import org.ngutu.ui.logo.FlexLogo;
 
