@@ -81,117 +81,85 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     protected void populateNewsCategory() {
-        getUI().access(() -> {
-            if (categories != null) {
-                sourcesService.findCategories().subscribe(cat -> {
-                    categories.addItem(getCategoryCaption(cat), (selectedMenuItem) -> {
-                        updateBody(DataProviderType.CATEGORY, selectedMenuItem.getText());
-                    });
-                });
-            }
+        sourcesService.findCategories().subscribe(cat -> {
+            categories.addItem(getCategoryCaption(cat), (selectedMenuItem) -> {
+                updateBody(DataProviderType.CATEGORY, selectedMenuItem.getText());
+            });
         });
     }
 
     protected void populateNewsPublisher() {
-        getUI().access(() -> {
-            if (publishers != null) {
-                sourcesService.findNames().subscribe(name -> {
-                    publishers.addItem(name, (selectedMenuItem -> {
-                        updateBody(DataProviderType.PUBLISHER, selectedMenuItem.getText());
-                    }));
-                });
-            }
+        sourcesService.findNames().subscribe(name -> {
+            publishers.addItem(name, (selectedMenuItem -> {
+                updateBody(DataProviderType.PUBLISHER, selectedMenuItem.getText());
+            }));
         });
     }
 
     protected void populateNewsLanguages() {
-        getUI().access(() -> {
-            if (languages != null) {
-                sourcesService.findLocales().subscribe(localeString -> {
-                    if (localeString != null && !localeString.isEmpty()) {
-                        String lang = MyDateUtils.getLanguageNameFromPattern(localeString);
-                        languages.addItem(lang, (selectedMenuItem) -> {
-                            updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
-                        });
-                    }
+        sourcesService.findLocales().subscribe(localeString -> {
+            if (localeString != null && !localeString.isEmpty()) {
+                String lang = MyDateUtils.getLanguageNameFromPattern(localeString);
+                languages.addItem(lang, (selectedMenuItem) -> {
+                    updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
                 });
             }
         });
     }
 
     protected void populateNewsCountries() {
-        getUI().access(() -> {
-            if (countries != null) {
-                sourcesService.findLocales().subscribe(localeString -> {
-                    if (localeString != null && !localeString.isEmpty()) {
-                        String country = MyDateUtils.getCountryNameFromPattern(localeString);
-                        countries.addItem(country, (selectedMenuItem) -> {
-                            updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
-                        });
-                    }
+        sourcesService.findLocales().subscribe(localeString -> {
+            if (localeString != null && !localeString.isEmpty()) {
+                String country = MyDateUtils.getCountryNameFromPattern(localeString);
+                countries.addItem(country, (selectedMenuItem) -> {
+                    updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
                 });
             }
         });
     }
 
     private void populateViews() {
-        getUI().access(() -> {
-            if (news != null) {
-                NewsBody body = ((NewsView) getUI().getContent()).getBody();
-                MasterDetailView masterDetail = body.getMasterDetail();
-                full = news.addItem("Full", (selectedItem) -> {
-                    masterDetail.full();
-                });
-                imagesOnly = news.addItem("Images Only", (selectedItem) -> {
-                    masterDetail.imagesOnly();
-                });
-                titlesOnly = news.addItem("Titles Only", (selectedItem) -> {
-                    masterDetail.titlesOnly();
-                });
-            }
+        full = news.addItem("Full", (selectedItem) -> {
+            NewsBody body = ((NewsView) getUI().getContent()).getBody();
+            MasterDetailView masterDetail = body.getMasterDetail();
+            masterDetail.full();
+        });
+        imagesOnly = news.addItem("Images Only", (selectedItem) -> {
+            NewsBody body = ((NewsView) getUI().getContent()).getBody();
+            MasterDetailView masterDetail = body.getMasterDetail();
+            masterDetail.imagesOnly();
+        });
+        titlesOnly = news.addItem("Titles Only", (selectedItem) -> {
+            NewsBody body = ((NewsView) getUI().getContent()).getBody();
+            MasterDetailView masterDetail = body.getMasterDetail();
+            masterDetail.titlesOnly();
         });
     }
 
-    private void populateNewsOverviews() {
-        populateNewsByTime();
-        news.addSeparator();
-        populateNewsByStatus();
-    }
-
     private void populateNewsByTime() {
-        getUI().access(() -> {
-            if (news != null && getUI() != null) {
-                latest = news.addItem("Latest", (selectedItem) -> {
-                    updateBody(DataProviderType.LATEST, null);
-                });
-                oldest = news.addItem("Oldest", (selectedItem) -> {
-                    updateBody(DataProviderType.OLDEST, null);
-                });
-            }
+        latest = news.addItem("Latest", (selectedItem) -> {
+            updateBody(DataProviderType.LATEST, null);
+        });
+        oldest = news.addItem("Oldest", (selectedItem) -> {
+            updateBody(DataProviderType.OLDEST, null);
         });
     }
 
     private void populateNewsByStatus() {
-        getUI().access(() -> {
-            if (user != null) {
-                read = news.addItem("Read", VaadinIcons.EYE_SLASH, (selectedMenuItem) -> {
-                    updateBody(DataProviderType.READ, null);
-                });
-                favorite = news.addItem("Favorite", VaadinIcons.STAR, (selectedMenuItem) -> {
-                    updateBody(DataProviderType.FAVORITE, null);
-                });
-                fake = news.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, (selectMenuItem) -> {
-                    updateBody(DataProviderType.FAKE, null);
-                });
-            }
+        read = news.addItem("Read", VaadinIcons.EYE_SLASH, (selectedMenuItem) -> {
+            updateBody(DataProviderType.READ, null);
+        });
+        favorite = news.addItem("Favorite", VaadinIcons.STAR, (selectedMenuItem) -> {
+            updateBody(DataProviderType.FAVORITE, null);
+        });
+        fake = news.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, (selectMenuItem) -> {
+            updateBody(DataProviderType.FAKE, null);
         });
     }
 
     private void updateBody(DataProviderType dataType, String value) {
-        getUI().access(() -> {
-            NewsBody body = ((NewsView) getUI().getNavigator().getCurrentView()).getBody();
-            body.populate(dataType, value);
-        });
+        NewsBody body = ((NewsView) getUI().getNavigator().getCurrentView()).getBody();
+        body.populate(dataType, value);
     }
 
     private String getCategoryCaption(String cat) {
@@ -262,6 +230,12 @@ public final class NewsMenuBar extends MenuBar {
         return user;
     }
 
+    private void populateNewsOverviews() {
+        populateNewsByTime();
+        news.addSeparator();
+        populateNewsByStatus();
+    }
+
     private class MenuBarThread extends Thread {
 
         public MenuBarThread() {
@@ -269,11 +243,29 @@ public final class NewsMenuBar extends MenuBar {
 
         @Override
         public void run() {
-            populateNewsOverviews();
-            populateNewsPublisher();
-            populateNewsCategory();
-            populateNewsLanguages();
-            populateNewsCountries();
+            try {
+                getUI().access(() -> {
+                    populateNewsOverviews();
+                });
+                Thread.sleep(1000);
+                getUI().access(() -> {
+                    populateNewsPublisher();
+                });
+                Thread.sleep(1000);
+                getUI().access(() -> {
+                    populateNewsCategory();
+                });
+                Thread.sleep(1000);
+                getUI().access(() -> {
+                    populateNewsLanguages();
+                });
+                Thread.sleep(1000);
+                getUI().access(() -> {
+                    populateNewsCountries();
+                });
+            } catch (InterruptedException ex) {
+                Logger.getLogger(NewsMenuBar.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
