@@ -15,6 +15,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Link;
+import com.vaadin.ui.UI;
 import db.FlexUser;
 
 /**
@@ -25,10 +26,10 @@ public class FlexFooter extends HorizontalLayout {
 
     private static final long serialVersionUID = 3270583482855386420L;
 
-    private final FlexUser user;
+    private FlexUser user;
 
-    public FlexFooter(FlexUser user) {
-        this.user = user;
+    public FlexFooter() {
+        initUser();
         HorizontalLayout left = new HorizontalLayout(getCopyright(), getTerms(), getPrivacy());
         HorizontalLayout middle = new HorizontalLayout(new Label("Developed by"), getDeveloper());
         HorizontalLayout right = new HorizontalLayout(new Label("Powered by"), getPoweredBy());
@@ -43,6 +44,14 @@ public class FlexFooter extends HorizontalLayout {
         super.setComponentAlignment(middle, Alignment.MIDDLE_CENTER);
         super.setComponentAlignment(right, Alignment.MIDDLE_RIGHT);
         super.setStyleName("flex-footer");
+    }
+
+    private void initUser() {
+        if (UI.getCurrent() != null) {
+            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
+            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+            System.out.println("NEWS VIEW USER -> " + user);
+        }
     }
 
     public FlexUser getUser() {

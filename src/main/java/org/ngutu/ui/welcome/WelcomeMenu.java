@@ -10,6 +10,7 @@ import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
+import com.vaadin.ui.UI;
 import db.FlexUser;
 import org.ngutu.ui.logo.FlexLogo;
 
@@ -21,15 +22,15 @@ public class WelcomeMenu extends HorizontalLayout {
 
     private static final long serialVersionUID = 8366211712669711650L;
 
-    private final FlexUser user;
+    private FlexUser user;
 
     private FlexLogo logo;
     private HorizontalLayout actions;
     private WelcomeMenuBar welcomeMenuBar;
     private Image picture;
 
-    public WelcomeMenu(FlexUser user) {
-        this.user = user;
+    public WelcomeMenu() {
+        initUser();
         initLogo();
         initActions();
         super.setSizeFull();
@@ -40,6 +41,13 @@ public class WelcomeMenu extends HorizontalLayout {
         super.setStyleName("flex-menu");
     }
 
+    private void initUser() {
+        if (UI.getCurrent() != null) {
+            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
+            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+            System.out.println("NEWS VIEW USER -> " + user);
+        }
+    }
     private void initActions() {
         actions = new HorizontalLayout();
         actions.setMargin(false);

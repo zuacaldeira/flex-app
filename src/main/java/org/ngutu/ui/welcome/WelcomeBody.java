@@ -5,6 +5,7 @@
  */
 package org.ngutu.ui.welcome;
 
+import com.vaadin.ui.UI;
 import components.FlexPanel;
 import db.FlexUser;
 
@@ -16,12 +17,20 @@ public class WelcomeBody extends FlexPanel {
 
     private static final long serialVersionUID = 6273025631274336910L;
 
-    private final FlexUser user;
+    private FlexUser user;
     private AboutUs aboutUs;
 
-    public WelcomeBody(FlexUser user) {
-        this.user = user;
+    public WelcomeBody() {
+        initUser();
         initBody();
+    }
+
+    private void initUser() {
+        if (UI.getCurrent() != null) {
+            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
+            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+            System.out.println("NEWS VIEW USER -> " + user);
+        }
     }
 
     public FlexUser getUser() {

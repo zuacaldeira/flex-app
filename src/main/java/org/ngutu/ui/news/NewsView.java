@@ -53,17 +53,17 @@ public class NewsView extends VerticalLayout implements View {
     }
 
     private void initMenu() {
-        menu = new NewsMenu(user);
+        menu = new NewsMenu();
         menu.setHeight("48px");
     }
 
     private void initBody() {
-        body = new NewsBody(user);
+        body = new NewsBody();
         body.setSizeFull();
     }
 
     private void initFooter() {
-        footer = new FlexFooter(user);
+        footer = new FlexFooter();
         footer.setHeight("40px");
     }
 

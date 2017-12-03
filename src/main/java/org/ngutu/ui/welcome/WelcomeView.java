@@ -29,17 +29,17 @@ public class WelcomeView extends VerticalLayout implements View {
     }
 
     private void initMenu() {
-        menu = new WelcomeMenu(user);
+        menu = new WelcomeMenu();
         menu.setHeight("48px");
     }
 
     private void initBody() {
-        body = new WelcomeBody(user);
+        body = new WelcomeBody();
         body.setSizeFull();
     }
 
     private void initFooter() {
-        footer = new FlexFooter(user);
+        footer = new FlexFooter();
         footer.setHeight("40px");
     }
 

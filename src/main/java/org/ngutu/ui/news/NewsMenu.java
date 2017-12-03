@@ -34,8 +34,8 @@ public class NewsMenu extends HorizontalLayout {
     private NewsMenuBar newsMenuBar;
     private Image picture;
 
-    public NewsMenu(FlexUser user) {
-        this.user = user;
+    public NewsMenu() {
+        initUser();
         initLogo();
         initSearchBox();
         initActions();
@@ -48,6 +48,13 @@ public class NewsMenu extends HorizontalLayout {
         super.setStyleName("flex-menu");
     }
 
+    private void initUser() {
+        if (UI.getCurrent() != null) {
+            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
+            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+            System.out.println("NEWS VIEW USER -> " + user);
+        }
+    }
     private void initActions() {
         actions = new HorizontalLayout();
         actions.setMargin(false);

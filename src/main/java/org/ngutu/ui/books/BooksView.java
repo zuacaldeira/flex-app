@@ -12,7 +12,6 @@ import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
-import ui.SecuredUI;
 import components.CanPopulate;
 import view.footer.FlexFooter;
 
@@ -36,13 +35,13 @@ public class BooksView extends VerticalLayout implements View, CanPopulate {
     }
 
     private void initMenu() {
-        menu = new BooksMenu(user);
+        menu = new BooksMenu();
         menu.setWidth("100%");
         menu.setHeight("64px");
     }
 
     private void initBody() {
-        body = new BooksBody(user);
+        body = new BooksBody();
         body.setSizeFull();
         /*if (Page.getCurrent() != null) {
             browserHeight = Page.getCurrent().getBrowserWindowHeight();
@@ -51,7 +50,7 @@ public class BooksView extends VerticalLayout implements View, CanPopulate {
     }
 
     private void initFooter() {
-        footer = new FlexFooter(user);
+        footer = new FlexFooter();
         footer.setHeight("64px");
     }
 
@@ -91,7 +90,7 @@ public class BooksView extends VerticalLayout implements View, CanPopulate {
 
     @Override
     public void populate() {
-        user = new FlexUser(((SecuredUI) UI.getCurrent()).getCurrentUser(), null);
+        initUser();
         initBody();
         initFooter();
         initMenu();
@@ -109,6 +108,13 @@ public class BooksView extends VerticalLayout implements View, CanPopulate {
         }
     }
 
+    private void initUser() {
+        if (UI.getCurrent() != null) {
+            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
+            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+            System.out.println("NEWS VIEW USER -> " + user);
+        }
+    }
     private float totalHeightInPixels() {
         return menu.getHeight() + body.getHeight() + footer.getHeight();
     }

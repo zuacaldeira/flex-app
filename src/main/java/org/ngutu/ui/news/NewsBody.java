@@ -5,6 +5,7 @@
  */
 package org.ngutu.ui.news;
 
+import com.vaadin.ui.UI;
 import data.DataProviderType;
 import db.FlexUser;
 import components.FlexPanel;
@@ -20,16 +21,23 @@ public class NewsBody extends FlexPanel {
 
     private static final long serialVersionUID = 6273025631274336910L;
 
-    private final FlexUser user;
+    private FlexUser user;
     private MasterDetailView masterDetailView;
     
-    public NewsBody(FlexUser user) {
-        this.user = user;
+    public NewsBody() {
+        initUser();
         this.initMasterDetailView();
         super.addStyleName("flex-body");
         super.setSizeFull();
     }
 
+    private void initUser() {
+        if (UI.getCurrent() != null) {
+            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
+            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+            System.out.println("NEWS VIEW USER -> " + user);
+        }
+    }
     private void initMasterDetailView() {
         masterDetailView = new MasterDetailView(user);
         masterDetailView.setSizeFull();

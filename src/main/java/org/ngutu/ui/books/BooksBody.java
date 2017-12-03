@@ -9,6 +9,7 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.UI;
 import components.FlexButton;
 import data.DataProviderType;
 import db.FlexUser;
@@ -24,13 +25,13 @@ public class BooksBody extends FlexPanel implements CanPopulate {
 
     private static final long serialVersionUID = 6273025631274336910L;
 
-    private final FlexUser user;
+    private FlexUser user;
     private Grid<NewsArticle> grid;
     private VerticalLayout layout;
     private HorizontalLayout actions;
 
-    public BooksBody(FlexUser user) {
-        this.user = user;
+    public BooksBody() {
+        initUser();
         initGrid();
         initActions();
         layout = new VerticalLayout(grid, actions);
@@ -39,6 +40,14 @@ public class BooksBody extends FlexPanel implements CanPopulate {
         super.addStyleName("flex-body");
         super.setSizeFull();
         super.setContent(layout);
+    }
+
+    private void initUser() {
+        if (UI.getCurrent() != null) {
+            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
+            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+            System.out.println("NEWS VIEW USER -> " + user);
+        }
     }
 
     private void initGrid() {
