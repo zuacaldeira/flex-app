@@ -61,8 +61,6 @@ public final class NewsMenuBar extends MenuBar {
         languages = top.addItem("Languages", null, null);
         countries = top.addItem("Countries", null, null);
         populate();
-        latest.getCommand().menuSelected(latest);
-        //refresh();
     }
 
     protected void populateNewsCategory() {
