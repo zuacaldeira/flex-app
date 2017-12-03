@@ -69,6 +69,7 @@ public class NewsMenu extends HorizontalLayout {
     private void initMenuBar() {
         newsMenuBar = new NewsMenuBar(user);
         actions.addComponent(newsMenuBar);
+        actions.setComponentAlignment(newsMenuBar, Alignment.MIDDLE_CENTER);
     }
 
     private void initSearchBox() {
