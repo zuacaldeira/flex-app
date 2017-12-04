@@ -36,7 +36,7 @@ public class ArticleView extends GraphEntityView<NewsArticle> {
 
     private void initActions() {
         this.articleViewActions = new ArticleViewActions(getUser(), getItem());
-        super.addComponent(articleViewBody);
+        super.addComponent(articleViewActions);
         System.out.println("!!! USER IS " + getUser());
         
     }
