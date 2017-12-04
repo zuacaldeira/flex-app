@@ -46,7 +46,6 @@ public class MasterDetailView extends FlexPanel {
         baseLayout.setMargin(true);
         super.setSizeFull();
         super.setContent(baseLayout);
-        refresh(DataProviderType.LATEST, null);
     }
 
     private FlexUser getUser() {
