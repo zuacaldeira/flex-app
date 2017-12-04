@@ -51,7 +51,6 @@ public class MasterDetailView extends FlexPanel {
 
     private FlexUser getUser() {
         if (UI.getCurrent() != null) {
-            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
             return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
         }
         return null;
@@ -125,7 +124,6 @@ public class MasterDetailView extends FlexPanel {
             worker.interrupt();
         }
         summariesPanel.getOverviews().removeAllComponents();
-        Notification.show("USER IS " + getUser());
         worker = new MasterDetailThread(getUser(), type, value);
         worker.start();
     }

@@ -11,11 +11,11 @@ import components.FavoriteButton;
 import components.HideButton;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import db.NewsArticle;
 import services.NewsArticleServiceInterface;
-import org.ngutu.ui.addThis.AddThisFrame;
 import utils.ServiceLocator;
 
 /**
@@ -35,6 +35,7 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
 
     public ArticleViewActions(FlexUser user, NewsArticle article) {
         this.user = user;
+        Notification.show("USER IS " + user);
         this.article = article;
         initActions();
         super.addComponents(commentButton, favoriteButton, fakeButton, hideButton);
