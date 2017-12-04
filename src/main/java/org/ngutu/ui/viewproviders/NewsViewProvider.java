@@ -20,5 +20,4 @@ public class NewsViewProvider extends ClassBasedViewProvider {
         super(FlexViews.NEWS, NewsView.class);
     }
     
-    
 }

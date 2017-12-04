@@ -5,8 +5,6 @@
  */
 package org.ngutu.ui.news;
 
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener;
 import factory.GraphEntityView;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.BrowserFrame;
@@ -26,23 +24,17 @@ import io.reactivex.Observable;
  *
  * @author zua
  */
-public class MasterDetailView extends FlexPanel implements View {
+public class MasterDetailView extends FlexPanel {
 
     private static final long serialVersionUID = -2414042455007471125L;
 
     private MasterDetailThread worker;
-    private HorizontalLayout baseLayout;
+    private final HorizontalLayout baseLayout;
     private SummariesPanel summariesPanel;
     private BrowserFrame infoFrame;
     private GraphEntityView selected;
-    private FlexUser user;
 
     public MasterDetailView() {
-    }
-
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
-        initUser();
         initSummaries(1);
         initBrowserFrame();
         baseLayout = new HorizontalLayout(summariesPanel, infoFrame);
@@ -56,13 +48,12 @@ public class MasterDetailView extends FlexPanel implements View {
         refresh(DataProviderType.LATEST, null);
     }
 
-    
-    private void initUser() {
+    private FlexUser getUser() {
         if (UI.getCurrent() != null) {
             System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
-            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
-            System.out.println("NEWS VIEW USER -> " + user);
+            return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
         }
+        return null;
     }
 
     private void initSummaries(int c) {
@@ -133,12 +124,9 @@ public class MasterDetailView extends FlexPanel implements View {
             worker.interrupt();
         }
         summariesPanel.getOverviews().removeAllComponents();
-        initUser();
-        worker = new MasterDetailThread(user, type, value);
+        worker = new MasterDetailThread(getUser(), type, value);
         worker.start();
     }
-    
-    
 
     private class MasterDetailThread extends Thread {
 
@@ -154,11 +142,26 @@ public class MasterDetailView extends FlexPanel implements View {
 
         @Override
         public void run() {
-            Observable<NewsArticle> observable = new ArticlesRepository().loadNodes(type, value, user);
+            Observable<NewsArticle> observable = getNodes(type, value);
             observable.subscribe(next -> {
-                ArticleView aView = FlexViewFactory.getInstance().createArticleView(next);
+                ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, next);
                 addSingleSummary(aView);
             });
         }
+
+        private Observable<NewsArticle> getNodes(DataProviderType type, String value) {
+            Observable<NewsArticle> nodes = null;
+            if (user != null && value != null) {
+                nodes = new ArticlesRepository().loadNodes(type, value, user);
+            } else if (user != null && value == null) {
+                nodes = new ArticlesRepository().loadNodes(type, user);
+            } else if (user == null && value != null) {
+                nodes = new ArticlesRepository().loadNodes(type, value);
+            } else if (user == null && value == null) {
+                nodes = new ArticlesRepository().loadNodes(type);
+            }
+            return nodes;
+        }
+
     }
 }

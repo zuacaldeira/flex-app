@@ -26,8 +26,6 @@ public class NewsMenu extends HorizontalLayout {
 
     private static final long serialVersionUID = 8366211712669711650L;
 
-    private FlexUser user;
-
     private FlexLogo logo;
     private HorizontalLayout actions;
     private TextField searchBox;
@@ -35,7 +33,6 @@ public class NewsMenu extends HorizontalLayout {
     private Image picture;
 
     public NewsMenu() {
-        initUser();
         initLogo();
         initSearchBox();
         initActions();
@@ -48,13 +45,14 @@ public class NewsMenu extends HorizontalLayout {
         super.setStyleName("flex-menu");
     }
 
-    private void initUser() {
+    private FlexUser getUser() {
         if (UI.getCurrent() != null) {
             System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
-            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
-            System.out.println("NEWS VIEW USER -> " + user);
+            return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
         }
+        return null;
     }
+
     private void initActions() {
         actions = new HorizontalLayout();
         actions.setMargin(false);
@@ -64,6 +62,7 @@ public class NewsMenu extends HorizontalLayout {
     }
 
     private void initPicture() {
+        FlexUser user = getUser();
         if (user != null && user.getUserInfo() != null && user.getUserInfo().getPicture() != null) {
             picture = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
             picture.setWidth("40px");
@@ -74,7 +73,7 @@ public class NewsMenu extends HorizontalLayout {
     }
 
     private void initMenuBar() {
-        newsMenuBar = new NewsMenuBar(user);
+        newsMenuBar = new NewsMenuBar();
         actions.addComponent(newsMenuBar);
         actions.setComponentAlignment(newsMenuBar, Alignment.MIDDLE_CENTER);
     }
@@ -94,10 +93,6 @@ public class NewsMenu extends HorizontalLayout {
 
     private NewsBody getBody() {
         return ((NgutuUI) UI.getCurrent()).getMainView().getBody();
-    }
-
-    public FlexUser getUser() {
-        return user;
     }
 
     public FlexLogo getLogo() {

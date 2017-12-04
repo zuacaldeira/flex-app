@@ -12,6 +12,7 @@ package org.ngutu.ui.viewproviders;
 public class FlexViews {
     public static final String WELCOME = "";
     public static final String NEWS = "news";
+    public static final String MASTER_DETAIL = "masterDetail";
     public static final String BOOKS = "books";
     public static final String BLOG = "blog";
     public static final String CONTACTS = "contacts";

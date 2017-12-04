@@ -30,7 +30,7 @@ public class FlexViewFactoryTest {
         System.out.println("createSourceView");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "language", "country");
-        assertNotNull(FlexViewFactory.getInstance().createSourceView(source));
+        assertNotNull(FlexViewFactory.getInstance().createSourceView(user,source));
     }
 
     /**
@@ -41,7 +41,7 @@ public class FlexViewFactoryTest {
         System.out.println("createArticleView");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsArticle article = new NewsArticle("test:title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
-        assertNotNull(FlexViewFactory.getInstance().createArticleView(article));
+        assertNotNull(FlexViewFactory.getInstance().createArticleView(user,article));
     }
 
     /**
@@ -52,7 +52,7 @@ public class FlexViewFactoryTest {
         System.out.println("createAuthorView");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsAuthor author = new NewsAuthor("test:author");
-        assertNotNull(FlexViewFactory.getInstance().createAuthorView(author));
+        assertNotNull(FlexViewFactory.getInstance().createAuthorView(user,author));
     }
 
     /**
@@ -63,7 +63,7 @@ public class FlexViewFactoryTest {
         System.out.println("createView");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsAuthor author = new NewsAuthor("test:author");
-        assertNotNull(FlexViewFactory.getInstance().createView(author));
+        assertNotNull(FlexViewFactory.getInstance().createView(user,author));
     }
 
     /**

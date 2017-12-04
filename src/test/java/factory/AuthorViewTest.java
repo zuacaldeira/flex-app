@@ -27,7 +27,7 @@ public class AuthorViewTest {
         System.out.println("new AuthorView()");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsAuthor author = new NewsAuthor("test:author");
-        AuthorView authorView = new AuthorView(author);
+        AuthorView authorView = new AuthorView(user, author);
         assertNotNull(authorView);
     }
     /**
@@ -38,7 +38,7 @@ public class AuthorViewTest {
         System.out.println("getName");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsAuthor author = new NewsAuthor("test:author");
-        AuthorView authorView = new AuthorView(author);
+        AuthorView authorView = new AuthorView(user, author);
         assertNull(authorView.getName());
     }
 
@@ -50,7 +50,7 @@ public class AuthorViewTest {
         System.out.println("getAuthor");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsAuthor author = new NewsAuthor("test:author");
-        AuthorView authorView = new AuthorView(author);
+        AuthorView authorView = new AuthorView(user, author);
         assertNotNull(authorView.getAuthor());
     }
 
@@ -62,7 +62,7 @@ public class AuthorViewTest {
         System.out.println("minimize");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsAuthor author = new NewsAuthor("test:author");
-        AuthorView authorView = new AuthorView(author);
+        AuthorView authorView = new AuthorView(user, author);
         authorView.unselect();
         assertNull(authorView.getName());
     }
@@ -75,7 +75,7 @@ public class AuthorViewTest {
         System.out.println("maximize");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsAuthor author = new NewsAuthor("test:author");
-        AuthorView authorView = new AuthorView(author);
+        AuthorView authorView = new AuthorView(user, author);
         authorView.select();
         assertNull(authorView.getName());
     }

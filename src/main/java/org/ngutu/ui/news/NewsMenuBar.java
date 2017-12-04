@@ -8,6 +8,7 @@ package org.ngutu.ui.news;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
 import data.DataProviderType;
@@ -25,7 +26,6 @@ public final class NewsMenuBar extends MenuBar {
 
     private static final long serialVersionUID = -1299703352057116843L;
 
-    private final FlexUser user;
     private final NewsSourceServiceInterface sourcesService;
 
     // Main Menu (top level)
@@ -49,8 +49,7 @@ public final class NewsMenuBar extends MenuBar {
     private MenuItem imagesOnly;
     private MenuItem titlesOnly;
 
-    public NewsMenuBar(FlexUser user) {
-        this.user = user;
+    public NewsMenuBar() {
         sourcesService = ServiceLocator.getInstance().findSourcesService();
         this.initMenuItems();
         setSizeUndefined();
@@ -70,14 +69,14 @@ public final class NewsMenuBar extends MenuBar {
         categories = top.addItem("Categories", null, null);
         languages = top.addItem("Languages", null, null);
         countries = top.addItem("Countries", null, null);
-        if (user == null) {
+        if (getUser() == null) {
             login = addItem("", VaadinIcons.SIGN_IN, (selectedItem) -> {
                 NgutuAuthAPI authAPI = new NgutuAuthAPI(getUI().getNavigator().getState());
                 authAPI.authorize();
             });
             login.setDescription("LOGIN");
         }
-        if (user != null) {
+        if (getUser() != null) {
             logout = addItem("", VaadinIcons.SIGN_OUT, (selectedItem) -> {
                 getUI().getSession().setAttribute("user", null);
                 getUI().getNavigator().navigateTo(FlexViews.WELCOME);
@@ -87,7 +86,15 @@ public final class NewsMenuBar extends MenuBar {
         populate();
     }
 
-    protected void populateNewsCategory() {
+     private FlexUser getUser() {
+        if (UI.getCurrent() != null) {
+            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
+            return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+        }
+        return null;
+    }
+
+     protected void populateNewsCategory() {
         sourcesService.findCategories().subscribe(cat -> {
             categories.addItem(getCategoryCaption(cat), (selectedMenuItem) -> {
                 updateBody(DataProviderType.CATEGORY, selectedMenuItem.getText());
@@ -153,7 +160,7 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     private void populateNewsByStatus() {
-        if (user != null) {
+        if (getUser() != null) {
             news.addSeparator();
             read = news.addItem("Read", VaadinIcons.EYE_SLASH, (selectedMenuItem) -> {
                 updateBody(DataProviderType.READ, null);
@@ -234,10 +241,6 @@ public final class NewsMenuBar extends MenuBar {
 
     public MenuItem getTitlesOnly() {
         return titlesOnly;
-    }
-
-    public FlexUser getUser() {
-        return user;
     }
 
     private void populate() {

@@ -9,9 +9,6 @@ import com.vaadin.ui.UI;
 import data.DataProviderType;
 import db.FlexUser;
 import components.FlexPanel;
-import data.ArticlesRepository;
-import db.NewsArticle;
-import io.reactivex.Observable;
 
 /**
  *
@@ -25,19 +22,11 @@ public class NewsBody extends FlexPanel {
     private MasterDetailView masterDetailView;
     
     public NewsBody() {
-        initUser();
         this.initMasterDetailView();
         super.addStyleName("flex-body");
         super.setSizeFull();
     }
 
-    private void initUser() {
-        if (UI.getCurrent() != null) {
-            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
-            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
-            System.out.println("NEWS VIEW USER -> " + user);
-        }
-    }
     private void initMasterDetailView() {
         masterDetailView = new MasterDetailView();
         masterDetailView.setSizeFull();
@@ -54,6 +43,11 @@ public class NewsBody extends FlexPanel {
     }
 
     public FlexUser getUser() {
+        if (UI.getCurrent() != null) {
+            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
+            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+            System.out.println("NEWS VIEW USER -> " + user);
+        }
         return user;
     }
 
@@ -64,21 +58,5 @@ public class NewsBody extends FlexPanel {
     }
     
     
-    private Observable<NewsArticle> getNodes(DataProviderType type, String value) {
-        Observable<NewsArticle> nodes = null;
-        if(user != null && value != null) {
-            nodes = new ArticlesRepository().loadNodes(type, value, user);
-        }
-        else if(user != null && value == null) {
-            nodes = new ArticlesRepository().loadNodes(type, user);
-        }
-        else if(user == null && value != null) {
-            nodes = new ArticlesRepository().loadNodes(type, value);
-        }
-        else if(user == null && value == null) {
-            nodes = new ArticlesRepository().loadNodes(type);
-        }
-        return nodes;
-    }
 
 }

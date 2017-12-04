@@ -9,7 +9,6 @@ import org.ngutu.ui.viewproviders.BooksViewProvider;
 import org.ngutu.ui.viewproviders.NewsViewProvider;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
-import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import org.ngutu.ui.viewproviders.WelcomeViewProvider;
 

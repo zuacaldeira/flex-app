@@ -32,7 +32,7 @@ public class ArticleViewTestIT {
         initMinimalScenario();
         FlexUser user = new FlexUser();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
-        ArticleView aView = new ArticleView(article);
+        ArticleView aView = new ArticleView(user, article);
         assertNotNull(aView.getArticleViewHeader());
     }
 
@@ -45,7 +45,7 @@ public class ArticleViewTestIT {
         initMinimalScenario();
         FlexUser user = new FlexUser();
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
-        ArticleView aView = new ArticleView(article);
+        ArticleView aView = new ArticleView(user, article);
         assertNotNull(aView.getArticleViewBody());
     }
 
@@ -59,7 +59,7 @@ public class ArticleViewTestIT {
         initMinimalScenario();
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
-        ArticleView aView = new ArticleView(article);
+        ArticleView aView = new ArticleView(user, article);
         assertNotNull(aView.getArticleViewActions());
     }
 
@@ -72,7 +72,7 @@ public class ArticleViewTestIT {
         initMinimalScenario();
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
-        ArticleView aView = new ArticleView(article);
+        ArticleView aView = new ArticleView(user, article);
         ArticleViewActions actions = aView.getArticleViewActions();
         assertNotNull(actions);
         assertEquals(4, actions.getComponentCount());
@@ -121,7 +121,7 @@ public class ArticleViewTestIT {
         article.setPublishedAt(date);
         NewsAuthor author = new NewsAuthor("Author");
         author.addArticle(article);
-        ArticleView aView = new ArticleView(article);
+        ArticleView aView = new ArticleView(user, article);
         assertNotNull(aView.getArticleViewActions().getService());
     }
 

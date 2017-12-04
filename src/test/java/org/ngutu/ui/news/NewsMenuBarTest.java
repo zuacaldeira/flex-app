@@ -38,7 +38,7 @@ public class NewsMenuBarTest {
     public void testInitMenuBar() {
         System.out.println("initMenuBar");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsMenuBar menuBar = new NewsMenuBar(user);
+        NewsMenuBar menuBar = new NewsMenuBar();
         assertNull(menuBar.getNews());
         assertNull(menuBar.getPublishers());
         assertNull(menuBar.getCategories());
@@ -54,7 +54,7 @@ public class NewsMenuBarTest {
         System.out.println("populate");
         initMinimalScenario();
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsMenuBar menuBar = new NewsMenuBar(user);
+        NewsMenuBar menuBar = new NewsMenuBar();
         assertNull(menuBar.getPublishers());
         assertNull(menuBar.getLanguages());
         assertNull(menuBar.getCountries());
@@ -68,7 +68,7 @@ public class NewsMenuBarTest {
     public void testPopulateNewsCategory() {
         System.out.println("updateNewsCategory");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsMenuBar menuBar = new NewsMenuBar(user);
+        NewsMenuBar menuBar = new NewsMenuBar();
         menuBar.populateNewsCategory();
 
     }
@@ -80,7 +80,7 @@ public class NewsMenuBarTest {
     public void testPopulateNewsPublisher() {
         System.out.println("updateNewsPublisher");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsMenuBar menuBar = new NewsMenuBar(user);
+        NewsMenuBar menuBar = new NewsMenuBar();
         menuBar.populateNewsPublisher();
     }
 
@@ -91,7 +91,7 @@ public class NewsMenuBarTest {
     public void testUpdateNewsLanguages() {
         System.out.println("updateNewsLanguages");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsMenuBar menuBar = new NewsMenuBar(user);
+        NewsMenuBar menuBar = new NewsMenuBar();
         menuBar.populateNewsLanguages();
     }
 
@@ -102,7 +102,7 @@ public class NewsMenuBarTest {
     public void testUpdateNewsCountries() {
         System.out.println("updateNewsCountries");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsMenuBar menuBar = new NewsMenuBar(user);
+        NewsMenuBar menuBar = new NewsMenuBar();
         menuBar.populateNewsCountries();
     }
 
@@ -113,7 +113,7 @@ public class NewsMenuBarTest {
     public void testGetUI() {
         System.out.println("getUI");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsMenuBar menuBar = new NewsMenuBar(user);
+        NewsMenuBar menuBar = new NewsMenuBar();
         assertNull(menuBar.getUI());
     }
 

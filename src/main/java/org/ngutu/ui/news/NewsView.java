@@ -21,7 +21,6 @@ public class NewsView extends VerticalLayout implements View {
 
     private static final long serialVersionUID = 8467619842785075810L;
 
-    private FlexUser user;
     private NewsMenu menu;
     private NewsBody body;
     private FlexFooter footer;
@@ -32,7 +31,6 @@ public class NewsView extends VerticalLayout implements View {
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         System.out.println("Enctering News VIEWS!!!!");
-        initUser();
         initBody();
         initFooter();
         initMenu();
@@ -42,14 +40,6 @@ public class NewsView extends VerticalLayout implements View {
         super.setSizeFull();
         super.setMargin(false);
         getBody().populate(DataProviderType.LATEST, null);
-    }
-
-    private void initUser() {
-        if (UI.getCurrent() != null) {
-            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
-            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
-            System.out.println("NEWS VIEW USER -> " + user);
-        }
     }
 
     private void initMenu() {
@@ -92,9 +82,12 @@ public class NewsView extends VerticalLayout implements View {
         this.body = flexBody;
     }
 
-    public FlexUser getUser() {
-        return user;
+    private FlexUser getUser() {
+        if (UI.getCurrent() != null) {
+            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
+            return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+        }
+        return null;
     }
-
 
 }

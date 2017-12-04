@@ -31,7 +31,6 @@ public class FlexMainViewTest {
         System.out.println("new");
         NewsView mainView = new NewsView();
         mainView.enter(null);
-        assertNull(mainView.getUser());
         assertNotNull(mainView.getMenu());
         assertNotNull(mainView.getBody());
         assertNotNull(mainView.getFooter());
@@ -122,7 +121,6 @@ public class FlexMainViewTest {
         System.out.println("getUser");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsView mainView = new NewsView();
-        assertNull(mainView.getUser());
     }
 
     /**

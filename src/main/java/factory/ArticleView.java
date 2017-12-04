@@ -1,6 +1,6 @@
 package factory;
 
-import com.vaadin.navigator.ViewChangeListener;
+import db.FlexUser;
 import db.NewsArticle;
 
 /**
@@ -15,13 +15,8 @@ public class ArticleView extends GraphEntityView<NewsArticle> {
     private ArticleViewBody articleViewBody;
     private ArticleViewActions articleViewActions;
 
-    public ArticleView(NewsArticle article) {
-        super(article);
-    }
-
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
-        super.enter(event); 
+    public ArticleView(FlexUser user, NewsArticle article) {
+        super(user, article);
         this.initHeader();
         this.initBody();
         this.initActions();
