@@ -41,6 +41,7 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
         initActions();
         super.addComponents(commentButton, favoriteButton, fakeButton, hideButton);
         if(user == null) {
+            setDescription("You have to login to enable social actions");
             disableActions();
         }
     }

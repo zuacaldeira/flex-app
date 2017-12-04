@@ -51,6 +51,7 @@ public class NewsBody extends FlexPanel {
 
     public void populate(DataProviderType type, String value) {
         System.out.println("FlexBodyThread#run(): START");
+        initMasterDetailView();
         masterDetailView.refresh(type, value);
         System.out.println("FlexBodyThread#run(): DONE");
     }
