@@ -14,7 +14,9 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 import db.AmazonBook;
+import db.FlexUser;
 import db.Person;
 import factory.AmazonBookView;
 import factory.FlexViewFactory;
@@ -65,13 +67,21 @@ public class AdvertisementPanel extends FlexPanel implements LayoutClickListener
             left = new Image("", VaadinIcons.USER_HEART);
         }
     }
+    
+    private FlexUser getUser() {
+        if (UI.getCurrent() != null) {
+            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
+            return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+        }
+        return null;
+    }
 
     private void initRight(String name) {
         right = new GridLayout(3, 3);
         FlexAmazonServiceInterface service = ServiceLocator.getInstance().findAmazonService();
         Observable<AmazonBook> favoriteBooks = service.findFavoriteBooks(name);
         favoriteBooks.subscribe(book -> {
-            AmazonBookView amazonBookView = FlexViewFactory.getInstance().createAmazonBookView(book);
+            AmazonBookView amazonBookView = FlexViewFactory.getInstance().createAmazonBookView(getUser(), book);
             amazonBookView.addLayoutClickListener(this);
             right.addComponent(amazonBookView);
         });
