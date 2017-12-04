@@ -35,10 +35,8 @@ public class ArticleView extends GraphEntityView<NewsArticle> {
     }
 
     private void initActions() {
-        if (getUser() != null) {
-            this.articleViewActions = new ArticleViewActions(getUser(), getItem());
-            super.addComponent(articleViewBody);
-        }
+        this.articleViewActions = new ArticleViewActions(getUser(), getItem());
+        super.addComponent(articleViewBody);
     }
 
     @Override

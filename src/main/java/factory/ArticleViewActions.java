@@ -11,7 +11,6 @@ import components.FavoriteButton;
 import components.HideButton;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import db.NewsArticle;
@@ -35,13 +34,23 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
 
     public ArticleViewActions(FlexUser user, NewsArticle article) {
         this.user = user;
-        System.out.println("USER IS " + user);
         this.article = article;
-        initActions();
-        super.addComponents(commentButton, favoriteButton, fakeButton, hideButton);
         super.setSizeFull();
         super.setStyleName("actions");
         super.setSpacing(true);
+        System.out.println("!!! USER IS " + user);
+        initActions();
+        super.addComponents(commentButton, favoriteButton, fakeButton, hideButton);
+        if(user == null) {
+            disableActions();
+        }
+    }
+
+    private void disableActions() {
+        commentButton.setEnabled(false);
+        hideButton.setEnabled(false);
+        fakeButton.setEnabled(false);
+        favoriteButton.setEnabled(false);
     }
 
     private void initActions() {
