@@ -10,6 +10,7 @@ import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import db.FlexUser;
 import factory.FlexViewFactory;
@@ -124,6 +125,7 @@ public class MasterDetailView extends FlexPanel {
             worker.interrupt();
         }
         summariesPanel.getOverviews().removeAllComponents();
+        Notification.show("USER IS " + getUser());
         worker = new MasterDetailThread(getUser(), type, value);
         worker.start();
     }
@@ -142,9 +144,9 @@ public class MasterDetailView extends FlexPanel {
 
         @Override
         public void run() {
-            Observable<NewsArticle> observable = getNodes(type, value);
+            Observable<NewsArticle> observable = getNodes(this.type, this.value);
             observable.subscribe(next -> {
-                ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, next);
+                ArticleView aView = FlexViewFactory.getInstance().createArticleView(this.user, next);
                 addSingleSummary(aView);
             });
         }
