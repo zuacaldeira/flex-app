@@ -35,7 +35,7 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
 
     public ArticleViewActions(FlexUser user, NewsArticle article) {
         this.user = user;
-        Notification.show("USER IS " + user);
+        System.out.println("USER IS " + user);
         this.article = article;
         initActions();
         super.addComponents(commentButton, favoriteButton, fakeButton, hideButton);
