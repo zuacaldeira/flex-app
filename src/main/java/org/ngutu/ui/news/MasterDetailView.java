@@ -140,6 +140,7 @@ public class MasterDetailView extends FlexPanel {
             this.value = value;
         }
 
+        
         @Override
         public void run() {
             Observable<NewsArticle> observable = getNodes(this.type, this.value);

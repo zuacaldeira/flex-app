@@ -20,12 +20,12 @@ public abstract class GraphEntityView<T extends GraphEntity> extends VerticalLay
     private static final long serialVersionUID = 749607225883641715L;
 
     private final T item;
-    private FlexUser user;
+    private final FlexUser user;
 
 
     public GraphEntityView(FlexUser user, T entity) {
-        this.item = entity;
         this.user = user;
+        this.item = entity;
         super.setSizeFull();
         super.setSpacing(true);
         super.setMargin(false);

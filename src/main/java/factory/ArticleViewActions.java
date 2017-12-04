@@ -38,7 +38,6 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
         super.setSizeFull();
         super.setStyleName("actions");
         super.setSpacing(true);
-        System.out.println("!!! USER IS " + user);
         initActions();
         super.addComponents(commentButton, favoriteButton, fakeButton, hideButton);
         if(user == null) {
