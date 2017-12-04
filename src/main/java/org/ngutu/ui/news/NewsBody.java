@@ -18,7 +18,6 @@ public class NewsBody extends FlexPanel {
 
     private static final long serialVersionUID = 6273025631274336910L;
 
-    private FlexUser user;
     private MasterDetailView masterDetailView;
     
     public NewsBody() {
@@ -45,10 +44,9 @@ public class NewsBody extends FlexPanel {
     public FlexUser getUser() {
         if (UI.getCurrent() != null) {
             System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
-            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
-            System.out.println("NEWS VIEW USER -> " + user);
+            return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
         }
-        return user;
+        return null;
     }
 
     public void populate(DataProviderType type, String value) {

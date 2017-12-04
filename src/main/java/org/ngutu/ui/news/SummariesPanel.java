@@ -21,7 +21,6 @@ public class SummariesPanel extends FlexPanel {
     private static final long serialVersionUID = -1288952601019827111L;
 
     private final VerticalLayout overviews;
-    private FlexUser user;
 
     public SummariesPanel(int columns) {
         initUser();
@@ -32,12 +31,12 @@ public class SummariesPanel extends FlexPanel {
         super.setStyleName("items");
     }
 
-    private void initUser() {
+    private FlexUser initUser() {
         if (UI.getCurrent() != null) {
             System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
-            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
-            System.out.println("NEWS VIEW USER -> " + user);
+            return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
         }
+        return null;
     }
 
     public void addItemView(Component component) {
