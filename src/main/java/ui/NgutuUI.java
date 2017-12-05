@@ -53,14 +53,13 @@ public class NgutuUI extends SecuredUI {
             printRequest(request);
             if (request.getParameterMap().containsKey("access_token")) {
                 handleAccessTokenRequest(request);
-            }
-            else if (request.getParameterMap().containsKey("code")) {
+            } else if (request.getParameterMap().containsKey("code")) {
                 handleCodeRequest(request);
             }
         }
         // TODO: Check navigation
     }
-    
+
     private void handleCodeRequest(VaadinRequest request) {
         String fragment = getNavigator().getState();
         String code = request.getParameter("code");
@@ -69,12 +68,15 @@ public class NgutuUI extends SecuredUI {
             NgutuFacebookAPI api = new NgutuFacebookAPI("");
             User user = api.fetchUserWithCode(code);
             printUserInfo(user);
-            
             getSession().setAttribute("user", convert2FlexUser(user));
         }
     }
 
-    
+    private void printRequest(VaadinRequest request) {
+        for (Object k : request.getParameterMap().keySet()) {
+            System.out.printf("(k, v) = (%s, %s)\n", k, request.getParameterMap().get(k));
+        }
+    }
 
     private void printUserInfo(User user) {
         System.out.printf("(%s, %s)\n", "About", user.getAbout());
@@ -90,12 +92,6 @@ public class NgutuUI extends SecuredUI {
     private void printUserInfo(UserInfo userInfo) {
         for (Object k : userInfo.getValues().keySet()) {
             System.out.printf("(k, v) = (%s, %s)\n", k, userInfo.getValues().get(k));
-        }
-    }
-
-    private void printRequest(VaadinRequest request) {
-        for (Object k : request.getParameterMap().keySet()) {
-            System.out.printf("(k, v) = (%s, %s)\n", k, request.getParameterMap().get(k));
         }
     }
 
@@ -163,15 +159,14 @@ public class NgutuUI extends SecuredUI {
         return authUserInfo;
     }
 
-    
-        private void handleAccessTokenRequest(VaadinRequest request) {
+    private void handleAccessTokenRequest(VaadinRequest request) {
         String fragment = getNavigator().getState();
         String accessToken = request.getParameter("access_token");
         if (accessToken != null) {
             System.out.println("AccessToken -> " + accessToken);
         }
     }
-    
+
     private void handleAuth0Request(VaadinRequest request) {
         String fragment = getNavigator().getState();
         String authorizationCode = request.getParameter("code");
@@ -199,10 +194,10 @@ public class NgutuUI extends SecuredUI {
         return userInfo;
     }
 
-
     @WebServlet(urlPatterns = "/*", name = "NgutuUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = NgutuUI.class, productionMode = false, widgetset = "ui.AppWidgetSet")
     public static class NgutuUIServlet extends VaadinServlet {
+
         private static final long serialVersionUID = -3509795582956287827L;
         private Neo4jSessionFactory factory = Neo4jSessionFactory.getInstance();
     }
