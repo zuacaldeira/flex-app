@@ -8,6 +8,7 @@ package org.ngutu.ui.share;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.FacebookClient.AccessToken;
+import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.scope.FacebookPermissions;
 import com.restfb.scope.ScopeBuilder;
@@ -56,7 +57,7 @@ public class NgutuFacebookAPI {
     
     public User fetchUserWithAccessToken(String accessToken) {
         FacebookClient facebookClient = new DefaultFacebookClient(accessToken, NgutuFacebookAPI.APP_SECRET, NgutuFacebookAPI.VERSION);        
-        User me = facebookClient.fetchObject("me", User.class);
+        User me = facebookClient.fetchObject("me", User.class, Parameter.with("fields", "id, name, email, picture"));
         System.out.printf("(Name, id) = (%s, %s)\n", me.getName(), me.getId());
         return me;
     }

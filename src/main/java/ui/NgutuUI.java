@@ -148,7 +148,7 @@ public class NgutuUI extends SecuredUI {
         AuthUserInfo authUserInfo = new AuthUserInfo();
         authUserInfo.setSub(userInfo.getId());
         //authUserInfo.setGender(Gender.valueOf(userInfo.getGender()));
-        authUserInfo.setEmailVerified(userInfo.getIsVerified());
+        //authUserInfo.setEmailVerified(userInfo.getIsVerified());
         authUserInfo.setUpdatedAt(userInfo.getUpdatedTime());
         authUserInfo.setNickname(userInfo.getShortName());
         authUserInfo.setName(userInfo.getName());
