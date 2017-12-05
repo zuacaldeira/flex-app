@@ -68,7 +68,7 @@ public class NgutuUI extends SecuredUI {
         if (code != null) {
             NgutuFacebookAPI api = new NgutuFacebookAPI("");
             User user = api.fetchUserWithCode(code);
-            System.out.println("First name -> " + user.getFirstName());
+            printUserInfo(user);
             
             getSession().setAttribute("user", convert2FlexUser(user));
         }
