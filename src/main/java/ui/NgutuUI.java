@@ -2,12 +2,11 @@ package ui;
 
 import com.auth0.exception.Auth0Exception;
 import org.ngutu.ui.auth0.NgutuAuthAPI;
-import org.ngutu.ui.auth0.Auth0CallbackResponse;
 import com.auth0.json.auth.TokenHolder;
 import com.auth0.json.auth.UserInfo;
 import com.auth0.net.AuthRequest;
 import com.auth0.net.Request;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.restfb.types.User;
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
@@ -16,18 +15,17 @@ import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.PushStateNavigation;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.Notification;
-import db.Auth0UserInfo;
+import db.AuthUserInfo;
 import db.FlexUser;
 import db.Gender;
 import db.Neo4jSessionFactory;
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.annotation.WebServlet;
 import org.ngutu.ui.news.NewsView;
+import org.ngutu.ui.share.NgutuFacebookAPI;
 import services.FlexUserServiceInterface;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
@@ -57,22 +55,45 @@ public class NgutuUI extends SecuredUI {
     @Override
     public void init(VaadinRequest request) {
         if (request != null) {
-            String fragment = getNavigator().getState();
-            String authorizationCode = request.getParameter("code");
-            System.out.println("State = " + getNavigator().getState() + " View = " + getNavigator().getCurrentView());
-            System.out.println("Code = " + authorizationCode);
-            if (authorizationCode != null) {
-                Notification.show("Authorization code ", authorizationCode, Notification.Type.HUMANIZED_MESSAGE);
-                try {
-                    UserInfo userInfo = extractUserInfo(fragment, authorizationCode);
-                    printUserInfo(userInfo);
-                    updateSession(userInfo);
-                } catch (Exception ex) {
-                    Logger.getLogger(NgutuUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            if (request.getParameterMap().containsKey("code")) {
+                handleAuth0Request(request);
+            }
+            if (request.getParameterMap().containsKey("access_token")) {
+                handleFacebookRequest(request);
             }
         }
         // TODO: Check navigation
+    }
+
+    private void handleFacebookRequest(VaadinRequest request) {
+        String fragment = getNavigator().getState();
+        String accessToken = request.getParameter("access_token");
+        if (accessToken != null) {
+            try {
+                User user = extractFacebookUser(fragment, accessToken);
+                updateSession(convert2FlexUser(user));
+            } catch (Exception ex) {
+                Logger.getLogger(NgutuUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    private User extractFacebookUser(String fragment, String accessToken) throws Auth0Exception {
+        NgutuFacebookAPI api = new NgutuFacebookAPI(fragment);
+        return api.fetchUser(accessToken);
+    }
+    
+    private void handleAuth0Request(VaadinRequest request) {
+        String fragment = getNavigator().getState();
+        String authorizationCode = request.getParameter("code");
+        if (authorizationCode != null) {
+            try {
+                UserInfo userInfo = extractUserInfo(fragment, authorizationCode);
+                updateSession(convert2FlexUser(userInfo));
+            } catch (Exception ex) {
+                Logger.getLogger(NgutuUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     private UserInfo extractUserInfo(String fragment, String authorizationCode) throws Auth0Exception {
@@ -89,48 +110,74 @@ public class NgutuUI extends SecuredUI {
         return userInfo;
     }
 
-    private Auth0CallbackResponse extractResponse(String response) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            Auth0CallbackResponse value = objectMapper.readValue(response, Auth0CallbackResponse.class);
-            return value;
-        } catch (IOException ex) {
-            Logger.getLogger(NgutuUI.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
-
     private void printUserInfo(UserInfo userInfo) {
-        for(Object k: userInfo.getValues().keySet()) {
+        for (Object k : userInfo.getValues().keySet()) {
             System.out.printf("(k, v) = (%s, %s)\n", k, userInfo.getValues().get(k));
         }
     }
 
-    private void updateSession(UserInfo userInfo) throws ParseException {
-        Auth0UserInfo auth0UserInfo = new Auth0UserInfo();
-        auth0UserInfo.setSub((String) userInfo.getValues().get("sub"));
-        auth0UserInfo.setGender(Gender.valueOf( ((String) userInfo.getValues().get("gender")).toUpperCase()));
-        auth0UserInfo.setEmailVerified((Boolean) userInfo.getValues().get("email_verified"));
-        auth0UserInfo.setUpdatedAt(MyDateUtils.parseDate((String) userInfo.getValues().get("updated_at")));
-        auth0UserInfo.setNickname((String)userInfo.getValues().get("nickname"));
-        auth0UserInfo.setName((String)userInfo.getValues().get("name"));
-        auth0UserInfo.setFamilyName((String)userInfo.getValues().get("family_name"));
-        auth0UserInfo.setGivenName((String)userInfo.getValues().get("given_name"));
-        auth0UserInfo.setLocale(new Locale((String)userInfo.getValues().get("locale")));
-        auth0UserInfo.setPicture((String)userInfo.getValues().get("picture"));
+    private void updateSession(FlexUser user) throws ParseException {
 
-        FlexUser user = new FlexUser(auth0UserInfo.getSub(), null);
-        user.setUserInfo(auth0UserInfo);
         System.out.println("USER  --- " + user);
         System.out.println("USER INFO --- " + user);
-        
+
         FlexUserServiceInterface service = ServiceLocator.getInstance().findUserService();
         service.save(user);
         service.login(user.getUsername(), "null");
+
         System.out.println("USER SAVED --- " + user);
         System.out.println("USER INFO  SAVED --- " + user);
+
         getSession().setAttribute("user", user);
         System.out.println("SET ATTRIBUTE USER " + getSession().getAttribute("user"));
+    }
+
+    private FlexUser convert2FlexUser(UserInfo userInfo) {
+        AuthUserInfo authUserInfo = convertAuth0User2AuthUserInfo(userInfo);
+        FlexUser fuser = new FlexUser(authUserInfo.getSub(), null);
+        fuser.setUserInfo(authUserInfo);
+        return fuser;
+    }
+
+    private FlexUser convert2FlexUser(User user) {
+        AuthUserInfo authUserInfo = convertFacebookUser2AuthUserInfo(user);
+        FlexUser fuser = new FlexUser(authUserInfo.getSub(), null);
+        fuser.setUserInfo(authUserInfo);
+        return fuser;
+    }
+
+    private AuthUserInfo convertAuth0User2AuthUserInfo(UserInfo userInfo) {
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        authUserInfo.setSub((String) userInfo.getValues().get("sub"));
+        authUserInfo.setGender(Gender.valueOf(((String) userInfo.getValues().get("gender")).toUpperCase()));
+        authUserInfo.setEmailVerified((Boolean) userInfo.getValues().get("email_verified"));
+        try {
+            authUserInfo.setUpdatedAt(MyDateUtils.parseDate((String) userInfo.getValues().get("updated_at")));
+        } catch (ParseException ex) {
+            Logger.getLogger(NgutuUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        authUserInfo.setNickname((String) userInfo.getValues().get("nickname"));
+        authUserInfo.setName((String) userInfo.getValues().get("name"));
+        authUserInfo.setFamilyName((String) userInfo.getValues().get("family_name"));
+        authUserInfo.setGivenName((String) userInfo.getValues().get("given_name"));
+        authUserInfo.setLocale(new Locale((String) userInfo.getValues().get("locale")));
+        authUserInfo.setPicture((String) userInfo.getValues().get("picture"));
+        return authUserInfo;
+    }
+
+    private AuthUserInfo convertFacebookUser2AuthUserInfo(User userInfo) {
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        authUserInfo.setSub(userInfo.getEmail());
+        authUserInfo.setGender(Gender.valueOf(userInfo.getGender()));
+        authUserInfo.setEmailVerified(userInfo.getIsVerified());
+        authUserInfo.setUpdatedAt(userInfo.getUpdatedTime());
+        authUserInfo.setNickname(userInfo.getShortName());
+        authUserInfo.setName(userInfo.getName());
+        authUserInfo.setFamilyName(userInfo.getLastName());
+        authUserInfo.setGivenName(userInfo.getFirstName());
+        authUserInfo.setLocale(new Locale(userInfo.getLocale()));
+        authUserInfo.setPicture(userInfo.getPicture().getUrl());
+        return authUserInfo;
     }
 
     @WebServlet(urlPatterns = "/*", name = "NgutuUIServlet", asyncSupported = true)
