@@ -8,7 +8,9 @@ package org.ngutu.ui.share;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.FacebookClient.AccessToken;
+import com.restfb.Parameter;
 import com.restfb.scope.ScopeBuilder;
+import com.restfb.types.GraphResponse;
 import com.restfb.types.User;
 import com.vaadin.server.Page;
 import db.NewsArticle;
@@ -29,16 +31,20 @@ public class ShareOnFacebook {
     }
 
     public void share(NewsArticle article, String message) {
-
         FacebookClient facebookClient = new DefaultFacebookClient(FacebookApp.ACCESS_TOKEN, FacebookApp.APP_SECRET, FacebookApp.VERSION);        
         User me = facebookClient.fetchObject("me", User.class);
         System.out.printf("(User, email) = (%s, %s)\n", me.getName(), me.getEmail());
 
         User cocacola = facebookClient.fetchObject("cocacola", User.class);
         System.out.printf("(User, email) = (%s, %s)\n", cocacola.getName(), cocacola.getEmail());
-
+        
+        GraphResponse publishMessageResponse = facebookClient.publish("me/feed", GraphResponse.class, Parameter.with("message", "Bgutu's RestFB Test"));
+        System.out.println("Published message ID: " + publishMessageResponse.getId());
+    }
+    
+    
+    public void loginWithFacebook() {
         ScopeBuilder scopeBuilder = new ScopeBuilder();
-
         FacebookClient client = new DefaultFacebookClient(FacebookApp.ACCESS_TOKEN, FacebookApp.VERSION);
         String loginDialogUrlString = client.getLoginDialogUrl(FacebookApp.APP_ID, "http://ngutu.org", scopeBuilder);
         Page.getCurrent().setLocation(loginDialogUrlString);
