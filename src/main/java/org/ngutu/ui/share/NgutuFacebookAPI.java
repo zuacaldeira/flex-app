@@ -53,8 +53,7 @@ public class NgutuFacebookAPI {
         return APP_URL;
     }
     
-    public User fetchUser() {
-        String accessToken = (String) UI.getCurrent().getSession().getAttribute("access_token");
+    public User fetchUser(String accessToken) {
         FacebookClient facebookClient = new DefaultFacebookClient(accessToken, NgutuFacebookAPI.APP_SECRET, NgutuFacebookAPI.VERSION);        
         User me = facebookClient.fetchObject("me", User.class);
         System.out.printf("(User, email) = (%s, %s)\n", me.getName(), me.getEmail());

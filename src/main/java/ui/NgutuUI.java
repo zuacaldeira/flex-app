@@ -49,9 +49,9 @@ public class NgutuUI extends SecuredUI {
     @Override
     public void init(VaadinRequest request) {
         if (request != null) {
-            System.out.println("Request " + request.getParameterMap());
+            printRequest(request);
             if (request.getParameterMap().containsKey("access_token")) {
-                System.out.println("ACCESS_TOKEN = " + request.getParameterMap());
+                System.out.println("ACCESS_TOKEN = " + request.getParameterMap().get("access_token"));
                 handleAccessTokenRequest(request);
             }
             else if (request.getParameterMap().containsKey("code")) {
@@ -90,7 +90,7 @@ public class NgutuUI extends SecuredUI {
 
     private User extractFacebookUser(String fragment, String accessToken) throws Auth0Exception {
         NgutuFacebookAPI api = new NgutuFacebookAPI(fragment);
-        return api.fetchUser();
+        return api.fetchUser(accessToken);
     }
     
     private void handleAuth0Request(VaadinRequest request) {
@@ -123,6 +123,12 @@ public class NgutuUI extends SecuredUI {
     private void printUserInfo(UserInfo userInfo) {
         for (Object k : userInfo.getValues().keySet()) {
             System.out.printf("(k, v) = (%s, %s)\n", k, userInfo.getValues().get(k));
+        }
+    }
+
+    private void printRequest(VaadinRequest request) {
+        for (Object k : request.getParameterMap().keySet()) {
+            System.out.printf("(k, v) = (%s, %s)\n", k, request.getParameterMap().get(k));
         }
     }
 
