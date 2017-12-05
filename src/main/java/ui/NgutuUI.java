@@ -71,7 +71,11 @@ public class NgutuUI extends SecuredUI {
         if (accessToken != null) {
             try {
                 User user = extractFacebookUser(fragment, accessToken);
+                System.out.println("User -> " + user);
+                
                 updateSession(convert2FlexUser(user));
+                System.out.println("getAttribute(user) -> " + getSession().getAttribute("user"));
+                
                 getSession().setAttribute("access_token", accessToken);
             } catch (Exception ex) {
                 Logger.getLogger(NgutuUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -136,10 +140,10 @@ public class NgutuUI extends SecuredUI {
 
         FlexUserServiceInterface service = ServiceLocator.getInstance().findUserService();
         service.save(user);
-        service.login(user.getUsername(), "null");
+        user = service.login(user.getUsername(), "null");
 
         System.out.println("USER SAVED --- " + user);
-        System.out.println("USER INFO  SAVED --- " + user);
+        System.out.println("USER INFO  SAVED --- " + user.getUserInfo());
 
         getSession().setAttribute("user", user);
         System.out.println("SET ATTRIBUTE USER " + getSession().getAttribute("user"));
