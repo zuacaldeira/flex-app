@@ -18,6 +18,7 @@ import com.vaadin.server.VaadinServlet;
 import db.AuthUserInfo;
 import db.FlexUser;
 import db.Gender;
+import db.Neo4jSessionFactory;
 import java.text.ParseException;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -203,6 +204,7 @@ public class NgutuUI extends SecuredUI {
     @VaadinServletConfiguration(ui = NgutuUI.class, productionMode = false, widgetset = "ui.AppWidgetSet")
     public static class NgutuUIServlet extends VaadinServlet {
         private static final long serialVersionUID = -3509795582956287827L;
+        private Neo4jSessionFactory factory = Neo4jSessionFactory.getInstance();
     }
 
 }
