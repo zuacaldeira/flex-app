@@ -66,6 +66,7 @@ public final class NewsMenuBar extends MenuBar {
         top.setStyleName("menu-bar-top");
         if (getUser() == null) {
             login = top.addItem("Login", VaadinIcons.SIGN_IN, (selectedItem) -> {
+                // Facebook login
                 NgutuFacebookAPI authAPI = new NgutuFacebookAPI(getUI().getNavigator().getState());
                 authAPI.authorize();
             });
