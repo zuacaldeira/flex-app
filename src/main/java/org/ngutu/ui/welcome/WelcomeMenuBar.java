@@ -10,7 +10,7 @@ import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
-import org.ngutu.ui.auth0.NgutuAuthAPI;
+import org.ngutu.ui.share.NgutuFacebookAPI;
 import org.ngutu.ui.viewproviders.FlexViews;
 
 /**
@@ -47,7 +47,7 @@ public final class WelcomeMenuBar extends MenuBar {
         }));
         if (user == null) {
             login = addItem("Login", VaadinIcons.SIGN_IN, (selectedItem) -> {
-                NgutuAuthAPI authAPI = new NgutuAuthAPI(getUI().getNavigator().getState());
+                NgutuFacebookAPI authAPI = new NgutuFacebookAPI(getUI().getNavigator().getState());
                 authAPI.authorize();
             });
             login.setDescription("LOGIN");

@@ -12,7 +12,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
 import data.DataProviderType;
-import org.ngutu.ui.auth0.NgutuAuthAPI;
+import org.ngutu.ui.share.NgutuFacebookAPI;
 import org.ngutu.ui.viewproviders.FlexViews;
 import services.NewsSourceServiceInterface;
 import utils.MyDateUtils;
@@ -66,7 +66,7 @@ public final class NewsMenuBar extends MenuBar {
         top.setStyleName("menu-bar-top");
         if (getUser() == null) {
             login = top.addItem("Login", VaadinIcons.SIGN_IN, (selectedItem) -> {
-                NgutuAuthAPI authAPI = new NgutuAuthAPI(getUI().getNavigator().getState());
+                NgutuFacebookAPI authAPI = new NgutuFacebookAPI(getUI().getNavigator().getState());
                 authAPI.authorize();
             });
             login.setDescription("LOGIN");
