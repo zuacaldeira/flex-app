@@ -59,6 +59,9 @@ public class WelcomeMenu extends HorizontalLayout {
 
     private void initPicture() {
         Notification.show("INIT PICTURE");
+        Notification.show("User -> " + user);
+        Notification.show("UserInfo -> " + user.getUserInfo());
+        Notification.show("UserInfo Picture -> " + user.getUserInfo().getPicture());
         if (user != null && user.getUserInfo() != null && user.getUserInfo().getPicture() != null) {
             picture = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
             picture.setWidth("40px");
