@@ -81,10 +81,10 @@ public class NgutuUI extends SecuredUI {
     private void printUserInfo(User user) {
         System.out.printf("(%s, %s)\n", "About", user.getAbout());
         System.out.printf("(%s, %s)\n", "Email", user.getEmail());
-        System.out.printf("(%s, %s)\n", "AgeRange", user.getAgeRange());
+        System.out.printf("(%s, %s)\n", "First Name", user.getFirstName());
         System.out.printf("(%s, %s)\n", "Bio", user.getBio());
         System.out.printf("(%s, %s)\n", "Birthday", user.getBirthday());
-        System.out.printf("(%s, %s)\n", "Contenxt", user.getContext());
+        System.out.printf("(%s, %s)\n", "Context", user.getContext());
         System.out.printf("(%s, %s)\n", "Cover Photo", user.getCover());
         System.out.printf("(%s, %s)\n", "Id", user.getId());
         System.out.printf("(%s, %s)\n", "Picture", user.getPicture().getUrl());
