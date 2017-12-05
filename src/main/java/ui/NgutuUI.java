@@ -58,7 +58,7 @@ public class NgutuUI extends SecuredUI {
             if (request.getParameterMap().containsKey("access_token")) {
                 handleAccessTokenRequest(request);
             }
-            if (request.getParameterMap().containsKey("code")) {
+            else if (request.getParameterMap().containsKey("code")) {
                 handleCodeRequest(request);
             }
         }
@@ -86,12 +86,9 @@ public class NgutuUI extends SecuredUI {
     private void handleCodeRequest(VaadinRequest request) {
         String fragment = getNavigator().getState();
         String code = request.getParameter("code");
+        System.out.println("Code -> " + code);
         if (code != null) {
-            try {
-                getSession().setAttribute("code", code);
-            } catch (Exception ex) {
-                Logger.getLogger(NgutuUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            getSession().setAttribute("code", code);
         }
     }
 
@@ -184,7 +181,7 @@ public class NgutuUI extends SecuredUI {
 
     private AuthUserInfo convertFacebookUser2AuthUserInfo(User userInfo) {
         AuthUserInfo authUserInfo = new AuthUserInfo();
-        authUserInfo.setSub(userInfo.getId());
+        authUserInfo.setSub(userInfo.getEmail());
         authUserInfo.setGender(Gender.valueOf(userInfo.getGender()));
         authUserInfo.setEmailVerified(userInfo.getIsVerified());
         authUserInfo.setUpdatedAt(userInfo.getUpdatedTime());

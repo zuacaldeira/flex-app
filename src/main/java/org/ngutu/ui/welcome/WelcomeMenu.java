@@ -48,6 +48,7 @@ public class WelcomeMenu extends HorizontalLayout {
             System.out.println("NEWS VIEW USER -> " + user);
         }
     }
+
     private void initActions() {
         actions = new HorizontalLayout();
         actions.setMargin(false);
@@ -58,15 +59,19 @@ public class WelcomeMenu extends HorizontalLayout {
 
     private void initPicture() {
         System.out.println("INIT PICTURE");
-        System.out.println("User -> " + user);
-        System.out.println("UserInfo -> " + user.getUserInfo());
-        System.out.println("UserInfo Picture -> " + user.getUserInfo().getPicture());
-        if (user != null && user.getUserInfo() != null && user.getUserInfo().getPicture() != null) {
-            picture = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
-            picture.setWidth("40px");
-            picture.setHeight("40px");
-            picture.setStyleName("circle gravatar");
-            actions.addComponent(picture);
+        if (user != null) {
+            System.out.println("3 - User -> " + user);
+            if (user.getUserInfo() != null) {
+                System.out.println("2 - UserInfo -> " + user.getUserInfo());
+                if (user.getUserInfo().getPicture() != null) {
+                    System.out.println("1 - UserInfo Picture -> " + user.getUserInfo().getPicture());
+                    picture = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
+                    picture.setWidth("40px");
+                    picture.setHeight("40px");
+                    picture.setStyleName("circle gravatar");
+                    actions.addComponent(picture);
+                }
+            }
         }
     }
 
