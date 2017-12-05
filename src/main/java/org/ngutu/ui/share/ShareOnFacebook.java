@@ -40,7 +40,7 @@ public class ShareOnFacebook {
         ScopeBuilder scopeBuilder = new ScopeBuilder();
 
         FacebookClient client = new DefaultFacebookClient(FacebookApp.ACCESS_TOKEN, FacebookApp.VERSION);
-        String loginDialogUrlString = client.getLoginDialogUrl(FacebookApp.APP_ID, "http://www.ngutu.org/", scopeBuilder);
+        String loginDialogUrlString = client.getLoginDialogUrl(FacebookApp.APP_ID, "http://ngutu.org", scopeBuilder);
         Page.getCurrent().setLocation(loginDialogUrlString);
     }
 
