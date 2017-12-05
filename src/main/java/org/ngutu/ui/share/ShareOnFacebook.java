@@ -38,7 +38,7 @@ public class ShareOnFacebook {
         User cocacola = facebookClient.fetchObject("cocacola", User.class);
         System.out.printf("(User, email) = (%s, %s)\n", cocacola.getName(), cocacola.getEmail());
         
-        GraphResponse publishMessageResponse = facebookClient.publish("me/feed", GraphResponse.class, Parameter.with("message", "Bgutu's RestFB Test"));
+        GraphResponse publishMessageResponse = facebookClient.publish("me/feed", GraphResponse.class, Parameter.with("message", "Ngutu's RestFB Test"));
         System.out.println("Published message ID: " + publishMessageResponse.getId());
     }
     
