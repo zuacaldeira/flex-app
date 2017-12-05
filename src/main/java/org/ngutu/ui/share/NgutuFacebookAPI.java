@@ -26,7 +26,7 @@ public class NgutuFacebookAPI {
     public static final String APP_ID = "311537906014506";
     public static final String APP_SECRET = "31dd2816aa5d8315b8d318a735080bcb";
     public static final Version VERSION = Version.LATEST;   
-    private static final String APP_URL = "http://ngutu.org/";
+    private static final String APP_URL = "https://ngutu.herokuapp.com/";
 
     private String redirectUrlFragment;
     
@@ -50,7 +50,7 @@ public class NgutuFacebookAPI {
         if(Page.getCurrent().getLocation().getHost().contains("localhost")) {
             return "http://localhost:8080/" + redirectUrlFragment;
         }
-        return APP_URL + redirectUrlFragment;
+        return APP_URL;
     }
     
     public User fetchUser() {
