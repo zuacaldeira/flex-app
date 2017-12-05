@@ -10,7 +10,6 @@ import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import db.FlexUser;
 import org.ngutu.ui.logo.FlexLogo;
@@ -58,10 +57,10 @@ public class WelcomeMenu extends HorizontalLayout {
     }
 
     private void initPicture() {
-        Notification.show("INIT PICTURE");
-        Notification.show("User -> " + user);
-        Notification.show("UserInfo -> " + user.getUserInfo());
-        Notification.show("UserInfo Picture -> " + user.getUserInfo().getPicture());
+        System.out.println("INIT PICTURE");
+        System.out.println("User -> " + user);
+        System.out.println("UserInfo -> " + user.getUserInfo());
+        System.out.println("UserInfo Picture -> " + user.getUserInfo().getPicture());
         if (user != null && user.getUserInfo() != null && user.getUserInfo().getPicture() != null) {
             picture = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
             picture.setWidth("40px");
