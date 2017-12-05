@@ -7,6 +7,7 @@ package org.ngutu.ui.share;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
+import com.restfb.FacebookClient.AccessToken;
 import com.restfb.Version;
 import com.restfb.scope.FacebookPermissions;
 import com.restfb.scope.ScopeBuilder;
@@ -53,13 +54,20 @@ public class NgutuFacebookAPI {
         return APP_URL;
     }
     
-    public User fetchUser(String accessToken) {
+    public User fetchUserWithAccessToken(String accessToken) {
         FacebookClient facebookClient = new DefaultFacebookClient(accessToken, NgutuFacebookAPI.APP_SECRET, NgutuFacebookAPI.VERSION);        
         User me = facebookClient.fetchObject("me", User.class);
         System.out.printf("(User, email) = (%s, %s)\n", me.getName(), me.getEmail());
         return me;
     }
     
+    public User fetchUserWithCode(String code) {
+        FacebookClient facebookClient = new DefaultFacebookClient(code, NgutuFacebookAPI.APP_SECRET, NgutuFacebookAPI.VERSION);        
+        AccessToken accessToken = facebookClient.obtainUserAccessToken(NgutuFacebookAPI.APP_ID, NgutuFacebookAPI.APP_SECRET, getRedirectUrl(), code);
+        return fetchUserWithAccessToken(accessToken.getAccessToken());
+    }
+    
+
     public void share(NewsArticle article, String message) {
         FlexUser user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
         String accessToken = (String) UI.getCurrent().getSession().getAttribute("access_token");

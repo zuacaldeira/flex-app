@@ -60,37 +60,26 @@ public class NgutuUI extends SecuredUI {
         }
         // TODO: Check navigation
     }
-
-    private void handleAccessTokenRequest(VaadinRequest request) {
-        String fragment = getNavigator().getState();
-        String accessToken = request.getParameter("access_token");
-        if (accessToken != null) {
-            try {
-                User user = extractFacebookUser(fragment, accessToken);
-                System.out.println("User -> " + user);
-                
-                updateSession(convert2FlexUser(user));
-                System.out.println("getAttribute(user) -> " + getSession().getAttribute("user"));
-                
-                getSession().setAttribute("access_token", accessToken);
-            } catch (Exception ex) {
-                Logger.getLogger(NgutuUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
     
     private void handleCodeRequest(VaadinRequest request) {
         String fragment = getNavigator().getState();
         String code = request.getParameter("code");
         System.out.println("Code -> " + code);
         if (code != null) {
-            getSession().setAttribute("code", code);
+            NgutuFacebookAPI api = new NgutuFacebookAPI("");
+            User user = api.fetchUserWithCode(code);
+            getSession().setAttribute("user", user);
         }
     }
 
-    private User extractFacebookUser(String fragment, String accessToken) throws Auth0Exception {
-        NgutuFacebookAPI api = new NgutuFacebookAPI(fragment);
-        return api.fetchUser(accessToken);
+    
+
+    private void handleAccessTokenRequest(VaadinRequest request) {
+        String fragment = getNavigator().getState();
+        String accessToken = request.getParameter("access_token");
+        if (accessToken != null) {
+            System.out.println("AccessToken -> " + accessToken);
+        }
     }
     
     private void handleAuth0Request(VaadinRequest request) {
