@@ -71,5 +71,4 @@ public class NgutuFacebookAPI {
         System.out.println("POST ID -> " + response.getPostId());
         System.out.println("TIMELINE ID -> " + response.getTimelineId());
     }
-
 }

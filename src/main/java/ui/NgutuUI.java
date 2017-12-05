@@ -55,17 +55,17 @@ public class NgutuUI extends SecuredUI {
     @Override
     public void init(VaadinRequest request) {
         if (request != null) {
-            if (request.getParameterMap().containsKey("code")) {
-                handleAuth0Request(request);
-            }
             if (request.getParameterMap().containsKey("access_token")) {
-                handleFacebookRequest(request);
+                handleAccessTokenRequest(request);
+            }
+            if (request.getParameterMap().containsKey("code")) {
+                handleCodeRequest(request);
             }
         }
         // TODO: Check navigation
     }
 
-    private void handleFacebookRequest(VaadinRequest request) {
+    private void handleAccessTokenRequest(VaadinRequest request) {
         String fragment = getNavigator().getState();
         String accessToken = request.getParameter("access_token");
         if (accessToken != null) {
@@ -79,6 +79,18 @@ public class NgutuUI extends SecuredUI {
         }
     }
     
+    private void handleCodeRequest(VaadinRequest request) {
+        String fragment = getNavigator().getState();
+        String code = request.getParameter("code");
+        if (code != null) {
+            try {
+                getSession().setAttribute("code", code);
+            } catch (Exception ex) {
+                Logger.getLogger(NgutuUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     private User extractFacebookUser(String fragment, String accessToken) throws Auth0Exception {
         NgutuFacebookAPI api = new NgutuFacebookAPI(fragment);
         return api.fetchUser();
