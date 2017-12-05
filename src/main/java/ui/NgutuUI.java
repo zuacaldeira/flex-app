@@ -72,6 +72,7 @@ public class NgutuUI extends SecuredUI {
             try {
                 User user = extractFacebookUser(fragment, accessToken);
                 updateSession(convert2FlexUser(user));
+                getSession().setAttribute("access_token", accessToken);
             } catch (Exception ex) {
                 Logger.getLogger(NgutuUI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -80,7 +81,7 @@ public class NgutuUI extends SecuredUI {
     
     private User extractFacebookUser(String fragment, String accessToken) throws Auth0Exception {
         NgutuFacebookAPI api = new NgutuFacebookAPI(fragment);
-        return api.fetchUser(accessToken);
+        return api.fetchUser();
     }
     
     private void handleAuth0Request(VaadinRequest request) {
@@ -167,7 +168,7 @@ public class NgutuUI extends SecuredUI {
 
     private AuthUserInfo convertFacebookUser2AuthUserInfo(User userInfo) {
         AuthUserInfo authUserInfo = new AuthUserInfo();
-        authUserInfo.setSub(userInfo.getEmail());
+        authUserInfo.setSub(userInfo.getId());
         authUserInfo.setGender(Gender.valueOf(userInfo.getGender()));
         authUserInfo.setEmailVerified(userInfo.getIsVerified());
         authUserInfo.setUpdatedAt(userInfo.getUpdatedTime());
