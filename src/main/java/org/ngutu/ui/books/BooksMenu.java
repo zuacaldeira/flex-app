@@ -12,8 +12,6 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import data.DataProviderType;
 import db.FlexUser;
-import ui.NgutuUI;
-import org.ngutu.ui.news.NewsBody;
 import org.ngutu.ui.logo.FlexLogo;
 import components.CanPopulate;
 
@@ -65,13 +63,14 @@ public class BooksMenu extends HorizontalLayout implements CanPopulate {
         searchBox.setStyleName("search-box");
         searchBox.addValueChangeListener(e -> {
             Notification.show("Clicked on search " + e.getValue());
-            NewsBody body = getBody();
+            BooksBody body = getBody();
             body.populate(DataProviderType.SEARCH, e.getValue());
         });
     }
 
-    private NewsBody getBody() {
-        return ((NgutuUI) UI.getCurrent()).getMainView().getBody();
+    private BooksBody getBody() {
+        return ((BooksView) UI.getCurrent().getContent()).getBody();
+
     }
 
     public FlexUser getUser() {

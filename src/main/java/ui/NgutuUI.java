@@ -18,13 +18,11 @@ import com.vaadin.server.VaadinServlet;
 import db.AuthUserInfo;
 import db.FlexUser;
 import db.Gender;
-import db.Neo4jSessionFactory;
 import java.text.ParseException;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.annotation.WebServlet;
-import org.ngutu.ui.news.NewsView;
 import org.ngutu.ui.share.NgutuFacebookAPI;
 import services.FlexUserServiceInterface;
 import utils.MyDateUtils;
@@ -48,14 +46,12 @@ public class NgutuUI extends SecuredUI {
 
     private static final long serialVersionUID = -484103282643769272L;
 
-    public NewsView getMainView() {
-        return (NewsView) super.getContent();
-    }
-
     @Override
     public void init(VaadinRequest request) {
         if (request != null) {
+            System.out.println("Request " + request.getParameterMap());
             if (request.getParameterMap().containsKey("access_token")) {
+                System.out.println("ACCESS_TOKEN = " + request.getParameterMap());
                 handleAccessTokenRequest(request);
             }
             else if (request.getParameterMap().containsKey("code")) {
@@ -197,9 +193,7 @@ public class NgutuUI extends SecuredUI {
     @WebServlet(urlPatterns = "/*", name = "NgutuUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = NgutuUI.class, productionMode = false, widgetset = "ui.AppWidgetSet")
     public static class NgutuUIServlet extends VaadinServlet {
-
         private static final long serialVersionUID = -3509795582956287827L;
-        private static Neo4jSessionFactory sessionfactory = Neo4jSessionFactory.getInstance();
     }
 
 }

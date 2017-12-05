@@ -92,7 +92,7 @@ public class NewsMenu extends HorizontalLayout {
     }
 
     private NewsBody getBody() {
-        return ((NgutuUI) UI.getCurrent()).getMainView().getBody();
+        return ((NewsView) UI.getCurrent().getContent()).getBody();
     }
 
     public FlexLogo getLogo() {
