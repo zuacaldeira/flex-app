@@ -14,6 +14,8 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import db.NewsArticle;
+import org.ngutu.ui.logo.FacebookButton;
+import org.ngutu.ui.share.ShareOnFacebook;
 import services.NewsArticleServiceInterface;
 import utils.ServiceLocator;
 
@@ -29,6 +31,7 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
     private FavoriteButton favoriteButton;
     private FakeButton fakeButton;
     private HideButton hideButton;
+    private FacebookButton facebookButton;
     private final FlexUser user;
     private final NewsArticle article;
 
@@ -39,7 +42,7 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
         super.setStyleName("actions");
         super.setSpacing(true);
         initActions();
-        super.addComponents(commentButton, favoriteButton, fakeButton, hideButton);
+        super.addComponents(facebookButton, favoriteButton, fakeButton, hideButton);
         if(user == null) {
             setDescription("You have to login to enable social actions");
             disableActions();
@@ -55,23 +58,29 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
 
     private void initActions() {
         commentButton = new CommentButton();
-        favoriteButton = new FavoriteButton();
-        fakeButton = new FakeButton();
-        hideButton = new HideButton();
-
         commentButton.addClickListener(this);
-        hideButton.addClickListener(this);
-        fakeButton.addClickListener(this);
+        
+        facebookButton = new FacebookButton();
+        facebookButton.addClickListener(event -> {
+            ShareOnFacebook shareOnFacebook = new ShareOnFacebook();
+            shareOnFacebook.share(article, "Check this out!");
+        });
+        
+        
+        favoriteButton = new FavoriteButton();
         favoriteButton.addClickListener(this);
-
         if (user != null && getService().isFavorite(user.getUsername(), article)) {
             favoriteButton.addStyleName("yellow");
         }
 
+        fakeButton = new FakeButton();
+        fakeButton.addClickListener(this);
         if (user != null && getService().isFake(user.getUsername(), article)) {
             fakeButton.addStyleName("red");
         }
 
+        hideButton = new HideButton();
+        hideButton.addClickListener(this);
         if (user != null && getService().isRead(user.getUsername(), article)) {
             hideButton.addStyleName("purple");
         }

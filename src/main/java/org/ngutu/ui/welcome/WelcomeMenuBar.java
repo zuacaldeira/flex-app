@@ -46,14 +46,14 @@ public final class WelcomeMenuBar extends MenuBar {
             getUI().getNavigator().navigateTo(FlexViews.BOOKS);
         }));
         if (user == null) {
-            login = addItem("", VaadinIcons.SIGN_IN, (selectedItem) -> {
+            login = addItem("Login", VaadinIcons.SIGN_IN, (selectedItem) -> {
                 NgutuAuthAPI authAPI = new NgutuAuthAPI(getUI().getNavigator().getState());
                 authAPI.authorize();
             });
             login.setDescription("LOGIN");
         }
         if (user != null) {
-            logout = addItem("", VaadinIcons.SIGN_OUT, (selectedItem) -> {
+            logout = addItem("Logout " + getUser().getUserInfo().getGivenName(), VaadinIcons.SIGN_OUT, (selectedItem) -> {
                 getUI().getSession().setAttribute("user", null);
                 getUI().getNavigator().navigateTo(FlexViews.WELCOME);
             });

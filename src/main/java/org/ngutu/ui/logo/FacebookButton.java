@@ -17,7 +17,7 @@ public class FacebookButton extends FlexActionButton {
     private static final long serialVersionUID = -4146017971684793445L;
 
     public FacebookButton() {
-        super("Follow us on Facebook", VaadinIcons.FACEBOOK);
+        super("Share on Facebook", VaadinIcons.FACEBOOK);
     }
     
 }

@@ -5,11 +5,8 @@
  */
 package org.ngutu.ui.news;
 
-import org.ngutu.ui.news.NewsBody;
 import data.DataProviderType;
 import db.FlexUser;
-import db.NewsArticle;
-import java.util.Date;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -67,7 +64,7 @@ public class NewsBodyTest {
         System.out.println("getUser");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsBody instance = new NewsBody();
-        assertNotNull(instance.getUser());
+        assertNull(instance.getUser());
     }
 
     /**

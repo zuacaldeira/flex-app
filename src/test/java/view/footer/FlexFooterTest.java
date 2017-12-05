@@ -6,7 +6,7 @@
 package view.footer;
 
 import db.FlexUser;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 /**
@@ -25,7 +25,7 @@ public class FlexFooterTest {
     public void testSomeMethod() {
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         FlexFooter footer = new FlexFooter();
-        assertNotNull(footer.getUser());
+        assertNull(footer.getUser());
     }
 
 }

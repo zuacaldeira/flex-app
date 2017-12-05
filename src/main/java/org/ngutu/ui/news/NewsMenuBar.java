@@ -64,25 +64,25 @@ public final class NewsMenuBar extends MenuBar {
         }));
         top = addItem("", VaadinIcons.GRID_SMALL, null);
         top.setStyleName("menu-bar-top");
-        news = top.addItem("Articles", null, null);
-        publishers = top.addItem("Publishers", null, null);
-        categories = top.addItem("Categories", null, null);
-        languages = top.addItem("Languages", null, null);
-        countries = top.addItem("Countries", null, null);
         if (getUser() == null) {
-            login = addItem("", VaadinIcons.SIGN_IN, (selectedItem) -> {
+            login = top.addItem("Login", VaadinIcons.SIGN_IN, (selectedItem) -> {
                 NgutuAuthAPI authAPI = new NgutuAuthAPI(getUI().getNavigator().getState());
                 authAPI.authorize();
             });
             login.setDescription("LOGIN");
         }
         if (getUser() != null) {
-            logout = addItem("", VaadinIcons.SIGN_OUT, (selectedItem) -> {
+            logout = top.addItem("Logout " + getUser().getUserInfo().getGivenName(), VaadinIcons.SIGN_OUT, (selectedItem) -> {
                 getUI().getSession().setAttribute("user", null);
                 getUI().getNavigator().navigateTo(FlexViews.WELCOME);
             });
             logout.setDescription("LOGOUT");
         }
+        news = top.addItem("Articles", null, null);
+        publishers = top.addItem("Publishers", null, null);
+        categories = top.addItem("Categories", null, null);
+        languages = top.addItem("Languages", null, null);
+        countries = top.addItem("Countries", null, null);
         populate();
     }
 
