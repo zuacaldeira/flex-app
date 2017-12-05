@@ -51,7 +51,6 @@ public class NgutuUI extends SecuredUI {
         if (request != null) {
             printRequest(request);
             if (request.getParameterMap().containsKey("access_token")) {
-                System.out.println("ACCESS_TOKEN = " + request.getParameterMap().get("access_token"));
                 handleAccessTokenRequest(request);
             }
             else if (request.getParameterMap().containsKey("code")) {
@@ -68,7 +67,9 @@ public class NgutuUI extends SecuredUI {
         if (code != null) {
             NgutuFacebookAPI api = new NgutuFacebookAPI("");
             User user = api.fetchUserWithCode(code);
-            getSession().setAttribute("user", user);
+            System.out.println("First name -> " + user.getFirstName());
+            
+            getSession().setAttribute("user", convert2FlexUser(user));
         }
     }
 
