@@ -75,39 +75,15 @@ public class NgutuUI extends SecuredUI {
 
     
 
-    private void handleAccessTokenRequest(VaadinRequest request) {
-        String fragment = getNavigator().getState();
-        String accessToken = request.getParameter("access_token");
-        if (accessToken != null) {
-            System.out.println("AccessToken -> " + accessToken);
-        }
-    }
-    
-    private void handleAuth0Request(VaadinRequest request) {
-        String fragment = getNavigator().getState();
-        String authorizationCode = request.getParameter("code");
-        if (authorizationCode != null) {
-            try {
-                UserInfo userInfo = extractUserInfo(fragment, authorizationCode);
-                updateSession(convert2FlexUser(userInfo));
-            } catch (Exception ex) {
-                Logger.getLogger(NgutuUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    private UserInfo extractUserInfo(String fragment, String authorizationCode) throws Auth0Exception {
-        NgutuAuthAPI api = new NgutuAuthAPI(fragment);
-        AuthRequest authRequest = api.exchangeCode(authorizationCode, api.getRedirectUrl());
-        TokenHolder tokenHolder = authRequest.execute();
-
-        System.out.println("ACCESS_TOKEN --> " + tokenHolder.getAccessToken());
-
-        Request<UserInfo> req = api.userInfo(tokenHolder.getAccessToken());
-        UserInfo userInfo = req.execute();
-
-        System.out.println("NAME --> " + userInfo.getValues().get("name"));
-        return userInfo;
+    private void printUserInfo(User user) {
+        System.out.printf("(%s, %s)\n", "About", user.getAbout());
+        System.out.printf("(%s, %s)\n", "AgeRange", user.getAgeRange());
+        System.out.printf("(%s, %s)\n", "Bio", user.getBio());
+        System.out.printf("(%s, %s)\n", "Birthday", user.getBirthday());
+        System.out.printf("(%s, %s)\n", "Contenxt", user.getContext());
+        System.out.printf("(%s, %s)\n", "Cover Photo", user.getCover());
+        System.out.printf("(%s, %s)\n", "Id", user.getId());
+        System.out.printf("(%s, %s)\n", "Picture", user.getPicture());
     }
 
     private void printUserInfo(UserInfo userInfo) {
@@ -173,8 +149,8 @@ public class NgutuUI extends SecuredUI {
 
     private AuthUserInfo convertFacebookUser2AuthUserInfo(User userInfo) {
         AuthUserInfo authUserInfo = new AuthUserInfo();
-        authUserInfo.setSub(userInfo.getEmail());
-        authUserInfo.setGender(Gender.valueOf(userInfo.getGender()));
+        authUserInfo.setSub(userInfo.getId());
+        //authUserInfo.setGender(Gender.valueOf(userInfo.getGender()));
         authUserInfo.setEmailVerified(userInfo.getIsVerified());
         authUserInfo.setUpdatedAt(userInfo.getUpdatedTime());
         authUserInfo.setNickname(userInfo.getShortName());
@@ -185,6 +161,43 @@ public class NgutuUI extends SecuredUI {
         authUserInfo.setPicture(userInfo.getPicture().getUrl());
         return authUserInfo;
     }
+
+    
+        private void handleAccessTokenRequest(VaadinRequest request) {
+        String fragment = getNavigator().getState();
+        String accessToken = request.getParameter("access_token");
+        if (accessToken != null) {
+            System.out.println("AccessToken -> " + accessToken);
+        }
+    }
+    
+    private void handleAuth0Request(VaadinRequest request) {
+        String fragment = getNavigator().getState();
+        String authorizationCode = request.getParameter("code");
+        if (authorizationCode != null) {
+            try {
+                UserInfo userInfo = extractUserInfo(fragment, authorizationCode);
+                updateSession(convert2FlexUser(userInfo));
+            } catch (Exception ex) {
+                Logger.getLogger(NgutuUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private UserInfo extractUserInfo(String fragment, String authorizationCode) throws Auth0Exception {
+        NgutuAuthAPI api = new NgutuAuthAPI(fragment);
+        AuthRequest authRequest = api.exchangeCode(authorizationCode, api.getRedirectUrl());
+        TokenHolder tokenHolder = authRequest.execute();
+
+        System.out.println("ACCESS_TOKEN --> " + tokenHolder.getAccessToken());
+
+        Request<UserInfo> req = api.userInfo(tokenHolder.getAccessToken());
+        UserInfo userInfo = req.execute();
+
+        System.out.println("NAME --> " + userInfo.getValues().get("name"));
+        return userInfo;
+    }
+
 
     @WebServlet(urlPatterns = "/*", name = "NgutuUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = NgutuUI.class, productionMode = false, widgetset = "ui.AppWidgetSet")

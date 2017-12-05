@@ -45,7 +45,7 @@ public class WelcomeMenu extends HorizontalLayout {
         if (UI.getCurrent() != null) {
             System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
             user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
-            System.out.println("NEWS VIEW USER -> " + user);
+            System.out.println("Welcome Menu Session USER -> " + user);
         }
     }
 
