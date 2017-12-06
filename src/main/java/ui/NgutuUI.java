@@ -11,9 +11,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import db.AuthUserInfo;
 import db.FlexUser;
-import db.Neo4jSessionFactory;
 import java.text.ParseException;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.annotation.WebServlet;
@@ -39,7 +37,7 @@ public class NgutuUI extends SecuredUI {
 
     private static final long serialVersionUID = -484103282643769272L;
     private NgutuFacebookAPI facebookAPI = new NgutuFacebookAPI("");
-    
+
     public NgutuFacebookAPI getFacebookAPI() {
         return facebookAPI;
     }
@@ -112,7 +110,7 @@ public class NgutuUI extends SecuredUI {
         authUserInfo.setName(userInfo.getName());
         authUserInfo.setFamilyName(userInfo.getLastName());
         authUserInfo.setGivenName(userInfo.getFirstName());
-        authUserInfo.setLocale(new Locale(userInfo.getLocale()));
+        authUserInfo.setLocale(userInfo.getLocale());
         authUserInfo.setPicture(userInfo.getPicture().getUrl());
         return authUserInfo;
     }
@@ -122,17 +120,7 @@ public class NgutuUI extends SecuredUI {
     public static class NgutuUIServlet extends VaadinServlet {
 
         private static final long serialVersionUID = -3509795582956287827L;
-        private Neo4jSessionFactory factory;
 
-        public NgutuUIServlet() {
-            try {
-                factory = Neo4jSessionFactory.getInstance();
-            } catch(Exception ex ) {
-                System.err.println("Error connecting to db: " + ex.getMessage());
-            }
-        }
-        
-        
     }
 
 }
