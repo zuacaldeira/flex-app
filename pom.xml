@@ -147,23 +147,23 @@
         <dependency> 
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-ogm-core</artifactId>
-            <version>2.1.5</version>
+            <version>3.0.2</version>
         </dependency>
         <dependency> <!-- If you're using the EMBEDDED driver -->
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-ogm-embedded-driver</artifactId>
-            <version>2.1.5</version>
+            <version>3.0.2</version>
             <scope>test</scope>
         </dependency>
         <dependency> <!-- If you're using the HTTP driver -->
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-ogm-http-driver</artifactId>
-            <version>2.1.5</version>
+            <version>3.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-ogm-test</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.2</version>
             <scope>test</scope>
             <type>jar</type>
         </dependency>        
