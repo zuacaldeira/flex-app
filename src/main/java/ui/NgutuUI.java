@@ -38,6 +38,11 @@ import utils.ServiceLocator;
 public class NgutuUI extends SecuredUI {
 
     private static final long serialVersionUID = -484103282643769272L;
+    private NgutuFacebookAPI facebookAPI = new NgutuFacebookAPI("");
+    
+    public NgutuFacebookAPI getFacebookAPI() {
+        return facebookAPI;
+    }
 
     @Override
     public void init(VaadinRequest request) {
@@ -117,7 +122,17 @@ public class NgutuUI extends SecuredUI {
     public static class NgutuUIServlet extends VaadinServlet {
 
         private static final long serialVersionUID = -3509795582956287827L;
-        private Neo4jSessionFactory factory = Neo4jSessionFactory.getInstance();
+        private Neo4jSessionFactory factory;
+
+        public NgutuUIServlet() {
+            try {
+                factory = Neo4jSessionFactory.getInstance();
+            } catch(Exception ex ) {
+                System.err.println("Error connecting to db: " + ex.getMessage());
+            }
+        }
+        
+        
     }
 
 }
