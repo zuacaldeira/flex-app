@@ -10,6 +10,7 @@ import com.vaadin.navigator.PushStateNavigation;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.ui.UI;
 import db.AuthUserInfo;
 import db.FlexUser;
 import java.net.URI;
@@ -45,6 +46,8 @@ public class NgutuUI extends SecuredUI {
     public void init(VaadinRequest request) {
         String fragment = getNavigator().getState();
         URI location = Page.getCurrent().getLocation();
+        String rootPath = UI.getCurrent().getUiRootPath();
+
         String host = Page.getCurrent().getLocation().getHost();
         String ctxPath = request.getContextPath();
         String rAddress = request.getRemoteAddr();
