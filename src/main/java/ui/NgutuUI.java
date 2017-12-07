@@ -10,10 +10,8 @@ import com.vaadin.navigator.PushStateNavigation;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.UI;
 import db.AuthUserInfo;
 import db.FlexUser;
-import java.net.URI;
 import javax.servlet.annotation.WebServlet;
 import org.ngutu.ui.share.NgutuFacebookAPI;
 import services.FlexUserServiceInterface;
@@ -57,7 +55,7 @@ public class NgutuUI extends SecuredUI {
         String fragment = getNavigator().getState();
         String host = Page.getCurrent().getLocation().getHost();
         if(facebookAPI == null) {
-            facebookAPI = new NgutuFacebookAPI(host, fragment);
+            facebookAPI = new NgutuFacebookAPI(fragment);
         }
 
         String code = request.getParameter("code");

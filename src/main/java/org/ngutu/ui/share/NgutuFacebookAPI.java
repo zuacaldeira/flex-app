@@ -33,13 +33,8 @@ public class NgutuFacebookAPI {
     private String code;
     private AccessToken accessToken;
     
-    public NgutuFacebookAPI(String host, String fragment) {
-        this.host = host;
-        this.fragment = fragment;
-    }
-
     public NgutuFacebookAPI(String fragment) {
-        this.host = "https://ngutu.org/";
+        this.host = "https://www.ngutu.org/";
         this.fragment = fragment;
     }
 
