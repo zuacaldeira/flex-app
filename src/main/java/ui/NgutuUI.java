@@ -42,6 +42,20 @@ public class NgutuUI extends SecuredUI {
 
     @Override
     public void init(VaadinRequest request) {
+        String fragment = getNavigator().getState();
+        String host = Page.getCurrent().getLocation().getHost();
+        String ctxPath = request.getContextPath();
+        String rAddress = request.getRemoteAddr();
+        String rHost = request.getRemoteHost();
+        String rUser = request.getRemoteUser();
+        System.out.println("--------------------------------------------");
+        System.out.printf("(host -> %s)\n", host);
+        System.out.printf("(fragment -> %s)\n", fragment);
+        System.out.printf("(ctxPath -> %s)\n", ctxPath);
+        System.out.printf("(rAddress -> %s)\n", rAddress);
+        System.out.printf("(rHost -> %s)\n", rHost);
+        System.out.printf("(rUser -> %s)\n", rUser);
+        System.out.println("--------------------------------------------");
         if (request != null) {
             printRequest(request);
             if (request.getParameterMap().containsKey("code")) {
