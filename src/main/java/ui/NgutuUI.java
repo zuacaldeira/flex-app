@@ -12,6 +12,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import db.AuthUserInfo;
 import db.FlexUser;
+import java.net.URI;
 import javax.servlet.annotation.WebServlet;
 import org.ngutu.ui.share.NgutuFacebookAPI;
 import services.FlexUserServiceInterface;
@@ -43,12 +44,14 @@ public class NgutuUI extends SecuredUI {
     @Override
     public void init(VaadinRequest request) {
         String fragment = getNavigator().getState();
+        URI location = Page.getCurrent().getLocation();
         String host = Page.getCurrent().getLocation().getHost();
         String ctxPath = request.getContextPath();
         String rAddress = request.getRemoteAddr();
         String rHost = request.getRemoteHost();
         String rUser = request.getRemoteUser();
         System.out.println("--------------------------------------------");
+        System.out.printf("(URI -> %s)\n", location);
         System.out.printf("(host -> %s)\n", host);
         System.out.printf("(fragment -> %s)\n", fragment);
         System.out.printf("(ctxPath -> %s)\n", ctxPath);
@@ -68,18 +71,6 @@ public class NgutuUI extends SecuredUI {
     private void handleCodeRequest(VaadinRequest request) {
         String fragment = getNavigator().getState();
         String host = Page.getCurrent().getLocation().getHost();
-        String ctxPath = request.getContextPath();
-        String rAddress = request.getRemoteAddr();
-        String rHost = request.getRemoteHost();
-        String rUser = request.getRemoteUser();
-        System.out.println("--------------------------------------------");
-        System.out.printf("(host -> %s)\n", host);
-        System.out.printf("(fragment -> %s)\n", fragment);
-        System.out.printf("(ctxPath -> %s)\n", ctxPath);
-        System.out.printf("(rAddress -> %s)\n", rAddress);
-        System.out.printf("(rHost -> %s)\n", rHost);
-        System.out.printf("(rUser -> %s)\n", rUser);
-        System.out.println("--------------------------------------------");
         if(facebookAPI == null) {
             facebookAPI = new NgutuFacebookAPI(host, fragment);
         }
