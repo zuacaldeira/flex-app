@@ -6,6 +6,7 @@
 package org.ngutu.ui.welcome;
 
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.server.Page;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.UI;
@@ -46,7 +47,8 @@ public final class WelcomeMenuBar extends MenuBar {
         }));
         if (user == null) {
             login = addItem("Login", VaadinIcons.SIGN_IN, (selectedItem) -> {
-                NgutuFacebookAPI authAPI = new NgutuFacebookAPI(getUI().getNavigator().getState());
+                NgutuFacebookAPI authAPI = new NgutuFacebookAPI(
+                        Page.getCurrent().getLocation().getHost(), getUI().getNavigator().getState());
                 authAPI.authorize();
             });
             login.setDescription("LOGIN");

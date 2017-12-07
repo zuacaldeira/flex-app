@@ -5,6 +5,7 @@
  */
 package org.ngutu.ui.share;
 
+import com.vaadin.server.Page;
 import com.vaadin.ui.UI;
 import db.NewsArticle;
 
@@ -15,7 +16,9 @@ import db.NewsArticle;
 public class ShareOnFacebook {
     
     public void share(NewsArticle article, String message) {
-        NgutuFacebookAPI api = new NgutuFacebookAPI(UI.getCurrent().getNavigator().getState());
-        api.share(article, message);
+        NgutuFacebookAPI authAPI = new NgutuFacebookAPI(
+                Page.getCurrent().getLocation().getHost(), UI.getCurrent().getNavigator().getState());
+        authAPI.authorize();
+        authAPI.share(article, message);
     }
 }

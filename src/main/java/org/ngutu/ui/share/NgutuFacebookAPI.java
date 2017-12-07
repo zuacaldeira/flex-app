@@ -26,14 +26,15 @@ public class NgutuFacebookAPI {
     public static final String APP_ID = "311537906014506";
     public static final String APP_SECRET = "31dd2816aa5d8315b8d318a735080bcb";
     public static final Version VERSION = Version.LATEST;   
-    private static final String APP_URL = "https://ngutu.herokuapp.com/";
-
+    
+    private final String host;
     private final String fragment;
-    private String code;
     private DefaultFacebookClient facebookClient;
+    private String code;
     private AccessToken accessToken;
     
-    public NgutuFacebookAPI(String fragment) {
+    public NgutuFacebookAPI(String host, String fragment) {
+        this.host = host;
         this.fragment = fragment;
     }
 
@@ -50,10 +51,8 @@ public class NgutuFacebookAPI {
     }
 
     public String getRedirectUrl() {
-        if(Page.getCurrent().getLocation().getHost().contains("localhost")) {
-            return "http://localhost:8080/" + fragment;
-        }
-        return APP_URL + fragment;
+        System.out.printf("(host, fragment) -> (%s, %s)\n", host, fragment);
+        return host + fragment;
     }
     
     public User fetchUser(String code) {
