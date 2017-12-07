@@ -54,6 +54,7 @@ public class NgutuUI extends SecuredUI {
         String rHost = request.getRemoteHost();
         String rUser = request.getRemoteUser();
         System.out.println("--------------------------------------------");
+        System.out.printf("(Root Path -> %s)\n", rootPath);
         System.out.printf("(URI -> %s)\n", location);
         System.out.printf("(host -> %s)\n", host);
         System.out.printf("(fragment -> %s)\n", fragment);
