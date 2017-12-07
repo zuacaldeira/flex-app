@@ -38,6 +38,11 @@ public class NgutuFacebookAPI {
         this.fragment = fragment;
     }
 
+    public NgutuFacebookAPI(String fragment) {
+        this.host = "https://ngutu.org/";
+        this.fragment = fragment;
+    }
+
     public void authorize() {
         ScopeBuilder scopeBuilder = new ScopeBuilder();
         scopeBuilder
