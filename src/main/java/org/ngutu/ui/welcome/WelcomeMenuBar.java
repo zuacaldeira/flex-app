@@ -21,16 +21,13 @@ public final class WelcomeMenuBar extends MenuBar {
 
     private static final long serialVersionUID = -1299703352057116843L;
 
-    private final FlexUser user;
-
     // Main Menu (top level)
     private MenuItem news;
     private MenuItem books;
     private MenuItem login;
     private MenuItem logout;
 
-    public WelcomeMenuBar(FlexUser user) {
-        this.user = user;
+    public WelcomeMenuBar() {
         this.initMenuItems();
         setSizeUndefined();
         setAutoOpen(true);
@@ -38,7 +35,8 @@ public final class WelcomeMenuBar extends MenuBar {
         addStyleName(ValoTheme.MENUBAR_BORDERLESS);
     }
 
-    protected void initMenuItems() {        
+    protected void initMenuItems() {    
+        FlexUser user = getUser();
         news = addItem("News", null, (item -> {
             getUI().getNavigator().navigateTo(FlexViews.NEWS);
         }));
@@ -53,7 +51,7 @@ public final class WelcomeMenuBar extends MenuBar {
             login.setDescription("LOGIN");
         }
         if (user != null) {
-            logout = addItem("Logout " + getUser().getUserInfo().getGivenName(), VaadinIcons.SIGN_OUT, (selectedItem) -> {
+            logout = addItem("Logout " + user.getUserInfo().getGivenName(), VaadinIcons.SIGN_OUT, (selectedItem) -> {
                 getUI().getSession().setAttribute("user", null);
                 getUI().getNavigator().navigateTo(FlexViews.WELCOME);
             });
@@ -66,6 +64,6 @@ public final class WelcomeMenuBar extends MenuBar {
     }
 
     public FlexUser getUser() {
-        return user;
+        return (FlexUser) getUI().getSession().getAttribute("user");
     }
 }

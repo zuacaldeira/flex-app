@@ -91,7 +91,6 @@ public class NgutuUI extends SecuredUI {
 
         FlexUserServiceInterface service = ServiceLocator.getInstance().findUserService();
         service.save(user);
-        user = service.login(user.getUsername(), null);
         getSession().setAttribute("user", user);
     }
 

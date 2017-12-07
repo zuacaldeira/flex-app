@@ -76,13 +76,13 @@ public class WelcomeMenu extends HorizontalLayout {
     }
 
     private void initMenuBar() {
-        welcomeMenuBar = new WelcomeMenuBar(user);
+        welcomeMenuBar = new WelcomeMenuBar();
         actions.addComponent(welcomeMenuBar);
         actions.setComponentAlignment(welcomeMenuBar, Alignment.MIDDLE_CENTER);
     }
 
     public FlexUser getUser() {
-        return user;
+        return (FlexUser) getUI().getSession().getAttribute("user");
     }
 
     public FlexLogo getLogo() {
