@@ -32,6 +32,7 @@ public class NgutuFacebookAPI {
     private DefaultFacebookClient facebookClient;
     private String code;
     private AccessToken accessToken;
+    private User me;
     
     public NgutuFacebookAPI(String fragment) {
         this.host = "https://ngutu.herokuapp.com/";
@@ -60,16 +61,21 @@ public class NgutuFacebookAPI {
                 .obtainUserAccessToken(APP_ID, APP_SECRET, getRedirectUrl(), code);
         facebookClient = new DefaultFacebookClient(accessToken.getAccessToken(), NgutuFacebookAPI.APP_SECRET, NgutuFacebookAPI.VERSION);        
         
-        User me = facebookClient.fetchObject("me", User.class, Parameter.with("fields", "id, name, email, picture, locale, first_name"));
+        me = facebookClient.fetchObject("me", User.class, Parameter.with("fields", "id, name, email, picture, locale, first_name"));
         System.out.printf("(Name, id) = (%s, %s)\n", me.getName(), me.getId());
         return me;
     }
     
     public void share(NewsArticle article, String message) {
-        GraphResponse response = facebookClient.publish("me", GraphResponse.class);
+        GraphResponse response = facebookClient.publish("me", GraphResponse.class, 
+                Parameter.with("message", createMessage(article, message)));
         System.out.println("ID -> " + response.getId());
         System.out.println("POST ID -> " + response.getPostId());
         System.out.println("TIMELINE ID -> " + response.getTimelineId());
+    }
+
+    private String createMessage(NewsArticle article, String message) {
+        return message + ": " + article.getTitle();
     }
 
 }
