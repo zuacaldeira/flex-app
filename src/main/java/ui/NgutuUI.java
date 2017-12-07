@@ -52,14 +52,20 @@ public class NgutuUI extends SecuredUI {
 
     private void handleCodeRequest(VaadinRequest request) {
         String fragment = getNavigator().getState();
+        
+        if(facebookAPI == null) {
+            facebookAPI = new NgutuFacebookAPI(fragment);
+        }
+
         String code = request.getParameter("code");
         System.out.println("Code -> " + code);
-        facebookAPI = new NgutuFacebookAPI(fragment);
         if (code != null) {
             User user = facebookAPI.fetchUser(code);
-            FlexUser fUser = convert2FlexUser(user);
-            System.out.println("User -> " + user);
             printUserInfo(user);
+
+            FlexUser fUser = convert2FlexUser(user);
+            System.out.println("FUser -> " + fUser);
+            
             updateSession(fUser);
         }
     }
