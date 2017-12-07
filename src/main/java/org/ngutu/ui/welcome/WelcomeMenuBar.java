@@ -8,6 +8,7 @@ package org.ngutu.ui.welcome;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
 import org.ngutu.ui.share.NgutuFacebookAPI;
@@ -64,6 +65,6 @@ public final class WelcomeMenuBar extends MenuBar {
     }
 
     public FlexUser getUser() {
-        return (FlexUser) getUI().getSession().getAttribute("user");
+        return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
     }
 }

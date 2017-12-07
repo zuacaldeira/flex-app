@@ -11,9 +11,6 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import db.AuthUserInfo;
 import db.FlexUser;
-import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.annotation.WebServlet;
 import org.ngutu.ui.share.NgutuFacebookAPI;
 import services.FlexUserServiceInterface;
@@ -36,7 +33,7 @@ import utils.ServiceLocator;
 public class NgutuUI extends SecuredUI {
 
     private static final long serialVersionUID = -484103282643769272L;
-    private NgutuFacebookAPI facebookAPI = new NgutuFacebookAPI("");
+    private NgutuFacebookAPI facebookAPI;
 
     public NgutuFacebookAPI getFacebookAPI() {
         return facebookAPI;
@@ -57,15 +54,13 @@ public class NgutuUI extends SecuredUI {
         String fragment = getNavigator().getState();
         String code = request.getParameter("code");
         System.out.println("Code -> " + code);
+        facebookAPI = new NgutuFacebookAPI(fragment);
         if (code != null) {
-            NgutuFacebookAPI api = new NgutuFacebookAPI("");
-            User user = api.fetchUserWithCode(code);
+            User user = facebookAPI.fetchUser(code);
+            FlexUser fUser = convert2FlexUser(user);
+            System.out.println("User -> " + user);
             printUserInfo(user);
-            try {
-                updateSession(convert2FlexUser(user));
-            } catch (ParseException ex) {
-                Logger.getLogger(NgutuUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            updateSession(fUser);
         }
     }
 
@@ -87,10 +82,11 @@ public class NgutuUI extends SecuredUI {
         System.out.printf("(%s, %s)\n", "Picture", user.getPicture().getUrl());
     }
 
-    private void updateSession(FlexUser user) throws ParseException {
-
+    private void updateSession(FlexUser user) {
         FlexUserServiceInterface service = ServiceLocator.getInstance().findUserService();
-        service.save(user);
+        if(service.find(user) == null) {
+            service.save(user);
+        }
         getSession().setAttribute("user", user);
     }
 
