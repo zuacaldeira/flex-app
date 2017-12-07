@@ -34,7 +34,7 @@ public class NgutuFacebookAPI {
     private AccessToken accessToken;
     
     public NgutuFacebookAPI(String fragment) {
-        this.host = "https://www.ngutu.org/";
+        this.host = "https://ngutu.herokuapp.com/";
         this.fragment = fragment;
     }
 
