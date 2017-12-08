@@ -12,7 +12,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
 import data.DataProviderType;
-import org.ngutu.ui.share.NgutuFacebookAPI;
+import java.util.TreeSet;
 import org.ngutu.ui.viewproviders.FlexViews;
 import services.NewsSourceServiceInterface;
 import utils.MyDateUtils;
@@ -31,8 +31,6 @@ public final class NewsMenuBar extends MenuBar {
     // Main Menu (top level)
     private MenuItem top;
     private MenuItem home;
-    private MenuItem login;
-    private MenuItem logout;
 
     private MenuItem news;
     private MenuItem categories;
@@ -64,21 +62,6 @@ public final class NewsMenuBar extends MenuBar {
         }));
         top = addItem("", VaadinIcons.GRID_SMALL, null);
         top.setStyleName("menu-bar-top");
-        if (getUser() == null) {
-            login = top.addItem("Login", VaadinIcons.SIGN_IN, (selectedItem) -> {
-                // Facebook login
-                NgutuFacebookAPI authAPI = new NgutuFacebookAPI(getUI().getNavigator().getState());
-                authAPI.authorize();
-            });
-            login.setDescription("LOGIN");
-        }
-        if (getUser() != null) {
-            logout = top.addItem("Logout " + getUser().getUserInfo().getGivenName(), VaadinIcons.SIGN_OUT, (selectedItem) -> {
-                getUI().getSession().setAttribute("user", null);
-                getUI().getNavigator().navigateTo(FlexViews.WELCOME);
-            });
-            logout.setDescription("LOGOUT");
-        }
         news = top.addItem("Articles", null, null);
         publishers = top.addItem("Publishers", null, null);
         categories = top.addItem("Categories", null, null);
@@ -87,7 +70,7 @@ public final class NewsMenuBar extends MenuBar {
         populate();
     }
 
-     private FlexUser getUser() {
+    private FlexUser getUser() {
         if (UI.getCurrent() != null) {
             System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
             return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
@@ -95,7 +78,7 @@ public final class NewsMenuBar extends MenuBar {
         return null;
     }
 
-     protected void populateNewsCategory() {
+    protected void populateNewsCategory() {
         sourcesService.findCategories().subscribe(cat -> {
             categories.addItem(getCategoryCaption(cat), (selectedMenuItem) -> {
                 updateBody(DataProviderType.CATEGORY, selectedMenuItem.getText());
@@ -112,24 +95,34 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     protected void populateNewsLanguages() {
+        TreeSet<String> ls = new TreeSet<>();
         sourcesService.findLocales().subscribe(localeString -> {
             if (localeString != null && !localeString.isEmpty()) {
                 String lang = MyDateUtils.getLanguageNameFromPattern(localeString);
-                languages.addItem(lang, (selectedMenuItem) -> {
-                    updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
-                });
+                ls.add(lang);
             }
+        });
+        
+        ls.forEach(lang -> {
+            languages.addItem(lang, (selectedMenuItem) -> {
+                updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
+            });
         });
     }
 
     protected void populateNewsCountries() {
+        TreeSet<String> cs = new TreeSet<>();
         sourcesService.findLocales().subscribe(localeString -> {
             if (localeString != null && !localeString.isEmpty()) {
                 String country = MyDateUtils.getCountryNameFromPattern(localeString);
-                countries.addItem(country, (selectedMenuItem) -> {
-                    updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
-                });
+                cs.add(country);
             }
+        });
+        
+        cs.forEach(country -> {
+            countries.addItem(country, (selectedMenuItem) -> {
+                updateBody(DataProviderType.COUNTRIES, selectedMenuItem.getText());
+            });
         });
     }
 

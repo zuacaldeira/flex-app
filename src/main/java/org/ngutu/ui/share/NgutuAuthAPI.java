@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ngutu.ui.auth0;
+package org.ngutu.ui.share;
 
 import com.auth0.client.auth.AuthAPI;
 import com.vaadin.server.Page;

@@ -7,7 +7,6 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.PushStateNavigation;
-import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import db.AuthUserInfo;
@@ -42,6 +41,15 @@ public class NgutuUI extends SecuredUI {
 
     @Override
     public void init(VaadinRequest request) {
+        String fragment = getNavigator().getState();
+        if (facebookAPI == null ) {
+            if(fragment != null) {
+                facebookAPI = new NgutuFacebookAPI(fragment);
+            }
+            else {
+                facebookAPI = new NgutuFacebookAPI("");
+            }
+        }
         if (request != null) {
             printRequest(request);
             if (request.getParameterMap().containsKey("code")) {
@@ -52,12 +60,6 @@ public class NgutuUI extends SecuredUI {
     }
 
     private void handleCodeRequest(VaadinRequest request) {
-        String fragment = getNavigator().getState();
-        String host = Page.getCurrent().getLocation().getHost();
-        if(facebookAPI == null) {
-            facebookAPI = new NgutuFacebookAPI(fragment);
-        }
-
         String code = request.getParameter("code");
         System.out.println("Code -> " + code);
         if (code != null) {
@@ -66,7 +68,7 @@ public class NgutuUI extends SecuredUI {
 
             FlexUser fUser = convert2FlexUser(user);
             System.out.println("FUser -> " + fUser);
-            
+
             updateSession(fUser);
         }
     }
@@ -91,7 +93,7 @@ public class NgutuUI extends SecuredUI {
 
     private void updateSession(FlexUser user) {
         FlexUserServiceInterface service = ServiceLocator.getInstance().findUserService();
-        if(service.find(user) == null) {
+        if (service.find(user) == null) {
             service.save(user);
         }
         getSession().setAttribute("user", user);

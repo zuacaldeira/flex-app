@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ngutu.ui.news;
+package org.ngutu.ui;
 
+import org.ngutu.ui.news.*;
 import org.ngutu.ui.share.FacebookLoginButton;
 import org.ngutu.ui.share.FacebookLogoutButton;
 import com.vaadin.server.ExternalResource;
@@ -23,7 +24,7 @@ import org.ngutu.ui.logo.FlexLogo;
  *
  * @author zua
  */
-public class NewsMenu extends HorizontalLayout {
+public class FlexMenu extends HorizontalLayout {
 
     private static final long serialVersionUID = 8366211712669711650L;
 
@@ -41,7 +42,7 @@ public class NewsMenu extends HorizontalLayout {
     private NewsMenuBar newsMenuBar;
 
 
-    public NewsMenu() {
+    public FlexMenu() {
         initLogo();
         initCenter();
         initRight();
