@@ -60,9 +60,6 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     protected void initMenuItems() {
-        home = addItem("", VaadinIcons.HOME, (item -> {
-            getUI().getNavigator().navigateTo(FlexViews.WELCOME);
-        }));
         top = addItem("", VaadinIcons.GRID_SMALL, null);
         top.setStyleName("menu-bar-top");
         news = top.addItem("Articles", null, null);
@@ -70,19 +67,25 @@ public final class NewsMenuBar extends MenuBar {
         categories = top.addItem("Categories", null, null);
         languages = top.addItem("Languages", null, null);
         countries = top.addItem("Countries", null, null);
-        populate();
-        logInOut = addItem("", VaadinIcons.POWER_OFF, (item -> {
-            if (getUser() != null) {
+        home = addItem("", VaadinIcons.HOME, (item -> {
+            getUI().getNavigator().navigateTo(FlexViews.WELCOME);
+        }));
+        if (getUser() != null) {
+            logInOut = addItem("Logout", VaadinIcons.POWER_OFF, (item -> {
                 getUI().getSession().setAttribute("user", null);
-            } else if (getUser() == null) {
+                getUI().getNavigator().navigateTo(FlexViews.NEWS);
+            }));
+        } else {
+            logInOut = addItem("Login", VaadinIcons.FACEBOOK, (item -> {
                 if (UI.getCurrent() != null && ((NgutuUI) UI.getCurrent()).getFacebookAPI() != null) {
                     NgutuFacebookAPI authAPI = ((NgutuUI) UI.getCurrent()).getFacebookAPI();
                     authAPI.setFragment(UI.getCurrent().getNavigator().getState());
                     authAPI.authorize();
                 }
-            }
-            getUI().getNavigator().navigateTo(FlexViews.NEWS);
-        }));
+            }));
+        }
+        populate();
+
     }
 
     private FlexUser getUser() {
