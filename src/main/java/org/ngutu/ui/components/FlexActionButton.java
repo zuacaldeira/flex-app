@@ -13,7 +13,7 @@ import components.FlexStyleNames;
  *
  * @author zua
  */
-public abstract class FlexActionButton extends FlexButton {
+public class FlexActionButton extends FlexButton {
 
     private static final long serialVersionUID = 1703002983017827112L;
 

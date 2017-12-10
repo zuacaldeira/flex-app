@@ -5,6 +5,7 @@
  */
 package factory;
 
+import com.vaadin.ui.Alignment;
 import components.CommentButton;
 import components.FakeButton;
 import components.FavoriteButton;
@@ -14,7 +15,6 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 import db.FlexUser;
 import db.NewsArticle;
-import org.ngutu.ui.logo.FacebookButton;
 import org.ngutu.ui.share.ShareOnFacebook;
 import services.NewsArticleServiceInterface;
 import utils.ServiceLocator;
@@ -31,7 +31,7 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
     private FavoriteButton favoriteButton;
     private FakeButton fakeButton;
     private HideButton hideButton;
-    private FacebookButton facebookButton;
+    private FacebookShareButton facebookButton;
     private final FlexUser user;
     private final NewsArticle article;
 
@@ -39,10 +39,12 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
         this.user = user;
         this.article = article;
         super.setSizeFull();
+        super.setHeight("21px");
         super.setStyleName("actions");
-        super.setSpacing(true);
+        super.setSpacing(false);
         initActions();
         super.addComponents(facebookButton, favoriteButton, fakeButton, hideButton);
+        super.setComponentAlignment(facebookButton, Alignment.MIDDLE_CENTER);
         if(user == null) {
             setDescription("You have to login to enable social actions");
             disableActions();
@@ -60,7 +62,7 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
         commentButton = new CommentButton();
         commentButton.addClickListener(this);
         
-        facebookButton = new FacebookButton();
+        facebookButton = new FacebookShareButton(article.getUrl());
         facebookButton.addClickListener(event -> {
             ShareOnFacebook shareOnFacebook = new ShareOnFacebook();
             shareOnFacebook.share(article, "Check this out!");

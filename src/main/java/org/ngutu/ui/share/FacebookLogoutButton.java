@@ -22,7 +22,7 @@ public class FacebookLogoutButton extends FlexButton {
 
     public FacebookLogoutButton() {
         super("Logout " + getUser().getUserInfo().getGivenName(), VaadinIcons.FACEBOOK_SQUARE);
-        super.setStyleName(ValoTheme.BUTTON_DANGER);
+        super.setStyleName(ValoTheme.BUTTON_BORDERLESS_COLORED);
         super.addStyleName("facebook-logout-button");
         super.addClickListener(event -> {
             getUI().getSession().setAttribute("user", null);

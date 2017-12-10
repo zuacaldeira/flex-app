@@ -177,8 +177,9 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
         font-variant: small-caps;
         font-style: bold;
         .ngutu{}
-        .dot{}
-        .org{}
+        .follow-us{
+            transform: translateY(-10px);
+        }
     }
     
     .menu-bar-top {

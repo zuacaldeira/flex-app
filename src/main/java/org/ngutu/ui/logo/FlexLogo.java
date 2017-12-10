@@ -29,7 +29,7 @@ public class FlexLogo extends HorizontalLayout {
         initLabel();
         initImage();
         super.addComponents(image, ngutu);
-        super.setExpandRatio(ngutu, 1f);
+        super.setComponentAlignment(image, Alignment.MIDDLE_CENTER);
         super.setComponentAlignment(ngutu, Alignment.MIDDLE_CENTER);
         super.setSizeUndefined();
         super.setMargin(new MarginInfo(false, false, false, true));
@@ -47,4 +47,5 @@ public class FlexLogo extends HorizontalLayout {
     private void initImage() {
         image = new Label(VaadinIcons.CLUSTER.getHtml(), ContentMode.HTML);
     }
+    
 }

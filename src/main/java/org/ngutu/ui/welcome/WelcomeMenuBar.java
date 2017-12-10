@@ -5,12 +5,15 @@
  */
 package org.ngutu.ui.welcome;
 
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
+import org.ngutu.ui.share.NgutuFacebookAPI;
 import org.ngutu.ui.viewproviders.FlexViews;
+import ui.NgutuUI;
 
 /**
  *
@@ -23,6 +26,8 @@ public final class WelcomeMenuBar extends MenuBar {
     // Main Menu (top level)
     private MenuItem news;
     private MenuItem books;
+    private MenuItem logInOut;
+    
 
     public WelcomeMenuBar() {
         this.initMenuItems();
@@ -32,13 +37,26 @@ public final class WelcomeMenuBar extends MenuBar {
         addStyleName(ValoTheme.MENUBAR_BORDERLESS);
     }
 
-    protected void initMenuItems() {    
+    protected void initMenuItems() {
         FlexUser user = getUser();
         news = addItem("News", null, (item -> {
             getUI().getNavigator().navigateTo(FlexViews.NEWS);
         }));
         books = addItem("Books", null, (item -> {
             getUI().getNavigator().navigateTo(FlexViews.BOOKS);
+        }));
+        logInOut = addItem("", VaadinIcons.POWER_OFF, (item -> {
+            if (getUser() != null) {
+                getUI().getSession().setAttribute("user", null);
+            }
+            else if (getUser() == null) {
+                if (UI.getCurrent() != null && ((NgutuUI) UI.getCurrent()).getFacebookAPI() != null) {
+                    NgutuFacebookAPI authAPI = ((NgutuUI) UI.getCurrent()).getFacebookAPI();
+                    authAPI.setFragment(UI.getCurrent().getNavigator().getState());
+                    authAPI.authorize();
+                }
+            }
+            getUI().getNavigator().navigateTo(FlexViews.WELCOME);            
         }));
     }
 

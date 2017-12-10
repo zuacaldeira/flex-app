@@ -13,8 +13,10 @@ import com.vaadin.ui.themes.ValoTheme;
 import db.FlexUser;
 import data.DataProviderType;
 import java.util.TreeSet;
+import org.ngutu.ui.share.NgutuFacebookAPI;
 import org.ngutu.ui.viewproviders.FlexViews;
 import services.NewsSourceServiceInterface;
+import ui.NgutuUI;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
 
@@ -31,6 +33,7 @@ public final class NewsMenuBar extends MenuBar {
     // Main Menu (top level)
     private MenuItem top;
     private MenuItem home;
+    private MenuItem logInOut;
 
     private MenuItem news;
     private MenuItem categories;
@@ -68,6 +71,18 @@ public final class NewsMenuBar extends MenuBar {
         languages = top.addItem("Languages", null, null);
         countries = top.addItem("Countries", null, null);
         populate();
+        logInOut = addItem("", VaadinIcons.POWER_OFF, (item -> {
+            if (getUser() != null) {
+                getUI().getSession().setAttribute("user", null);
+            } else if (getUser() == null) {
+                if (UI.getCurrent() != null && ((NgutuUI) UI.getCurrent()).getFacebookAPI() != null) {
+                    NgutuFacebookAPI authAPI = ((NgutuUI) UI.getCurrent()).getFacebookAPI();
+                    authAPI.setFragment(UI.getCurrent().getNavigator().getState());
+                    authAPI.authorize();
+                }
+            }
+            getUI().getNavigator().navigateTo(FlexViews.NEWS);
+        }));
     }
 
     private FlexUser getUser() {
@@ -102,7 +117,7 @@ public final class NewsMenuBar extends MenuBar {
                 ls.add(lang);
             }
         });
-        
+
         ls.forEach(lang -> {
             languages.addItem(lang, (selectedMenuItem) -> {
                 updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
@@ -118,7 +133,7 @@ public final class NewsMenuBar extends MenuBar {
                 cs.add(country);
             }
         });
-        
+
         cs.forEach(country -> {
             countries.addItem(country, (selectedMenuItem) -> {
                 updateBody(DataProviderType.COUNTRIES, selectedMenuItem.getText());

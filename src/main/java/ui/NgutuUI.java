@@ -41,16 +41,15 @@ public class NgutuUI extends SecuredUI {
 
     @Override
     public void init(VaadinRequest request) {
-        String fragment = getNavigator().getState();
-        if (facebookAPI == null ) {
-            if(fragment != null) {
-                facebookAPI = new NgutuFacebookAPI(fragment);
-            }
-            else {
-                facebookAPI = new NgutuFacebookAPI("");
-            }
-        }
         if (request != null) {
+            String fragment = getNavigator().getState();
+            if (facebookAPI == null) {
+                if (fragment != null) {
+                    facebookAPI = new NgutuFacebookAPI(fragment);
+                } else {
+                    facebookAPI = new NgutuFacebookAPI("");
+                }
+            }
             printRequest(request);
             if (request.getParameterMap().containsKey("code")) {
                 handleCodeRequest(request);

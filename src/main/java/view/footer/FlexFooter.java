@@ -30,7 +30,7 @@ public class FlexFooter extends HorizontalLayout {
 
     public FlexFooter() {
         initUser();
-        HorizontalLayout left = new HorizontalLayout(getCopyright(), getTerms(), getPrivacy());
+        HorizontalLayout left = new HorizontalLayout(getCopyright(), getPrivacy());
         HorizontalLayout middle = new HorizontalLayout(new Label("Developed by"), getDeveloper());
         HorizontalLayout right = new HorizontalLayout(new Label("Powered by"), getPoweredBy());
         super.addComponents(
@@ -71,14 +71,9 @@ public class FlexFooter extends HorizontalLayout {
                 vaadinLink, new Label("|"), neo4jLink, new Label("|"), javaEELink, new Label("|"), heorkuLink);
     }
 
-    private Component getTerms() {
-        String text = "Terms and Conditions";
-        return new Link(text, new ThemeResource("terms"));
-    }
-
     private Component getPrivacy() {
-        String text = "Privacy";
-        return new Link(text, new ThemeResource("privacy"));
+        String text = "Terms and Conditions | Privacy";
+        return new Link(text, new ThemeResource("html/privacy.html"));
     }
 
     private Component getCopyright() {

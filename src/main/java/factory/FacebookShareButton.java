@@ -3,21 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ngutu.ui.logo;
+package factory;
 
-import org.ngutu.ui.components.FlexActionButton;
 import com.vaadin.icons.VaadinIcons;
+import org.ngutu.ui.components.FlexActionButton;
 
 /**
  *
  * @author zua
  */
-public class FacebookButton extends FlexActionButton {
+public class FacebookShareButton extends FlexActionButton {
 
     private static final long serialVersionUID = -4146017971684793445L;
 
-    public FacebookButton() {
-        super("Share on Facebook", VaadinIcons.FACEBOOK);
+    public FacebookShareButton(String url) {
+        super("Share", VaadinIcons.FACEBOOK_SQUARE);
     }
-    
 }

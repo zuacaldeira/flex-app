@@ -25,6 +25,7 @@ public class NgutuFacebookAPI {
 
     public static final String APP_ID = "311537906014506";
     public static final String APP_SECRET = "31dd2816aa5d8315b8d318a735080bcb";
+    public static final String ADMIN_ACCESS_TOKEN = "EAAEbV5I42SoBAPt3MbrZCSmiX4jyFnhiJjeCKsZAU2qpjOwjYHGNZCEc3iJ6PbBUhZBeXzLdqhRprwnnM2lGhsXIxtn6bZBtZCP99SZBEqqqVq7Gj0AGmKR5Gsjft4d6H0TKu6nPx6fE54ORepQPFVgX4hUYtvJEAZAeoE1z1N8FXAZDZD";
     public static final Version VERSION = Version.LATEST;   
     
     private String fragment;
@@ -83,15 +84,28 @@ public class NgutuFacebookAPI {
     }
     
     public void share(NewsArticle article, String message) {
-        GraphResponse response = facebookClient.publish("me", GraphResponse.class, 
-                Parameter.with("message", createMessage(article, message)));
+        GraphResponse response = facebookClient.publish("me/feed", GraphResponse.class, 
+                Parameter.with("message", createMessage(article, message)),
+                Parameter.with("picture", article.getImageUrl()),
+                Parameter.with("link", article.getUrl()));
         System.out.println("ID -> " + response.getId());
         System.out.println("POST ID -> " + response.getPostId());
         System.out.println("TIMELINE ID -> " + response.getTimelineId());
     }
 
+    public void shareAsNgutu(NewsArticle article, String message) {
+        DefaultFacebookClient facebookAdminClient = new DefaultFacebookClient(ADMIN_ACCESS_TOKEN, APP_SECRET, VERSION);
+        GraphResponse response = facebookAdminClient.publish("me/feed", GraphResponse.class, 
+                Parameter.with("message", createMessage(article, message)),
+                Parameter.with("link", article.getUrl()));
+        System.out.println("ID -> " + response.getId());
+        System.out.println("POST ID -> " + response.getPostId());
+        System.out.println("TIMELINE ID -> " + response.getTimelineId());
+    }
+
+
     private String createMessage(NewsArticle article, String message) {
-        return message + ": " + article.getTitle();
+        return message;
     }
 
 }

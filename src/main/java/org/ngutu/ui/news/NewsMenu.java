@@ -5,8 +5,6 @@
  */
 package org.ngutu.ui.news;
 
-import org.ngutu.ui.share.FacebookLoginButton;
-import org.ngutu.ui.share.FacebookLogoutButton;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
@@ -29,27 +27,22 @@ public class NewsMenu extends HorizontalLayout {
 
     private FlexLogo logo;
 
-    private HorizontalLayout center;
     private TextField searchBox;
-    private HorizontalLayout userLayout;
-    private Image picture;
-    private FacebookLoginButton facebookLogin;
-    private FacebookLogoutButton facebookLogout;
 
-
-    private HorizontalLayout right;
+    private HorizontalLayout menuActions;
     private NewsMenuBar newsMenuBar;
+    private Image picture;
+
 
 
     public NewsMenu() {
         initLogo();
-        initCenter();
-        initRight();
-        super.addComponents(logo, center, right);
+        initSearchBox();
+        initMenuActions();
+        super.addComponents(logo, searchBox, menuActions);
         super.setComponentAlignment(logo, Alignment.MIDDLE_LEFT);
-        super.setComponentAlignment(center, Alignment.MIDDLE_CENTER);
-        super.setComponentAlignment(right, Alignment.MIDDLE_RIGHT);
-        super.setExpandRatio(center, 1f);
+        super.setComponentAlignment(searchBox, Alignment.MIDDLE_CENTER);
+        super.setComponentAlignment(menuActions, Alignment.MIDDLE_RIGHT);
         super.setSizeFull();
         super.setSpacing(true);
         super.setMargin(new MarginInfo(false, true, false, false));
@@ -64,11 +57,18 @@ public class NewsMenu extends HorizontalLayout {
         return null;
     }
 
-    private void initUserLayout() {
-        userLayout = new HorizontalLayout();
-        userLayout.setSpacing(true);
-        initFacebookButton();
+    private void initMenuActions() {
+        initMenuBar();
         initPicture();
+        menuActions = new HorizontalLayout(newsMenuBar);
+        menuActions.setMargin(false);
+        menuActions.setSpacing(false);
+        menuActions.setSizeUndefined();
+        menuActions.setComponentAlignment(newsMenuBar, Alignment.MIDDLE_CENTER);
+        if(picture != null) {
+            menuActions.addComponent(picture);
+            menuActions.setComponentAlignment(picture, Alignment.MIDDLE_CENTER);
+        }
     }
     
     private void initPicture() {
@@ -78,7 +78,6 @@ public class NewsMenu extends HorizontalLayout {
             picture.setWidth("32px");
             picture.setHeight("32px");
             picture.setStyleName("circle gravatar");
-            userLayout.addComponent(picture);
         }
     }
 
@@ -110,37 +109,4 @@ public class NewsMenu extends HorizontalLayout {
     private void initLogo() {
         logo = new FlexLogo();
     }
-
-    private void initFacebookButton() {
-        if(getUser() == null) {
-            facebookLogin = new FacebookLoginButton();
-            userLayout.addComponent(facebookLogin);
-            userLayout.setComponentAlignment(facebookLogin, Alignment.MIDDLE_CENTER);
-        }
-        else {
-            facebookLogout = new FacebookLogoutButton();
-            userLayout.addComponent(facebookLogout);
-            userLayout.setComponentAlignment(facebookLogout, Alignment.MIDDLE_CENTER);
-        }
-    }
-
-    private void initCenter() {
-        initSearchBox();
-        initUserLayout();
-        center = new HorizontalLayout(searchBox, userLayout);
-        center.setMargin(false);
-        center.setSpacing(true);
-        center.setWidth("75%");
-        center.setExpandRatio(searchBox, 1f);
-        center.setComponentAlignment(searchBox, Alignment.MIDDLE_CENTER);
-        center.setComponentAlignment(userLayout, Alignment.MIDDLE_CENTER);
-    }
-
-    private void initRight() {
-        initMenuBar();
-        right = new HorizontalLayout(newsMenuBar);
-        right.setMargin(false);
-        right.setSpacing(false);
-    }
-
 }

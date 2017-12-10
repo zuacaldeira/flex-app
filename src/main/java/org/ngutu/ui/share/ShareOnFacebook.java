@@ -18,4 +18,11 @@ public class ShareOnFacebook {
     public void share(NewsArticle article, String message) {
         ((NgutuUI)UI.getCurrent()).getFacebookAPI().share(article, message);
     }
+    public void like(NewsArticle article, String message) {
+        ((NgutuUI)UI.getCurrent()).getFacebookAPI().share(article, message);
+    }
+    public void recommend(NewsArticle article, String message) {
+        ((NgutuUI)UI.getCurrent()).getFacebookAPI().share(article, message);
+    }
+    
 }
