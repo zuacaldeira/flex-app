@@ -9,7 +9,7 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import components.FlexButton;
-import db.FlexUser;
+import db.auth.FlexUser;
 import org.ngutu.ui.viewproviders.FlexViews;
 
 /**

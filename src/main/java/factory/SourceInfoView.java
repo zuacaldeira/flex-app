@@ -14,11 +14,10 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
-import db.NewsArticle;
-import db.NewsSource;
+import db.news.NewsArticle;
+import db.news.NewsSource;
 import java.util.Date;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import utils.ServiceLocator;
 
 /**
  *
@@ -57,7 +56,7 @@ public class SourceInfoView extends HorizontalLayout {
      * object.
      */
     private void initSource() {
-        source = ServiceLocator.getInstance().findSourcesService().findSourceWithSourceId(article.getSourceId());
+        source = article.getPublishedBy().getSource();
     }
 
     private void initSourceLogo() {

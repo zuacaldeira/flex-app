@@ -7,7 +7,7 @@ package components;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.UI;
-import db.FlexUser;
+import db.auth.FlexUser;
 import org.ngutu.ui.viewproviders.FlexViews;
 
 /**

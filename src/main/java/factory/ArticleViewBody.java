@@ -9,8 +9,8 @@ import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
-import db.FlexUser;
-import db.NewsArticle;
+import db.auth.FlexUser;
+import db.news.NewsArticle;
 
 /**
  *

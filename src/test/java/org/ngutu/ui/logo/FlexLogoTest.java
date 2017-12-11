@@ -5,8 +5,7 @@
  */
 package org.ngutu.ui.logo;
 
-import org.ngutu.ui.logo.FlexLogo;
-import db.FlexUser;
+import db.auth.FlexUser;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

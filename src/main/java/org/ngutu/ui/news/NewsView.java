@@ -10,7 +10,7 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import data.DataProviderType;
-import db.FlexUser;
+import db.auth.FlexUser;
 import view.footer.FlexFooter;
 
 /**

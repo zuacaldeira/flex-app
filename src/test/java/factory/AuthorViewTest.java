@@ -5,8 +5,8 @@
  */
 package factory;
 
-import db.FlexUser;
-import db.NewsAuthor;
+import db.auth.FlexUser;
+import db.news.NewsAuthor;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

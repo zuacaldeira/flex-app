@@ -12,10 +12,10 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 import components.FlexButton;
 import data.DataProviderType;
-import db.FlexUser;
 import components.FlexPanel;
-import db.NewsArticle;
 import components.CanPopulate;
+import db.auth.FlexUser;
+import db.news.NewsArticle;
 
 /**
  *

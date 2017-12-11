@@ -1,7 +1,7 @@
 package factory;
 
-import db.FlexUser;
-import db.NewsArticle;
+import db.auth.FlexUser;
+import db.news.NewsArticle;
 
 /**
  * Created by zua on 13/04/17.

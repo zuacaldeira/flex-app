@@ -5,14 +5,12 @@
  */
 package org.ngutu.ui.books;
 
-import components.AdvertisementPanel;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import db.FlexUser;
 import components.CanPopulate;
+import db.auth.FlexUser;
 import view.footer.FlexFooter;
 
 /**
@@ -27,7 +25,6 @@ public class BooksView extends VerticalLayout implements View, CanPopulate {
     private FlexUser user;
     private BooksMenu menu;
     private BooksBody body;
-    private AdvertisementPanel ads;
     private FlexFooter footer;
     private int browserHeight;
 
@@ -52,11 +49,6 @@ public class BooksView extends VerticalLayout implements View, CanPopulate {
     private void initFooter() {
         footer = new FlexFooter();
         footer.setHeight("64px");
-    }
-
-    private void initAds() {
-        ads = new AdvertisementPanel("Barak Obama");
-        ads.setHeight(browserHeight, Unit.PIXELS);
     }
 
     public void setMenu(BooksMenu menu) {

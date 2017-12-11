@@ -9,11 +9,11 @@ import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.PushStateNavigation;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import db.AuthUserInfo;
-import db.FlexUser;
+import db.auth.AuthUserInfo;
+import db.auth.FlexUser;
 import javax.servlet.annotation.WebServlet;
 import org.ngutu.ui.share.NgutuFacebookAPI;
-import services.FlexUserServiceInterface;
+import services.auth.FlexUserServiceInterface;
 import utils.ServiceLocator;
 
 /**
@@ -92,7 +92,7 @@ public class NgutuUI extends SecuredUI {
 
     private void updateSession(FlexUser user) {
         FlexUserServiceInterface service = ServiceLocator.getInstance().findUserService();
-        if (service.find(user) == null) {
+        if (service.find(user.getUsername()) == null) {
             service.save(user);
         }
         getSession().setAttribute("user", user);

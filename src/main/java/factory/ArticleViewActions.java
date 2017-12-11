@@ -13,10 +13,15 @@ import components.HideButton;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
-import db.FlexUser;
-import db.NewsArticle;
+import db.auth.FlexUser;
+import db.news.NewsArticle;
+import db.opinion.Fake;
+import db.opinion.Favorite;
+import db.opinion.Read;
+import java.util.Date;
 import org.ngutu.ui.share.ShareOnFacebook;
-import services.NewsArticleServiceInterface;
+import services.auth.FlexUserService;
+import services.news.NewsArticleService;
 import utils.ServiceLocator;
 
 /**
@@ -71,35 +76,47 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
         
         favoriteButton = new FavoriteButton();
         favoriteButton.addClickListener(this);
-        if (user != null && getService().isFavorite(user.getUsername(), article)) {
+        if (user != null && user.getFavorite().contains(article)) {
             favoriteButton.addStyleName("yellow");
         }
 
         fakeButton = new FakeButton();
         fakeButton.addClickListener(this);
-        if (user != null && getService().isFake(user.getUsername(), article)) {
+        if (user != null && user.getFake().contains(article)) {
             fakeButton.addStyleName("red");
         }
 
         hideButton = new HideButton();
         hideButton.addClickListener(this);
-        if (user != null && getService().isRead(user.getUsername(), article)) {
+        if (user != null && user.getRead().contains(article)) {
             hideButton.addStyleName("purple");
         }
 
     }
 
-    public NewsArticleServiceInterface getService() {
+    public NewsArticleService getArticlesService() {
         return ServiceLocator.getInstance().findArticlesService();
+    }
+
+    public FlexUserService getUserService() {
+        return ServiceLocator.getInstance().findUserService();
     }
 
     protected void handleHideClick(HideButton button) {
         if (!button.getStyleName().contains("purple")) {
-            getService().markAsRead(user.getUsername(), this.article);
+            Read read = new Read();
+            read.setArticle(article);
+            read.setUser(user);
+            read.setCreatedAt(new Date());
+            getUserService().save(user);
             button.addStyleName("purple");
             button.setDescription("Mark as Read");
         } else {
-            getService().removeMarkAsRead(user.getUsername(), this.article);
+            Read read = new Read();
+            read.setArticle(article);
+            read.setUser(user);
+            user.getRead().remove(read);
+            getUserService().save(user);
             button.removeStyleName("purple");
             button.setDescription("Mark as Unread");
         }
@@ -110,11 +127,19 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
 
     protected void handleFavouriteClick(FavoriteButton button) {
         if (!button.getStyleName().contains("yellow")) {
-            getService().markAsFavorite(user.getUsername(), this.article);
+            Favorite favorite = new Favorite();
+            favorite.setArticle(article);
+            favorite.setUser(user);
+            favorite.setCreatedAt(new Date());
+            getUserService().save(user);
             button.addStyleName("yellow");
             button.setDescription("Unmark Favorite");
         } else {
-            getService().removeMarkAsFavorite(user.getUsername(), this.article);
+            Favorite favorite = new Favorite();
+            favorite.setArticle(article);
+            favorite.setUser(user);
+            user.getFavorite().remove(favorite);
+            getUserService().save(user);
             button.removeStyleName("yellow");
             button.setDescription("Mark as Favorite");
         }
@@ -122,11 +147,19 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
 
     protected void handleFakeClick(FakeButton button) {
         if (!button.getStyleName().contains("red")) {
-            getService().markAsFake(user.getUsername(), this.article);
+            Fake fake = new Fake();
+            fake.setArticle(article);
+            fake.setUser(user);
+            fake.setCreatedAt(new Date());
+            getUserService().save(user);
             button.addStyleName("red");
             button.setDescription("Unmark Fake");
         } else {
-            getService().removeMarkAsFake(user.getUsername(), this.article);
+            Fake fake = new Fake();
+            fake.setArticle(article);
+            fake.setUser(user);
+            user.getFavorite().remove(fake);
+            getUserService().save(user);
             button.removeStyleName("red");
             button.setDescription("Mark as Fake");
         }

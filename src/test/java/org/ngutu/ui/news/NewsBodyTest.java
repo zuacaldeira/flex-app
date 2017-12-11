@@ -6,7 +6,7 @@
 package org.ngutu.ui.news;
 
 import data.DataProviderType;
-import db.FlexUser;
+import db.auth.FlexUser;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

@@ -1,14 +1,10 @@
 package factory;
 
-import com.ECS.client.jax.Item;
-import com.ECS.client.jax.Items;
-import com.vaadin.ui.Component;
-import db.AmazonBook;
-import db.FlexUser;
 import db.GraphEntity;
-import db.NewsArticle;
-import db.NewsSource;
-import db.NewsAuthor;
+import db.auth.FlexUser;
+import db.news.NewsArticle;
+import db.news.NewsAuthor;
+import db.news.NewsSource;
 
 
 /**
@@ -51,27 +47,5 @@ public class FlexViewFactory {
         }
         
         return instance;
-    }
-
-    
-    public Component[] createItemsView(FlexUser user, Items items) {
-        if(items.getItem() != null) {
-            Component[] layout = new Component[items.getItem().size()];
-            for(int j = 0; j < items.getItem().size(); j++) {
-                Item item = items.getItem().get(j);
-                layout[j] = createAmazonItemView(user, item);
-            }
-            return layout;
-        }
-        return null;
-    }
-
-    private AmazonItemView createAmazonItemView(FlexUser user, Item item) {
-        return new AmazonItemView(item);
-    }
-
-    public AmazonBookView createAmazonBookView(FlexUser user, AmazonBook book) {
-        AmazonBookView amazonBookView = new AmazonBookView(book);
-        return amazonBookView;
     }
 }

@@ -5,11 +5,14 @@
  */
 package factory;
 
-import db.FlexUser;
-import db.NewsArticle;
-import db.NewsAuthor;
-import db.NewsSource;
-import java.util.Date;
+import db.auth.FlexUser;
+import db.news.NewsArticle;
+import db.news.NewsAuthor;
+import db.news.NewsSource;
+import db.opinion.Read;
+import db.relationships.AuthoredBy;
+import db.relationships.EditedBy;
+import db.relationships.PublishedBy;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import utils.ServiceLocator;
@@ -31,7 +34,8 @@ public class ArticleViewTestIT {
         System.out.println("testGetArticleViewHeader");
         initMinimalScenario();
         FlexUser user = new FlexUser();
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+        NewsArticle article = new NewsArticle();
+        article.setTitle("title");
         ArticleView aView = new ArticleView(user, article);
         assertNotNull(aView.getArticleViewHeader());
     }
@@ -44,7 +48,8 @@ public class ArticleViewTestIT {
         System.out.println("testGetArticleViewBody");
         initMinimalScenario();
         FlexUser user = new FlexUser();
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+        NewsArticle article = new NewsArticle();
+        article.setTitle("title");
         ArticleView aView = new ArticleView(user, article);
         assertNotNull(aView.getArticleViewBody());
     }
@@ -58,7 +63,8 @@ public class ArticleViewTestIT {
         System.out.println("testGetArticleViewActions");
         initMinimalScenario();
         FlexUser user = new FlexUser("test:username", "test:password");
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+        NewsArticle article = new NewsArticle();
+        article.setTitle("title");
         ArticleView aView = new ArticleView(user, article);
         assertNotNull(aView.getArticleViewActions());
     }
@@ -71,7 +77,8 @@ public class ArticleViewTestIT {
         System.out.println("buttonClick");
         initMinimalScenario();
         FlexUser user = new FlexUser("test:username", "test:password");
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+        NewsArticle article = new NewsArticle();
+        article.setTitle("title");
         ArticleView aView = new ArticleView(user, article);
         ArticleViewActions actions = aView.getArticleViewActions();
         assertNotNull(actions);
@@ -91,38 +98,32 @@ public class ArticleViewTestIT {
     }
 
     private void initMinimalScenario() {
-        NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "en", "GB");
+        NewsSource source = new NewsSource();
+        source.setName("Name");
         source.setLogoUrl("logoUrl");
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+
+        NewsArticle article = new NewsArticle();
+        article.setTitle("title");
+
         NewsAuthor author = new NewsAuthor("author");
-        author.addArticle(article);
-        source.addCorrespondent(author);
-        ServiceLocator.getInstance().findSourcesService().save(source);
+        
+        EditedBy editedBy = new EditedBy();
+        editedBy.setAuthor(author);
+        editedBy.setSource(source);
 
+        AuthoredBy authoredBy = new AuthoredBy();
+        authoredBy.setArticle(article);
+        authoredBy.setAuthor(author);
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
         FlexUser user = new FlexUser("test:username", "test:password");
-        ServiceLocator.getInstance().findUserService().register("test:username", "test:password");
-
-        ServiceLocator.getInstance().findArticlesService().markAsFake("test:username", article);
-        ServiceLocator.getInstance().findArticlesService().markAsFavorite("test:username", article);
-        ServiceLocator.getInstance().findArticlesService().markAsRead("test:username", article);
+        Read read = new Read();
+        read.setArticle(article);
+        read.setUser(user);
+        
+        ServiceLocator.getInstance().findUserService().save(user);
     }
-
-        /**
-     * Test of getService method, of class ArticleView.
-     */
-    @Test
-    public void testGetService() {
-        System.out.println("getService");
-        FlexUser user = new FlexUser();
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
-        article.setTitle("Title");
-        article.setDescription("Description");
-        Date date = new Date();
-        article.setPublishedAt(date);
-        NewsAuthor author = new NewsAuthor("Author");
-        author.addArticle(article);
-        ArticleView aView = new ArticleView(user, article);
-        assertNotNull(aView.getArticleViewActions().getService());
-    }
-
 }

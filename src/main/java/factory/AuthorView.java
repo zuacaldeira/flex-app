@@ -1,8 +1,8 @@
 package factory;
 
 import com.vaadin.ui.*;
-import db.FlexUser;
-import db.NewsAuthor;
+import db.auth.FlexUser;
+import db.news.NewsAuthor;
 
 
 /**

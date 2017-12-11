@@ -11,10 +11,10 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
-import db.FlexUser;
-import services.FlexBooksServiceInterface;
 import utils.ServiceLocator;
 import components.CanPopulate;
+import db.auth.FlexUser;
+import services.books.FlexBooksServiceInterface;
 
 /**
  *

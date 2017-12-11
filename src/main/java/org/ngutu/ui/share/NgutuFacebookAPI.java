@@ -15,7 +15,7 @@ import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.GraphResponse;
 import com.restfb.types.User;
 import com.vaadin.server.Page;
-import db.NewsArticle;
+import db.news.NewsArticle;
 
 /**
  *

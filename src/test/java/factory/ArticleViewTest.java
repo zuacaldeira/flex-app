@@ -5,9 +5,12 @@
  */
 package factory;
 
-import db.FlexUser;
-import db.NewsArticle;
-import db.NewsAuthor;
+import db.auth.FlexUser;
+import db.news.NewsArticle;
+import db.news.NewsAuthor;
+import db.news.NewsSource;
+import db.relationships.AuthoredBy;
+import db.relationships.PublishedBy;
 import java.util.Date;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -28,10 +31,25 @@ public class ArticleViewTest {
     public void testNew() {
         System.out.println("new()");
         FlexUser user = new FlexUser();
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+        
+        NewsArticle article = new NewsArticle();
+        article.setTitle("Title");
+        article.setDescription("Description");
+        article.setImageUrl("imageUrl");
+        
+        NewsAuthor author = new NewsAuthor("Author");
+        NewsSource source = new NewsSource();
+        
+        AuthoredBy authoredBy = new AuthoredBy();
+        authoredBy.setArticle(article);
+        authoredBy.setAuthor(author);
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
         ArticleView aView = new ArticleView(user, article);
-        assertEquals(user, aView.getUser());
-        assertEquals(article, aView.getArticle());
+        assertNotNull(aView.getItem());
     }
 
     /**
@@ -41,9 +59,25 @@ public class ArticleViewTest {
     public void testGetArticle() {
         System.out.println("getArticle");
         FlexUser user = new FlexUser();
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+        
+        NewsArticle article = new NewsArticle();
+        article.setTitle("Title");
+        article.setDescription("Description");
+        article.setImageUrl("imageUrl");
+        
+        NewsAuthor author = new NewsAuthor("Author");
+        NewsSource source = new NewsSource();
+        
+        AuthoredBy authoredBy = new AuthoredBy();
+        authoredBy.setArticle(article);
+        authoredBy.setAuthor(author);
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
         ArticleView aView = new ArticleView(user, article);
-        assertEquals(article, aView.getArticle());
+        assertEquals(aView.getItem(), article);
     }
 
     /**
@@ -53,9 +87,21 @@ public class ArticleViewTest {
     public void testGetTitle() {
         System.out.println("getTitle");
         FlexUser user = new FlexUser();
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+        
+        NewsArticle article = new NewsArticle();
+        article.setTitle("Title");
+        article.setDescription("Description");
+        article.setImageUrl("imageUrl");
+        
+        NewsAuthor author = new NewsAuthor("Author");
+        NewsSource source = new NewsSource();
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
         ArticleView aView = new ArticleView(user, article);
-        assertEquals("title", aView.getArticle().getTitle());
+        assertEquals("Title", aView.getArticle().getTitle());
     }
 
     /**
@@ -65,13 +111,24 @@ public class ArticleViewTest {
     public void testGetAuthors() {
         System.out.println("getAuthors");
         FlexUser user = new FlexUser();
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
-        article.setTitle("title");
+        
+        NewsArticle article = new NewsArticle();
+        article.setTitle("Title");
+        article.setDescription("Description");
+        article.setImageUrl("imageUrl");
+        
         NewsAuthor author = new NewsAuthor("Author");
-        author.addArticle(article);
+        NewsSource source = new NewsSource();
+        
+        AuthoredBy authoredBy = new AuthoredBy();
+        authoredBy.setArticle(article);
+        authoredBy.setAuthor(author);
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
         ArticleView aView = new ArticleView(user, article);
-        assertNull(aView.getArticleViewBody().getAuthors());
-        //assertEquals(1, aView.getAuthors().getComponentCount());
     }
 
     /**
@@ -81,14 +138,21 @@ public class ArticleViewTest {
     public void testGetContent() {
         System.out.println("getContent");
         FlexUser user = new FlexUser();
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+        
+        NewsArticle article = new NewsArticle();
         article.setTitle("Title");
         article.setDescription("Description");
+        article.setImageUrl("imageUrl");
+        
         NewsAuthor author = new NewsAuthor("Author");
-        author.addArticle(article);
+        NewsSource source = new NewsSource();
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
         ArticleView aView = new ArticleView(user, article);
-        assertNotNull(aView.getArticleViewBody().getContent());
-        assertTrue(aView.getArticleViewBody().getContent().getValue().endsWith("Description"));
+        assertEquals("Description", aView.getArticle().getDescription());
     }
 
     /**
@@ -98,12 +162,19 @@ public class ArticleViewTest {
     public void testGetImage() {
         System.out.println("getImage");
         FlexUser user = new FlexUser();
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+        
+        NewsArticle article = new NewsArticle();
         article.setTitle("Title");
         article.setDescription("Description");
         article.setImageUrl("imageUrl");
+        
         NewsAuthor author = new NewsAuthor("Author");
-        author.addArticle(article);
+        NewsSource source = new NewsSource();
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
         ArticleView aView = new ArticleView(user, article);
     }
 
@@ -114,14 +185,23 @@ public class ArticleViewTest {
     public void testGetPublishedAt() {
         System.out.println("getPublishedAt");
         FlexUser user = new FlexUser();
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+        
+        Date date = new Date();
+        NewsArticle article = new NewsArticle();
         article.setTitle("Title");
         article.setDescription("Description");
-        Date date = new Date();
+        article.setImageUrl("imageUrl");
         article.setPublishedAt(date);
+        
         NewsAuthor author = new NewsAuthor("Author");
-        author.addArticle(article);
+        NewsSource source = new NewsSource();
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
         ArticleView aView = new ArticleView(user, article);
+        assertEquals(date, aView.getItem().getPublishedAt());
     }
 
     /**
@@ -131,14 +211,19 @@ public class ArticleViewTest {
     public void testGetItem() {
         System.out.println("getItem");
         FlexUser user = new FlexUser();
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+        
+        NewsArticle article = new NewsArticle();
         article.setTitle("Title");
         article.setDescription("Description");
         article.setImageUrl("imageUrl");
-        Date date = new Date();
-        article.setPublishedAt(date);
+        
         NewsAuthor author = new NewsAuthor("Author");
-        author.addArticle(article);
+        NewsSource source = new NewsSource();
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
         ArticleView aView = new ArticleView(user, article);
         assertEquals(article, aView.getItem());
     }
@@ -151,14 +236,21 @@ public class ArticleViewTest {
     public void testMaximize() {
         System.out.println("maximize");
         FlexUser user = new FlexUser();
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+        
+        NewsArticle article = new NewsArticle();
         article.setTitle("Title");
         article.setDescription("Description");
-        Date date = new Date();
-        article.setPublishedAt(date);
+        article.setImageUrl("imageUrl");
+        
         NewsAuthor author = new NewsAuthor("Author");
-        author.addArticle(article);
+        NewsSource source = new NewsSource();
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
         ArticleView aView = new ArticleView(user, article);
+        assertEquals(article, aView.getItem());
         aView.select();
     }
 
@@ -169,10 +261,21 @@ public class ArticleViewTest {
     public void testMinimize() {
         System.out.println("minimize");
         FlexUser user = new FlexUser();
-        NewsArticle article = new NewsArticle("title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+        
+        NewsArticle article = new NewsArticle();
+        article.setTitle("Title");
+        article.setDescription("Description");
+        article.setImageUrl("imageUrl");
+        
         NewsAuthor author = new NewsAuthor("Author");
-        author.addArticle(article);
+        NewsSource source = new NewsSource();
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
         ArticleView aView = new ArticleView(user, article);
+        assertEquals("Description", aView.getArticle().getDescription());
         aView.unselect();
     }
 

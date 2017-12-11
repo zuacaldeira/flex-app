@@ -13,9 +13,9 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.UI;
-import db.FlexUser;
-import services.FlexUserServiceInterface;
+import db.auth.FlexUser;
 import org.ngutu.ui.viewproviders.FlexViews;
+import services.auth.FlexUserServiceInterface;
 import utils.ServiceLocator;
 
 /**

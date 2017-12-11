@@ -7,7 +7,7 @@ package org.ngutu.ui.welcome;
 
 import com.vaadin.ui.UI;
 import components.FlexPanel;
-import db.FlexUser;
+import db.auth.FlexUser;
 
 /**
  *

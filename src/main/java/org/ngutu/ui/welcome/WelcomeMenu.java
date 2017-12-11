@@ -11,7 +11,7 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.UI;
-import db.FlexUser;
+import db.auth.FlexUser;
 import org.ngutu.ui.logo.FlexLogo;
 
 /**

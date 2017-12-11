@@ -8,9 +8,9 @@ package org.ngutu.ui.news;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import db.FlexUser;
 import factory.ArticleView;
 import components.FlexPanel;
+import db.auth.FlexUser;
 
 /**
  *

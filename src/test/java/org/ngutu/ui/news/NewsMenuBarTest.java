@@ -5,10 +5,8 @@
  */
 package org.ngutu.ui.news;
 
-import com.vaadin.ui.MenuBar;
-import com.vaadin.ui.MenuBar.MenuItem;
-import db.FlexUser;
-import db.NewsSource;
+import db.auth.FlexUser;
+import db.news.NewsSource;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
@@ -118,7 +116,8 @@ public class NewsMenuBarTest {
     }
 
     private void initMinimalScenario() {
-        NewsSource source = new NewsSource("sourceId", "Publishing AG", "Source Description", "url", "business", "en", "GB");
+        NewsSource source = new NewsSource();
+        source.setSourceId("SourceId");
         ServiceLocator.getInstance().findSourcesService().save(source);
     }
 

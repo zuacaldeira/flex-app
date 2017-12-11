@@ -12,10 +12,10 @@ import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
-import db.FlexUser;
-import services.FlexUserServiceInterface;
 import com.vaadin.ui.UI;
+import db.auth.FlexUser;
 import org.ngutu.ui.viewproviders.FlexViews;
+import services.auth.FlexUserService;
 import utils.ServiceLocator;
 
 /**
@@ -26,7 +26,7 @@ public class LoginForm extends FlexForm {
 
     private static final long serialVersionUID = 5363531124855151443L;
 
-    private FlexUserServiceInterface service;
+    private FlexUserService service;
     private FlexUser user;
 
     private Binder<FlexUser> binder;

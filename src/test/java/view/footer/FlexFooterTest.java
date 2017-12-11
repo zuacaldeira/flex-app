@@ -5,7 +5,7 @@
  */
 package view.footer;
 
-import db.FlexUser;
+import db.auth.FlexUser;
 import static org.junit.Assert.assertNull;
 import org.junit.Test;
 

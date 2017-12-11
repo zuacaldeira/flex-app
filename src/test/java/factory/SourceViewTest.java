@@ -5,8 +5,8 @@
  */
 package factory;
 
-import db.FlexUser;
-import db.NewsSource;
+import db.auth.FlexUser;
+import db.news.NewsSource;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -23,7 +23,7 @@ public class SourceViewTest {
     public void testNew() {
         System.out.println("new SourceView()");
         FlexUser user = new FlexUser("test:username", "test:password");
-        NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
+        NewsSource source = new NewsSource();
         assertNotNull(new SourceView(user, source));
     }
 
@@ -34,7 +34,8 @@ public class SourceViewTest {
     public void testGetName() {
         System.out.println("getName");
         FlexUser user = new FlexUser("test:username", "test:password");
-        NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
+        NewsSource source = new NewsSource();
+        source.setName("name");
         assertNull(new SourceView(user, source).getName());
     }
 
@@ -45,7 +46,8 @@ public class SourceViewTest {
     public void testGetDesc() {
         System.out.println("getDesc");
         FlexUser user = new FlexUser("test:username", "test:password");
-        NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
+        NewsSource source = new NewsSource();
+        source.setDescription("description");
         assertNull(new SourceView(user, source).getDesc());
     }
 
@@ -56,7 +58,8 @@ public class SourceViewTest {
     public void testGetCategory() {
         System.out.println("getCategory");
         FlexUser user = new FlexUser("test:username", "test:password");
-        NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
+        NewsSource source = new NewsSource();
+        source.setCategory("category");
         assertNull(new SourceView(user, source).getCategory());
     }
 
@@ -67,7 +70,8 @@ public class SourceViewTest {
     public void testGetLanguage() {
         System.out.println("getLanguage");
         FlexUser user = new FlexUser("test:username", "test:password");
-        NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
+        NewsSource source = new NewsSource();
+        source.setLanguage("language");
         assertNull(new SourceView(user, source).getLanguage());
     }
 
@@ -78,7 +82,8 @@ public class SourceViewTest {
     public void testGetCountry() {
         System.out.println("getCountry");
         FlexUser user = new FlexUser("test:username", "test:password");
-        NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
+        NewsSource source = new NewsSource();
+        source.setCountry("PT");
         assertNull(new SourceView(user, source).getCountry());
     }
 
@@ -89,7 +94,7 @@ public class SourceViewTest {
     public void testButtonClick() {
         System.out.println("buttonClick");
         FlexUser user = new FlexUser("test:username", "test:password");
-        NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "pt", "PT");
+        NewsSource source = new NewsSource();
         SourceView view = new SourceView(user, source);
         assertNotNull(view);
     }

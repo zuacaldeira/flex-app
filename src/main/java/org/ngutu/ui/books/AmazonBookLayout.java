@@ -6,7 +6,7 @@
 package org.ngutu.ui.books;
 
 import com.vaadin.ui.CssLayout;
-import db.AmazonBook;
+import db.books.AmazonBook;
 
 /**
  *

@@ -10,12 +10,13 @@ import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
-import db.FlexUser;
 import data.DataProviderType;
+import db.auth.FlexUser;
+import io.reactivex.Observable;
 import java.util.TreeSet;
 import org.ngutu.ui.share.NgutuFacebookAPI;
 import org.ngutu.ui.viewproviders.FlexViews;
-import services.NewsSourceServiceInterface;
+import services.news.NewsSourceService;
 import ui.NgutuUI;
 import utils.MyDateUtils;
 import utils.ServiceLocator;
@@ -28,7 +29,7 @@ public final class NewsMenuBar extends MenuBar {
 
     private static final long serialVersionUID = -1299703352057116843L;
 
-    private final NewsSourceServiceInterface sourcesService;
+    private final NewsSourceService sourcesService;
 
     // Main Menu (top level)
     private MenuItem top;
@@ -97,24 +98,37 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     protected void populateNewsCategory() {
-        sourcesService.findCategories().subscribe(cat -> {
-            categories.addItem(getCategoryCaption(cat), (selectedMenuItem) -> {
+        TreeSet<String> ps = new TreeSet<>();
+        Observable<String> observable = Observable.fromIterable(sourcesService.findCategories());
+        observable.subscribe(cat -> {
+            ps.add(cat);
+        });
+
+        ps.forEach(tag -> {
+            categories.addItem(tag, (selectedMenuItem) -> {
                 updateBody(DataProviderType.CATEGORY, selectedMenuItem.getText());
             });
         });
     }
 
     protected void populateNewsPublisher() {
-        sourcesService.findNames().subscribe(name -> {
-            publishers.addItem(name, (selectedMenuItem -> {
+        TreeSet<String> ps = new TreeSet<>();
+        Observable<String> observable = Observable.fromIterable(sourcesService.findNames());
+        observable.subscribe(name -> {
+            ps.add(name);
+        });
+
+        ps.forEach(publisher -> {
+            publishers.addItem(publisher, (selectedMenuItem) -> {
                 updateBody(DataProviderType.PUBLISHER, selectedMenuItem.getText());
-            }));
+            });
         });
     }
 
     protected void populateNewsLanguages() {
         TreeSet<String> ls = new TreeSet<>();
-        sourcesService.findLocales().subscribe(localeString -> {
+        Observable<String> observable = Observable.fromIterable(sourcesService.findLocales());
+        observable.subscribe(localeString -> {
             if (localeString != null && !localeString.isEmpty()) {
                 String lang = MyDateUtils.getLanguageNameFromPattern(localeString);
                 ls.add(lang);
@@ -130,7 +144,8 @@ public final class NewsMenuBar extends MenuBar {
 
     protected void populateNewsCountries() {
         TreeSet<String> cs = new TreeSet<>();
-        sourcesService.findLocales().subscribe(localeString -> {
+        Observable<String> observable = Observable.fromIterable(sourcesService.findLocales());
+        observable.subscribe(localeString -> {
             if (localeString != null && !localeString.isEmpty()) {
                 String country = MyDateUtils.getCountryNameFromPattern(localeString);
                 cs.add(country);
@@ -219,7 +234,7 @@ public final class NewsMenuBar extends MenuBar {
         return countries;
     }
 
-    public NewsSourceServiceInterface getSourcesService() {
+    public NewsSourceService getSourcesService() {
         return sourcesService;
     }
 

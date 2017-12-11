@@ -7,8 +7,8 @@ package org.ngutu.ui.news;
 
 import com.vaadin.ui.UI;
 import data.DataProviderType;
-import db.FlexUser;
 import components.FlexPanel;
+import db.auth.FlexUser;
 
 /**
  *

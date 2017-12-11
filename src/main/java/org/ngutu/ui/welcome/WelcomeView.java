@@ -9,7 +9,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import db.FlexUser;
+import db.auth.FlexUser;
 import view.footer.FlexFooter;
 
 /**

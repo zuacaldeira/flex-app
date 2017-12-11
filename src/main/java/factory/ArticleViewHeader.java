@@ -8,8 +8,8 @@ package factory;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.VerticalLayout;
-import db.FlexUser;
-import db.NewsArticle;
+import db.auth.FlexUser;
+import db.news.NewsArticle;
 
 /**
  *

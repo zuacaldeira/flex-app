@@ -5,11 +5,12 @@
  */
 package factory;
 
-import db.FlexUser;
-import db.NewsArticle;
-import db.NewsAuthor;
-import db.NewsSource;
-import java.util.Date;
+import db.auth.FlexUser;
+import db.news.NewsArticle;
+import db.news.NewsAuthor;
+import db.news.NewsSource;
+import db.relationships.AuthoredBy;
+import db.relationships.PublishedBy;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -29,7 +30,8 @@ public class FlexViewFactoryTest {
     public void testCreateSourceView() {
         System.out.println("createSourceView");
         FlexUser user = new FlexUser("test:username", "test:password");
-        NewsSource source = new NewsSource("sourceId", "name", "description", "url", "category", "language", "country");
+        NewsSource source = new NewsSource();
+        source.setSourceId("souceID");
         assertNotNull(FlexViewFactory.getInstance().createSourceView(user,source));
     }
 
@@ -39,8 +41,24 @@ public class FlexViewFactoryTest {
     @Test
     public void testCreateArticleView() {
         System.out.println("createArticleView");
-        FlexUser user = new FlexUser("test:username", "test:password");
-        NewsArticle article = new NewsArticle("test:title", "description", "url", "imageUrl", new Date(), "sourceId", "language", "country");
+        FlexUser user = new FlexUser();
+        
+        NewsArticle article = new NewsArticle();
+        article.setTitle("Title");
+        article.setDescription("Description");
+        article.setImageUrl("imageUrl");
+        
+        NewsAuthor author = new NewsAuthor("Author");
+        NewsSource source = new NewsSource();
+        
+        AuthoredBy authoredBy = new AuthoredBy();
+        authoredBy.setArticle(article);
+        authoredBy.setAuthor(author);
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
         assertNotNull(FlexViewFactory.getInstance().createArticleView(user,article));
     }
 
@@ -50,8 +68,24 @@ public class FlexViewFactoryTest {
     @Test
     public void testCreateAuthorView() {
         System.out.println("createAuthorView");
-        FlexUser user = new FlexUser("test:username", "test:password");
-        NewsAuthor author = new NewsAuthor("test:author");
+        FlexUser user = new FlexUser();
+        
+        NewsArticle article = new NewsArticle();
+        article.setTitle("Title");
+        article.setDescription("Description");
+        article.setImageUrl("imageUrl");
+        
+        NewsAuthor author = new NewsAuthor("Author");
+        NewsSource source = new NewsSource();
+        
+        AuthoredBy authoredBy = new AuthoredBy();
+        authoredBy.setArticle(article);
+        authoredBy.setAuthor(author);
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
         assertNotNull(FlexViewFactory.getInstance().createAuthorView(user,author));
     }
 
@@ -61,8 +95,23 @@ public class FlexViewFactoryTest {
     @Test
     public void testCreateView() {
         System.out.println("createView");
-        FlexUser user = new FlexUser("test:username", "test:password");
-        NewsAuthor author = new NewsAuthor("test:author");
+        FlexUser user = new FlexUser();
+        
+        NewsArticle article = new NewsArticle();
+        article.setTitle("Title");
+        article.setDescription("Description");
+        article.setImageUrl("imageUrl");
+        
+        NewsAuthor author = new NewsAuthor("Author");
+        NewsSource source = new NewsSource();
+        
+        AuthoredBy authoredBy = new AuthoredBy();
+        authoredBy.setArticle(article);
+        authoredBy.setAuthor(author);
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
         assertNotNull(FlexViewFactory.getInstance().createView(user,author));
     }
 

@@ -10,14 +10,13 @@ import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
-import db.FlexUser;
 import factory.FlexViewFactory;
 import components.FlexPanel;
 import data.ArticlesRepository;
 import data.DataProviderType;
-import db.NewsArticle;
+import db.auth.FlexUser;
+import db.news.NewsArticle;
 import factory.ArticleView;
 import io.reactivex.Observable;
 
@@ -33,7 +32,7 @@ public class MasterDetailView extends FlexPanel {
     private final HorizontalLayout baseLayout;
     private SummariesPanel summariesPanel;
     private BrowserFrame infoFrame;
-    private GraphEntityView selected;
+    private ArticleView selected;
 
     public MasterDetailView() {
         initSummaries(1);
@@ -79,7 +78,7 @@ public class MasterDetailView extends FlexPanel {
         return selected;
     }
 
-    private void updateSelected(GraphEntityView itemView) {
+    private void updateSelected(ArticleView itemView) {
         if (selected != null) {
             selected.unselect();
         }
@@ -98,10 +97,10 @@ public class MasterDetailView extends FlexPanel {
         getUI().access(() -> {
             summariesPanel.addItemView(component);
             if (selected == null) {
-                updateSelected((GraphEntityView) component);
+                updateSelected((ArticleView) component);
             }
             ((GraphEntityView) component).addLayoutClickListener(event -> {
-                updateSelected((GraphEntityView) component);
+                updateSelected((ArticleView) component);
             });
         });
     }

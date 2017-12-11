@@ -6,7 +6,7 @@
 package org.ngutu.ui.share;
 
 import com.vaadin.ui.UI;
-import db.NewsArticle;
+import db.news.NewsArticle;
 import ui.NgutuUI;
 
 /**

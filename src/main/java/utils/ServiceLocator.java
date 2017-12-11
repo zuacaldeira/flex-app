@@ -5,24 +5,14 @@
  */
 package utils;
 
-import services.FlexPeopleService;
-import services.FlexUserServiceInterface;
-import services.NewsArticleServiceInterface;
-import services.NewsAuthorServiceInterface;
-import services.NewsSourceServiceInterface;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import services.FlexAdvertisementService;
-import services.FlexAdvertisementServiceInterface;
-import services.FlexAmazonService;
-import services.FlexAmazonServiceInterface;
-import services.FlexBooksService;
-import services.FlexBooksServiceInterface;
-import services.FlexUserService;
-import services.NewsArticleService;
-import services.NewsAuthorService;
-import services.NewsSourceService;
-import services.FlexPeopleServiceInterface;
+import services.auth.FlexUserService;
+import services.books.FlexAmazonService;
+import services.books.FlexBooksService;
+import services.news.NewsArticleService;
+import services.news.NewsAuthorService;
+import services.news.NewsSourceService;
 
 /**
  *
@@ -30,15 +20,15 @@ import services.FlexPeopleServiceInterface;
  */
 public class ServiceLocator {
 
-    public static final String NEWS_API_SERVICE = "java:global/flex-app/NewsApiService!services.NewsApiServiceInterface";
-    public static final String NEWS_ARTICLE_SERVICE = "java:global/flex-app/NewsArticleService!services.NewsArticleServiceInterface";
-    public static final String NEWS_SOURCE_SERVICE = "java:global/flex-app/NewsSourceService!services.NewsSourceServiceInterface";
-    public static final String NEWS_AUTHOR_SERVICE = "java:global/flex-app/NewsAuthorService!services.NewsAuthorServiceInterface";
-    public static final String FLEX_USER_SERVICE = "java:global/flex-app/FlexUserService!services.FlexUserServiceInterface";
-    public static final String FLEX_ADVERTISEMENT_SERVICE = "java:global/flex-app/FlexAdvertisementService!services.FlexAdvertisementServiceInterface";
-    public static final String FLEX_AMAZON_SERVICE = "java:global/flex-app/FlexAmazonService!services.FlexAmazonServiceInterface";
-    public static final String FLEX_PEOPLE_SERVICE = "java:global/flex-app/FlexPeopleService!services.FlexPeopleServiceInterface";
-    public static final String FLEX_BOOK_SERVICE = "java:global/flex-app/FlexBooksService!services.FlexBooksServiceInterface";
+    public static final String NEWS_API_SERVICE = "java:global/flex-app/NewsApiService";
+    public static final String NEWS_ARTICLE_SERVICE = "java:global/flex-app/NewsArticleService";
+    public static final String NEWS_SOURCE_SERVICE = "java:global/flex-app/NewsSourceService";
+    public static final String NEWS_AUTHOR_SERVICE = "java:global/flex-app/NewsAuthorService";
+    public static final String FLEX_USER_SERVICE = "java:global/flex-app/FlexUserService!services.FlexUserService";
+    public static final String FLEX_ADVERTISEMENT_SERVICE = "java:global/flex-app/FlexAdvertisementService";
+    public static final String FLEX_AMAZON_SERVICE = "java:global/flex-app/FlexAmazonService";
+    public static final String FLEX_PEOPLE_SERVICE = "java:global/flex-app/FlexPeopleService";
+    public static final String FLEX_BOOK_SERVICE = "java:global/flex-app/FlexBooksService";
 
     private static ServiceLocator INSTANCE;
 
@@ -58,65 +48,49 @@ public class ServiceLocator {
         return o;
     }
 
-    public NewsArticleServiceInterface findArticlesService() {
+    public NewsArticleService findArticlesService() {
         try {
-            return (NewsArticleServiceInterface) findService(NEWS_ARTICLE_SERVICE);
+            return (NewsArticleService) findService(NEWS_ARTICLE_SERVICE);
         } catch (NamingException nx) {
             return new NewsArticleService();
         }
     }
 
-    public NewsSourceServiceInterface findSourcesService() {
+    public NewsSourceService findSourcesService() {
         try {
-            return (NewsSourceServiceInterface) findService(NEWS_SOURCE_SERVICE);
+            return (NewsSourceService) findService(NEWS_SOURCE_SERVICE);
         } catch (NamingException nx) {
             return new NewsSourceService();
         }
     }
 
-    public NewsAuthorServiceInterface findAuthorsService() {
+    public NewsAuthorService findAuthorsService() {
         try {
-            return (NewsAuthorServiceInterface) findService(NEWS_AUTHOR_SERVICE);
+            return (NewsAuthorService) findService(NEWS_AUTHOR_SERVICE);
         } catch (NamingException nx) {
             return new NewsAuthorService();
         }
     }
 
-    public FlexUserServiceInterface findUserService() {
+    public FlexUserService findUserService() {
         try {
-            return (FlexUserServiceInterface) findService(FLEX_USER_SERVICE);
+            return (FlexUserService) findService(FLEX_USER_SERVICE);
         } catch (NamingException nx) {
             return new FlexUserService();
         }
     }
 
-    public FlexAdvertisementServiceInterface findAdvertisementService() {
+    public FlexAmazonService findAmazonService() {
         try {
-            return (FlexAdvertisementServiceInterface) findService(FLEX_ADVERTISEMENT_SERVICE);
-        } catch (NamingException ex) {
-            return new FlexAdvertisementService();
-        }
-    }
-
-    public FlexAmazonServiceInterface findAmazonService() {
-        try {
-            return (FlexAmazonServiceInterface) findService(FLEX_AMAZON_SERVICE);
+            return (FlexAmazonService) findService(FLEX_AMAZON_SERVICE);
         } catch (NamingException ex) {
             return new FlexAmazonService();
         }
     }
 
-    public FlexPeopleServiceInterface findPersonService() {
+    public FlexBooksService findBooksService() {
         try {
-            return (FlexPeopleServiceInterface) findService(FLEX_PEOPLE_SERVICE);
-        } catch (NamingException ex) {
-            return new FlexPeopleService();
-        }
-    }
-
-    public FlexBooksServiceInterface findBooksService() {
-        try {
-            return (FlexBooksServiceInterface) findService(FLEX_BOOK_SERVICE);
+            return (FlexBooksService) findService(FLEX_BOOK_SERVICE);
         } catch (NamingException ex) {
             return new FlexBooksService();
         }

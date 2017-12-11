@@ -1,8 +1,8 @@
 package factory;
 
 import com.vaadin.ui.Label;
-import db.FlexUser;
-import db.NewsSource;
+import db.auth.FlexUser;
+import db.news.NewsSource;
 
 /**
  * Created by zua on 12/04/17.
