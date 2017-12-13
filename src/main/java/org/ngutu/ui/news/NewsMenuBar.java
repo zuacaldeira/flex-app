@@ -12,13 +12,12 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import data.DataProviderType;
 import db.auth.FlexUser;
-import io.reactivex.Observable;
+import db.news.Tag;
 import java.util.TreeSet;
 import org.ngutu.ui.share.NgutuFacebookAPI;
 import org.ngutu.ui.viewproviders.FlexViews;
-import services.news.NewsSourceService;
 import ui.NgutuUI;
-import utils.MyDateUtils;
+import backend.utils.MyDateUtils;
 import utils.ServiceLocator;
 
 /**
@@ -28,8 +27,6 @@ import utils.ServiceLocator;
 public final class NewsMenuBar extends MenuBar {
 
     private static final long serialVersionUID = -1299703352057116843L;
-
-    private final NewsSourceService sourcesService;
 
     // Main Menu (top level)
     private MenuItem top;
@@ -52,7 +49,6 @@ public final class NewsMenuBar extends MenuBar {
     private MenuItem titlesOnly;
 
     public NewsMenuBar() {
-        sourcesService = ServiceLocator.getInstance().findSourcesService();
         this.initMenuItems();
         setSizeUndefined();
         setAutoOpen(true);
@@ -85,8 +81,6 @@ public final class NewsMenuBar extends MenuBar {
                 }
             }));
         }
-        populate();
-
     }
 
     private FlexUser getUser() {
@@ -98,13 +92,13 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     protected void populateNewsCategory() {
-        TreeSet<String> ps = new TreeSet<>();
-        Observable<String> observable = Observable.fromIterable(sourcesService.findCategories());
-        observable.subscribe(cat -> {
-            ps.add(cat);
+        TreeSet<String> tags = new TreeSet<>();
+        Iterable<Tag> observable = ServiceLocator.getInstance().findTagService().findAllTags();
+        observable.forEach(cat -> {
+            tags.add(cat.getTag());
         });
 
-        ps.forEach(tag -> {
+        tags.forEach(tag -> {
             categories.addItem(tag, (selectedMenuItem) -> {
                 updateBody(DataProviderType.CATEGORY, selectedMenuItem.getText());
             });
@@ -113,9 +107,11 @@ public final class NewsMenuBar extends MenuBar {
 
     protected void populateNewsPublisher() {
         TreeSet<String> ps = new TreeSet<>();
-        Observable<String> observable = Observable.fromIterable(sourcesService.findNames());
-        observable.subscribe(name -> {
-            ps.add(name);
+        Iterable<String> sourceNames = ServiceLocator.getInstance().findSourcesService().findNames();
+        sourceNames.forEach(name -> {
+            if(name != null) {
+                ps.add(name);
+            }
         });
 
         ps.forEach(publisher -> {
@@ -127,8 +123,8 @@ public final class NewsMenuBar extends MenuBar {
 
     protected void populateNewsLanguages() {
         TreeSet<String> ls = new TreeSet<>();
-        Observable<String> observable = Observable.fromIterable(sourcesService.findLocales());
-        observable.subscribe(localeString -> {
+        Iterable<String> sourceLocales = ServiceLocator.getInstance().findSourcesService().findLocales();
+        sourceLocales.forEach(localeString -> {
             if (localeString != null && !localeString.isEmpty()) {
                 String lang = MyDateUtils.getLanguageNameFromPattern(localeString);
                 ls.add(lang);
@@ -144,8 +140,8 @@ public final class NewsMenuBar extends MenuBar {
 
     protected void populateNewsCountries() {
         TreeSet<String> cs = new TreeSet<>();
-        Observable<String> observable = Observable.fromIterable(sourcesService.findLocales());
-        observable.subscribe(localeString -> {
+        Iterable<String> sourceLocales = ServiceLocator.getInstance().findSourcesService().findLocales();
+        sourceLocales.forEach(localeString -> {
             if (localeString != null && !localeString.isEmpty()) {
                 String country = MyDateUtils.getCountryNameFromPattern(localeString);
                 cs.add(country);
@@ -234,10 +230,6 @@ public final class NewsMenuBar extends MenuBar {
         return countries;
     }
 
-    public NewsSourceService getSourcesService() {
-        return sourcesService;
-    }
-
     public MenuItem getRead() {
         return read;
     }
@@ -270,7 +262,7 @@ public final class NewsMenuBar extends MenuBar {
         return titlesOnly;
     }
 
-    private void populate() {
+    void populate() {
         populateNewsByTime();
         populateNewsByStatus();
         populateNewsPublisher();

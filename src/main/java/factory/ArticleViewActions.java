@@ -20,8 +20,8 @@ import db.opinion.Favorite;
 import db.opinion.Read;
 import java.util.Date;
 import org.ngutu.ui.share.ShareOnFacebook;
-import services.auth.FlexUserService;
-import services.news.NewsArticleService;
+import backend.services.auth.FlexUserService;
+import backend.services.news.NewsArticleService;
 import utils.ServiceLocator;
 
 /**
@@ -76,19 +76,19 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
         
         favoriteButton = new FavoriteButton();
         favoriteButton.addClickListener(this);
-        if (user != null && user.getFavorite().contains(article)) {
+        if (user != null && isFavorite(user, article)) {
             favoriteButton.addStyleName("yellow");
         }
 
         fakeButton = new FakeButton();
         fakeButton.addClickListener(this);
-        if (user != null && user.getFake().contains(article)) {
+        if (user != null && isFake(user, article)) {
             fakeButton.addStyleName("red");
         }
 
         hideButton = new HideButton();
         hideButton.addClickListener(this);
-        if (user != null && user.getRead().contains(article)) {
+        if (user != null && isRead(user, article)) {
             hideButton.addStyleName("purple");
         }
 
@@ -202,5 +202,32 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
     
     void titlesOnly() {
         setVisible(false);
+    }
+
+    private boolean isFavorite(FlexUser user, NewsArticle article) {
+        for(Favorite item: user.getFavorite()) {
+            if(item.getArticle().getTitle().equals(article.getTitle())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isFake(FlexUser user, NewsArticle article) {
+        for(Fake item: user.getFake()) {
+            if(item.getArticle().getTitle().equals(article.getTitle())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isRead(FlexUser user, NewsArticle article) {
+        for(Read item: user.getRead()) {
+            if(item.getArticle().getTitle().equals(article.getTitle())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -7,6 +7,8 @@ package factory;
 
 import db.auth.FlexUser;
 import db.news.NewsSource;
+import db.news.Tag;
+import db.relationships.TaggedSourceAs;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -59,7 +61,9 @@ public class SourceViewTest {
         System.out.println("getCategory");
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsSource source = new NewsSource();
-        source.setCategory("category");
+        TaggedSourceAs tagged = new TaggedSourceAs();
+        tagged.setSource(source);
+        tagged.setTag(new Tag("category"));
         assertNull(new SourceView(user, source).getCategory());
     }
 

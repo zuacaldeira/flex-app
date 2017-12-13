@@ -13,7 +13,7 @@ import db.auth.AuthUserInfo;
 import db.auth.FlexUser;
 import javax.servlet.annotation.WebServlet;
 import org.ngutu.ui.share.NgutuFacebookAPI;
-import services.auth.FlexUserServiceInterface;
+import backend.services.auth.FlexUserServiceInterface;
 import utils.ServiceLocator;
 
 /**

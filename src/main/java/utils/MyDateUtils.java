@@ -80,6 +80,7 @@ public class MyDateUtils {
 
     public static String getLanguageCode(String displayLanguage) {
         List<LanguageCode> codes = LanguageCode.findByName(displayLanguage);
+        
         return codes.get(0).name();
     }
 
@@ -120,9 +121,9 @@ public class MyDateUtils {
     }
 
     private static String getGlobalVoicesPattern() {
-        return "yyyy-MM-dd HH:mm";
+        return "yyyy/MM/dd HH:mm";
     }
-
+    
     private static String getMakaAngolaPattern() {
         return "dd MMMM yyyy";
     }
@@ -154,5 +155,6 @@ public class MyDateUtils {
     private static String getTheBugleZAPattern() {
         return "yyyy-MM-dd";
     }
+    
 
 }

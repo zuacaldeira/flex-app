@@ -8,9 +8,8 @@ package data;
 import db.auth.FlexUser;
 import db.news.NewsArticle;
 import db.news.NewsSource;
-import io.reactivex.Observable;
-import services.news.NewsArticleService;
-import utils.MyDateUtils;
+import backend.services.news.NewsArticleService;
+import backend.utils.MyDateUtils;
 import utils.ServiceLocator;
 
 /**
@@ -22,71 +21,71 @@ public class ArticlesRepository {
     public ArticlesRepository() {
     }
 
-    public Observable<NewsArticle> loadNodes(DataProviderType type, String value, FlexUser user) {
+    public Iterable<NewsArticle> loadNodes(DataProviderType type, String value, FlexUser user) {
         NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
         String username = (user != null) ? user.getUsername() : null;
         switch (type) {
             case CATEGORY:
-                return Observable.fromIterable(service.findArticlesTaggedAs(username, getCategoryDBCaption(value)));
+                return service.findArticlesTaggedAs(username, getCategoryDBCaption(value));
             case PUBLISHER:
-                return Observable.fromIterable(service.findArticlesPublishedBy(username, getSourceIdForSourceName(value)));
+                return service.findArticlesPublishedBy(username, getSourceIdForSourceName(value));
             case LANGUAGES:
-                return Observable.fromIterable(service.findArticlesWithLanguage(username, MyDateUtils.getLanguageCode(value)));
+                return service.findArticlesWithLanguage(username, MyDateUtils.getLanguageCode(value));
             case COUNTRIES:
-                return Observable.fromIterable(service.findArticlesWithCountry(username, MyDateUtils.getCountryCode(value)));
+                return service.findArticlesWithCountry(username, MyDateUtils.getCountryCode(value));
             case SEARCH:
-                return Observable.fromIterable(service.findArticlesWithText(value));
+                return service.findArticlesWithText(value);
             default:
-                return Observable.fromIterable(service.findLatest(username));
+                return service.findLatest(username);
         }
     }
 
-    public Observable<NewsArticle> loadNodes(DataProviderType type, String value) {
+    public Iterable<NewsArticle> loadNodes(DataProviderType type, String value) {
         NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
         switch (type) {
             case CATEGORY:
-                return Observable.fromIterable(service.findArticlesTaggedAs(getCategoryDBCaption(value)));
+                return service.findArticlesTaggedAs(getCategoryDBCaption(value));
             case PUBLISHER:
-                return Observable.fromIterable(service.findArticlesPublishedBy(getSourceIdForSourceName(value)));
+                return service.findArticlesPublishedBy(getSourceIdForSourceName(value));
             case LANGUAGES:
-                return Observable.fromIterable(service.findArticlesWithLanguage(MyDateUtils.getLanguageCode(value)));
+                return service.findArticlesWithLanguage(MyDateUtils.getLanguageCode(value));
             case COUNTRIES:
-                return Observable.fromIterable(service.findArticlesWithCountry(MyDateUtils.getCountryCode(value)));
+                return service.findArticlesWithCountry(MyDateUtils.getCountryCode(value));
             case SEARCH:
-                return Observable.fromIterable(service.findArticlesWithText(value));
+                return service.findArticlesWithText(value);
             default:
-                return Observable.fromIterable(service.findLatest());
+                return service.findLatest();
         }
     }
 
-    public Observable<NewsArticle> loadNodes(DataProviderType type, FlexUser user) {
+    public Iterable<NewsArticle> loadNodes(DataProviderType type, FlexUser user) {
         NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
         String username = (user != null) ? user.getUsername() : null;
         switch (type) {
             case LATEST:
-                return Observable.fromIterable(service.findLatest(username));
+                return service.findLatest(username);
             case OLDEST:
-                return Observable.fromIterable(service.findOldest(username));
+                return service.findOldest(username);
             case READ:
-                return Observable.fromIterable(service.findRead(username));
+                return service.findRead(username);
             case FAVORITE:
-                return Observable.fromIterable(service.findFavorite(username));
+                return service.findFavorite(username);
             case FAKE:
-                return Observable.fromIterable(service.findFake(username));
+                return service.findFake(username);
             default:
-                return Observable.fromIterable(service.findLatest(username));
+                return service.findLatest(username);
         }
     }
 
-    public Observable<NewsArticle> loadNodes(DataProviderType type) {
+    public Iterable<NewsArticle> loadNodes(DataProviderType type) {
         NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
         switch (type) {
             case LATEST:
-                return Observable.fromIterable(service.findLatest());
+                return service.findLatest();
             case OLDEST:
-                return Observable.fromIterable(service.findOldest());
+                return service.findOldest();
             default:
-                return Observable.fromIterable(service.findLatest());
+                return service.findLatest();
         }
     }
 

@@ -56,7 +56,9 @@ public class SourceInfoView extends HorizontalLayout {
      * object.
      */
     private void initSource() {
-        source = article.getPublishedBy().getSource();
+        if(article.getPublishedBy() != null) {
+            source = article.getPublishedBy().getSource();
+        }
     }
 
     private void initSourceLogo() {

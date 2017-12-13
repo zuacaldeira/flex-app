@@ -26,11 +26,6 @@ public class NewsView extends VerticalLayout implements View {
     private FlexFooter footer;
 
     public NewsView() {
-    }
-    
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
-        System.out.println("Enctering News VIEWS!!!!");
         initBody();
         initFooter();
         initMenu();
@@ -39,6 +34,12 @@ public class NewsView extends VerticalLayout implements View {
         super.setStyleName("flex-view");
         super.setSizeFull();
         super.setMargin(false);
+    }
+    
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent event) {
+        System.out.println("Enctering News VIEWS!!!!");
+        getMenu().populate();
         getBody().populate(DataProviderType.LATEST, null);
     }
 

@@ -11,14 +11,10 @@ import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
-import factory.FlexViewFactory;
 import components.FlexPanel;
-import data.ArticlesRepository;
 import data.DataProviderType;
 import db.auth.FlexUser;
-import db.news.NewsArticle;
 import factory.ArticleView;
-import io.reactivex.Observable;
 
 /**
  *
@@ -45,6 +41,11 @@ public class MasterDetailView extends FlexPanel {
         baseLayout.setMargin(true);
         super.setSizeFull();
         super.setContent(baseLayout);
+        super.addDetachListener(event -> {
+            if (worker != null) {
+                worker.interrupt();
+            }
+        });
     }
 
     private FlexUser getUser() {
@@ -122,45 +123,7 @@ public class MasterDetailView extends FlexPanel {
             worker.interrupt();
         }
         summariesPanel.getOverviews().removeAllComponents();
-        worker = new MasterDetailThread(getUser(), type, value);
+        worker = new MasterDetailThread(this, getUser(), type, value);
         worker.start();
-    }
-
-    private class MasterDetailThread extends Thread {
-
-        private FlexUser user;
-        private DataProviderType type;
-        private String value;
-
-        public MasterDetailThread(FlexUser user, DataProviderType type, String value) {
-            this.user = user;
-            this.type = type;
-            this.value = value;
-        }
-
-        
-        @Override
-        public void run() {
-            Observable<NewsArticle> observable = getNodes(this.type, this.value);
-            observable.subscribe(next -> {
-                ArticleView aView = FlexViewFactory.getInstance().createArticleView(this.user, next);
-                addSingleSummary(aView);
-            });
-        }
-
-        private Observable<NewsArticle> getNodes(DataProviderType type, String value) {
-            Observable<NewsArticle> nodes = null;
-            if (user != null && value != null) {
-                nodes = new ArticlesRepository().loadNodes(type, value, user);
-            } else if (user != null && value == null) {
-                nodes = new ArticlesRepository().loadNodes(type, user);
-            } else if (user == null && value != null) {
-                nodes = new ArticlesRepository().loadNodes(type, value);
-            } else if (user == null && value == null) {
-                nodes = new ArticlesRepository().loadNodes(type);
-            }
-            return nodes;
-        }
-
     }
 }

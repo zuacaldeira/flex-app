@@ -42,7 +42,7 @@ public class SourceView extends GraphEntityView<NewsSource> {
     }
 
     private void initCategory() {
-        category = new Label(getItem().getCategory());
+        category = new Label(getItem().getCategory().getTag().getTag());
         category.setWidth("100%");
     }
 

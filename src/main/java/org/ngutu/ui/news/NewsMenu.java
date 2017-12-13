@@ -109,4 +109,8 @@ public class NewsMenu extends HorizontalLayout {
     private void initLogo() {
         logo = new FlexLogo();
     }
+
+    void populate() {
+        newsMenuBar.populate();
+    }
 }

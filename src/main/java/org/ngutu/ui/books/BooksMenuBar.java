@@ -14,7 +14,7 @@ import com.vaadin.ui.themes.ValoTheme;
 import utils.ServiceLocator;
 import components.CanPopulate;
 import db.auth.FlexUser;
-import services.books.FlexBooksServiceInterface;
+import backend.services.books.FlexBooksServiceInterface;
 
 /**
  *
