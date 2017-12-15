@@ -5,10 +5,11 @@
  */
 package org.ngutu.ui.news;
 
-import data.ArticlesRepository;
 import data.DataProviderType;
+import data.PublishedByRepository;
 import db.auth.FlexUser;
 import db.news.NewsArticle;
+import db.relationships.PublishedBy;
 import factory.ArticleView;
 import factory.FlexViewFactory;
 import java.util.LinkedList;
@@ -33,38 +34,30 @@ public class MasterDetailThread extends Thread {
 
     @Override
     public void run() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ix) {
-        }
-        Iterable<NewsArticle> nodes = getNodes(user, type, value);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ix) {
-        }
-        nodes.forEach(
-                next -> {
-                    masterDetailView.getUI().access(() -> {
-                        ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, next);
-                        masterDetailView.addSingleSummary(aView);
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException ix) {
-                        }
-                    });
-                });
+        Iterable<PublishedBy> nodes = getNodes(user, type, value);
+        nodes.forEach(next -> {
+            masterDetailView.getUI().access(() -> {
+                NewsArticle article = next.getArticle();
+                ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, next);
+                masterDetailView.addSingleSummary(aView);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ix) {
+                }
+            });
+        });
     }
 
-    private Iterable<NewsArticle> getNodes(FlexUser user, DataProviderType type, String value) {
-        Iterable<NewsArticle> nodes = new LinkedList<>();
+    private Iterable<PublishedBy> getNodes(FlexUser user, DataProviderType type, String value) {
+        Iterable<PublishedBy> nodes = new LinkedList<>();
         if (user != null && value != null) {
-            nodes = new ArticlesRepository().loadNodes(type, value, user);
+            nodes = new PublishedByRepository().loadNodes(type, value, user);
         } else if (user != null && value == null) {
-            nodes = new ArticlesRepository().loadNodes(type, user);
+            nodes = new PublishedByRepository().loadNodes(type, user);
         } else if (user == null && value != null) {
-            nodes = new ArticlesRepository().loadNodes(type, value);
+            nodes = new PublishedByRepository().loadNodes(type, value);
         } else if (user == null && value == null) {
-            nodes = new ArticlesRepository().loadNodes(type);
+            nodes = new PublishedByRepository().loadNodes(type);
         }
         return nodes;
     }

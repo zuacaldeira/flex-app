@@ -86,7 +86,7 @@ public class MasterDetailView extends FlexPanel {
         selected = itemView;
         selected.select();
 
-        String url = selected.getItem().getUrl();
+        String url = selected.getArticle().getUrl();
         if (url != null) {
             infoFrame.setSource(new ExternalResource(url));
             infoFrame.setCaptionAsHtml(true);

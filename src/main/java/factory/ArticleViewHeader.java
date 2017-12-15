@@ -9,7 +9,7 @@ import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.VerticalLayout;
 import db.auth.FlexUser;
-import db.news.NewsArticle;
+import db.relationships.PublishedBy;
 
 /**
  *
@@ -20,14 +20,14 @@ public class ArticleViewHeader extends VerticalLayout {
     private static final long serialVersionUID = 1097524303616344971L;
     
     private final FlexUser user;
-    private final NewsArticle article;
+    private final PublishedBy publishedBy;
     private Image image;
     private SourceInfoView sourceInfo;
     
 
-    public ArticleViewHeader(FlexUser user, NewsArticle article) {
+    public ArticleViewHeader(FlexUser user, PublishedBy publishedBy) {
         this.user = user;
-        this.article = article;
+        this.publishedBy = publishedBy;
         initSourceInfo();        
         if(sourceInfo != null) {
             super.addComponent(sourceInfo);
@@ -43,7 +43,7 @@ public class ArticleViewHeader extends VerticalLayout {
     }
     
     private void initSourceInfo() {
-        sourceInfo = new SourceInfoView(article);
+        sourceInfo = new SourceInfoView(publishedBy);
     }
     
     private void initImage() {
@@ -67,8 +67,8 @@ public class ArticleViewHeader extends VerticalLayout {
 
 
     private void buildImage() {
-        if(article.getImageUrl() != null) {
-            image = new Image(null, new ExternalResource(article.getImageUrl()));
+        if(publishedBy.getArticle().getImageUrl() != null) {
+            image = new Image(null, new ExternalResource(publishedBy.getArticle().getImageUrl()));
         }
     }
 

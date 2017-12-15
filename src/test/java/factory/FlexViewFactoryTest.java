@@ -59,7 +59,7 @@ public class FlexViewFactoryTest {
         publishedBy.setArticle(article);
         publishedBy.setSource(source);
         
-        assertNotNull(FlexViewFactory.getInstance().createArticleView(user,article));
+        assertNotNull(FlexViewFactory.getInstance().createArticleView(user,publishedBy));
     }
 
     /**

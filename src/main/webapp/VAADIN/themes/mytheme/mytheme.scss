@@ -141,22 +141,13 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
 
 
     .welcome-menu {
-        background: rgba(255, 255, 255, .9);            
-        box-shadow: 0 4px 4px rgba(255, 0, 0, .7);
-        .flex-button {
-            color: black;
-            font-weight: bold;
-        }
+        background: $color-menu;
+        color: white;
     }
 
     .flex-menu {
-        background: rgba(255, 255, 255, .9);            
-        box-shadow: 0 4px rgba(255, 0, 0, .7);
-        color: black;
-        .flex-button {
-            color: black;
-            font-weight: bold;
-        }
+        background: $color-menu;
+        color: white;
     }
 
     .books-button {
@@ -166,9 +157,8 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     }
 
     .books-menu {
-        background: rgba(255, 255, 0, .5);            
-        box-shadow: 0 4px rgba(255, 0, 0, .7);
-        color: rgba(255, 0, 0, .7);
+        background: $color-menu;
+        color: white;
     }
 
 
@@ -181,7 +171,7 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
             transform: translateY(-10px);
         }
     }
-    
+
     .menu-bar-top {
         color: black;
     }

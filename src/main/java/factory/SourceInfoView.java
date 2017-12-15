@@ -14,8 +14,8 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
-import db.news.NewsArticle;
 import db.news.NewsSource;
+import db.relationships.PublishedBy;
 import java.util.Date;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
@@ -28,14 +28,14 @@ public class SourceInfoView extends HorizontalLayout {
     private static final long serialVersionUID = -6727614163768414373L;
 
     private final String LOGO_HEIGHT = "36px";
-    private final NewsArticle article;
+    private final PublishedBy publishedBy;
     private NewsSource source;
     private Image logoImage;
     private Label sourceName;
     private Label publishedAt;
 
-    public SourceInfoView(NewsArticle article) {
-        this.article = article;
+    public SourceInfoView(PublishedBy publishedBy) {
+        this.publishedBy = publishedBy;
         initSource();
         initSourceLogo();
         initSourceName();
@@ -56,9 +56,7 @@ public class SourceInfoView extends HorizontalLayout {
      * object.
      */
     private void initSource() {
-        if(article.getPublishedBy() != null) {
-            source = article.getPublishedBy().getSource();
-        }
+        source = publishedBy.getSource();
     }
 
     private void initSourceLogo() {
@@ -89,7 +87,7 @@ public class SourceInfoView extends HorizontalLayout {
 
     private void initPublishedAt() {
         publishedAt = new Label(VaadinIcons.CLOCK.getHtml()
-                + " <strong>" + toText(article.getPublishedAt()) + "</strong>", ContentMode.HTML);
+                + " <strong>" + toText(publishedBy.getArticle().getPublishedAt()) + "</strong>", ContentMode.HTML);
     }
 
     private String toText(Date date) {

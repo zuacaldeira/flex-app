@@ -5,6 +5,7 @@ import db.auth.FlexUser;
 import db.news.NewsArticle;
 import db.news.NewsAuthor;
 import db.news.NewsSource;
+import db.relationships.PublishedBy;
 
 
 /**
@@ -20,8 +21,8 @@ public class FlexViewFactory {
         return new SourceView(user, source);
     }
 
-    public  ArticleView createArticleView(FlexUser user, NewsArticle article) {
-        return new ArticleView(user, article);
+    public  ArticleView createArticleView(FlexUser user, PublishedBy publishedBy) {
+        return new ArticleView(user, publishedBy);
     }
 
     public  AuthorView createAuthorView(FlexUser user, NewsAuthor author) {
@@ -30,7 +31,7 @@ public class FlexViewFactory {
     
     public  GraphEntityView createView(FlexUser user, GraphEntity entity) {
         if(entity instanceof NewsArticle) {
-            return createArticleView(user, (NewsArticle) entity);
+            return createArticleView(user, (PublishedBy) entity);
         }
         else if(entity instanceof NewsSource) {
             return createSourceView(user, (NewsSource) entity);

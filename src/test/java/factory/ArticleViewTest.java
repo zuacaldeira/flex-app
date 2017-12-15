@@ -48,7 +48,7 @@ public class ArticleViewTest {
         publishedBy.setArticle(article);
         publishedBy.setSource(source);
         
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(user, publishedBy);
         assertNotNull(aView.getItem());
     }
 
@@ -76,7 +76,7 @@ public class ArticleViewTest {
         publishedBy.setArticle(article);
         publishedBy.setSource(source);
         
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(user, publishedBy);
         assertEquals(aView.getItem(), article);
     }
 
@@ -100,7 +100,7 @@ public class ArticleViewTest {
         publishedBy.setArticle(article);
         publishedBy.setSource(source);
         
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(user, publishedBy);
         assertEquals("Title", aView.getArticle().getTitle());
     }
 
@@ -128,7 +128,7 @@ public class ArticleViewTest {
         publishedBy.setArticle(article);
         publishedBy.setSource(source);
         
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(user, publishedBy);
     }
 
     /**
@@ -151,7 +151,7 @@ public class ArticleViewTest {
         publishedBy.setArticle(article);
         publishedBy.setSource(source);
         
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(user, publishedBy);
         assertEquals("Description", aView.getArticle().getDescription());
     }
 
@@ -175,7 +175,7 @@ public class ArticleViewTest {
         publishedBy.setArticle(article);
         publishedBy.setSource(source);
         
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(user, publishedBy);
     }
 
     /**
@@ -200,8 +200,8 @@ public class ArticleViewTest {
         publishedBy.setArticle(article);
         publishedBy.setSource(source);
         
-        ArticleView aView = new ArticleView(user, article);
-        assertEquals(date, aView.getItem().getPublishedAt());
+        ArticleView aView = new ArticleView(user, publishedBy);
+        assertEquals(date, aView.getArticle().getPublishedAt());
     }
 
     /**
@@ -224,8 +224,8 @@ public class ArticleViewTest {
         publishedBy.setArticle(article);
         publishedBy.setSource(source);
         
-        ArticleView aView = new ArticleView(user, article);
-        assertEquals(article, aView.getItem());
+        ArticleView aView = new ArticleView(user, publishedBy);
+        assertEquals(article, aView.getItem().getArticle());
     }
 
 
@@ -249,8 +249,8 @@ public class ArticleViewTest {
         publishedBy.setArticle(article);
         publishedBy.setSource(source);
         
-        ArticleView aView = new ArticleView(user, article);
-        assertEquals(article, aView.getItem());
+        ArticleView aView = new ArticleView(user, publishedBy);
+        assertEquals(article, aView.getArticle());
         aView.select();
     }
 
@@ -274,7 +274,7 @@ public class ArticleViewTest {
         publishedBy.setArticle(article);
         publishedBy.setSource(source);
         
-        ArticleView aView = new ArticleView(user, article);
+        ArticleView aView = new ArticleView(user, publishedBy);
         assertEquals("Description", aView.getArticle().getDescription());
         aView.unselect();
     }

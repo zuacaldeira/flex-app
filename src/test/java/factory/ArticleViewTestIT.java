@@ -36,7 +36,18 @@ public class ArticleViewTestIT {
         FlexUser user = new FlexUser();
         NewsArticle article = new NewsArticle();
         article.setTitle("title");
-        ArticleView aView = new ArticleView(user, article);
+        NewsAuthor author = new NewsAuthor("Author");
+        NewsSource source = new NewsSource();
+        
+        AuthoredBy authoredBy = new AuthoredBy();
+        authoredBy.setArticle(article);
+        authoredBy.setAuthor(author);
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
+        ArticleView aView = new ArticleView(user, publishedBy);
         assertNotNull(aView.getArticleViewHeader());
     }
 
@@ -50,7 +61,18 @@ public class ArticleViewTestIT {
         FlexUser user = new FlexUser();
         NewsArticle article = new NewsArticle();
         article.setTitle("title");
-        ArticleView aView = new ArticleView(user, article);
+        NewsAuthor author = new NewsAuthor("Author");
+        NewsSource source = new NewsSource();
+        
+        AuthoredBy authoredBy = new AuthoredBy();
+        authoredBy.setArticle(article);
+        authoredBy.setAuthor(author);
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
+        ArticleView aView = new ArticleView(user, publishedBy);
         assertNotNull(aView.getArticleViewBody());
     }
 
@@ -65,7 +87,18 @@ public class ArticleViewTestIT {
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsArticle article = new NewsArticle();
         article.setTitle("title");
-        ArticleView aView = new ArticleView(user, article);
+        NewsAuthor author = new NewsAuthor("Author");
+        NewsSource source = new NewsSource();
+        
+        AuthoredBy authoredBy = new AuthoredBy();
+        authoredBy.setArticle(article);
+        authoredBy.setAuthor(author);
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
+        ArticleView aView = new ArticleView(user, publishedBy);
         assertNotNull(aView.getArticleViewActions());
     }
 
@@ -79,7 +112,18 @@ public class ArticleViewTestIT {
         FlexUser user = new FlexUser("test:username", "test:password");
         NewsArticle article = new NewsArticle();
         article.setTitle("title");
-        ArticleView aView = new ArticleView(user, article);
+        NewsAuthor author = new NewsAuthor("Author");
+        NewsSource source = new NewsSource();
+        
+        AuthoredBy authoredBy = new AuthoredBy();
+        authoredBy.setArticle(article);
+        authoredBy.setAuthor(author);
+        
+        PublishedBy publishedBy = new PublishedBy();
+        publishedBy.setArticle(article);
+        publishedBy.setSource(source);
+        
+        ArticleView aView = new ArticleView(user, publishedBy);
         ArticleViewActions actions = aView.getArticleViewActions();
         assertNotNull(actions);
         assertEquals(4, actions.getComponentCount());
