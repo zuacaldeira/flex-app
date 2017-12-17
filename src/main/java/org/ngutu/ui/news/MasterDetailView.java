@@ -122,7 +122,7 @@ public class MasterDetailView extends FlexPanel {
         if (worker != null) {
             worker.interrupt();
         }
-        summariesPanel.getOverviews().removeAllComponents();
+        //summariesPanel.getOverviews().removeAllComponents();
         worker = new MasterDetailThread(this, getUser(), type, value);
         worker.start();
     }

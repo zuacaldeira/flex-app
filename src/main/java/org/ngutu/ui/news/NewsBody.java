@@ -5,57 +5,35 @@
  */
 package org.ngutu.ui.news;
 
-import com.vaadin.ui.UI;
+import com.vaadin.ui.Component;
 import data.DataProviderType;
-import components.FlexPanel;
-import db.auth.FlexUser;
 
 /**
  *
  * @author zua
  */
-public class NewsBody extends FlexPanel {
+public class NewsBody extends AbstractBody {
 
     private static final long serialVersionUID = 6273025631274336910L;
 
-    private MasterDetailView masterDetailView;
-    
     public NewsBody() {
-        this.initMasterDetailView();
-        super.addStyleName("flex-body");
-        super.setSizeFull();
-    }
-
-    private void initMasterDetailView() {
-        masterDetailView = new MasterDetailView();
-        masterDetailView.setSizeFull();
-        super.setContent(masterDetailView);
     }
 
     @Override
-    public MasterDetailView getContent() {
-        return (MasterDetailView) super.getContent();
+    public void populate(DataProviderType type, String value) {
+        System.out.println("FlexBodyThread#run(): START");
+        getMasterDetail().refresh(type, value);
+        System.out.println("FlexBodyThread#run(): DONE");
+    }
+
+    @Override
+    protected Component createBodyContent() {
+        return new MasterDetailView();
     }
 
     public MasterDetailView getMasterDetail() {
-        return masterDetailView;
+        return (MasterDetailView) getContent();
     }
 
-    public FlexUser getUser() {
-        if (UI.getCurrent() != null) {
-            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
-            return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
-        }
-        return null;
-    }
-
-    public void populate(DataProviderType type, String value) {
-        System.out.println("FlexBodyThread#run(): START");
-        initMasterDetailView();
-        masterDetailView.refresh(type, value);
-        System.out.println("FlexBodyThread#run(): DONE");
-    }
-    
-    
 
 }

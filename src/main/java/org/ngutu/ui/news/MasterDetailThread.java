@@ -35,26 +35,31 @@ public class MasterDetailThread extends Thread {
     @Override
     public void run() {
         Iterable<PublishedBy> nodes = getNodes(user, type, value);
-        nodes.forEach(next -> {
+        if (nodes.iterator().hasNext()) {
             masterDetailView.getUI().access(() -> {
-                NewsArticle article = next.getArticle();
-                ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, next);
-                masterDetailView.addSingleSummary(aView);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ix) {
-                }
+                masterDetailView.getSummaries().getOverviews().removeAllComponents();
             });
-        });
+            nodes.forEach(next -> {
+                masterDetailView.getUI().access(() -> {
+                    NewsArticle article = next.getArticle();
+                    ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, next);
+                    masterDetailView.addSingleSummary(aView);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ix) {
+                    }
+                });
+            });
+        }
     }
 
     private Iterable<PublishedBy> getNodes(FlexUser user, DataProviderType type, String value) {
         Iterable<PublishedBy> nodes = new LinkedList<>();
-        if (user != null && value != null) {
+        if (user != null && value != null && !value.isEmpty()) {
             nodes = new PublishedByRepository().loadNodes(type, value, user);
         } else if (user != null && value == null) {
             nodes = new PublishedByRepository().loadNodes(type, user);
-        } else if (user == null && value != null) {
+        } else if (user == null && value != null && !value.isEmpty()) {
             nodes = new PublishedByRepository().loadNodes(type, value);
         } else if (user == null && value == null) {
             nodes = new PublishedByRepository().loadNodes(type);

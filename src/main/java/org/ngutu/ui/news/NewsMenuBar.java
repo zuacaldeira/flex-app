@@ -81,6 +81,7 @@ public final class NewsMenuBar extends MenuBar {
                 }
             }));
         }
+        populate();
     }
 
     private FlexUser getUser() {
@@ -109,7 +110,7 @@ public final class NewsMenuBar extends MenuBar {
         TreeSet<String> ps = new TreeSet<>();
         Iterable<String> sourceNames = ServiceLocator.getInstance().findSourcesService().findNames();
         sourceNames.forEach(name -> {
-            if(name != null) {
+            if (name != null) {
                 ps.add(name);
             }
         });

@@ -38,6 +38,7 @@ public class FlexFooter extends HorizontalLayout {
                 middle,
                 right);
         super.setSizeFull();
+        super.setHeight("40px");
         super.setSpacing(false);
         super.setMargin(new MarginInfo(false, true));
         super.setComponentAlignment(left, Alignment.MIDDLE_LEFT);

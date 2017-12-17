@@ -11,21 +11,16 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
-import utils.ServiceLocator;
-import components.CanPopulate;
-import db.auth.FlexUser;
-import backend.services.books.FlexBooksServiceInterface;
+import data.BooksProviderType;
 
 /**
  *
  * @author zua
  */
-public final class BooksMenuBar extends MenuBar implements CanPopulate {
+public final class BooksMenuBar extends MenuBar {
 
     private static final long serialVersionUID = -1299703352057116843L;
 
-    private final FlexUser user;
-    private final FlexBooksServiceInterface booksService;
 
     // Main Menu (top level)
     private MenuItem news;
@@ -36,18 +31,31 @@ public final class BooksMenuBar extends MenuBar implements CanPopulate {
     private MenuItem countries;
     private MenuItem logout;
 
-    public BooksMenuBar(FlexUser user) {
-        this.user = user;
-        booksService = ServiceLocator.getInstance().findBooksService();
+    public BooksMenuBar() {
+        initMenuItems();
+        setSizeUndefined();
+        setAutoOpen(true);
+        setStyleName("books-menu-bar");
+        addStyleName(ValoTheme.MENUBAR_BORDERLESS);
     }
 
     protected void initMenuItems() {
         news = addItem("New", null, null);
-        recomended = addItem("Recomended", null, null);
-        bestSellers = addItem("Best Sellers", null, null);
-        nobelPrizes = addItem("Nobel Prizes", null, null);
-        languages = addItem("Languages", null, null);
-        countries = addItem("Countries", null, null);
+        recomended = addItem("Recomended", null, (selectedItem) -> {
+            updateBody(BooksProviderType.RECOMMENDED);
+        });
+        bestSellers = addItem("Best Sellers", null,  (selectedItem) -> {
+            updateBody(BooksProviderType.BEST_SELLERS);
+        });
+        nobelPrizes = addItem("Nobel Prizes", null,  (selectedItem) -> {
+            updateBody(BooksProviderType.NOBEL_PRIZES);
+        });
+        languages = addItem("Languages", null,  (selectedItem) -> {
+            updateBody(BooksProviderType.LANGUAGES);
+        });
+        countries = addItem("Countries", null,  (selectedItem) -> {
+            updateBody(BooksProviderType.COUNTRIES);
+        });
         logout = addItem("", VaadinIcons.SIGN_OUT, (selectedItem) -> {
             if (UI.getCurrent() != null) {
                 Notification.show("LOGOUT");
@@ -55,24 +63,6 @@ public final class BooksMenuBar extends MenuBar implements CanPopulate {
                 UI.getCurrent().getNavigator().navigateTo("");
             }
         });
-
-        setSizeUndefined();
-        setAutoOpen(true);
-        setStyleName("books-menu-bar");
-        addStyleName(ValoTheme.MENUBAR_BORDERLESS);
-    }
-
-    @Override
-    public void populate() {
-        this.initMenuItems();
-    }
-
-    private String getCategoryCaption(String cat) {
-        char c = cat.charAt(0);
-        return cat.replaceFirst(
-                String.valueOf(c),
-                String.valueOf(Character.toUpperCase(c)))
-                .replace("-", " ");
     }
 
     public MenuItem getNews() {
@@ -99,7 +89,7 @@ public final class BooksMenuBar extends MenuBar implements CanPopulate {
         return logout;
     }
 
-    public FlexUser getUser() {
-        return user;
+    private void updateBody(BooksProviderType type) {
+        //
     }
 }

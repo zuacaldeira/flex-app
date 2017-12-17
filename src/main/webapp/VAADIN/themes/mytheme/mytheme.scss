@@ -131,8 +131,9 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     }
 
     .search-box {
-        background: rgba(150, 150, 150, .2);
-        color: white;
+        background: rgba(255, 255, 255, 1);
+        color: rgba(255, 0, 0, .5);
+        font-weight: bold;
     }
 
     .flex-view {
@@ -194,7 +195,6 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
             .subtitle {
                 font-size: 150%;            
             }
-
         }
     }
 

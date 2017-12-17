@@ -5,45 +5,27 @@
  */
 package org.ngutu.ui.welcome;
 
-import com.vaadin.ui.UI;
-import components.FlexPanel;
-import db.auth.FlexUser;
+import com.vaadin.ui.Component;
+import data.DataProviderType;
+import org.ngutu.ui.news.AbstractBody;
 
 /**
  *
  * @author zua
  */
-public class WelcomeBody extends FlexPanel {
+public class WelcomeBody extends AbstractBody {
 
     private static final long serialVersionUID = 6273025631274336910L;
 
-    private FlexUser user;
-    private AboutUs aboutUs;
-
     public WelcomeBody() {
-        initUser();
-        initBody();
     }
 
-    private void initUser() {
-        if (UI.getCurrent() != null) {
-            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
-            user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
-        }
+    @Override
+    public void populate(DataProviderType type, String value) {
     }
 
-    public FlexUser getUser() {
-        return user;
-    }
-
-    private void initBody() {
-        initAboutUs();
-        setContent(aboutUs);
-        super.addStyleName("welcome-body");
-        super.setSizeUndefined();
-    }
-
-    private void initAboutUs() {
-        aboutUs = new AboutUs();
+    @Override
+    protected Component createBodyContent() {
+        return new AboutUs();
     }
 }
