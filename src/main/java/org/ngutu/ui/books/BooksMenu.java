@@ -41,9 +41,4 @@ public class BooksMenu extends AbstractMenu {
         return null;
     }
 
-    @Override
-    public void populate() {
-    }
-
-
 }

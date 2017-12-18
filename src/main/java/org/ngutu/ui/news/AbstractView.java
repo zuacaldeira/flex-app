@@ -6,6 +6,7 @@
 package org.ngutu.ui.news;
 
 import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.VerticalLayout;
 import view.footer.FlexFooter;
 
@@ -22,14 +23,6 @@ public abstract class AbstractView extends VerticalLayout implements View {
     private FlexFooter footer;
 
     public AbstractView() {
-        initBody();
-        initFooter();
-        initMenu();
-        super.addComponents(menu, body, footer);
-        super.setExpandRatio(body, 1f);
-        super.setStyleName("flex-view");
-        super.setSizeFull();
-        super.setMargin(false);
     }
     
     private void initMenu() {
@@ -58,6 +51,21 @@ public abstract class AbstractView extends VerticalLayout implements View {
     public FlexFooter getFooter() {
         return footer;
     }
+
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent event) {
+        View.super.enter(event); 
+        initBody();
+        initFooter();
+        initMenu();
+        super.addComponents(menu, body, footer);
+        super.setExpandRatio(body, 1f);
+        super.setStyleName("flex-view");
+        super.setSizeFull();
+        super.setMargin(false);
+    }
+    
+    
     
 
     

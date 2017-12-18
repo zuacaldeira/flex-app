@@ -9,6 +9,7 @@ import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import data.DataProviderType;
+import org.ngutu.ui.viewproviders.FlexViews;
 
 /**
  *
@@ -35,13 +36,7 @@ public class NewsMenu extends AbstractMenu {
     @Override
     protected void search(String value) {
         Notification.show("Clicked on search " + value);
-        NewsBody body = getBody();
-        body.populate(DataProviderType.SEARCH, value);
-    }
-
-    @Override
-    public void populate() {
-        //
+        UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.SEARCH + "/" + value);
     }
 
     

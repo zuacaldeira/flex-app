@@ -18,10 +18,9 @@ public class NewsView extends AbstractView {
 
     private static final long serialVersionUID = 8467619842785075810L;
 
-
     public NewsView() {
     }
-    
+
     public void replaceBody(NewsBody flexBody) {
         replaceComponent(getBody(), flexBody);
     }
@@ -46,20 +45,39 @@ public class NewsView extends AbstractView {
 
     @Override
     public NewsBody getBody() {
-        return (NewsBody) super.getBody(); 
+        return (NewsBody) super.getBody();
     }
 
     @Override
     public NewsMenu getMenu() {
-        return (NewsMenu) super.getMenu(); 
+        return (NewsMenu) super.getMenu();
     }
-    
-    
+
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        System.out.println("Enctering News VIEWS!!!!");
-        getMenu().populate();
-        getBody().populate(DataProviderType.LATEST, null);
+        super.enter(event);
+        String parameters = event.getParameters();
+        if(parameters == null || parameters.isEmpty()) {
+            getBody().populate(DataProviderType.LATEST, null);
+        }
+        
+        else if (!parameters.isEmpty()) {
+            parameters = parameters.replace('-', ' ');
+            String parts[] = parameters.split("/");
+            String context = null;
+            String target = null;
+            if(parts.length == 2) {
+                System.out.println("2-PARTS");
+                context = parts[0];
+                target = parts[1];
+                getBody().populate(DataProviderType.valueOf(context), target);
+            }
+            else if(parts.length == 1) {
+                System.out.println("1-PARTS");
+                context = parts[0];
+                getBody().populate(DataProviderType.valueOf(context), null);
+            }
+        }
     }
 
 }

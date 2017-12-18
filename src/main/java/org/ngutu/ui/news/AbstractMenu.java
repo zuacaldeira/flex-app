@@ -122,7 +122,4 @@ public abstract class AbstractMenu extends HorizontalLayout {
     public Image getPicture() {
         return picture;
     }
-
-    public abstract void populate();
-
 }

@@ -29,10 +29,5 @@ public class WelcomeMenu extends AbstractMenu {
     protected void search(String value) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-    @Override
-    public void populate() {
-    }
-    
     
 }

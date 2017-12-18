@@ -100,9 +100,7 @@ public final class NewsMenuBar extends MenuBar {
         });
 
         tags.forEach(tag -> {
-            categories.addItem(tag, (selectedMenuItem) -> {
-                updateBody(DataProviderType.CATEGORY, selectedMenuItem.getText());
-            });
+            categories.addItem(tag, new CategoryCommand());
         });
     }
 
@@ -116,9 +114,7 @@ public final class NewsMenuBar extends MenuBar {
         });
 
         ps.forEach(publisher -> {
-            publishers.addItem(publisher, (selectedMenuItem) -> {
-                updateBody(DataProviderType.PUBLISHER, selectedMenuItem.getText());
-            });
+            publishers.addItem(publisher, new PublisherCommand());
         });
     }
 
@@ -133,9 +129,7 @@ public final class NewsMenuBar extends MenuBar {
         });
 
         ls.forEach(lang -> {
-            languages.addItem(lang, (selectedMenuItem) -> {
-                updateBody(DataProviderType.LANGUAGES, selectedMenuItem.getText());
-            });
+            languages.addItem(lang, new LanguageCommand());
         });
     }
 
@@ -150,9 +144,7 @@ public final class NewsMenuBar extends MenuBar {
         });
 
         cs.forEach(country -> {
-            countries.addItem(country, (selectedMenuItem) -> {
-                updateBody(DataProviderType.COUNTRIES, selectedMenuItem.getText());
-            });
+            countries.addItem(country, new CountryCommand());
         });
     }
 
@@ -175,32 +167,17 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     private void populateNewsByTime() {
-        latest = news.addItem("Latest", (selectedItem) -> {
-            updateBody(DataProviderType.LATEST, null);
-        });
-        oldest = news.addItem("Oldest", (selectedItem) -> {
-            updateBody(DataProviderType.OLDEST, null);
-        });
+        latest = news.addItem("Latest", new LatestCommand());
+        oldest = news.addItem("Oldest", new OldestCommand());
     }
 
     private void populateNewsByStatus() {
         if (getUser() != null) {
             news.addSeparator();
-            read = news.addItem("Read", VaadinIcons.EYE_SLASH, (selectedMenuItem) -> {
-                updateBody(DataProviderType.READ, null);
-            });
-            favorite = news.addItem("Favorite", VaadinIcons.STAR, (selectedMenuItem) -> {
-                updateBody(DataProviderType.FAVORITE, null);
-            });
-            fake = news.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, (selectMenuItem) -> {
-                updateBody(DataProviderType.FAKE, null);
-            });
+            read = news.addItem("Read", VaadinIcons.EYE_SLASH, new ReadCommand());
+            favorite = news.addItem("Favorite", VaadinIcons.STAR, new FavoriteCommand());
+            fake = news.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, new FakeCommand());
         }
-    }
-
-    private void updateBody(DataProviderType dataType, String value) {
-        NewsBody body = ((NewsView) getUI().getNavigator().getCurrentView()).getBody();
-        body.populate(dataType, value);
     }
 
     private String getCategoryCaption(String cat) {
@@ -270,6 +247,139 @@ public final class NewsMenuBar extends MenuBar {
         populateNewsCategory();
         populateNewsLanguages();
         populateNewsCountries();
+    }
+
+    private static class PublisherCommand implements Command {
+
+        private static final long serialVersionUID = -6320032619121769747L;
+
+        public PublisherCommand() {
+        }
+
+        @Override
+        public void menuSelected(MenuItem selectedItem) {
+            String value = selectedItem.getText().trim();
+            value = value.replace(' ', '-');
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.PUBLISHER + "/" + value);
+        }
+
+    }
+
+    private static class CategoryCommand implements Command {
+
+        private static final long serialVersionUID = -6713270025833148214L;
+
+        public CategoryCommand() {
+        }
+
+        @Override
+        public void menuSelected(MenuItem selectedItem) {
+            String value = selectedItem.getText().trim();
+            value = value.replace(' ', '-');
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.CATEGORY + "/" + value);
+        }
+
+    }
+
+    private static class LanguageCommand implements Command {
+
+        private static final long serialVersionUID = -4583498482443517774L;
+
+        public LanguageCommand() {
+        }
+
+        @Override
+        public void menuSelected(MenuItem selectedItem) {
+            String value = selectedItem.getText().trim();
+            value = value.replace(' ', '-');
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.LANGUAGES + "/" + value);
+        }
+
+    }
+
+    private static class CountryCommand implements Command {
+
+        private static final long serialVersionUID = -4146615261776133329L;
+
+        public CountryCommand() {
+        }
+
+        @Override
+        public void menuSelected(MenuItem selectedItem) {
+            String value = selectedItem.getText().trim();
+            value = value.replace(' ', '-');
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.COUNTRIES + "/" + value);
+        }
+    }
+
+    private static class LatestCommand implements Command {
+
+        private static final long serialVersionUID = -2359955325027587125L;
+
+        public LatestCommand() {
+        }
+
+        @Override
+        public void menuSelected(MenuItem selectedItem) {
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.LATEST);
+        }
+
+    }
+
+    private static class OldestCommand implements Command {
+
+        private static final long serialVersionUID = 7376938084774131516L;
+
+        public OldestCommand() {
+        }
+
+        @Override
+        public void menuSelected(MenuItem selectedItem) {
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.OLDEST);
+        }
+
+    }
+
+    private static class ReadCommand implements Command {
+
+        private static final long serialVersionUID = 3653566244729923141L;
+
+        public ReadCommand() {
+        }
+
+        @Override
+        public void menuSelected(MenuItem selectedItem) {
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.READ);
+        }
+
+    }
+
+    private static class FavoriteCommand implements Command {
+
+        private static final long serialVersionUID = 198466133662186366L;
+
+        public FavoriteCommand() {
+        }
+
+        @Override
+        public void menuSelected(MenuItem selectedItem) {
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.FAVORITE);
+        }
+
+    }
+
+    private static class FakeCommand implements Command {
+
+        private static final long serialVersionUID = 8502301616111195999L;
+
+        public FakeCommand() {
+        }
+
+        @Override
+        public void menuSelected(MenuItem selectedItem) {
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.FAKE);
+        }
+
     }
 
 }
