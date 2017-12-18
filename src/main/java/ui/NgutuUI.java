@@ -119,7 +119,7 @@ public class NgutuUI extends SecuredUI {
     }
 
     @WebServlet(urlPatterns = "/*", name = "NgutuUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = NgutuUI.class, productionMode = false, widgetset = "ui.AppWidgetSet")
+    @VaadinServletConfiguration(ui = NgutuUI.class, productionMode = true, widgetset = "ui.AppWidgetSet")
     public static class NgutuUIServlet extends VaadinServlet {
 
         private static final long serialVersionUID = -3509795582956287827L;
