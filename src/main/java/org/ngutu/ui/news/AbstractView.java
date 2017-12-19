@@ -8,7 +8,7 @@ package org.ngutu.ui.news;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.VerticalLayout;
-import view.footer.FlexFooter;
+import org.ngutu.ui.footer.FlexFooter;
 
 /**
  *

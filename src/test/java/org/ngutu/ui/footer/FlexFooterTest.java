@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.footer;
+package org.ngutu.ui.footer;
 
+import org.ngutu.ui.footer.FlexFooter;
 import db.auth.FlexUser;
 import static org.junit.Assert.assertNull;
 import org.junit.Test;
