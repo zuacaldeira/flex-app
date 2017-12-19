@@ -69,7 +69,7 @@ public class NgutuFacebookAPI {
             return "http://localhost:8080/";
         }
         else {
-            return "https://ngutu.herokuapp.com/";
+            return "http://www.ngutu.org/";
         }
     }
     

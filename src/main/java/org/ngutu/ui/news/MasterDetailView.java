@@ -89,7 +89,7 @@ public class MasterDetailView extends FlexPanel {
         if (url != null) {
             infoFrame.setSource(new ExternalResource(url));
             infoFrame.setCaptionAsHtml(true);
-            infoFrame.setCaption("<a href=\"" + url + "\"> Read this article outside Ngutu.org </a>");
+            infoFrame.setCaption("<a href=\"" + url + "\" target=\"_blank\"> Read this article outside Ngutu.org </a>");
         }
     }
 
