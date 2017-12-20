@@ -19,9 +19,15 @@ import db.opinion.Fake;
 import db.opinion.Favorite;
 import db.opinion.Read;
 import java.util.Date;
-import org.ngutu.ui.share.ShareOnFacebook;
 import backend.services.auth.FlexUserService;
 import backend.services.news.NewsArticleService;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.TextArea;
+import com.vaadin.ui.Window;
+import com.vaadin.ui.themes.ValoTheme;
+import components.FlexWindow;
+import components.SaveButton;
+import org.ngutu.ui.share.ShareOnFacebook;
 import utils.ServiceLocator;
 
 /**
@@ -49,9 +55,8 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
         super.setSpacing(false);
         initActions();
         super.addComponents(facebookButton, favoriteButton, fakeButton, hideButton);
-        super.setComponentAlignment(facebookButton, Alignment.MIDDLE_CENTER);
-        if(user == null) {
-            setDescription("You have to login to enable social actions");
+        if (user == null) {
+            super.setDescription("You have to login to enable social actions");
             disableActions();
         }
     }
@@ -64,16 +69,14 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
     }
 
     private void initActions() {
+            facebookButton = new FacebookShareButton();
+            facebookButton.addClickListener(event -> {
+                facebookButton.addStyleName("scale-in-out");
+                getUI().addWindow(new ShareWindow(this));
+            });
         commentButton = new CommentButton();
         commentButton.addClickListener(this);
-        
-        facebookButton = new FacebookShareButton(article.getUrl());
-        facebookButton.addClickListener(event -> {
-            ShareOnFacebook shareOnFacebook = new ShareOnFacebook();
-            shareOnFacebook.share(article, "Check this out!");
-        });
-        
-        
+
         favoriteButton = new FavoriteButton();
         favoriteButton.addClickListener(this);
         if (user != null && isFavorite(user, article)) {
@@ -199,14 +202,14 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
     void imagesOnly() {
         setVisible(false);
     }
-    
+
     void titlesOnly() {
         setVisible(false);
     }
 
     private boolean isFavorite(FlexUser user, NewsArticle article) {
-        for(Favorite item: user.getFavorite()) {
-            if(item.getArticle().getTitle().equals(article.getTitle())) {
+        for (Favorite item : user.getFavorite()) {
+            if (item.getArticle().getTitle().equals(article.getTitle())) {
                 return true;
             }
         }
@@ -214,8 +217,8 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
     }
 
     private boolean isFake(FlexUser user, NewsArticle article) {
-        for(Fake item: user.getFake()) {
-            if(item.getArticle().getTitle().equals(article.getTitle())) {
+        for (Fake item : user.getFake()) {
+            if (item.getArticle().getTitle().equals(article.getTitle())) {
                 return true;
             }
         }
@@ -223,11 +226,19 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
     }
 
     private boolean isRead(FlexUser user, NewsArticle article) {
-        for(Read item: user.getRead()) {
-            if(item.getArticle().getTitle().equals(article.getTitle())) {
+        for (Read item : user.getRead()) {
+            if (item.getArticle().getTitle().equals(article.getTitle())) {
                 return true;
             }
         }
         return false;
+    }
+
+    public NewsArticle getArticle() {
+        return article;
+    }
+
+    public FacebookShareButton getFacebookButton() {
+        return facebookButton;
     }
 }

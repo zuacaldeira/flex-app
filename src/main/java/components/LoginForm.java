@@ -33,7 +33,7 @@ public class LoginForm extends FlexForm {
 
     private FlexTextField username;
     private PasswordField password;
-    private LoginButton loginButton;
+    private SaveButton loginButton;
 
     public LoginForm() {
         binder = new Binder<>();
@@ -83,7 +83,7 @@ public class LoginForm extends FlexForm {
 
 
     private void initSaveButton() {
-        loginButton = new LoginButton();
+        loginButton = new SaveButton();
         loginButton.addClickListener(event -> {
             try {
                 binder.writeBean(user);
@@ -105,7 +105,7 @@ public class LoginForm extends FlexForm {
         return password;
     }
 
-    public LoginButton getLoginButton() {
+    public SaveButton getLoginButton() {
         return loginButton;
     }
 

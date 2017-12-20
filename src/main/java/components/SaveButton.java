@@ -11,9 +11,9 @@ import com.vaadin.icons.VaadinIcons;
  *
  * @author zua
  */
-public class LoginButton extends FlexButton {
+public class SaveButton extends FlexButton {
 
-    public LoginButton() {
+    public SaveButton() {
         super("Login", VaadinIcons.CHECK);
         setSizeUndefined();
     }

@@ -14,14 +14,19 @@ import com.vaadin.ui.Window;
  */
 public class FlexWindow extends Window {
 
+    private static final long serialVersionUID = -1240553493353118497L;
+
     public FlexWindow(String caption, Component content) {
+        this(caption);
+        super.setContent(content);
+    }
+
+    public FlexWindow(String caption) {
         super(caption);
         super.setWidth("50%");
-        super.setHeightUndefined();
+        super.setHeight("75%");
         super.setModal(true);
-        super.setStyleName("flex-window");
         super.center();
-        super.setContent(content);
     }
 
 }

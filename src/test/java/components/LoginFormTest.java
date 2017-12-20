@@ -60,7 +60,7 @@ public class LoginFormTest {
         LoginForm instance = new LoginForm();
         instance.getUsername().setValue("username");
         instance.getPassword().setValue("pass");
-        LoginButton save = instance.getLoginButton();
+        SaveButton save = instance.getLoginButton();
         assertNotNull(save);
     }
 }
