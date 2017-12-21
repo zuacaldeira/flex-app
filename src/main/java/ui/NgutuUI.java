@@ -103,7 +103,10 @@ public class NgutuUI extends SecuredUI {
             service.save(user);
         }
         getSession().setAttribute("user", user);
-        getNavigator().navigateTo(getSession().getAttribute("navigationState").toString());
+
+        String navigationState = getSession().getAttribute("navigationState").toString();
+        getSession().setAttribute("navigationState", null);
+        getNavigator().navigateTo(navigationState);
     }
 
     private FlexUser convert2FlexUser(User user) {
