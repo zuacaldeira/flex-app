@@ -90,12 +90,12 @@ public abstract class AbstractMenu extends HorizontalLayout {
         menuActions.setSpacing(false);
         menuActions.setSizeUndefined();
         menuActions.setComponentAlignment(menuBar, Alignment.MIDDLE_CENTER);
+        initFacebookButtons();
+        initPicture();
         if (picture != null) {
             menuActions.addComponent(picture);
             menuActions.setComponentAlignment(picture, Alignment.MIDDLE_CENTER);
         }
-        initFacebookButtons();
-        initPicture();
     }
 
     private void initPicture() {
