@@ -127,10 +127,10 @@ public class NgutuUI extends SecuredUI {
     }
 
     private String extractHost(String address) {
-        if (address.startsWith("http://localhost:8080/")) {
+        if (address.contains("http://localhost:8080/")) {
             return "http://localhost:8080/";
         }
-        if (address.startsWith("www.ngutu.org")) {
+        if (address.contains("www.ngutu.org")) {
             return "www.ngutu.org/";
         }
         throw new IllegalArgumentException("Uknown address " + address);
