@@ -94,7 +94,7 @@ public class MasterDetailView extends FlexPanel {
     }
 
     public void addSingleSummary(Component component) {
-        getUI().access(() -> {
+        UI.getCurrent().access(() -> {
             summariesPanel.addItemView(component);
             if (selected == null) {
                 updateSelected((ArticleView) component);

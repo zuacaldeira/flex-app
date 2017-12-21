@@ -39,42 +39,49 @@ public class NgutuUI extends SecuredUI {
         return facebookAPI;
     }
 
+    public NgutuUI() {
+    }
+
     @Override
     public void init(VaadinRequest request) {
         if (request != null) {
-            String fragment = getNavigator().getState();
-            if (facebookAPI == null) {
-                if (fragment != null) {
-                    facebookAPI = new NgutuFacebookAPI(fragment);
-                } else {
-                    facebookAPI = new NgutuFacebookAPI("");
-                }
+            String address = request.getParameter("v-loc");
+            if(facebookAPI == null) {
+                facebookAPI = new NgutuFacebookAPI(extractHost(address), getNavigator().getState());
             }
-            printRequest(request);
-            if (request.getParameterMap().containsKey("code")) {
-                handleCodeRequest(request);
+
+            String code = getCode(request);
+            if (code != null) {
+                handleCodeRequest(code);
             }
         }
-        // TODO: Check navigation
     }
 
-    private void handleCodeRequest(VaadinRequest request) {
-        String code = request.getParameter("code");
-        System.out.println("Code -> " + code);
+    private String extractFragment(String state) {
+        if(state.startsWith("news")) {
+            return "news";
+        }
+        if(state.startsWith("books")) {
+            return "books";
+        }
+        return "";
+    }
+
+    private void handleCodeRequest(String code) {
         if (code != null) {
             User user = facebookAPI.fetchUser(code);
-            printUserInfo(user);
-
             FlexUser fUser = convert2FlexUser(user);
-            System.out.println("FUser -> " + fUser);
-
             updateSession(fUser);
         }
     }
 
+    private String getCode(VaadinRequest request) {
+        return request.getParameter("code");
+    }
+
     private void printRequest(VaadinRequest request) {
-        for (Object k : request.getParameterMap().keySet()) {
-            System.out.printf("(k, v) = (%s, %s)\n", k, request.getParameterMap().get(k));
+        for (String k : request.getParameterMap().keySet()) {
+            System.out.printf("(k, v) = (%s, %s)\n", k, request.getParameter(k));
         }
     }
 
@@ -96,6 +103,7 @@ public class NgutuUI extends SecuredUI {
             service.save(user);
         }
         getSession().setAttribute("user", user);
+        getNavigator().navigateTo(getSession().getAttribute("navigationState").toString());
     }
 
     private FlexUser convert2FlexUser(User user) {
@@ -116,6 +124,16 @@ public class NgutuUI extends SecuredUI {
         authUserInfo.setLocale(userInfo.getLocale());
         authUserInfo.setPicture(userInfo.getPicture().getUrl());
         return authUserInfo;
+    }
+
+    private String extractHost(String address) {
+        if (address.startsWith("http://localhost:8080/")) {
+            return "http://localhost:8080/";
+        }
+        if (address.startsWith("www.ngutu.org")) {
+            return "www.ngutu.org/";
+        }
+        throw new IllegalArgumentException("Uknown address " + address);
     }
 
     @WebServlet(urlPatterns = "/*", name = "NgutuUIServlet", asyncSupported = true)

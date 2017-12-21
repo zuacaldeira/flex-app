@@ -10,7 +10,6 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import components.FlexButton;
 import db.auth.FlexUser;
-import org.ngutu.ui.viewproviders.FlexViews;
 
 /**
  *
@@ -24,10 +23,6 @@ public class FacebookLogoutButton extends FlexButton {
         super("Logout " + getUser().getUserInfo().getGivenName(), VaadinIcons.FACEBOOK_SQUARE);
         super.setStyleName(ValoTheme.BUTTON_BORDERLESS_COLORED);
         super.addStyleName("facebook-logout-button");
-        super.addClickListener(event -> {
-            getUI().getSession().setAttribute("user", null);
-            getUI().getNavigator().navigateTo(FlexViews.WELCOME);
-        });
     }
     
      private static FlexUser getUser() {

@@ -15,6 +15,7 @@ import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.GraphResponse;
 import com.restfb.types.User;
 import com.vaadin.server.Page;
+import com.vaadin.ui.UI;
 import db.news.NewsArticle;
 
 /**
@@ -24,29 +25,35 @@ import db.news.NewsArticle;
 public class NgutuFacebookAPI {
 
     public static final Version VERSION = Version.LATEST;
-
-    private String host;
-    private String fragment;
-
     private FacebookProperties properties;
 
-    private String code;
+
+    private final String host;
+    private String navigationState;
+
     private AccessToken accessToken;
 
     private User user;
 
-    public NgutuFacebookAPI(String fragment) {
-        this.fragment = fragment;
+    public NgutuFacebookAPI(String host, String navigationState) {
         properties = new FacebookProperties();
+        this.host = host;
+        this.navigationState = navigationState;
     }
 
-    public String getFragment() {
-        return fragment;
+    public String getHost() {
+        return host;
+    }
+    
+    public String getNavigationState() {
+        return navigationState;
     }
 
-    public void setFragment(String fragment) {
-        this.fragment = fragment;
+    public void setNavigationState(String navigationState) {
+        this.navigationState = navigationState;
     }
+    
+
 
     public void authorize() {
         ScopeBuilder scopeBuilder = new ScopeBuilder();
@@ -58,23 +65,23 @@ public class NgutuFacebookAPI {
                 .addPermission(FacebookPermissions.MANAGE_PAGES)
                 .addPermission(FacebookPermissions.PUBLISH_PAGES);
         FacebookClient client = new DefaultFacebookClient(VERSION);
-        String loginDialogUrlString = client.getLoginDialogUrl(properties.getAppId(), getRedirectUrl(), scopeBuilder);
+        String loginDialogUrlString = client.getLoginDialogUrl(properties.getAppId(), getLoginCallback(), scopeBuilder);
         Page.getCurrent().open(loginDialogUrlString, "_self");
     }
 
-    public String getRedirectUrl() {
-        System.out.printf("(host) -> (%s)\n", getHost());
-        return getHost() + fragment;
+    public String getLoginCallback() {
+        System.out.printf("LOGIN CALLBACK URL host/fragment -> (%s%s)\n", host, extractFragment(navigationState));
+        return host + extractFragment(navigationState);
     }
 
-    private String getHost() {
-        return Page.getCurrent().getLocation().toASCIIString().split(fragment)[0];
+    public String getRedirectUrl() {
+        System.out.printf("REDIRECT URL host/fragment -> (%s%s)\n", host, navigationState);
+        return host + navigationState;
     }
 
     public User fetchUser(String code) {
         accessToken = new DefaultFacebookClient(VERSION)
-                .obtainUserAccessToken(
-                        properties.getAppId(),
+                .obtainUserAccessToken(properties.getAppId(),
                         properties.getAppSecret(),
                         getRedirectUrl(),
                         code);
@@ -83,7 +90,9 @@ public class NgutuFacebookAPI {
                 accessToken.getAccessToken(),
                 properties.getAppSecret(),
                 NgutuFacebookAPI.VERSION);
+        
         user = facebookClient.fetchObject("me", User.class, Parameter.with("fields", "id, name, email, picture, locale, first_name"));
+        
         System.out.printf("(Name, id) = (%s, %s)\n", user.getName(), user.getId());
         return user;
     }
@@ -134,5 +143,19 @@ public class NgutuFacebookAPI {
     private String createMessage(NewsArticle article, String message) {
         return message;
     }
+
+    private String extractFragment(String state) {
+        if(state.startsWith("news")) {
+            return "news";
+        }
+        if(state.startsWith("books")) {
+            return "books";
+        }
+        return "";
+    }
+
+    public void deauthorize() {
+    }
+    
 
 }

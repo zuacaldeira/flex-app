@@ -22,13 +22,6 @@ public class FacebookLoginButton extends FlexButton {
     public FacebookLoginButton() {
         super("Login with Facebook", VaadinIcons.FACEBOOK_SQUARE);
         super.setStyleName(ValoTheme.BUTTON_BORDERLESS_COLORED);
-        super.addClickListener(event -> {
-            if(UI.getCurrent() != null && ((NgutuUI)UI.getCurrent()).getFacebookAPI() != null) {
-                NgutuFacebookAPI authAPI = ((NgutuUI)UI.getCurrent()).getFacebookAPI();
-                authAPI.setFragment(UI.getCurrent().getNavigator().getState());
-                authAPI.authorize();
-            }
-        });
     }
     
 }
