@@ -133,27 +133,9 @@ public abstract class AbstractMenu extends HorizontalLayout {
     private void initFacebookButtons() {
         if (getUser() == null) {
             facebookLoginButton = new FacebookLoginButton();
-            facebookLoginButton.addClickListener(click -> {
-                if (UI.getCurrent() != null && ((NgutuUI) UI.getCurrent()).getFacebookAPI() != null) {
-                    NgutuFacebookAPI authAPI = ((NgutuUI) UI.getCurrent()).getFacebookAPI();
-                    authAPI.setNavigationState(UI.getCurrent().getNavigator().getState());
-                    UI.getCurrent().getSession().setAttribute("navigationState", UI.getCurrent().getNavigator().getState());
-                    authAPI.authorize();
-                }
-            });
             menuActions.addComponent(facebookLoginButton);
         } else {
             facebookLogoutButton = new FacebookLogoutButton();
-            facebookLogoutButton.addClickListener(click -> {
-                if (UI.getCurrent() != null) {
-                    UI.getCurrent().getSession().setAttribute("user", null);
-                    NgutuFacebookAPI authAPI = ((NgutuUI) UI.getCurrent()).getFacebookAPI();
-                    authAPI.setNavigationState(UI.getCurrent().getNavigator().getState());
-                    UI.getCurrent().getSession().setAttribute("navigationState", UI.getCurrent().getNavigator().getState());
-                    authAPI.deauthorize();
-                    UI.getCurrent().getNavigator().navigateTo(UI.getCurrent().getNavigator().getState());
-                }
-            });
             menuActions.addComponent(facebookLogoutButton);
         }
     }
