@@ -151,6 +151,7 @@ public abstract class AbstractMenu extends HorizontalLayout {
                     authAPI.setNavigationState(UI.getCurrent().getNavigator().getState());
                     UI.getCurrent().getSession().setAttribute("navigationState", UI.getCurrent().getNavigator().getState());
                     authAPI.deauthorize();
+                    UI.getCurrent().getNavigator().navigateTo(UI.getCurrent().getNavigator().getState());
                 }
             });
             menuActions.addComponent(facebookLogoutButton);
