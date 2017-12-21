@@ -131,7 +131,7 @@ public class NgutuUI extends SecuredUI {
             return "http://localhost:8080/";
         }
         if (address.contains("www.ngutu.org")) {
-            return "www.ngutu.org/";
+            return "http://www.ngutu.org/";
         }
         throw new IllegalArgumentException("Uknown address " + address);
     }
