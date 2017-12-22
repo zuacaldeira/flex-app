@@ -45,7 +45,8 @@ public class NewsMenu extends AbstractMenu {
         FlexButton menu = new FlexButton(null, VaadinIcons.MENU);
         menu.addClickListener(click -> {
             Window w = new Window(null, new NewsMenuBar());
-            w.setWidth("25%");
+            w.setWidthUndefined();
+            w.setHeight(MENU_HEIGHT);
             w.setModal(true);
             w.center();
             w.setPositionY(0);
