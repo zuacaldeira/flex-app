@@ -38,8 +38,7 @@ public class FlexButton extends Button {
     }
     
     private void initialize() {
-        setWidthUndefined();
-        setHeight(AbstractMenu.MENU_HEIGHT);
+        setSizeUndefined();
         setStyleName(ValoTheme.BUTTON_FRIENDLY + " flex-button "  + ValoTheme.BUTTON_QUIET);
     }
 

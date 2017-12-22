@@ -50,7 +50,7 @@ public class NewsMenu extends AbstractMenu {
             w.center();
             UI.getCurrent().addWindow(w);
         });
-        menuActions.addComponents(menu, new HomeButton());
+        menuActions.addComponents(menu);
         return menuActions;
     }
 
