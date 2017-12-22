@@ -39,9 +39,9 @@ public abstract class AbstractMenu extends HorizontalLayout {
 
     public AbstractMenu() {
         initLogo();
-        initMenuBar();
+        initSearchBox();
         initActions();
-        super.addComponents(logo, menuBar, actions);
+        super.addComponents(logo, searchBox, actions);
         super.setComponentAlignment(logo, Alignment.MIDDLE_LEFT);
         super.setComponentAlignment(menuBar, Alignment.MIDDLE_CENTER);
         super.setComponentAlignment(actions, Alignment.MIDDLE_RIGHT);
@@ -86,11 +86,11 @@ public abstract class AbstractMenu extends HorizontalLayout {
     }
 
     private void initActions() {
-        initSearchBox();
+        initMenuBar();        
         initFacebookButtons();
         initPicture();
         actions = createMenuActions();
-        actions.addComponent(searchBox);
+        actions.addComponent(menuBar);
         actions.addComponent(facebookButton);
         actions.addComponent(picture);
     }
