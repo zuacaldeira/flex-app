@@ -37,6 +37,8 @@ public class NewsMenu extends AbstractMenu {
     @Override
     protected MenuActions createMenuActions() {
         MenuActions menuActions = new MenuActions();
+        menuActions.addComponent(new NewsMenuBar());
+        
         return menuActions;
     }
 
