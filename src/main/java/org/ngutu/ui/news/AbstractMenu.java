@@ -43,7 +43,7 @@ public abstract class AbstractMenu extends HorizontalLayout {
         initActions();
         super.addComponents(logo, searchBox, actions);
         super.setComponentAlignment(logo, Alignment.MIDDLE_LEFT);
-        super.setComponentAlignment(menuBar, Alignment.MIDDLE_CENTER);
+        super.setComponentAlignment(searchBox, Alignment.MIDDLE_CENTER);
         super.setComponentAlignment(actions, Alignment.MIDDLE_RIGHT);
         super.setSizeFull();
         super.setHeight("40px");
