@@ -70,7 +70,7 @@ public abstract class AbstractMenu extends HorizontalLayout {
         searchBox.setCaptionAsHtml(true);
         searchBox.setPlaceholder("Search");
         searchBox.setStyleName("search-box");
-        searchBox.setWidth("100%");
+        searchBox.setWidth(50, Unit.EM);
         searchBox.addValueChangeListener(e -> {
             search(e.getValue());
         });

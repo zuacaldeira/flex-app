@@ -21,7 +21,7 @@ public class NewsMenu extends AbstractMenu {
 
     public NewsMenu() {
         super();
-        super.addComponentAsFirst(new NewsMenuBar());
+        super.addComponent(new NewsMenuBar(), 1);
     }
 
     @Override
