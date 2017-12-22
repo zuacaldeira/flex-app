@@ -41,7 +41,7 @@ public class FlexLogo extends HorizontalLayout {
     }
 
     private void initLabel() {
-        ngutu = new Label("Ngutu");
+        ngutu = new Label("ngutu.org");
     }
 
     private void initImage() {
