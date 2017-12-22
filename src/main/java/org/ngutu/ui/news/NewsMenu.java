@@ -20,6 +20,8 @@ public class NewsMenu extends AbstractMenu {
 
 
     public NewsMenu() {
+        super();
+        super.addComponentAsFirst(new NewsMenuBar());
     }
 
     @Override
@@ -37,8 +39,6 @@ public class NewsMenu extends AbstractMenu {
     @Override
     protected MenuActions createMenuActions() {
         MenuActions menuActions = new MenuActions();
-        menuActions.addComponent(new NewsMenuBar());
-        
         return menuActions;
     }
 

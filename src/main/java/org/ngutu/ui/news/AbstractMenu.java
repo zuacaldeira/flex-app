@@ -83,7 +83,7 @@ public abstract class AbstractMenu extends HorizontalLayout {
         initFacebookButtons();
         initPicture();
         actions = createMenuActions();
-        actions.addComponentAsFirst(searchBox);
+        actions.addComponent(searchBox);
         actions.addComponent(facebookButton);
         actions.addComponent(picture);
     }
