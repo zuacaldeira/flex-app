@@ -6,11 +6,11 @@
 package org.ngutu.ui.news;
 
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 import components.FlexButton;
-import components.HomeButton;
 import data.DataProviderType;
 import org.ngutu.ui.viewproviders.FlexViews;
 
@@ -44,12 +44,13 @@ public class NewsMenu extends AbstractMenu {
         
         FlexButton menu = new FlexButton(null, VaadinIcons.MENU);
         menu.addClickListener(click -> {
+            int xMax = Page.getCurrent().getBrowserWindowWidth();
             Window w = new Window(null, new NewsMenuBar());
             w.setWidthUndefined();
-            w.setHeight(MENU_HEIGHT);
             w.setModal(true);
             w.center();
-            w.setPositionY(0);
+            w.setPositionY(8);
+            w.setPositionX(xMax/2);            
             w.setClosable(true);
             w.setDraggable(true);
             UI.getCurrent().addWindow(w);
