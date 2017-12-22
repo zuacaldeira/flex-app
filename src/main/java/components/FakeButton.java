@@ -14,6 +14,8 @@ import com.vaadin.icons.VaadinIcons;
  */
 public class FakeButton extends FlexActionButton {
 
+    private static final long serialVersionUID = -4745498056327947341L;
+
     public FakeButton() {
         super(FlexCaptions.FAKE, VaadinIcons.EXCLAMATION_CIRCLE);
     }

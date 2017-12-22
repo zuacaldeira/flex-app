@@ -25,8 +25,6 @@ public class FlexWindow extends Window {
         super(caption);
         super.setWidth("50%");
         super.setHeight("75%");
-        super.setModal(true);
-        super.center();
     }
 
 }

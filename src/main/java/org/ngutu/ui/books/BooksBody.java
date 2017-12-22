@@ -24,9 +24,6 @@ public class BooksBody extends AbstractBody {
 
     @Override
     public void populate(DataProviderType type, String value) {
-        System.out.println("FlexBodyThread#run(): START");
-        //new FlexBodyWorker(user, masterDetailView, type, value).start();
-        System.out.println("FlexBodyThread#run(): DONE");
     }
 
     @Override

@@ -6,21 +6,22 @@
 package org.ngutu.ui.components;
 
 import com.vaadin.server.Resource;
+import com.vaadin.ui.themes.ValoTheme;
 import components.FlexButton;
-import components.FlexStyleNames;
 
 /**
  *
  * @author zua
  */
-public class FlexActionButton extends FlexButton {
+public abstract class FlexActionButton extends FlexButton {
 
     private static final long serialVersionUID = 1703002983017827112L;
 
     public FlexActionButton(String caption, Resource icon) {
         super(icon);
         super.setDescription(caption);
-        super.addStyleName(FlexStyleNames.FLEX_ACTION);
+        super.setStyleName(ValoTheme.BUTTON_BORDERLESS);
+        super.setSizeUndefined();
     }
     
 }

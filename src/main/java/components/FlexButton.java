@@ -8,12 +8,15 @@ package components;
 import com.vaadin.server.Resource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.themes.ValoTheme;
+import org.ngutu.ui.news.AbstractMenu;
 
 /**
  *
  * @author zua
  */
 public class FlexButton extends Button {
+
+    private static final long serialVersionUID = 2790652223146465994L;
 
     public FlexButton() {
         initialize();
@@ -35,9 +38,9 @@ public class FlexButton extends Button {
     }
     
     private void initialize() {
-        setSizeUndefined();
-        setStyleName(ValoTheme.BUTTON_BORDERLESS + " " + ValoTheme.BUTTON_SMALL);
-        addStyleName("flex-button");
+        setWidthUndefined();
+        setHeight(AbstractMenu.MENU_HEIGHT);
+        setStyleName(ValoTheme.BUTTON_FRIENDLY + " flex-button "  + ValoTheme.BUTTON_QUIET);
     }
 
 }

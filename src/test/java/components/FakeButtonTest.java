@@ -5,9 +5,6 @@
  */
 package components;
 
-import components.FlexStyleNames;
-import components.FakeButton;
-import components.FlexCaptions;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -23,8 +20,6 @@ public class FakeButtonTest {
     @Test
     public void testContructor() {
         FakeButton button = new FakeButton();
-        assertTrue(button.getStyleName().contains(FlexStyleNames.FLEX_BUTTON));
-        assertTrue(button.getStyleName().contains(FlexStyleNames.FLEX_ACTION));
         assertEquals(FlexCaptions.FAKE, button.getDescription());
         assertNull(button.getCaption());
     }

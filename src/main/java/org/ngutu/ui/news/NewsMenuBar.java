@@ -9,13 +9,13 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.themes.ValoTheme;
 import data.DataProviderType;
 import db.auth.FlexUser;
 import db.news.Tag;
 import java.util.TreeSet;
 import org.ngutu.ui.viewproviders.FlexViews;
 import backend.utils.MyDateUtils;
+import com.vaadin.ui.themes.ValoTheme;
 import utils.ServiceLocator;
 
 /**
@@ -28,7 +28,6 @@ public final class NewsMenuBar extends MenuBar {
 
     // Main Menu (top level)
     private MenuItem top;
-    private MenuItem home;
 
     private MenuItem news;
     private MenuItem categories;
@@ -49,21 +48,18 @@ public final class NewsMenuBar extends MenuBar {
         this.initMenuItems();
         setSizeUndefined();
         setAutoOpen(true);
-        setStyleName("news-menu-bar");
-        addStyleName(ValoTheme.MENUBAR_BORDERLESS);
+        setStyleName(ValoTheme.MENUBAR_BORDERLESS);
+        addStyleName("flex-menu-bar");
     }
 
     protected void initMenuItems() {
-        top = addItem("", VaadinIcons.GRID_SMALL, null);
-        top.setStyleName("menu-bar-top");
-        news = top.addItem("Articles", null, null);
-        publishers = top.addItem("Publishers", null, null);
-        categories = top.addItem("Categories", null, null);
-        languages = top.addItem("Languages", null, null);
-        countries = top.addItem("Countries", null, null);
-        home = addItem("", VaadinIcons.HOME, (item -> {
-            getUI().getNavigator().navigateTo(FlexViews.WELCOME);
-        }));
+        //top = addItem("Menu", VaadinIcons.MENU, null);
+        //top.setStyleName("menu-bar-top");
+        news = addItem("Articles", null, null);
+        publishers = news.addItem("Publishers", null, null);
+        categories = news.addItem("Categories", null, null);
+        languages = news.addItem("Languages", null, null);
+        countries = news.addItem("Countries", null, null);
         populate();
     }
 

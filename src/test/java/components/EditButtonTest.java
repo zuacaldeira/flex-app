@@ -5,8 +5,6 @@
  */
 package components;
 
-import components.EditButton;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -21,7 +19,6 @@ public class EditButtonTest {
     @Test
     public void testNew() {
         EditButton button = new EditButton();
-        assertTrue(button.getStyleName().contains("flex-action"));
     }
 
 }

@@ -21,7 +21,7 @@ $v-font-family: "Open Sans", sans-serif;
 
 // Defines the border used by all components.
 //$v-border: 2px solid (v-shade 0.7);
-//$v-border-radius: 10px;
+$v-border-radius: 10px;
 
 // Affects the color of some component elements, e.g Button, Panel title, etc
 //$v-background-color: rgba(10, 255, 0, 0.7);
@@ -173,8 +173,13 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
         }
     }
 
-    .menu-bar-top {
+    .menu-bar {
         color: black;
+    }
+
+    .flex-menu-bar {
+        color: black;
+        text-align: center;
     }
 
     .welcome-body{
@@ -285,7 +290,6 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     }
 
     .gravatar{
-        box-shadow: inset 4px rgba(125, 125, 125, 0.5);
     }
 
     .info-frame {

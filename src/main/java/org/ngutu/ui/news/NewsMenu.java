@@ -5,9 +5,12 @@
  */
 package org.ngutu.ui.news;
 
-import com.vaadin.ui.MenuBar;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.Window;
+import components.FlexButton;
+import components.HomeButton;
 import data.DataProviderType;
 import org.ngutu.ui.viewproviders.FlexViews;
 
@@ -24,11 +27,7 @@ public class NewsMenu extends AbstractMenu {
     }
 
     @Override
-    protected MenuBar createMenuBar() {
-        return new NewsMenuBar();
-    }
-
-    private NewsBody getBody() {
+    public NewsBody getBody() {
         return ((NewsView) UI.getCurrent().getContent()).getBody();
     }
 
@@ -37,6 +36,22 @@ public class NewsMenu extends AbstractMenu {
     protected void search(String value) {
         Notification.show("Clicked on search " + value);
         UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.SEARCH + "/" + value);
+    }
+
+    @Override
+    protected MenuActions createMenuActions() {
+        MenuActions menuActions = new MenuActions();
+        
+        FlexButton menu = new FlexButton(null, VaadinIcons.MENU);
+        menu.addClickListener(click -> {
+            Window w = new Window(null, new NewsMenuBar());
+            w.setSizeUndefined();
+            w.setModal(true);
+            w.center();
+            UI.getCurrent().addWindow(w);
+        });
+        menuActions.addComponents(menu, new HomeButton());
+        return menuActions;
     }
 
     

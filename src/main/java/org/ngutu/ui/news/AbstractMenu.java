@@ -6,19 +6,17 @@
 package org.ngutu.ui.news;
 
 import com.vaadin.server.ExternalResource;
-import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
-import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
+import components.FlexButton;
 import db.auth.FlexUser;
 import org.ngutu.ui.logo.FlexLogo;
 import org.ngutu.ui.share.FacebookLoginButton;
 import org.ngutu.ui.share.FacebookLogoutButton;
-import org.ngutu.ui.share.NgutuFacebookAPI;
-import ui.NgutuUI;
 
 /**
  *
@@ -31,26 +29,24 @@ public abstract class AbstractMenu extends HorizontalLayout {
     private FlexLogo logo;
     private TextField searchBox;
 
-    private HorizontalLayout menuActions;
-    private MenuBar menuBar;
-
-    private FacebookLoginButton facebookLoginButton;
-    private FacebookLogoutButton facebookLogoutButton;
-
+    private HorizontalLayout actions;
+    private FlexButton facebookButton;
     private Image picture;
+
+    public static final String MENU_HEIGHT = "40px";
 
     public AbstractMenu() {
         initLogo();
         initSearchBox();
-        initMenuActions();
-        super.addComponents(logo, searchBox, menuActions);
+        initActions();
+        super.addComponents(logo, searchBox, actions);
         super.setComponentAlignment(logo, Alignment.MIDDLE_LEFT);
         super.setComponentAlignment(searchBox, Alignment.MIDDLE_CENTER);
-        super.setComponentAlignment(menuActions, Alignment.MIDDLE_RIGHT);
+        super.setComponentAlignment(actions, Alignment.MIDDLE_RIGHT);
         super.setSizeFull();
         super.setHeight("40px");
         super.setSpacing(true);
-        super.setMargin(new MarginInfo(false, true, false, false));
+        super.setMargin(false);
         super.setStyleName("flex-menu");
     }
 
@@ -83,47 +79,41 @@ public abstract class AbstractMenu extends HorizontalLayout {
 
     protected abstract void search(String value);
 
-    private void initMenuActions() {
-        initMenuBar();
-        menuActions = new HorizontalLayout(menuBar);
-        menuActions.setMargin(false);
-        menuActions.setSpacing(false);
-        menuActions.setSizeUndefined();
-        menuActions.setComponentAlignment(menuBar, Alignment.MIDDLE_CENTER);
+    private void initActions() {
         initFacebookButtons();
         initPicture();
-        if (picture != null) {
-            menuActions.addComponent(picture);
-            menuActions.setComponentAlignment(picture, Alignment.MIDDLE_CENTER);
-        }
+        actions = createMenuActions();
+        actions.addComponent(facebookButton);
+        actions.addComponent(picture);
     }
 
     private void initPicture() {
         FlexUser user = getUser();
         if (user != null && user.getUserInfo() != null && user.getUserInfo().getPicture() != null) {
             picture = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
-            picture.setWidth("32px");
-            picture.setHeight("32px");
-            picture.setStyleName("circle gravatar");
+            picture.setWidth(MENU_HEIGHT);
+            picture.setHeight(MENU_HEIGHT);
+            picture.setStyleName("gravatar");
         }
+        else {
+            picture = new Image();
+        }
+        
+        picture.addClickListener(click -> {
+            Notification.show("TODO: Navigate to User Profile", Notification.Type.WARNING_MESSAGE);
+        });
     }
 
-    private void initMenuBar() {
-        menuBar = createMenuBar();
-    }
+    protected abstract MenuActions createMenuActions();
 
-    protected abstract MenuBar createMenuBar();
+    public abstract AbstractBody getBody();
 
     public final TextField getSearchBox() {
         return searchBox;
     }
 
-    public HorizontalLayout getMenuActions() {
-        return menuActions;
-    }
-
-    public MenuBar getMenuBar() {
-        return menuBar;
+    public HorizontalLayout getActions() {
+        return actions;
     }
 
     public Image getPicture() {
@@ -132,11 +122,9 @@ public abstract class AbstractMenu extends HorizontalLayout {
 
     private void initFacebookButtons() {
         if (getUser() == null) {
-            facebookLoginButton = new FacebookLoginButton();
-            menuActions.addComponent(facebookLoginButton);
+            facebookButton = new FacebookLoginButton();
         } else {
-            facebookLogoutButton = new FacebookLogoutButton();
-            menuActions.addComponent(facebookLogoutButton);
+            facebookButton = new FacebookLogoutButton();
         }
     }
 }

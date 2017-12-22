@@ -5,9 +5,6 @@
  */
 package components;
 
-import components.FlexStyleNames;
-import components.HideButton;
-import components.FlexCaptions;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -23,8 +20,6 @@ public class HideButtonTest {
     @Test
     public void testContructor() {
         HideButton button = new HideButton();
-        assertTrue(button.getStyleName().contains(FlexStyleNames.FLEX_BUTTON));
-        assertTrue(button.getStyleName().contains(FlexStyleNames.FLEX_ACTION));
         assertEquals(FlexCaptions.HIDE, button.getDescription());
         assertNull(button.getCaption());
     }
