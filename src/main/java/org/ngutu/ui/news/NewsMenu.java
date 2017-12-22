@@ -48,6 +48,7 @@ public class NewsMenu extends AbstractMenu {
             w.setWidth("25%");
             w.setModal(true);
             w.center();
+            w.setPositionY(0);
             w.setClosable(true);
             w.setDraggable(true);
             UI.getCurrent().addWindow(w);

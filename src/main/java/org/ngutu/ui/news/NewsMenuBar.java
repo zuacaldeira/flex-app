@@ -56,10 +56,10 @@ public final class NewsMenuBar extends MenuBar {
         //top = addItem("Menu", VaadinIcons.MENU, null);
         //top.setStyleName("menu-bar-top");
         news = addItem("Articles", null, null);
-        publishers = news.addItem("Publishers", null, null);
-        categories = news.addItem("Categories", null, null);
-        languages = news.addItem("Languages", null, null);
-        countries = news.addItem("Countries", null, null);
+        publishers = addItem("Publishers", null, null);
+        categories = addItem("Categories", null, null);
+        languages = addItem("Languages", null, null);
+        countries = addItem("Countries", null, null);
         populate();
     }
 
