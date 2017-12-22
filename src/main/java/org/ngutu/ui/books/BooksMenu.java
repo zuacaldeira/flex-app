@@ -5,6 +5,7 @@
  */
 package org.ngutu.ui.books;
 
+import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.UI;
 import components.FlexButton;
 import db.auth.FlexUser;
@@ -51,5 +52,12 @@ public class BooksMenu extends AbstractMenu {
         menuActions.addComponent(newsButton);
         return menuActions;
     }
+
+    @Override
+    protected MenuBar createMenuBar() {
+        return new MenuBar();
+    }
+    
+    
 
 }

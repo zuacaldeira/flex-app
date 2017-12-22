@@ -5,6 +5,7 @@
  */
 package org.ngutu.ui.news;
 
+import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import data.DataProviderType;
@@ -21,7 +22,6 @@ public class NewsMenu extends AbstractMenu {
 
     public NewsMenu() {
         super();
-        super.addComponent(new NewsMenuBar(), 1);
     }
 
     @Override
@@ -40,6 +40,11 @@ public class NewsMenu extends AbstractMenu {
     protected MenuActions createMenuActions() {
         MenuActions menuActions = new MenuActions();
         return menuActions;
+    }
+
+    @Override
+    protected MenuBar createMenuBar() {
+        return new NewsMenuBar();
     }
 
     

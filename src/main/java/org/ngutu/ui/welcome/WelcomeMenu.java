@@ -6,6 +6,7 @@
 package org.ngutu.ui.welcome;
 
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.UI;
 import components.FlexButton;
 import org.ngutu.ui.news.AbstractMenu;
@@ -22,6 +23,7 @@ public class WelcomeMenu extends AbstractMenu {
 
     public WelcomeMenu() {
         getSearchBox().setVisible(false);
+        getMenuBar().setVisible(false);
     }
 
     @Override
@@ -45,4 +47,11 @@ public class WelcomeMenu extends AbstractMenu {
         menuActions.addComponent(newsButton);
         return menuActions;
     }
+
+    @Override
+    protected MenuBar createMenuBar() {
+        return new MenuBar();
+    }
+    
+    
 }

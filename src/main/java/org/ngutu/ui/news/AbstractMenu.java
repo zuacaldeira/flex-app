@@ -9,6 +9,7 @@ import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
+import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
@@ -34,14 +35,16 @@ public abstract class AbstractMenu extends HorizontalLayout {
     private Image picture;
 
     public static final String MENU_HEIGHT = "40px";
+    private MenuBar menuBar;
 
     public AbstractMenu() {
         initLogo();
+        initMenuBar();
         initActions();
-        super.addComponents(logo, actions);
+        super.addComponents(logo, menuBar, actions);
         super.setComponentAlignment(logo, Alignment.MIDDLE_LEFT);
+        super.setComponentAlignment(menuBar, Alignment.MIDDLE_CENTER);
         super.setComponentAlignment(actions, Alignment.MIDDLE_RIGHT);
-        super.setExpandRatio(actions, 1f);
         super.setSizeFull();
         super.setHeight("40px");
         super.setSpacing(true);
@@ -70,13 +73,17 @@ public abstract class AbstractMenu extends HorizontalLayout {
         searchBox.setCaptionAsHtml(true);
         searchBox.setPlaceholder("Search");
         searchBox.setStyleName("search-box");
-        searchBox.setWidth(50, Unit.EM);
+        searchBox.setWidth(25, Unit.EM);
         searchBox.addValueChangeListener(e -> {
             search(e.getValue());
         });
     }
 
     protected abstract void search(String value);
+
+    private void initMenuBar() {
+        menuBar = createMenuBar();
+    }
 
     private void initActions() {
         initSearchBox();
@@ -106,6 +113,7 @@ public abstract class AbstractMenu extends HorizontalLayout {
     }
 
     protected abstract MenuActions createMenuActions();
+    protected abstract MenuBar createMenuBar();
 
     public abstract AbstractBody getBody();
 
@@ -120,6 +128,12 @@ public abstract class AbstractMenu extends HorizontalLayout {
     public Image getPicture() {
         return picture;
     }
+
+    public MenuBar getMenuBar() {
+        return menuBar;
+    }
+    
+    
 
     private void initFacebookButtons() {
         if (getUser() == null) {
