@@ -52,7 +52,7 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
     }
 
     private void disableActions() {
-        facebookButton.setEnabled(false);
+        //facebookButton.setEnabled(false);
         hideButton.setEnabled(false);
         fakeButton.setEnabled(false);
         favoriteButton.setEnabled(false);
