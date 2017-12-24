@@ -124,9 +124,6 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
             button.removeStyleName("yellow");
             button.setDescription("Mark as Favorite");
         }
-        if (getParent() != null && getParent().getParent() != null) {
-            ((VerticalLayout) getParent().getParent()).removeComponent(getParent());
-        }
     }
 
     protected void handleFakeClick(FakeButton button) {
@@ -140,9 +137,6 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
             getUserService().save(user);
             button.removeStyleName("red");
             button.setDescription("Mark as Fake");
-        }
-        if (getParent() != null && getParent().getParent() != null) {
-            ((VerticalLayout) getParent().getParent()).removeComponent(getParent());
         }
     }
 
