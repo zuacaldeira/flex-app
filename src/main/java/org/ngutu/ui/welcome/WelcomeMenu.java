@@ -6,10 +6,9 @@
 package org.ngutu.ui.welcome;
 
 import com.vaadin.icons.VaadinIcons;
-import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.UI;
 import components.FlexButton;
-import org.ngutu.ui.news.AbstractMenu;
+import org.ngutu.ui.components.AbstractMenu;
 import org.ngutu.ui.news.MenuActions;
 import org.ngutu.ui.viewproviders.FlexViews;
 
@@ -22,15 +21,8 @@ public class WelcomeMenu extends AbstractMenu {
     private static final long serialVersionUID = 8366211712669711650L;
 
     public WelcomeMenu() {
-        getSearchBox().setVisible(false);
-        getMenuBar().setVisible(false);
     }
 
-    @Override
-    protected void search(String value) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
     @Override
     public WelcomeBody getBody() {
         return (WelcomeBody) ((WelcomeView) UI.getCurrent().getContent()).getBody();
@@ -47,11 +39,4 @@ public class WelcomeMenu extends AbstractMenu {
         menuActions.addComponent(newsButton);
         return menuActions;
     }
-
-    @Override
-    protected MenuBar createMenuBar() {
-        return new MenuBar();
-    }
-    
-    
 }

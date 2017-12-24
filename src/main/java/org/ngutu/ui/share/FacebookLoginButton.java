@@ -21,7 +21,7 @@ public class FacebookLoginButton extends FlexButton {
 
     public FacebookLoginButton() {
         super("Login", VaadinIcons.FACEBOOK_SQUARE);
-        super.setStyleName(ValoTheme.BUTTON_PRIMARY + " flex-button "  + ValoTheme.BUTTON_QUIET);
+        super.setStyleName(ValoTheme.BUTTON_PRIMARY + " flex-button");
         super.addClickListener(click -> {
             if (UI.getCurrent() != null && ((NgutuUI) UI.getCurrent()).getFacebookAPI() != null) {
                 NgutuFacebookAPI authAPI = ((NgutuUI) UI.getCurrent()).getFacebookAPI();

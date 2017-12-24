@@ -17,9 +17,8 @@ public class MenuActions extends HorizontalLayout {
     private static final long serialVersionUID = 7895033541498693167L;
 
     public MenuActions() {
-        super.setWidthUndefined();
         super.setMargin(false);
-        super.setSpacing(false);
+        super.setSpacing(true);
         super.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
     }
     

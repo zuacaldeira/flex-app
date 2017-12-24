@@ -6,15 +6,18 @@
 package components;
 
 import com.vaadin.icons.VaadinIcons;
+import org.ngutu.ui.news.FlexMenuButton;
 
 /**
  *
  * @author zua
  */
-public class SearchButton extends FlexButton {
+public class SearchButton extends FlexMenuButton {
+
+    private static final long serialVersionUID = -7211229433897090893L;
 
     public SearchButton() {
-        super(FlexCaptions.SEARCH, VaadinIcons.SEARCH);
+        super(null, VaadinIcons.SEARCH);
     }
 
 }

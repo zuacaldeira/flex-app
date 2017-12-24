@@ -24,7 +24,6 @@ public class HomeButtonTest {
     @Test
     public void testContructor() {
         HomeButton button = new HomeButton();
-        assertTrue(button.getStyleName().contains(FlexStyleNames.FLEX_BUTTON));
         assertEquals(FlexCaptions.HOME, button.getCaption());
     }
     

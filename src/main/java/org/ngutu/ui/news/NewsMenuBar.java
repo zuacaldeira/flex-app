@@ -54,7 +54,7 @@ public final class NewsMenuBar extends MenuBar {
 
     protected void initMenuItems() {
         top = addItem("Menu", VaadinIcons.MENU, null);
-        top.setStyleName("menu-bar-top");
+        top.setStyleName(ValoTheme.BUTTON_FRIENDLY);
         news = top.addItem("Articles", null, null);
         publishers = top.addItem("Publishers", null, null);
         categories = top.addItem("Categories", null, null);
@@ -65,7 +65,6 @@ public final class NewsMenuBar extends MenuBar {
 
     private FlexUser getUser() {
         if (UI.getCurrent() != null) {
-            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
             return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
         }
         return null;

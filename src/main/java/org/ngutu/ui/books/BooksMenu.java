@@ -5,11 +5,10 @@
  */
 package org.ngutu.ui.books;
 
-import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.UI;
 import components.FlexButton;
 import db.auth.FlexUser;
-import org.ngutu.ui.news.AbstractMenu;
+import org.ngutu.ui.components.AbstractMenu;
 import org.ngutu.ui.news.MenuActions;
 
 /**
@@ -23,11 +22,6 @@ public class BooksMenu extends AbstractMenu {
 
     public BooksMenu() {
         getSearchBox().setVisible(false);
-    }
-
-    @Override
-    protected void search(String value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -52,12 +46,5 @@ public class BooksMenu extends AbstractMenu {
         menuActions.addComponent(newsButton);
         return menuActions;
     }
-
-    @Override
-    protected MenuBar createMenuBar() {
-        return new MenuBar();
-    }
-    
-    
 
 }

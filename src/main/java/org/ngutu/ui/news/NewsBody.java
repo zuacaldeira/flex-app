@@ -5,6 +5,7 @@
  */
 package org.ngutu.ui.news;
 
+import org.ngutu.ui.components.AbstractBody;
 import com.vaadin.ui.Component;
 import data.DataProviderType;
 

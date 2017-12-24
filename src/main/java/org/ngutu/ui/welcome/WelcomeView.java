@@ -5,9 +5,9 @@
  */
 package org.ngutu.ui.welcome;
 
-import org.ngutu.ui.news.AbstractBody;
-import org.ngutu.ui.news.AbstractMenu;
-import org.ngutu.ui.news.AbstractView;
+import org.ngutu.ui.components.AbstractBody;
+import org.ngutu.ui.components.AbstractMenu;
+import org.ngutu.ui.components.AbstractView;
 
 /**
  *

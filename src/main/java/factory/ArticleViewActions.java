@@ -5,7 +5,6 @@
  */
 package factory;
 
-import com.vaadin.ui.Alignment;
 import components.CommentButton;
 import components.FakeButton;
 import components.FavoriteButton;
@@ -15,19 +14,10 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 import db.auth.FlexUser;
 import db.news.NewsArticle;
-import db.opinion.Fake;
-import db.opinion.Favorite;
-import db.opinion.Read;
-import java.util.Date;
 import backend.services.auth.FlexUserService;
 import backend.services.news.NewsArticleService;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.TextArea;
-import com.vaadin.ui.Window;
-import com.vaadin.ui.themes.ValoTheme;
-import components.FlexWindow;
-import components.SaveButton;
-import org.ngutu.ui.share.ShareOnFacebook;
+import com.google.common.collect.Sets;
+import com.vaadin.ui.UI;
 import utils.ServiceLocator;
 
 /**
@@ -46,8 +36,8 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
     private final FlexUser user;
     private final NewsArticle article;
 
-    public ArticleViewActions(FlexUser user, NewsArticle article) {
-        this.user = user;
+    public ArticleViewActions(NewsArticle article) {
+        this.user = getUser();
         this.article = article;
         super.setSizeFull();
         super.setHeight("21px");
@@ -69,11 +59,11 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
     }
 
     private void initActions() {
-            facebookButton = new FacebookShareButton();
-            facebookButton.addClickListener(event -> {
-                facebookButton.addStyleName("scale-in-out");
-                getUI().addWindow(new ShareWindow(this));
-            });
+        facebookButton = new FacebookShareButton();
+        facebookButton.addClickListener(event -> {
+            facebookButton.addStyleName("scale-in-out");
+            getUI().addWindow(new ShareWindow(this));
+        });
         commentButton = new CommentButton();
         commentButton.addClickListener(this);
 
@@ -107,18 +97,12 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
 
     protected void handleHideClick(HideButton button) {
         if (!button.getStyleName().contains("purple")) {
-            Read read = new Read();
-            read.setArticle(article);
-            read.setUser(user);
-            read.setCreatedAt(new Date());
+            user.getRead().add(article);
             getUserService().save(user);
             button.addStyleName("purple");
             button.setDescription("Mark as Read");
         } else {
-            Read read = new Read();
-            read.setArticle(article);
-            read.setUser(user);
-            user.getRead().remove(read);
+            user.getRead().remove(article);
             getUserService().save(user);
             button.removeStyleName("purple");
             button.setDescription("Mark as Unread");
@@ -130,41 +114,35 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
 
     protected void handleFavouriteClick(FavoriteButton button) {
         if (!button.getStyleName().contains("yellow")) {
-            Favorite favorite = new Favorite();
-            favorite.setArticle(article);
-            favorite.setUser(user);
-            favorite.setCreatedAt(new Date());
+            user.getFavorite().add(article);
             getUserService().save(user);
             button.addStyleName("yellow");
             button.setDescription("Unmark Favorite");
         } else {
-            Favorite favorite = new Favorite();
-            favorite.setArticle(article);
-            favorite.setUser(user);
-            user.getFavorite().remove(favorite);
+            user.getFavorite().remove(article);
             getUserService().save(user);
             button.removeStyleName("yellow");
             button.setDescription("Mark as Favorite");
+        }
+        if (getParent() != null && getParent().getParent() != null) {
+            ((VerticalLayout) getParent().getParent()).removeComponent(getParent());
         }
     }
 
     protected void handleFakeClick(FakeButton button) {
         if (!button.getStyleName().contains("red")) {
-            Fake fake = new Fake();
-            fake.setArticle(article);
-            fake.setUser(user);
-            fake.setCreatedAt(new Date());
+            user.getFake().add(article);
             getUserService().save(user);
             button.addStyleName("red");
             button.setDescription("Unmark Fake");
         } else {
-            Fake fake = new Fake();
-            fake.setArticle(article);
-            fake.setUser(user);
-            user.getFavorite().remove(fake);
+            user.getFake().remove(article);
             getUserService().save(user);
             button.removeStyleName("red");
             button.setDescription("Mark as Fake");
+        }
+        if (getParent() != null && getParent().getParent() != null) {
+            ((VerticalLayout) getParent().getParent()).removeComponent(getParent());
         }
     }
 
@@ -208,30 +186,15 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
     }
 
     private boolean isFavorite(FlexUser user, NewsArticle article) {
-        for (Favorite item : user.getFavorite()) {
-            if (item.getArticle().getTitle().equals(article.getTitle())) {
-                return true;
-            }
-        }
-        return false;
+        return Sets.newHashSet(getArticlesService().findFavorite(user.getUsername())).contains(article);
     }
 
     private boolean isFake(FlexUser user, NewsArticle article) {
-        for (Fake item : user.getFake()) {
-            if (item.getArticle().getTitle().equals(article.getTitle())) {
-                return true;
-            }
-        }
-        return false;
+        return Sets.newHashSet(getArticlesService().findFake(user.getUsername())).contains(article);
     }
 
     private boolean isRead(FlexUser user, NewsArticle article) {
-        for (Read item : user.getRead()) {
-            if (item.getArticle().getTitle().equals(article.getTitle())) {
-                return true;
-            }
-        }
-        return false;
+        return Sets.newHashSet(getArticlesService().findRead(user.getUsername())).contains(article);
     }
 
     public NewsArticle getArticle() {
@@ -240,5 +203,12 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
 
     public FacebookShareButton getFacebookButton() {
         return facebookButton;
+    }
+
+    private FlexUser getUser() {
+        if (UI.getCurrent() != null) {
+            return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+        }
+        return null;
     }
 }

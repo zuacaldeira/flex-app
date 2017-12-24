@@ -9,8 +9,6 @@ import db.auth.FlexUser;
 import db.news.NewsArticle;
 import db.news.NewsAuthor;
 import db.news.NewsSource;
-import db.relationships.AuthoredBy;
-import db.relationships.PublishedBy;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -51,15 +49,7 @@ public class FlexViewFactoryTest {
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
         
-        AuthoredBy authoredBy = new AuthoredBy();
-        authoredBy.setArticle(article);
-        authoredBy.setAuthor(author);
-        
-        PublishedBy publishedBy = new PublishedBy();
-        publishedBy.setArticle(article);
-        publishedBy.setSource(source);
-        
-        assertNotNull(FlexViewFactory.getInstance().createArticleView(user,publishedBy));
+        assertNotNull(FlexViewFactory.getInstance().createArticleView(user,article));
     }
 
     /**
@@ -77,14 +67,6 @@ public class FlexViewFactoryTest {
         
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
-        
-        AuthoredBy authoredBy = new AuthoredBy();
-        authoredBy.setArticle(article);
-        authoredBy.setAuthor(author);
-        
-        PublishedBy publishedBy = new PublishedBy();
-        publishedBy.setArticle(article);
-        publishedBy.setSource(source);
         
         assertNotNull(FlexViewFactory.getInstance().createAuthorView(user,author));
     }
@@ -105,13 +87,6 @@ public class FlexViewFactoryTest {
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
         
-        AuthoredBy authoredBy = new AuthoredBy();
-        authoredBy.setArticle(article);
-        authoredBy.setAuthor(author);
-        
-        PublishedBy publishedBy = new PublishedBy();
-        publishedBy.setArticle(article);
-        publishedBy.setSource(source);
         assertNotNull(FlexViewFactory.getInstance().createView(user,author));
     }
 

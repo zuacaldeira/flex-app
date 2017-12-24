@@ -5,11 +5,9 @@
  */
 package org.ngutu.ui.news;
 
-import com.vaadin.ui.MenuBar;
-import com.vaadin.ui.Notification;
+import org.ngutu.ui.components.AbstractMenu;
 import com.vaadin.ui.UI;
-import data.DataProviderType;
-import org.ngutu.ui.viewproviders.FlexViews;
+import components.HomeButton;
 
 /**
  *
@@ -31,21 +29,13 @@ public class NewsMenu extends AbstractMenu {
 
 
     @Override
-    protected void search(String value) {
-        Notification.show("Clicked on search " + value);
-        UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.SEARCH + "/" + value);
-    }
-
-    @Override
     protected MenuActions createMenuActions() {
         MenuActions menuActions = new MenuActions();
+        menuActions.addComponents(
+                new SearchBox(),
+                new NewsMenuBar(),
+                new HomeButton());
         return menuActions;
     }
 
-    @Override
-    protected MenuBar createMenuBar() {
-        return new NewsMenuBar();
-    }
-
-    
 }

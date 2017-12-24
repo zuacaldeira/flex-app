@@ -2,13 +2,11 @@ package factory;
 
 import db.auth.FlexUser;
 import db.news.NewsArticle;
-import db.news.NewsSource;
-import db.relationships.PublishedBy;
 
 /**
  * Created by zua on 13/04/17.
  */
-public class ArticleView extends GraphEntityView<PublishedBy> {
+public class ArticleView extends GraphEntityView<NewsArticle> {
 
     private static final long serialVersionUID = 7693645013887515529L;
 
@@ -17,8 +15,8 @@ public class ArticleView extends GraphEntityView<PublishedBy> {
     private ArticleViewBody articleViewBody;
     private ArticleViewActions articleViewActions;
 
-    public ArticleView(FlexUser user, PublishedBy publishedBy) {
-        super(user, publishedBy);
+    public ArticleView(FlexUser user, NewsArticle article) {
+        super(user, article);
         this.initHeader();
         this.initBody();
         this.initActions();
@@ -37,22 +35,14 @@ public class ArticleView extends GraphEntityView<PublishedBy> {
     }
 
     private void initActions() {
-        this.articleViewActions = new ArticleViewActions(getUser(), getArticle());
+        this.articleViewActions = new ArticleViewActions(getArticle());
         super.addComponent(articleViewActions);
     }
 
-    @Override
-    public PublishedBy getItem() {
-        return (PublishedBy) super.getItem();
-    }
 
     /* TODO: Remove */
     public NewsArticle getArticle() {
-        return getItem().getArticle();
-    }
-
-    public NewsSource getSource() {
-        return getItem().getSource();
+        return getItem();
     }
 
     public ArticleViewHeader getArticleViewHeader() {

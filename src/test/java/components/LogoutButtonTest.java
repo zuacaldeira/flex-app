@@ -6,7 +6,6 @@
 package components;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * This class test the structure of CancelButton.
@@ -21,7 +20,6 @@ public class LogoutButtonTest {
     @Test
     public void testContructor() {
         LogoutButton button = new LogoutButton();
-        assertTrue(button.getStyleName().contains(FlexStyleNames.FLEX_BUTTON));
         //assertTrue(button.getCaption().contains(FlexCaptions.LOGOUT));
     }
 }

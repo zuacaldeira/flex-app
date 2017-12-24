@@ -14,7 +14,6 @@ import backend.services.news.NewsArticleService;
 import backend.services.news.NewsAuthorService;
 import backend.services.news.NewsSourceService;
 import backend.services.news.NewsTagService;
-import backend.services.news.PublishedByService;
 
 /**
  *
@@ -22,17 +21,17 @@ import backend.services.news.PublishedByService;
  */
 public class ServiceLocator {
 
-    public static final String NEWS_API_SERVICE             = "java:global/flex-app/NewsApiService";
-    public static final String NEWS_ARTICLE_SERVICE         = "java:global/flex-app/NewsArticleService";
-    public static final String PUBLISHED_BY_SERVICE         = "java:global/flex-app/PublishedByService";
-    public static final String NEWS_SOURCE_SERVICE          = "java:global/flex-app/NewsSourceService";
-    public static final String NEWS_AUTHOR_SERVICE          = "java:global/flex-app/NewsAuthorService";
-    public static final String NEWS_TAG_SERVICE             = "java:global/flex-app/NewsTagService";
-    public static final String FLEX_USER_SERVICE            = "java:global/flex-app/FlexUserService";
-    public static final String FLEX_ADVERTISEMENT_SERVICE   = "java:global/flex-app/FlexAdvertisementService";
-    public static final String FLEX_AMAZON_SERVICE          = "java:global/flex-app/FlexAmazonService";
-    public static final String FLEX_PEOPLE_SERVICE          = "java:global/flex-app/FlexPeopleService";
-    public static final String FLEX_BOOK_SERVICE            = "java:global/flex-app/FlexBooksService";
+    public static final String NEWS_API_SERVICE = "java:global/flex-app/NewsApiService";
+    public static final String NEWS_ARTICLE_SERVICE = "java:global/flex-app/NewsArticleService";
+    public static final String PUBLISHED_BY_SERVICE = "java:global/flex-app/PublishedByService";
+    public static final String NEWS_SOURCE_SERVICE = "java:global/flex-app/NewsSourceService";
+    public static final String NEWS_AUTHOR_SERVICE = "java:global/flex-app/NewsAuthorService";
+    public static final String NEWS_TAG_SERVICE = "java:global/flex-app/NewsTagService";
+    public static final String FLEX_USER_SERVICE = "java:global/flex-app/FlexUserService";
+    public static final String FLEX_ADVERTISEMENT_SERVICE = "java:global/flex-app/FlexAdvertisementService";
+    public static final String FLEX_AMAZON_SERVICE = "java:global/flex-app/FlexAmazonService";
+    public static final String FLEX_PEOPLE_SERVICE = "java:global/flex-app/FlexPeopleService";
+    public static final String FLEX_BOOK_SERVICE = "java:global/flex-app/FlexBooksService";
 
     private static ServiceLocator INSTANCE;
 
@@ -105,14 +104,6 @@ public class ServiceLocator {
             return (FlexBooksService) findService(FLEX_BOOK_SERVICE);
         } catch (NamingException ex) {
             return new FlexBooksService();
-        }
-    }
-
-    public PublishedByService findPublishedByService() {
-        try {
-            return (PublishedByService) findService(PUBLISHED_BY_SERVICE);
-        } catch (NamingException ex) {
-            return new PublishedByService();
         }
     }
 

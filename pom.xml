@@ -113,6 +113,12 @@
             <type>jar</type>
         </dependency>
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>23.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>8.0</version>
@@ -175,7 +181,7 @@
         <dependency>
             <groupId>com.github.zuacaldeira</groupId>
             <artifactId>flex-app-backend</artifactId>
-            <version>1.1.22</version>
+            <version>1.1.23-SNAPSHOT</version>
             <!--scope>compile</scope-->
             <type>jar</type>
         </dependency>

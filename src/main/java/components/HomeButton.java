@@ -6,13 +6,14 @@
 package components;
 
 import com.vaadin.icons.VaadinIcons;
+import org.ngutu.ui.news.FlexMenuButton;
 import org.ngutu.ui.viewproviders.FlexViews;
 
 /**
  *
  * @author zua
  */
-public class HomeButton extends FlexButton {
+public class HomeButton extends FlexMenuButton {
 
     private static final long serialVersionUID = -7011599843339184461L;
 

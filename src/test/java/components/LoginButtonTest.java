@@ -21,7 +21,6 @@ public class LoginButtonTest {
     @Test
     public void testContructor() {
         SaveButton button = new SaveButton();
-        assertTrue(button.getStyleName().contains(FlexStyleNames.FLEX_BUTTON));
         assertEquals(FlexCaptions.LOGIN, button.getCaption());
     }
 

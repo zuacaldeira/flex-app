@@ -8,7 +8,6 @@ package components;
 import com.vaadin.server.Resource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.themes.ValoTheme;
-import org.ngutu.ui.news.AbstractMenu;
 
 /**
  *
@@ -38,8 +37,8 @@ public class FlexButton extends Button {
     }
     
     private void initialize() {
-        setSizeUndefined();
-        setStyleName(ValoTheme.BUTTON_FRIENDLY + " flex-button "  + ValoTheme.BUTTON_QUIET);
+        setStyleName(ValoTheme.BUTTON_FRIENDLY);
+        setHeightUndefined();
     }
 
 }

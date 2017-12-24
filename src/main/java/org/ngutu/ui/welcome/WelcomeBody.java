@@ -7,7 +7,7 @@ package org.ngutu.ui.welcome;
 
 import com.vaadin.ui.Component;
 import data.DataProviderType;
-import org.ngutu.ui.news.AbstractBody;
+import org.ngutu.ui.components.AbstractBody;
 
 /**
  *

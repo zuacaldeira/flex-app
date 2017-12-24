@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ngutu.ui.news;
+package org.ngutu.ui.components;
 
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
-import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import components.FlexButton;
 import db.auth.FlexUser;
 import org.ngutu.ui.logo.FlexLogo;
+import org.ngutu.ui.news.MenuActions;
 import org.ngutu.ui.share.FacebookLoginButton;
 import org.ngutu.ui.share.FacebookLogoutButton;
 
@@ -35,22 +35,23 @@ public abstract class AbstractMenu extends HorizontalLayout {
     private Image picture;
 
     public static final String MENU_HEIGHT = "40px";
-    private MenuBar menuBar;
 
     public AbstractMenu() {
         initLogo();
-        initSearchBox();
         initActions();
-        super.addComponents(logo, searchBox, actions);
+        super.addComponents(logo, actions);
         super.setComponentAlignment(logo, Alignment.MIDDLE_LEFT);
-        super.setComponentAlignment(searchBox, Alignment.MIDDLE_CENTER);
         super.setComponentAlignment(actions, Alignment.MIDDLE_RIGHT);
-        super.setSizeFull();
-        super.setHeight("40px");
+        super.setExpandRatio(logo, .2f);
+        super.setExpandRatio(actions, .8f);
+        super.setWidth("100%");
+        super.setHeight(MENU_HEIGHT);
         super.setSpacing(true);
         super.setMargin(false);
         super.setStyleName("flex-menu");
     }
+    
+    protected abstract MenuActions createMenuActions();
 
     public FlexLogo getLogo() {
         return logo;
@@ -68,29 +69,10 @@ public abstract class AbstractMenu extends HorizontalLayout {
         return null;
     }
 
-    private void initSearchBox() {
-        searchBox = new TextField();
-        searchBox.setCaptionAsHtml(true);
-        searchBox.setPlaceholder("Search");
-        searchBox.setStyleName("search-box");
-        searchBox.setWidth(20, Unit.EM);
-        searchBox.addValueChangeListener(e -> {
-            search(e.getValue());
-        });
-    }
-
-    protected abstract void search(String value);
-
-    private void initMenuBar() {
-        menuBar = createMenuBar();
-    }
-
     private void initActions() {
-        initMenuBar();        
         initFacebookButtons();
         initPicture();
         actions = createMenuActions();
-        actions.addComponent(menuBar);
         actions.addComponent(facebookButton);
         actions.addComponent(picture);
     }
@@ -112,9 +94,6 @@ public abstract class AbstractMenu extends HorizontalLayout {
         });
     }
 
-    protected abstract MenuActions createMenuActions();
-    protected abstract MenuBar createMenuBar();
-
     public abstract AbstractBody getBody();
 
     public final TextField getSearchBox() {
@@ -128,12 +107,6 @@ public abstract class AbstractMenu extends HorizontalLayout {
     public Image getPicture() {
         return picture;
     }
-
-    public MenuBar getMenuBar() {
-        return menuBar;
-    }
-    
-    
 
     private void initFacebookButtons() {
         if (getUser() == null) {

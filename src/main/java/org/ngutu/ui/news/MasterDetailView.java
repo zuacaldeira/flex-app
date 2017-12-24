@@ -12,11 +12,10 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 import components.FlexPanel;
+import data.ArticlesRepository;
 import data.DataProviderType;
-import data.PublishedByRepository;
 import db.auth.FlexUser;
 import db.news.NewsArticle;
-import db.relationships.PublishedBy;
 import factory.ArticleView;
 import factory.FlexViewFactory;
 import java.util.LinkedList;
@@ -119,29 +118,28 @@ public class MasterDetailView extends FlexPanel {
 
     public final void refresh(DataProviderType type, String value) {
         FlexUser user = getUser();
-        Iterable<PublishedBy> nodes = getNodes(user, type, value);
+        Iterable<NewsArticle> nodes = getNodes(user, type, value);
         updateMasterDetailView(user, nodes);
     }
 
-    private Iterable<PublishedBy> getNodes(FlexUser user, DataProviderType type, String value) {
-        Iterable<PublishedBy> nodes = new LinkedList<>();
+    private Iterable<NewsArticle> getNodes(FlexUser user, DataProviderType type, String value) {
+        Iterable<NewsArticle> nodes = new LinkedList<>();
         if (user != null && value != null && !value.isEmpty()) {
-            nodes = new PublishedByRepository().loadNodes(type, value, user);
+            nodes = new ArticlesRepository().loadNodes(type, value, user);
         } else if (user != null && value == null) {
-            nodes = new PublishedByRepository().loadNodes(type, user);
+            nodes = new ArticlesRepository().loadNodes(type, user);
         } else if (user == null && value != null && !value.isEmpty()) {
-            nodes = new PublishedByRepository().loadNodes(type, value);
+            nodes = new ArticlesRepository().loadNodes(type, value);
         } else if (user == null && value == null) {
-            nodes = new PublishedByRepository().loadNodes(type);
+            nodes = new ArticlesRepository().loadNodes(type);
         }
         return nodes;
     }
 
-    private void updateMasterDetailView(FlexUser user, Iterable<PublishedBy> nodes) {
+    private void updateMasterDetailView(FlexUser user, Iterable<NewsArticle> nodes) {
         summariesPanel.getOverviews().removeAllComponents();
-        nodes.forEach(next -> {
-            NewsArticle article = next.getArticle();
-            ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, next);
+        nodes.forEach(article -> {
+            ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, article);
             UI.getCurrent().access(() -> {
                 addSingleSummary(aView);
             });

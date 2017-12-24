@@ -25,8 +25,6 @@ public class CancelButtonTest {
     @Test
     public void testContructor() {
         CancelButton button = new CancelButton();
-        assertTrue(button.getStyleName().contains(FlexStyleNames.FLEX_BUTTON));
-        assertTrue(button.getStyleName().contains(ValoTheme.BUTTON_DANGER));
         assertEquals(FlexCaptions.CANCEL, button.getCaption());
     }
 

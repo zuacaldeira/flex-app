@@ -24,8 +24,6 @@ public class SearchButtonTest {
     @Test
     public void testContructor() {
         SearchButton button = new SearchButton();
-        assertTrue(button.getStyleName().contains(FlexStyleNames.FLEX_BUTTON));
-        assertEquals(FlexCaptions.SEARCH, button.getCaption());
     }
 
 }

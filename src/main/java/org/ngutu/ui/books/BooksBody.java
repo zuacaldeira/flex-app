@@ -8,7 +8,7 @@ package org.ngutu.ui.books;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
 import data.DataProviderType;
-import org.ngutu.ui.news.AbstractBody;
+import org.ngutu.ui.components.AbstractBody;
 
 /**
  *

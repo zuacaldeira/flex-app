@@ -9,10 +9,6 @@ import db.auth.FlexUser;
 import db.news.NewsArticle;
 import db.news.NewsAuthor;
 import db.news.NewsSource;
-import db.opinion.Read;
-import db.relationships.AuthoredBy;
-import db.relationships.EditedBy;
-import db.relationships.PublishedBy;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import utils.ServiceLocator;
@@ -38,16 +34,8 @@ public class ArticleViewTestIT {
         article.setTitle("title");
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
-        
-        AuthoredBy authoredBy = new AuthoredBy();
-        authoredBy.setArticle(article);
-        authoredBy.setAuthor(author);
-        
-        PublishedBy publishedBy = new PublishedBy();
-        publishedBy.setArticle(article);
-        publishedBy.setSource(source);
-        
-        ArticleView aView = new ArticleView(user, publishedBy);
+
+        ArticleView aView = new ArticleView(user, article);
         assertNotNull(aView.getArticleViewHeader());
     }
 
@@ -63,19 +51,10 @@ public class ArticleViewTestIT {
         article.setTitle("title");
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
-        
-        AuthoredBy authoredBy = new AuthoredBy();
-        authoredBy.setArticle(article);
-        authoredBy.setAuthor(author);
-        
-        PublishedBy publishedBy = new PublishedBy();
-        publishedBy.setArticle(article);
-        publishedBy.setSource(source);
-        
-        ArticleView aView = new ArticleView(user, publishedBy);
+
+        ArticleView aView = new ArticleView(user, article);
         assertNotNull(aView.getArticleViewBody());
     }
-
 
     /**
      * Test of createInfoActions method, of class ArticleView.
@@ -89,16 +68,8 @@ public class ArticleViewTestIT {
         article.setTitle("title");
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
-        
-        AuthoredBy authoredBy = new AuthoredBy();
-        authoredBy.setArticle(article);
-        authoredBy.setAuthor(author);
-        
-        PublishedBy publishedBy = new PublishedBy();
-        publishedBy.setArticle(article);
-        publishedBy.setSource(source);
-        
-        ArticleView aView = new ArticleView(user, publishedBy);
+
+        ArticleView aView = new ArticleView(user, article);
         assertNotNull(aView.getArticleViewActions());
     }
 
@@ -114,20 +85,12 @@ public class ArticleViewTestIT {
         article.setTitle("title");
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
-        
-        AuthoredBy authoredBy = new AuthoredBy();
-        authoredBy.setArticle(article);
-        authoredBy.setAuthor(author);
-        
-        PublishedBy publishedBy = new PublishedBy();
-        publishedBy.setArticle(article);
-        publishedBy.setSource(source);
-        
-        ArticleView aView = new ArticleView(user, publishedBy);
+
+        ArticleView aView = new ArticleView(user, article);
         ArticleViewActions actions = aView.getArticleViewActions();
         assertNotNull(actions);
         assertEquals(4, actions.getComponentCount());
-        
+
         actions.handleHideClick(actions.getHideButton());
         actions.handleFakeClick(actions.getFakeButton());
         actions.handleFavouriteClick(actions.getFavoriteButton());
@@ -150,24 +113,10 @@ public class ArticleViewTestIT {
         article.setTitle("title");
 
         NewsAuthor author = new NewsAuthor("author");
-        
-        EditedBy editedBy = new EditedBy();
-        editedBy.setAuthor(author);
-        editedBy.setSource(source);
 
-        AuthoredBy authoredBy = new AuthoredBy();
-        authoredBy.setArticle(article);
-        authoredBy.setAuthor(author);
-        
-        PublishedBy publishedBy = new PublishedBy();
-        publishedBy.setArticle(article);
-        publishedBy.setSource(source);
-        
         FlexUser user = new FlexUser("test:username", "test:password");
-        Read read = new Read();
-        read.setArticle(article);
-        read.setUser(user);
-        
+        user.getRead().add(article);
+
         ServiceLocator.getInstance().findUserService().save(user);
     }
 }
