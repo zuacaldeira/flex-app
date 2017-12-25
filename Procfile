@@ -1,2 +1,2 @@
-web:    java $JAVA_OPTS -jar web/target/dependency/webapp-runner.jar --port $PORT web/target/*.war
-worker: java $JAVA_OPTS -jar worker/lib/*.jar
+web:    java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/*.war
+worker: java $JAVA_OPTS -jar lib/*.jar
