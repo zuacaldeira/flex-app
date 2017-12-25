@@ -5,6 +5,7 @@
  */
 package org.ngutu.ui.news;
 
+import com.vaadin.ui.MenuBar;
 import org.ngutu.ui.components.AbstractMenu;
 import com.vaadin.ui.UI;
 import components.HomeButton;
@@ -33,9 +34,13 @@ public class NewsMenu extends AbstractMenu {
         MenuActions menuActions = new MenuActions();
         menuActions.addComponents(
                 new SearchBox(),
-                new NewsMenuBar(),
                 new HomeButton());
         return menuActions;
+    }
+
+    @Override
+    protected MenuBar createMenuBar() {
+        return new NewsMenuBar();
     }
 
 }

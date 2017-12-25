@@ -28,6 +28,6 @@ public class FlexMenuButton extends FlexButton {
     }
 
     private void initialize() {
-        super.addStyleName(ValoTheme.BUTTON_QUIET);
+        //super.addStyleName(ValoTheme.BUTTON_QUIET);
     }
 }

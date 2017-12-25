@@ -53,13 +53,13 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     protected void initMenuItems() {
-        top = addItem("Menu", VaadinIcons.MENU, null);
-        top.setStyleName(ValoTheme.BUTTON_FRIENDLY);
-        news = top.addItem("Articles", null, null);
-        publishers = top.addItem("Publishers", null, null);
-        categories = top.addItem("Categories", null, null);
-        languages = top.addItem("Languages", null, null);
-        countries = top.addItem("Countries", null, null);
+        //top = addItem("Menu", VaadinIcons.MENU, null);
+        //top.setStyleName(ValoTheme.MENU);
+        news = addItem("Articles", null, null);
+        publishers = addItem("Publishers", null, null);
+        categories = addItem("Categories", null, null);
+        languages = addItem("Languages", null, null);
+        countries = addItem("Countries", null, null);
         populate();
     }
 

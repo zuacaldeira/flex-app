@@ -6,6 +6,7 @@
 package components;
 
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.ui.themes.ValoTheme;
 import org.ngutu.ui.news.FlexMenuButton;
 
 /**
@@ -18,6 +19,7 @@ public class SearchButton extends FlexMenuButton {
 
     public SearchButton() {
         super(null, VaadinIcons.SEARCH);
+        super.addStyleName(ValoTheme.BUTTON_QUIET);
     }
 
 }

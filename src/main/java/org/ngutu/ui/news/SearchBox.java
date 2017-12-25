@@ -26,6 +26,8 @@ public class SearchBox extends HorizontalLayout {
 
     public SearchBox() {
         this.text = new TextField();
+        this.button = new SearchButton();
+
         this.text.setVisible(false);
         this.text.setStyleName("search-box");
         this.text.addValueChangeListener(e -> {
@@ -34,7 +36,6 @@ public class SearchBox extends HorizontalLayout {
             }
         });
         
-        this.button = new SearchButton();
         this.button.addClickListener(click -> {
             if (!text.isVisible()) {
                 text.setVisible(true);
@@ -43,6 +44,7 @@ public class SearchBox extends HorizontalLayout {
             else {
                 if(searchValue != null) {
                     text.clear();
+                    text.setVisible(false);
                     search(searchValue);
                 }
             }
