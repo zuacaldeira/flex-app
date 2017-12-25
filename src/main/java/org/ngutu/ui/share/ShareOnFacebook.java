@@ -14,18 +14,21 @@ import ui.NgutuUI;
  * @author zua
  */
 public class ShareOnFacebook {
-    
-    public void shareAsNgutu(NewsArticle article, String message) {
-        ((NgutuUI)UI.getCurrent()).getFacebookAPI().shareAsNgutu(article, message);
+
+    public boolean shareAsNgutu(NewsArticle article, String message) {
+        return ((NgutuUI) UI.getCurrent()).getFacebookAPI().shareAsNgutu(article, message);
     }
-    public void share(NewsArticle article, String message) {
-        ((NgutuUI)UI.getCurrent()).getFacebookAPI().shareAsUser(article, message);
+
+    public boolean share(NewsArticle article, String message) {
+        return ((NgutuUI) UI.getCurrent()).getFacebookAPI().shareAsUser(article, message);
     }
+
     public void like(NewsArticle article, String message) {
-        ((NgutuUI)UI.getCurrent()).getFacebookAPI().shareAsUser(article, message);
+        ((NgutuUI) UI.getCurrent()).getFacebookAPI().shareAsUser(article, message);
     }
+
     public void recommend(NewsArticle article, String message) {
-        ((NgutuUI)UI.getCurrent()).getFacebookAPI().shareAsUser(article, message);
+        ((NgutuUI) UI.getCurrent()).getFacebookAPI().shareAsUser(article, message);
     }
-    
+
 }

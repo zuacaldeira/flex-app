@@ -15,7 +15,6 @@ import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.GraphResponse;
 import com.restfb.types.User;
 import com.vaadin.server.Page;
-import com.vaadin.ui.UI;
 import db.news.NewsArticle;
 
 /**
@@ -97,7 +96,7 @@ public class NgutuFacebookAPI {
         return user;
     }
 
-    public void shareAsUser(NewsArticle article, String message) {
+    public boolean shareAsUser(NewsArticle article, String message) {
         DefaultFacebookClient facebookClient = new DefaultFacebookClient(
                 accessToken.getAccessToken(),
                 properties.getAppSecret(),
@@ -116,9 +115,10 @@ public class NgutuFacebookAPI {
         System.out.println("ID -> " + response.getId());
         System.out.println("POST ID -> " + response.getPostId());
         System.out.println("TIMELINE ID -> " + response.getTimelineId());
+        return response.isSuccess();
     }
 
-    public void shareAsNgutu(NewsArticle article, String message) {
+    public boolean shareAsNgutu(NewsArticle article, String message) {
         DefaultFacebookClient facebookClient = new DefaultFacebookClient(
                 accessToken.getAccessToken(),
                 properties.getAppSecret(),
@@ -138,6 +138,7 @@ public class NgutuFacebookAPI {
         System.out.println("ID -> " + response.getId());
         System.out.println("POST ID -> " + response.getPostId());
         System.out.println("TIMELINE ID -> " + response.getTimelineId());
+        return response.isSuccess();
     }
 
     private String createMessage(NewsArticle article, String message) {

@@ -17,6 +17,7 @@ import db.news.NewsArticle;
 import backend.services.auth.FlexUserService;
 import backend.services.news.NewsArticleService;
 import com.google.common.collect.Sets;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.UI;
 import utils.ServiceLocator;
 
@@ -40,11 +41,18 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
         this.user = getUser();
         this.article = article;
         super.setSizeFull();
-        super.setHeight("21px");
+        super.setHeightUndefined();
         super.setStyleName("actions");
         super.setSpacing(false);
         initActions();
-        super.addComponents(facebookButton, favoriteButton, fakeButton, hideButton);
+        if (user != null && user.isAdmin()) {
+            super.addComponent(facebookButton);
+            super.setComponentAlignment(facebookButton, Alignment.MIDDLE_CENTER);
+        }
+        super.addComponents(favoriteButton, fakeButton, hideButton);
+        super.setComponentAlignment(favoriteButton, Alignment.MIDDLE_CENTER);
+        super.setComponentAlignment(fakeButton, Alignment.MIDDLE_CENTER);
+        super.setComponentAlignment(hideButton, Alignment.MIDDLE_CENTER);
         if (user == null) {
             super.setDescription("You have to login to enable social actions");
             disableActions();
@@ -52,7 +60,7 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
     }
 
     private void disableActions() {
-        //facebookButton.setEnabled(false);
+        facebookButton.setEnabled(false);
         hideButton.setEnabled(false);
         fakeButton.setEnabled(false);
         favoriteButton.setEnabled(false);
@@ -62,7 +70,7 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
         facebookButton = new FacebookShareButton();
         facebookButton.addClickListener(event -> {
             facebookButton.addStyleName("scale-in-out");
-            getUI().addWindow(new ShareWindow(this));
+            getUI().addWindow(new ShareWindow(article));
         });
         commentButton = new CommentButton();
         commentButton.addClickListener(this);

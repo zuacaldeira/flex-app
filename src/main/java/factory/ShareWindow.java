@@ -24,15 +24,15 @@ public class ShareWindow extends FlexWindow {
     private VerticalLayout form;
     private TextArea textArea;
     private SaveButton saveButton;
-    private final ArticleViewActions actions;
+    private final NewsArticle article;
 
-    public ShareWindow(ArticleViewActions actions) {
+    public ShareWindow(NewsArticle article) {
         super("Post Composer");
-        this.actions = actions;
+        this.article = article;
         initForm();
-        setContent(form);
-        setHeightUndefined();
-        setWidth("35%");
+        super.setContent(form);
+        super.setHeightUndefined();
+        super.setWidth("35%");
     }
 
     private void initForm() {
@@ -53,20 +53,11 @@ public class ShareWindow extends FlexWindow {
         form.setHeightUndefined();
     }
 
-    private NewsArticle getArticle() {
-        return actions.getArticle();
-    }
-
-    private FacebookShareButton getFacebookButton() {
-        return actions.getFacebookButton();
-    }
-
     private void postToFacebook() {
         String message = textArea.getValue();
         ShareOnFacebook shareOnFacebook = new ShareOnFacebook();
-        shareOnFacebook.share(getArticle(), message);
-        getFacebookButton().removeStyleName("scale-in-out");
-        Notification.show("Success", Notification.Type.TRAY_NOTIFICATION);
+        shareOnFacebook.share(article, message);
+        Notification.show("Success! You're message was posted in your timeline", Notification.Type.TRAY_NOTIFICATION);
         this.close();
     }
 
