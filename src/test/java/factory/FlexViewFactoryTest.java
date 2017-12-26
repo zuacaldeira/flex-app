@@ -45,7 +45,8 @@ public class FlexViewFactoryTest {
         article.setTitle("Title");
         article.setDescription("Description");
         article.setImageUrl("imageUrl");
-        
+         article.setSourceId("sourceId");
+       
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
         

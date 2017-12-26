@@ -18,6 +18,7 @@ import db.news.NewsArticle;
 import db.news.NewsSource;
 import java.util.Date;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import utils.ServiceLocator;
 
 /**
  *
@@ -53,7 +54,7 @@ public class SourceInfoView extends HorizontalLayout {
     }
     
     private void initSource(){
-        source = null;
+        source = ServiceLocator.getInstance().findSourcesService().find(article.getSourceId());
     }
 
     private void initSourceLogo() {

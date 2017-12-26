@@ -34,6 +34,7 @@ public class ArticleViewTest {
         article.setTitle("Title");
         article.setDescription("Description");
         article.setImageUrl("imageUrl");
+        article.setSourceId("sourceId");
 
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
@@ -54,6 +55,7 @@ public class ArticleViewTest {
         article.setTitle("Title");
         article.setDescription("Description");
         article.setImageUrl("imageUrl");
+        article.setSourceId("sourceId");
 
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
@@ -74,6 +76,7 @@ public class ArticleViewTest {
         article.setTitle("Title");
         article.setDescription("Description");
         article.setImageUrl("imageUrl");
+        article.setSourceId("sourceId");
 
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
@@ -94,6 +97,7 @@ public class ArticleViewTest {
         article.setTitle("Title");
         article.setDescription("Description");
         article.setImageUrl("imageUrl");
+        article.setSourceId("sourceId");
 
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
@@ -113,6 +117,7 @@ public class ArticleViewTest {
         article.setTitle("Title");
         article.setDescription("Description");
         article.setImageUrl("imageUrl");
+        article.setSourceId("sourceId");
 
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
@@ -133,9 +138,11 @@ public class ArticleViewTest {
         article.setTitle("Title");
         article.setDescription("Description");
         article.setImageUrl("imageUrl");
+        article.setSourceId("sourceId");
 
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
+        source.setSourceId("sourceId");
 
         ArticleView aView = new ArticleView(user, article);
     }
@@ -154,6 +161,7 @@ public class ArticleViewTest {
         article.setDescription("Description");
         article.setImageUrl("imageUrl");
         article.setPublishedAt(date);
+        article.setSourceId("sourceId");
 
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
@@ -174,6 +182,7 @@ public class ArticleViewTest {
         article.setTitle("Title");
         article.setDescription("Description");
         article.setImageUrl("imageUrl");
+        article.setSourceId("sourceId");
 
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
@@ -194,6 +203,7 @@ public class ArticleViewTest {
         article.setTitle("Title");
         article.setDescription("Description");
         article.setImageUrl("imageUrl");
+        article.setSourceId("sourceId");
 
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
@@ -215,7 +225,8 @@ public class ArticleViewTest {
         article.setTitle("Title");
         article.setDescription("Description");
         article.setImageUrl("imageUrl");
-
+        
+        article.setSourceId("sourceId");
         NewsAuthor author = new NewsAuthor("Author");
         NewsSource source = new NewsSource();
 

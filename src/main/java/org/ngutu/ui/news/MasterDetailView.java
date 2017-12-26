@@ -32,6 +32,7 @@ public class MasterDetailView extends FlexPanel {
     private SummariesPanel summariesPanel;
     private BrowserFrame infoFrame;
     private ArticleView selected;
+    private MasterDetailViewUpdaterThread worker;
 
     public MasterDetailView() {
         initSummaries(1);
@@ -119,7 +120,11 @@ public class MasterDetailView extends FlexPanel {
     public final void refresh(DataProviderType type, String value) {
         FlexUser user = getUser();
         Iterable<NewsArticle> nodes = getNodes(user, type, value);
-        updateMasterDetailView(user, nodes);
+        if(worker != null) {
+            worker.interrupt();
+        }
+        worker = new MasterDetailViewUpdaterThread(user, this, nodes);
+        worker.start();
     }
 
     private Iterable<NewsArticle> getNodes(FlexUser user, DataProviderType type, String value) {
@@ -136,13 +141,4 @@ public class MasterDetailView extends FlexPanel {
         return nodes;
     }
 
-    private void updateMasterDetailView(FlexUser user, Iterable<NewsArticle> nodes) {
-        summariesPanel.getOverviews().removeAllComponents();
-        nodes.forEach(article -> {
-            ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, article);
-            UI.getCurrent().access(() -> {
-                addSingleSummary(aView);
-            });
-        });
-    }
 }
