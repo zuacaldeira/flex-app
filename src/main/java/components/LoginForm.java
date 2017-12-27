@@ -88,7 +88,7 @@ public class LoginForm extends FlexForm {
             try {
                 binder.writeBean(user);
                 loginButton.setEnabled(false);
-                user = service.login(user.getUsername(), user.getPassword());
+                user = service.login(user);
                 getSession().setAttribute("user", user);
                 UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS);
             } catch (ValidationException ex) {

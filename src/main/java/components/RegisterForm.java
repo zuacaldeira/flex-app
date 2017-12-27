@@ -99,7 +99,7 @@ public class RegisterForm extends FlexForm {
             try {
                 binder.writeBean(user);
                 registerButton.setEnabled(false);
-                user = ServiceLocator.getInstance().findUserService().register(user.getUsername(), user.getPassword());
+                user = ServiceLocator.getInstance().findUserService().register(user);
                 getSession().setAttribute("user", user);
                 UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS);
             } catch (ValidationException ex) {

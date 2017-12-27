@@ -46,7 +46,7 @@ public class NgutuUI extends SecuredUI {
     public void init(VaadinRequest request) {
         if (request != null) {
             String address = request.getParameter("v-loc");
-            if(facebookAPI == null) {
+            if (facebookAPI == null) {
                 facebookAPI = new NgutuFacebookAPI(extractHost(address), getNavigator().getState());
             }
 
@@ -58,10 +58,10 @@ public class NgutuUI extends SecuredUI {
     }
 
     private String extractFragment(String state) {
-        if(state.startsWith("news")) {
+        if (state.startsWith("news")) {
             return "news";
         }
-        if(state.startsWith("books")) {
+        if (state.startsWith("books")) {
             return "books";
         }
         return "";
@@ -99,10 +99,15 @@ public class NgutuUI extends SecuredUI {
 
     private void updateSession(FlexUser user) {
         FlexUserServiceInterface service = ServiceLocator.getInstance().findUserService();
-        if (service.find(user.getUsername()) == null) {
-            service.save(user);
-            user = service.login(user.getUsername(), user.getPassword());
+        if (!userExists(user.getUsername())) {
+            user = service.register(user);
+        } else {
+            user = service.login(user);
         }
+
+        System.out.println("FOUND USER " + user.getUsername());
+        System.out.println("WITH ROLE " + user.getRole().getName());
+
         getSession().setAttribute("user", user);
 
         String navigationState = getSession().getAttribute("navigationState").toString();
@@ -138,6 +143,11 @@ public class NgutuUI extends SecuredUI {
             return "http://www.ngutu.org/";
         }
         throw new IllegalArgumentException("Uknown address " + address);
+    }
+
+    private boolean userExists(String username) {
+        FlexUser dbUser = ServiceLocator.getInstance().findUserService().find(username);
+        return dbUser != null;
     }
 
     @WebServlet(urlPatterns = "/*", name = "NgutuUIServlet", asyncSupported = true)
