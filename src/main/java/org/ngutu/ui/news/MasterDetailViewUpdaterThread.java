@@ -28,7 +28,6 @@ public class MasterDetailViewUpdaterThread extends Thread {
 
     @Override
     public void run() {
-        masterDetailView.getSummaries().getOverviews().removeAllComponents();
         nodes.forEach(article -> {
             ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, article);
             masterDetailView.addSingleSummary(aView);
