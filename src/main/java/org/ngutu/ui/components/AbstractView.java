@@ -54,7 +54,6 @@ public abstract class AbstractView extends VerticalLayout implements View {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        View.super.enter(event); 
         initBody();
         initFooter();
         initMenu();

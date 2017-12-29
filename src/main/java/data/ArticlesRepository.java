@@ -48,7 +48,7 @@ public class ArticlesRepository {
             case PUBLISHER:
                 return service.findArticlesPublishedBy(getSourceIdForSourceName(value));
             case LANGUAGES:
-                return service.findArticlesWithLanguage(MyDateUtils.getLanguageCode(value));
+                return service.findArticlesWithLanguage(value);
             case COUNTRIES:
                 return service.findArticlesWithCountry(MyDateUtils.getCountryCode(value));
             case SEARCH:
@@ -103,8 +103,8 @@ public class ArticlesRepository {
         return cat;
     }
 
-    protected static String getSourceIdForSourceName(String value) {
-        NewsSource source = ServiceLocator.getInstance().findSourcesService().findSourceNamed(value);
+    protected static String getSourceIdForSourceName(String name) {
+        NewsSource source = ServiceLocator.getInstance().findSourcesService().findSourceNamed(name);
         return (source != null) ? source.getSourceId() : null;
     }
 }

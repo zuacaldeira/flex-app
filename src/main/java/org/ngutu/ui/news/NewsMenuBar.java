@@ -74,7 +74,7 @@ public final class NewsMenuBar extends MenuBar {
         TreeSet<String> tags = new TreeSet<>();
         Iterable<Tag> observable = ServiceLocator.getInstance().findTagService().findAllTags();
         observable.forEach(cat -> {
-            tags.add(cat.getTag());
+            tags.add(getCategoryCaption(cat.getTag()));
         });
 
         tags.forEach(tag -> {
@@ -252,9 +252,16 @@ public final class NewsMenuBar extends MenuBar {
 
         @Override
         public void menuSelected(MenuItem selectedItem) {
-            String value = selectedItem.getText().trim();
-            value = value.replace(' ', '-');
-            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.CATEGORY + "/" + value);
+            String caption = selectedItem.getText().trim();
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.CATEGORY + "/" + getCategoryFromCaption(caption));
+        }
+
+        private String getCategoryFromCaption(String caption) {
+            char c = caption.charAt(0);
+            return caption.replaceFirst(
+                    String.valueOf(c),
+                    String.valueOf(Character.toLowerCase(c)))
+                    .replace(" ", "-");
         }
 
     }
@@ -269,8 +276,9 @@ public final class NewsMenuBar extends MenuBar {
         @Override
         public void menuSelected(MenuItem selectedItem) {
             String value = selectedItem.getText().trim();
-            value = value.replace(' ', '-');
-            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.LANGUAGES + "/" + value);
+            if (MyDateUtils.getLanguageCode(value) != null) {
+                UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.LANGUAGES + "/" + MyDateUtils.getLanguageCode(value));
+            }
         }
 
     }

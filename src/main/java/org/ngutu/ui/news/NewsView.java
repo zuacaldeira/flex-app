@@ -68,13 +68,13 @@ public class NewsView extends AbstractView {
             String context = null;
             String target = null;
             if(parts.length == 2) {
-                System.out.println("2-PARTS");
+                System.out.println("2-PARTS " + parts[0] + " - " + parts[1]);
                 context = parts[0];
                 target = parts[1];
                 getBody().populate(DataProviderType.valueOf(context), target);
             }
             else if(parts.length == 1) {
-                System.out.println("1-PARTS");
+                System.out.println("1-PART " + parts[0]);
                 context = parts[0];
                 getBody().populate(DataProviderType.valueOf(context), null);
             }

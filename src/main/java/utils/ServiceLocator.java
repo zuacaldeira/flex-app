@@ -14,6 +14,7 @@ import backend.services.news.NewsArticleService;
 import backend.services.news.NewsAuthorService;
 import backend.services.news.NewsSourceService;
 import backend.services.news.NewsTagService;
+import backend.services.news.StatsService;
 
 /**
  *
@@ -23,6 +24,7 @@ public class ServiceLocator {
 
     public static final String NEWS_API_SERVICE = "java:global/flex-app/NewsApiService";
     public static final String NEWS_ARTICLE_SERVICE = "java:global/flex-app/NewsArticleService";
+    public static final String STATS_SERVICE = "java:global/flex-app/StatsService";
     public static final String PUBLISHED_BY_SERVICE = "java:global/flex-app/PublishedByService";
     public static final String NEWS_SOURCE_SERVICE = "java:global/flex-app/NewsSourceService";
     public static final String NEWS_AUTHOR_SERVICE = "java:global/flex-app/NewsAuthorService";
@@ -104,6 +106,14 @@ public class ServiceLocator {
             return (FlexBooksService) findService(FLEX_BOOK_SERVICE);
         } catch (NamingException ex) {
             return new FlexBooksService();
+        }
+    }
+
+    public StatsService findStatsService() {
+        try {
+            return (StatsService) findService(STATS_SERVICE);
+        } catch (NamingException ex) {
+            return new StatsService();
         }
     }
 
