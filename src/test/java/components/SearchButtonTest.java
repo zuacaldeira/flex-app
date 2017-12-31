@@ -5,11 +5,7 @@
  */
 package components;
 
-import components.SearchButton;
-import components.FlexCaptions;
-import components.FlexStyleNames;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.testng.annotations.Test;
 
 /**
  * This class test the structure of CancelButton.

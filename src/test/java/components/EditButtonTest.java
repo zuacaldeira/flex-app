@@ -5,7 +5,8 @@
  */
 package components;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
+
 
 /**
  *

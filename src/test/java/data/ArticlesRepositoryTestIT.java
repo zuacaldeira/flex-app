@@ -5,20 +5,18 @@
  */
 package data;
 
-import com.tngtech.java.junit.dataprovider.DataProvider;
-import com.tngtech.java.junit.dataprovider.DataProviderRunner;
-import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import db.auth.FlexUser;
 import db.news.NewsArticle;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.runner.RunWith;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 /**
  *
  * @author zua
  */
-@RunWith(DataProviderRunner.class)
 public class ArticlesRepositoryTestIT {
 
     private final String TEST_USERNAME = "test:username";
@@ -60,8 +58,7 @@ public class ArticlesRepositoryTestIT {
      * @param type
      * @param value
      */
-    @Test
-    @UseDataProvider("loadNodes")
+    @Test(dataProvider = "loadNodes")
     public void testLoadNodes(DataProviderType type, String value) {
         System.out.println("loadNodes");
         ArticlesRepository instance = new ArticlesRepository();
@@ -76,8 +73,7 @@ public class ArticlesRepositoryTestIT {
      * @param category
      * @param expected
      */
-    @Test
-    @UseDataProvider("captions")
+    @Test(dataProvider = "captions")
     public void testGetCategoryDBCaption(String category, String expected) {
         System.out.println("getCategoryDBCaption");
         assertEquals(expected, ArticlesRepository.getCategoryDBCaption(category));

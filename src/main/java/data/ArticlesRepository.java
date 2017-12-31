@@ -48,7 +48,7 @@ public class ArticlesRepository {
             case PUBLISHER:
                 return service.findArticlesPublishedBy(getSourceIdForSourceName(value));
             case LANGUAGES:
-                return service.findArticlesWithLanguage(value);
+                return service.findArticlesWithLanguage(MyDateUtils.getLanguageCode(value));
             case COUNTRIES:
                 return service.findArticlesWithCountry(MyDateUtils.getCountryCode(value));
             case SEARCH:

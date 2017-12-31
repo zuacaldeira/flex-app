@@ -5,7 +5,8 @@
  */
 package utils;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
+
 
 /**
  *

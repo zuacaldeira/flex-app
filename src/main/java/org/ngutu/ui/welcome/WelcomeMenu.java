@@ -34,7 +34,7 @@ public class WelcomeMenu extends AbstractMenu {
     protected MenuActions createMenuActions() {        
         FlexButton newsButton = new FlexButton("Read the News", VaadinIcons.NEWSPAPER);
         newsButton.addClickListener(click -> {
-            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS);
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS  + "/latest");
         });
         
         MenuActions menuActions = new MenuActions();        

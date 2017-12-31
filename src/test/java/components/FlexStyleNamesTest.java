@@ -5,9 +5,9 @@
  */
 package components;
 
-import components.FlexStyleNames;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import org.testng.annotations.Test;
 
 /**
  *

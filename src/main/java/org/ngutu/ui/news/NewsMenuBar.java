@@ -238,7 +238,7 @@ public final class NewsMenuBar extends MenuBar {
         public void menuSelected(MenuItem selectedItem) {
             String value = selectedItem.getText().trim();
             value = value.replace(' ', '-');
-            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.PUBLISHER + "/" + value);
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.PUBLISHER.name().toLowerCase() + "/" + value);
         }
 
     }
@@ -252,8 +252,9 @@ public final class NewsMenuBar extends MenuBar {
 
         @Override
         public void menuSelected(MenuItem selectedItem) {
-            String caption = selectedItem.getText().trim();
-            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.CATEGORY + "/" + getCategoryFromCaption(caption));
+            String value = selectedItem.getText().trim();
+            value = value.replace(' ', '-');
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.CATEGORY.name().toLowerCase() + "/" + value);
         }
 
         private String getCategoryFromCaption(String caption) {
@@ -277,7 +278,8 @@ public final class NewsMenuBar extends MenuBar {
         public void menuSelected(MenuItem selectedItem) {
             String value = selectedItem.getText().trim();
             if (MyDateUtils.getLanguageCode(value) != null) {
-                UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.LANGUAGES + "/" + MyDateUtils.getLanguageCode(value));
+                value = value.replace(' ', '-');
+                UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.LANGUAGES.name().toLowerCase() + "/" + value);
             }
         }
 
@@ -294,7 +296,7 @@ public final class NewsMenuBar extends MenuBar {
         public void menuSelected(MenuItem selectedItem) {
             String value = selectedItem.getText().trim();
             value = value.replace(' ', '-');
-            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.COUNTRIES + "/" + value);
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.COUNTRIES.name().toLowerCase() + "/" + value);
         }
     }
 
@@ -321,7 +323,7 @@ public final class NewsMenuBar extends MenuBar {
 
         @Override
         public void menuSelected(MenuItem selectedItem) {
-            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.OLDEST);
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.OLDEST.name().toLowerCase());
         }
 
     }
@@ -335,7 +337,7 @@ public final class NewsMenuBar extends MenuBar {
 
         @Override
         public void menuSelected(MenuItem selectedItem) {
-            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.READ);
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.READ.name().toLowerCase());
         }
 
     }
@@ -349,7 +351,7 @@ public final class NewsMenuBar extends MenuBar {
 
         @Override
         public void menuSelected(MenuItem selectedItem) {
-            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.FAVORITE);
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.FAVORITE.name().toLowerCase());
         }
 
     }
@@ -363,7 +365,7 @@ public final class NewsMenuBar extends MenuBar {
 
         @Override
         public void menuSelected(MenuItem selectedItem) {
-            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.FAKE);
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.FAKE.name().toLowerCase());
         }
 
     }

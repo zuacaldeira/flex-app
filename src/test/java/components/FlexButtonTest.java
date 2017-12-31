@@ -5,20 +5,15 @@
  */
 package components;
 
-import components.FlexButton;
-import com.tngtech.java.junit.dataprovider.DataProvider;
-import com.tngtech.java.junit.dataprovider.DataProviderRunner;
-import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import com.vaadin.icons.VaadinIcons;
-import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.testng.Assert.assertNotNull;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 /**
  *
  * @author zua
  */
-@RunWith(DataProviderRunner.class)
 public class FlexButtonTest {
     
     public FlexButtonTest() {
@@ -36,8 +31,7 @@ public class FlexButtonTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    @Test
-    @UseDataProvider("buttons")
+    @Test(dataProvider = "buttons")
     public void test(FlexButton button) {
         assertNotNull(button);
     }

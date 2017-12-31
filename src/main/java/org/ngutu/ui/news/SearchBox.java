@@ -5,6 +5,7 @@
  */
 package org.ngutu.ui.news;
 
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
@@ -51,12 +52,16 @@ public class SearchBox extends HorizontalLayout {
         });
         
         super.addComponents(text, button);
+        super.setComponentAlignment(text, Alignment.MIDDLE_CENTER);
+        super.setComponentAlignment(button, Alignment.MIDDLE_CENTER);
         super.setSpacing(false);
+        super.setMargin(false);
     }
 
     protected void search(String value) {
         Notification.show("Clicked on search " + value);
-        UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.SEARCH + "/" + value);
+        value = value.replace(' ', '-');
+        UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.SEARCH.name().toLowerCase() + "/" + value);
     }
 
 }

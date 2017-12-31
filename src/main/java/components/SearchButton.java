@@ -18,7 +18,7 @@ public class SearchButton extends FlexMenuButton {
     private static final long serialVersionUID = -7211229433897090893L;
 
     public SearchButton() {
-        super(null, VaadinIcons.SEARCH);
+        super("Search", VaadinIcons.SEARCH);
         super.addStyleName(ValoTheme.BUTTON_QUIET);
     }
 

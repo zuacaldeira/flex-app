@@ -5,9 +5,8 @@
  */
 package ui;
 
-import ui.NgutuUI;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.testng.Assert.assertNull;
+import org.testng.annotations.Test;
 
 /**
  *

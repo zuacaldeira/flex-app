@@ -71,12 +71,12 @@ public class NewsView extends AbstractView {
                 System.out.println("2-PARTS " + parts[0] + " - " + parts[1]);
                 context = parts[0];
                 target = parts[1];
-                getBody().populate(DataProviderType.valueOf(context), target);
+                getBody().populate(DataProviderType.valueOf(context.toUpperCase()), target);
             }
             else if(parts.length == 1) {
                 System.out.println("1-PART " + parts[0]);
                 context = parts[0];
-                getBody().populate(DataProviderType.valueOf(context), null);
+                getBody().populate(DataProviderType.valueOf(context.toUpperCase()), null);
             }
         }
     }

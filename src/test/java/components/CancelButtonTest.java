@@ -5,12 +5,8 @@
  */
 package components;
 
-import components.FlexStyleNames;
-import components.CancelButton;
-import components.FlexCaptions;
-import com.vaadin.ui.themes.ValoTheme;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.testng.Assert.assertEquals;
+import org.testng.annotations.Test;
 
 /**
  * This class test the structure of CancelButton.

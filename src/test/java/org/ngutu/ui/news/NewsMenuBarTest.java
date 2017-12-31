@@ -7,9 +7,9 @@ package org.ngutu.ui.news;
 
 import db.auth.FlexUser;
 import db.news.NewsSource;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Ignore;
+import static org.testng.Assert.assertNull;
+import org.testng.annotations.Ignore;
+import org.testng.annotations.Test;
 import utils.FlexAppLogger;
 import utils.ServiceLocator;
 

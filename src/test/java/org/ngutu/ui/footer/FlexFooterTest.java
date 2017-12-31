@@ -5,10 +5,9 @@
  */
 package org.ngutu.ui.footer;
 
-import org.ngutu.ui.footer.FlexFooter;
 import db.auth.FlexUser;
-import static org.junit.Assert.assertNull;
-import org.junit.Test;
+import static org.testng.Assert.assertNull;
+import org.testng.annotations.Test;
 
 /**
  *

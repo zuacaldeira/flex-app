@@ -7,8 +7,9 @@ package factory;
 
 import db.auth.FlexUser;
 import db.news.NewsAuthor;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
+import org.testng.annotations.Test;
 
 /**
  *

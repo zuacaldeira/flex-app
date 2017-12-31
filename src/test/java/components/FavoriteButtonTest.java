@@ -5,8 +5,9 @@
  */
 package components;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
+import org.testng.annotations.Test;
 
 /**
  *

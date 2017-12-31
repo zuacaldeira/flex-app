@@ -5,10 +5,9 @@
  */
 package components;
 
-import components.FlexWindow;
 import com.vaadin.ui.Label;
-import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
+import static org.testng.Assert.assertNotNull;
+import org.testng.annotations.Test;
 
 /**
  *

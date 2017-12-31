@@ -7,8 +7,9 @@ package org.ngutu.ui.news;
 
 import data.DataProviderType;
 import db.auth.FlexUser;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
+import org.testng.annotations.Test;
 
 /**
  *
