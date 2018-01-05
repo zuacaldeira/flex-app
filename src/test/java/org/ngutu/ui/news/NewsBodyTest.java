@@ -5,7 +5,6 @@
  */
 package org.ngutu.ui.news;
 
-import data.DataProviderType;
 import db.auth.FlexUser;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
@@ -16,10 +15,10 @@ import org.testng.annotations.Test;
  * @author zua
  */
 public class NewsBodyTest {
-    
+
     private static final String TEST_USERNAME = "test:username";
     private static final String TEST_PASSWORD = "test:password";
-    
+
     public NewsBodyTest() {
     }
 
@@ -32,6 +31,7 @@ public class NewsBodyTest {
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsBody instance = new NewsBody();
         assertNotNull(instance.getContent());
+        assertNotNull(instance.getMasterDetail());
     }
 
     /**
@@ -53,7 +53,7 @@ public class NewsBodyTest {
         System.out.println("addItemView");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsBody instance = new NewsBody();
-        
+
         //instance.addItemView(new NewsArticle("TEST_USERNAME", "TEST_PASSWORD", "TEST_USERNAME", "TEST_USERNAME", new Date(), "TEST_USERNAME", "TEST_USERNAME", "TEST_USERNAME"));
     }
 
@@ -76,7 +76,6 @@ public class NewsBodyTest {
         System.out.println("updateData");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
         NewsBody instance = new NewsBody();
-        instance.populate(DataProviderType.FAKE, null);
     }
-    
+
 }

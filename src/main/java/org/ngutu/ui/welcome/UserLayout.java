@@ -18,10 +18,10 @@ import org.ngutu.ui.share.FacebookLogoutButton;
  *
  * @author zua
  */
-public class UserLayout extends HorizontalLayout{
+public class UserLayout extends HorizontalLayout {
 
     private static final long serialVersionUID = -5697064550871685733L;
-    
+
     private Image picture;
     private FacebookLoginButton facebookLogin;
     private FacebookLogoutButton facebookLogout;
@@ -31,7 +31,7 @@ public class UserLayout extends HorizontalLayout{
         initPicture();
         initFacebookButton();
     }
-    
+
     private void initPicture() {
         FlexUser user = getUser();
         if (user != null && user.getUserInfo() != null && user.getUserInfo().getPicture() != null) {
@@ -43,15 +43,13 @@ public class UserLayout extends HorizontalLayout{
             setComponentAlignment(picture, Alignment.MIDDLE_CENTER);
         }
     }
-    
 
     private void initFacebookButton() {
-        if(getUser() == null) {
+        if (getUser() == null) {
             facebookLogin = new FacebookLoginButton();
             addComponent(facebookLogin);
             setComponentAlignment(facebookLogin, Alignment.MIDDLE_CENTER);
-        }
-        else {
+        } else {
             facebookLogout = new FacebookLogoutButton();
             addComponent(facebookLogout);
             setComponentAlignment(facebookLogout, Alignment.MIDDLE_CENTER);
@@ -60,11 +58,9 @@ public class UserLayout extends HorizontalLayout{
 
     private FlexUser getUser() {
         if (UI.getCurrent() != null) {
-            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
             return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
         }
         return null;
     }
 
-    
 }

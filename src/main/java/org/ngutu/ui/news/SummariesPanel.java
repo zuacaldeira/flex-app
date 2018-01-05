@@ -33,7 +33,6 @@ public class SummariesPanel extends FlexPanel {
 
     private FlexUser initUser() {
         if (UI.getCurrent() != null) {
-            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
             return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
         }
         return null;
@@ -70,6 +69,5 @@ public class SummariesPanel extends FlexPanel {
     public VerticalLayout getOverviews() {
         return overviews;
     }
-
 
 }

@@ -5,8 +5,6 @@
  */
 package org.ngutu.ui.share;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -18,19 +16,15 @@ public class FacebookProperties extends Properties {
     private static final long serialVersionUID = -5427752369139226274L;
 
     public FacebookProperties() {
-        try {
-            super.load(new FileInputStream("src/main/resources/facebook.properties"));
-        } catch (IOException ex) {
-            throw new IllegalArgumentException(ex);
-        }
+        System.out.printf("(F_APP_ID, F_APP_SEC) = (%s, %s)\n", getAppId(), getAppSecret());
     }
-    
+
     public String getAppId() {
-        return getProperty("APP_ID");
+        return System.getProperty("FACEBOOK_APP_ID");
     }
-    
+
     public String getAppSecret() {
-        return getProperty("APP_SECRET");
+        return System.getProperty("FACEBOOK_APP_SECRET");
     }
-    
+
 }

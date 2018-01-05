@@ -6,8 +6,6 @@
 package org.ngutu.ui.news;
 
 import org.ngutu.ui.components.AbstractBody;
-import com.vaadin.ui.Component;
-import data.DataProviderType;
 
 /**
  *
@@ -21,20 +19,12 @@ public class NewsBody extends AbstractBody {
     }
 
     @Override
-    public void populate(DataProviderType type, String value) {
-        System.out.println("FlexBodyThread#run(): START");
-        getMasterDetail().refresh(type, value);
-        System.out.println("FlexBodyThread#run(): DONE");
-    }
-
-    @Override
-    protected Component createBodyContent() {
+    protected MasterDetailView createBodyContent() {
         return new MasterDetailView();
     }
 
     public MasterDetailView getMasterDetail() {
         return (MasterDetailView) getContent();
     }
-
 
 }

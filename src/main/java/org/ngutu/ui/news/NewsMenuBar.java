@@ -11,11 +11,16 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.UI;
 import data.DataProviderType;
 import db.auth.FlexUser;
-import db.news.Tag;
 import java.util.TreeSet;
 import org.ngutu.ui.viewproviders.FlexViews;
 import backend.utils.MyDateUtils;
+import com.neovisionaries.i18n.CountryCode;
+import com.neovisionaries.i18n.LanguageCode;
 import com.vaadin.ui.themes.ValoTheme;
+import db.news.NewsSource;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import java.util.Collection;
 import utils.ServiceLocator;
 
 /**
@@ -43,23 +48,44 @@ public final class NewsMenuBar extends MenuBar {
     private MenuItem full;
     private MenuItem imagesOnly;
     private MenuItem titlesOnly;
+    private Collection<NewsSource> sources;
+    private TreeSet<String> tags;
+    private TreeSet<String> publisherLanguages;
+    private TreeSet<String> publisherNames;
+    private TreeSet<String> publisherCountries;
 
     public NewsMenuBar() {
+        this.loadData();
         this.initMenuItems();
         setSizeUndefined();
         setAutoOpen(true);
         setStyleName(ValoTheme.MENUBAR_BORDERLESS);
-        addStyleName("flex-menu-bar");
+        setStyleName("flex-menu-bar");
     }
 
+    private void loadData() {
+        publisherNames = new TreeSet<>();
+        publisherLanguages = new TreeSet<>();
+        publisherCountries = new TreeSet<>();
+        tags = new TreeSet<>();
+        Observable<NewsSource> observable = Observable.fromIterable(ServiceLocator.getInstance().findSourcesService().findAllSources());
+        Disposable disposable = observable.subscribe(onNext -> {
+            publisherNames.add(onNext.getName());
+            publisherLanguages.add(onNext.getLanguage());
+            publisherCountries.add(onNext.getCountry());
+            tags.add(getCategoryCaption(onNext.getCategory().getTag()));
+        }, onError -> {
+            onError.printStackTrace();
+        });
+    }
+    
     protected void initMenuItems() {
-        //top = addItem("Menu", VaadinIcons.MENU, null);
-        //top.setStyleName(ValoTheme.MENU);
-        news = addItem("Articles", null, null);
-        publishers = addItem("Publishers", null, null);
-        categories = addItem("Categories", null, null);
-        languages = addItem("Languages", null, null);
-        countries = addItem("Countries", null, null);
+        top = addItem("Menu", VaadinIcons.MENU, null);
+        news = top.addItem("Articles", null, null);
+        publishers = top.addItem("Publishers", null, null);
+        categories = top.addItem("Categories", null, null);
+        languages = top.addItem("Languages", null, null);
+        countries = top.addItem("Countries", null, null);
         populate();
     }
 
@@ -71,58 +97,30 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     protected void populateNewsCategory() {
-        TreeSet<String> tags = new TreeSet<>();
-        Iterable<Tag> observable = ServiceLocator.getInstance().findTagService().findAllTags();
-        observable.forEach(cat -> {
-            tags.add(getCategoryCaption(cat.getTag()));
-        });
-
         tags.forEach(tag -> {
             categories.addItem(tag, new CategoryCommand());
         });
     }
 
     protected void populateNewsPublisher() {
-        TreeSet<String> ps = new TreeSet<>();
-        Iterable<String> sourceNames = ServiceLocator.getInstance().findSourcesService().findNames();
-        sourceNames.forEach(name -> {
-            if (name != null) {
-                ps.add(name);
-            }
-        });
-
-        ps.forEach(publisher -> {
-            publishers.addItem(publisher, new PublisherCommand());
+        publisherNames.forEach(name -> {
+            publishers.addItem(name, new PublisherCommand());
         });
     }
 
     protected void populateNewsLanguages() {
-        TreeSet<String> ls = new TreeSet<>();
-        Iterable<String> sourceLocales = ServiceLocator.getInstance().findSourcesService().findLocales();
-        sourceLocales.forEach(localeString -> {
-            if (localeString != null && !localeString.isEmpty()) {
-                String lang = MyDateUtils.getLanguageNameFromPattern(localeString);
-                ls.add(lang);
+        publisherLanguages.forEach(lang -> {
+            if(LanguageCode.getByCode(lang) != null) {
+                languages.addItem(LanguageCode.getByCode(lang).getName(), new LanguageCommand());
             }
-        });
-
-        ls.forEach(lang -> {
-            languages.addItem(lang, new LanguageCommand());
         });
     }
 
     protected void populateNewsCountries() {
-        TreeSet<String> cs = new TreeSet<>();
-        Iterable<String> sourceLocales = ServiceLocator.getInstance().findSourcesService().findLocales();
-        sourceLocales.forEach(localeString -> {
-            if (localeString != null && !localeString.isEmpty()) {
-                String country = MyDateUtils.getCountryNameFromPattern(localeString);
-                cs.add(country);
+        publisherCountries.forEach(country -> {
+            if(CountryCode.getByCode(country) != null) {
+                countries.addItem(CountryCode.getByCode(country).getName(), new CountryCommand());
             }
-        });
-
-        cs.forEach(country -> {
-            countries.addItem(country, new CountryCommand());
         });
     }
 
@@ -309,7 +307,7 @@ public final class NewsMenuBar extends MenuBar {
 
         @Override
         public void menuSelected(MenuItem selectedItem) {
-            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.LATEST);
+            UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.LATEST.name().toLowerCase());
         }
 
     }

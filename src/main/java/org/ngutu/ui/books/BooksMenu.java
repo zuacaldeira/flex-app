@@ -5,7 +5,6 @@
  */
 package org.ngutu.ui.books;
 
-import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.UI;
 import components.FlexButton;
 import db.auth.FlexUser;
@@ -33,7 +32,6 @@ public class BooksMenu extends AbstractMenu {
     
     private FlexUser getUser() {
         if (UI.getCurrent() != null) {
-            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
             return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
         }
         return null;
@@ -43,14 +41,9 @@ public class BooksMenu extends AbstractMenu {
     protected MenuActions createMenuActions() {        
         MenuActions menuActions = new MenuActions();
         FlexButton newsButton = new FlexButton("News");
-
         menuActions.addComponent(newsButton);
         return menuActions;
     }
 
-    @Override
-    protected MenuBar createMenuBar() {
-        return new BooksMenuBar();
-    }
 
 }

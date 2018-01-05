@@ -14,6 +14,7 @@ import db.auth.FlexUser;
 import javax.servlet.annotation.WebServlet;
 import org.ngutu.ui.share.NgutuFacebookAPI;
 import backend.services.auth.FlexUserServiceInterface;
+import com.vaadin.shared.communication.PushMode;
 import utils.ServiceLocator;
 
 /**
@@ -28,7 +29,7 @@ import utils.ServiceLocator;
 @Theme("mytheme")
 @Title("Ngutu °°° Connecting the Unconnected Dots")
 @PushStateNavigation
-@Push
+@Push(PushMode.AUTOMATIC)
 @JavaScript("app://VAADIN/themes/mytheme/js/adsense.js")
 public class NgutuUI extends SecuredUI {
 
@@ -44,6 +45,8 @@ public class NgutuUI extends SecuredUI {
 
     @Override
     public void init(VaadinRequest request) {
+        setErrorHandler(new DefaultErrorHandlerForNgutu());
+        
         if (request != null) {
             String address = request.getParameter("v-loc");
             if (facebookAPI == null) {
@@ -105,9 +108,7 @@ public class NgutuUI extends SecuredUI {
             user = service.login(user);
         }
 
-        System.out.println("FOUND USER " + user.getUsername());
-        System.out.println("WITH ROLE " + user.getRole().getName());
-
+        System.out.printf("FOUND USER %s WITH ROLE %s\n", user.getUsername(), user.getRole().getName());
         getSession().setAttribute("user", user);
 
         String navigationState = getSession().getAttribute("navigationState").toString();
@@ -151,7 +152,11 @@ public class NgutuUI extends SecuredUI {
     }
 
     @WebServlet(urlPatterns = "/*", name = "NgutuUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = NgutuUI.class, productionMode = true, widgetset = "ui.AppWidgetSet")
+    @VaadinServletConfiguration(
+            ui = NgutuUI.class, 
+            productionMode = true, 
+            widgetset = "ui.AppWidgetSet"
+            )
     public static class NgutuUIServlet extends VaadinServlet {
 
         private static final long serialVersionUID = -3509795582956287827L;

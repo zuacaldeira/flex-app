@@ -7,6 +7,7 @@ package data;
 
 import db.auth.FlexUser;
 import db.news.NewsArticle;
+import io.reactivex.Observable;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
@@ -63,7 +64,7 @@ public class ArticlesRepositoryTestIT {
         System.out.println("loadNodes");
         ArticlesRepository instance = new ArticlesRepository();
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        Iterable<NewsArticle> result = instance.loadNodes(type, value, user);
+        Observable<NewsArticle> result = instance.loadNodes(type, value, user);
         assertNotNull(result);
     }
 

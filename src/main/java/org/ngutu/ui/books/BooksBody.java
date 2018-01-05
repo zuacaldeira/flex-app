@@ -23,10 +23,6 @@ public class BooksBody extends AbstractBody {
 
 
     @Override
-    public void populate(DataProviderType type, String value) {
-    }
-
-    @Override
     protected Component createBodyContent() {
         return new Label("TODO");
     }
