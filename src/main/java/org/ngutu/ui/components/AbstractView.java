@@ -23,6 +23,14 @@ public abstract class AbstractView extends VerticalLayout implements View {
     private FlexFooter footer;
 
     public AbstractView() {
+        initBody();
+        initFooter();
+        initMenu();
+        super.addComponents(menu, body, footer);
+        super.setExpandRatio(body, 1f);
+        super.setStyleName("flex-view");
+        super.setSizeFull();
+        super.setMargin(false);
     }
     
     private void initMenu() {
@@ -54,14 +62,6 @@ public abstract class AbstractView extends VerticalLayout implements View {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        initBody();
-        initFooter();
-        initMenu();
-        super.addComponents(menu, body, footer);
-        super.setExpandRatio(body, 1f);
-        super.setStyleName("flex-view");
-        super.setSizeFull();
-        super.setMargin(false);
     }
     
     

@@ -16,7 +16,6 @@ import db.auth.FlexUser;
 import db.news.NewsArticle;
 import backend.services.auth.FlexUserService;
 import backend.services.news.NewsArticleService;
-import com.google.common.collect.Sets;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.UI;
 import utils.ServiceLocator;
@@ -77,21 +76,21 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
 
         favoriteButton = new FavoriteButton();
         favoriteButton.addClickListener(this);
-        if (user != null && isFavorite(user, article)) {
+        /*if (user != null && isFavorite(user, article)) {
             favoriteButton.addStyleName("yellow");
-        }
+        }*/
 
         fakeButton = new FakeButton();
         fakeButton.addClickListener(this);
-        if (user != null && isFake(user, article)) {
+        /*if (user != null && isFake(user, article)) {
             fakeButton.addStyleName("red");
-        }
+        }*/
 
         hideButton = new HideButton();
         hideButton.addClickListener(this);
-        if (user != null && isRead(user, article)) {
+        /*if (user != null && isRead(user, article)) {
             hideButton.addStyleName("purple");
-        }
+        }*/
 
     }
 
@@ -188,15 +187,15 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
     }
 
     private boolean isFavorite(FlexUser user, NewsArticle article) {
-        return Sets.newHashSet(getArticlesService().findFavorite(user.getUsername())).contains(article);
+        return user.getFavorite().contains(article);
     }
 
     private boolean isFake(FlexUser user, NewsArticle article) {
-        return Sets.newHashSet(getArticlesService().findFake(user.getUsername())).contains(article);
+        return user.getFake().contains(article);
     }
 
     private boolean isRead(FlexUser user, NewsArticle article) {
-        return Sets.newHashSet(getArticlesService().findRead(user.getUsername())).contains(article);
+        return user.getRead().contains(article);
     }
 
     public NewsArticle getArticle() {
@@ -212,5 +211,9 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
             return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
         }
         return null;
+    }
+
+    private FlexUserService getUsersService() {
+        return ServiceLocator.getInstance().findUserService();
     }
 }

@@ -10,10 +10,10 @@ import db.news.NewsArticle;
 import db.news.NewsSource;
 import backend.services.news.NewsArticleService;
 import backend.utils.MyDateUtils;
+import io.reactivex.Observable;
 import utils.ServiceLocator;
 
 /**
- *
  * @author zua
  */
 public class ArticlesRepository {
@@ -21,7 +21,7 @@ public class ArticlesRepository {
     public ArticlesRepository() {
     }
 
-    public Iterable<NewsArticle> loadNodes(DataProviderType type, String value, FlexUser user) {
+    public Observable<NewsArticle> loadNodes(DataProviderType type, String value, FlexUser user) {
         NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
         String username = (user != null) ? user.getUsername() : null;
         switch (type) {
@@ -40,7 +40,7 @@ public class ArticlesRepository {
         }
     }
 
-    public Iterable<NewsArticle> loadNodes(DataProviderType type, String value) {
+    public Observable<NewsArticle> loadNodes(DataProviderType type, String value) {
         NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
         switch (type) {
             case CATEGORY:
@@ -58,7 +58,7 @@ public class ArticlesRepository {
         }
     }
 
-    public Iterable<NewsArticle> loadNodes(DataProviderType type, FlexUser user) {
+    public Observable<NewsArticle> loadNodes(DataProviderType type, FlexUser user) {
         NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
         String username = (user != null) ? user.getUsername() : null;
         switch (type) {
@@ -77,11 +77,11 @@ public class ArticlesRepository {
         }
     }
 
-    public Iterable<NewsArticle> loadNodes(DataProviderType type) {
+    public Observable<NewsArticle> loadNodes(DataProviderType type) {
         NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
         switch (type) {
             case LATEST:
-                return service.findLatest();
+                return Observable.fromIterable(service.findAll(0, 10));
             case OLDEST:
                 return service.findOldest();
             default:

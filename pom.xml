@@ -101,41 +101,10 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20170516</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-icons</artifactId>
             <version>2.0.0</version>
             <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>23.0</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.13.1</version>
-            <scope>test</scope>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>8.0</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.0</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.vaadin</groupId>
@@ -149,9 +118,35 @@
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-themes</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-client</artifactId>
+            <type>jar</type>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.zuacaldeira</groupId>
+            <artifactId>flex-app-backend</artifactId>
+            <version>1.1.29-SNAPSHOT</version>
+            <!--scope>compile</scope-->
+            <type>jar</type>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
         <!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
         <!-- https://mvnrepository.com/artifact/com.typesafe.akka/akka-actor_2.11 -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.13.1</version>
+            <scope>test</scope>
+            <type>jar</type>
+        </dependency>
         <dependency> 
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-ogm-core</artifactId>
@@ -176,18 +171,6 @@
             <type>jar</type>
         </dependency>        
         <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-client</artifactId>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.github.zuacaldeira</groupId>
-            <artifactId>flex-app-backend</artifactId>
-            <version>1.1.28</version>
-            <!--scope>compile</scope-->
-            <type>jar</type>
-        </dependency>
-        <dependency>
             <groupId>com.neovisionaries</groupId>
             <artifactId>nv-i18n</artifactId>
             <version>1.22</version>
@@ -196,7 +179,7 @@
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-util</artifactId>
-            <version>9.4.5.v20170502</version>
+            <version>9.4.7.RC0</version>
         </dependency>   
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -317,6 +300,12 @@
                     <skip>false</skip>
                 </configuration>
             </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20.1</version>
+            </plugin>            
             <!-- The Jetty plugin allows us to easily test the development build by
             running jetty:run on the command line. -->
             <plugin>

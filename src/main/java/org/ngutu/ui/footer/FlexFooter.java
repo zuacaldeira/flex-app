@@ -49,9 +49,7 @@ public class FlexFooter extends HorizontalLayout {
 
     private void initUser() {
         if (UI.getCurrent() != null) {
-            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
             user = (FlexUser) UI.getCurrent().getSession().getAttribute("user");
-            System.out.println("NEWS VIEW USER -> " + user);
         }
     }
 
@@ -66,7 +64,7 @@ public class FlexFooter extends HorizontalLayout {
     private Component getPoweredBy() {
         Link vaadinLink = new Link("Vaadin", new ExternalResource("https://vaadin.com"));
         vaadinLink.setTargetName("_blank");
-        
+
         Link neo4jLink = new Link("Neo4j", new ExternalResource("https://neo4j.com"));
         neo4jLink.setTargetName("_blank");
 
@@ -83,7 +81,7 @@ public class FlexFooter extends HorizontalLayout {
     private Component getPrivacy() {
         Link impressumLink = new Link("Impressum", new ThemeResource("html/impressum.html"));
         impressumLink.setTargetName("_blank");
-        
+
         Link privacyLink = new Link("Privacy", new ThemeResource("html/privacy.html"));
         privacyLink.setTargetName("_blank");
 

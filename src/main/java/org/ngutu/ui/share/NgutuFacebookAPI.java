@@ -16,14 +16,16 @@ import com.restfb.types.GraphResponse;
 import com.restfb.types.User;
 import com.vaadin.server.Page;
 import db.news.NewsArticle;
+import java.io.Serializable;
 
 /**
  *
  * @author zua
  */
-public class NgutuFacebookAPI {
+public class NgutuFacebookAPI implements Serializable {
 
     public static final Version VERSION = Version.LATEST;
+    private static final long serialVersionUID = 3692846311722499489L;
     private FacebookProperties properties;
 
 
@@ -69,13 +71,21 @@ public class NgutuFacebookAPI {
     }
 
     public String getLoginCallback() {
-        System.out.printf("LOGIN CALLBACK URL host/fragment -> (%s%s)\n", host, extractFragment(navigationState));
-        return host + extractFragment(navigationState);
+        String callback = host + extractFragment(navigationState);
+        if(host.contains("localhost")) {
+            callback += "/flex-app";
+        }
+        return callback;
     }
 
     public String getRedirectUrl() {
-        System.out.printf("REDIRECT URL host/fragment -> (%s%s)\n", host, navigationState);
-        return host + navigationState;
+        String url = host;
+        if(host.contains("localhost")) {
+            url += "flex-app/";
+        }
+        url += navigationState;
+        System.out.printf("REDIRECT URL -> (%s)\n", url);
+        return url;
     }
 
     public User fetchUser(String code) {

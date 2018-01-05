@@ -9,7 +9,6 @@ import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
-import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
@@ -36,24 +35,21 @@ public abstract class AbstractMenu extends HorizontalLayout {
     private Image picture;
 
     public static final String MENU_HEIGHT = "40px";
-    private MenuBar menuBar;
 
     public AbstractMenu() {
         initLogo();
-        initMenuBar();
         initActions();
-        super.addComponents(logo, menuBar, actions);
+        super.addComponents(logo, actions);
         super.setComponentAlignment(logo, Alignment.MIDDLE_LEFT);
-        super.setComponentAlignment(menuBar, Alignment.MIDDLE_CENTER);
         super.setComponentAlignment(actions, Alignment.MIDDLE_RIGHT);
         super.setWidth("100%");
+        super.setExpandRatio(actions, 1f);
         super.setHeight(MENU_HEIGHT);
         super.setSpacing(true);
         super.setMargin(false);
         super.setStyleName("flex-menu");
     }
     
-    protected abstract MenuBar createMenuBar();
     protected abstract MenuActions createMenuActions();
 
     public FlexLogo getLogo() {
@@ -66,7 +62,6 @@ public abstract class AbstractMenu extends HorizontalLayout {
 
     private FlexUser getUser() {
         if (UI.getCurrent() != null) {
-            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
             return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
         }
         return null;
@@ -119,25 +114,12 @@ public abstract class AbstractMenu extends HorizontalLayout {
         }
     }
 
-    private void initMenuBar() {
-        menuBar = createMenuBar();
-    }
-
     public FlexButton getFacebookButton() {
         return facebookButton;
     }
 
     public void setFacebookButton(FlexButton facebookButton) {
         this.facebookButton = facebookButton;
-    }
-
-    public MenuBar getMenuBar() {
-        return menuBar;
-    }
-
-    public void setMenuBar(MenuBar menuBar) {
-        this.menuBar = menuBar;
-    }
-    
+    }    
     
 }

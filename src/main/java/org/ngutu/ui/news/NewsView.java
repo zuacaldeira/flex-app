@@ -28,7 +28,6 @@ public class NewsView extends AbstractView {
 
     private FlexUser getUser() {
         if (UI.getCurrent() != null) {
-            System.out.println("Found USER -> " + UI.getCurrent().getSession().getAttribute("user"));
             return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
         }
         return null;
@@ -56,28 +55,32 @@ public class NewsView extends AbstractView {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        super.enter(event);
+        NewsBody newBody = new NewsBody();
+        replaceBody(newBody);
+
+        Thread thread = null;
         String parameters = event.getParameters();
-        if(parameters == null || parameters.isEmpty()) {
-            getBody().populate(DataProviderType.LATEST, null);
-        }
-        
-        else if (!parameters.isEmpty()) {
+        if (parameters == null || parameters.isEmpty()) {
+            thread = new NewsBodyWorker(newBody, getUser(), DataProviderType.LATEST, null);
+        } else if (!parameters.isEmpty()) {
             parameters = parameters.replace('-', ' ');
             String parts[] = parameters.split("/");
             String context = null;
             String target = null;
-            if(parts.length == 2) {
+            if (parts.length == 2) {
                 System.out.println("2-PARTS " + parts[0] + " - " + parts[1]);
                 context = parts[0];
                 target = parts[1];
-                getBody().populate(DataProviderType.valueOf(context.toUpperCase()), target);
-            }
-            else if(parts.length == 1) {
+                thread = new NewsBodyWorker(newBody, getUser(), DataProviderType.valueOf(context.toUpperCase()), target);
+            } else if (parts.length == 1) {
                 System.out.println("1-PART " + parts[0]);
                 context = parts[0];
-                getBody().populate(DataProviderType.valueOf(context.toUpperCase()), null);
+                thread = new NewsBodyWorker(newBody, getUser(), DataProviderType.valueOf(context.toUpperCase()), null);
             }
+        }
+
+        if (thread != null) {
+            thread.start();
         }
     }
 

@@ -6,7 +6,6 @@
 package org.ngutu.ui.welcome;
 
 import com.vaadin.ui.Component;
-import data.DataProviderType;
 import org.ngutu.ui.components.AbstractBody;
 
 /**
@@ -18,10 +17,6 @@ public class WelcomeBody extends AbstractBody {
     private static final long serialVersionUID = 6273025631274336910L;
 
     public WelcomeBody() {
-    }
-
-    @Override
-    public void populate(DataProviderType type, String value) {
     }
 
     @Override
