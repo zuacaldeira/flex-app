@@ -6,9 +6,9 @@
 package org.ngutu.ui.books;
 
 import com.vaadin.ui.UI;
-import components.FlexButton;
+import org.ngutu.ui.common.FlexButton;
 import db.auth.FlexUser;
-import org.ngutu.ui.components.AbstractMenu;
+import org.ngutu.ui.common.AbstractMenu;
 import org.ngutu.ui.news.MenuActions;
 
 /**

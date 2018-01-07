@@ -5,7 +5,7 @@
  */
 package org.ngutu.ui.adsense;
 
-import org.ngutu.ui.components.AdsFrame;
+import org.ngutu.ui.common.AdsFrame;
 import com.vaadin.server.ThemeResource;
 
 /**

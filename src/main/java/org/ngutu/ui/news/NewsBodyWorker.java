@@ -35,25 +35,25 @@ public class NewsBodyWorker extends Thread {
     @Override
     public void run() {
         Observable<NewsArticle> observable = getNodes(user, type, value);
-        Disposable disposable = observable.subscribe(
-                article -> {
-                    if (body.getUI() != null) {
-                        body.getUI().access(() -> {
-                            ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, article);
-                            body.getMasterDetail().addSingleSummary(aView);
-                        });
-                        Thread.sleep(5000);
+        try {
+            Disposable disposable = observable.subscribe(
+                    article -> {
+                        if (body != null && body.getUI() != null) {
+                            body.getUI().access(() -> {
+                                ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, article);
+                                body.getMasterDetail().addSingleSummary(aView);
+                            });
+                            //Thread.sleep(5000);
+                        }
+                    },
+                    ex -> {
+                        throw new RuntimeException("Error on subscribed data: " + ex.getMessage());
                     }
-                    else {
-                        return;
-                    }
-                },
-                ex -> {
-                    ex.printStackTrace();
-                    return;
-                }
-        );
-        disposable.dispose();
+            );
+            disposable.dispose();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private Observable<NewsArticle> getNodes(FlexUser user, DataProviderType type, String value) {

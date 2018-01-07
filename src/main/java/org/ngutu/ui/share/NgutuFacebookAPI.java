@@ -72,18 +72,12 @@ public class NgutuFacebookAPI implements Serializable {
 
     public String getLoginCallback() {
         String callback = host;
-        if(host.contains("localhost")) {
-            callback += "flex-app/";
-        }
         callback += extractFragment(navigationState);
         return callback;
     }
 
     public String getRedirectUrl() {
         String url = host;
-        if(host.contains("localhost")) {
-            url += "flex-app/";
-        }
         url += navigationState;
         System.out.printf("REDIRECT URL -> (%s)\n", url);
         return url;

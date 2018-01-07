@@ -5,7 +5,7 @@
  */
 package org.ngutu.ui.news;
 
-import components.HomeButton;
+import org.ngutu.ui.common.HomeButton;
 
 /**
  *

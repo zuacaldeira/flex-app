@@ -6,7 +6,7 @@
 package factory;
 
 import com.vaadin.icons.VaadinIcons;
-import org.ngutu.ui.components.FlexActionButton;
+import org.ngutu.ui.common.FlexActionButton;
 
 /**
  *

@@ -5,10 +5,10 @@
  */
 package factory;
 
-import components.CommentButton;
-import components.FakeButton;
-import components.FavoriteButton;
-import components.HideButton;
+import org.ngutu.ui.common.CommentButton;
+import org.ngutu.ui.common.FakeButton;
+import org.ngutu.ui.common.FavoriteButton;
+import org.ngutu.ui.common.HideButton;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
@@ -76,21 +76,21 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
 
         favoriteButton = new FavoriteButton();
         favoriteButton.addClickListener(this);
-        /*if (user != null && isFavorite(user, article)) {
+        if (user != null && isFavorite(user, article)) {
             favoriteButton.addStyleName("yellow");
-        }*/
+        }
 
         fakeButton = new FakeButton();
         fakeButton.addClickListener(this);
-        /*if (user != null && isFake(user, article)) {
+        if (user != null && isFake(user, article)) {
             fakeButton.addStyleName("red");
-        }*/
+        }
 
         hideButton = new HideButton();
         hideButton.addClickListener(this);
-        /*if (user != null && isRead(user, article)) {
+        if (user != null && isRead(user, article)) {
             hideButton.addStyleName("purple");
-        }*/
+        }
 
     }
 

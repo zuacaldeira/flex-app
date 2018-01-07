@@ -20,11 +20,11 @@ public class FacebookProperties extends Properties {
     }
 
     public String getAppId() {
-        return System.getProperty("FACEBOOK_APP_ID");
+        return System.getenv("FACEBOOK_APP_ID");
     }
 
     public String getAppSecret() {
-        return System.getProperty("FACEBOOK_APP_SECRET");
+        return System.getenv("FACEBOOK_APP_SECRET");
     }
 
 }

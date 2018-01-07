@@ -6,7 +6,7 @@
 package org.ngutu.ui.welcome;
 
 import com.vaadin.ui.Component;
-import org.ngutu.ui.components.AbstractBody;
+import org.ngutu.ui.common.AbstractBody;
 
 /**
  *

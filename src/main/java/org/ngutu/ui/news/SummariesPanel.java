@@ -9,7 +9,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import factory.ArticleView;
-import components.FlexPanel;
+import org.ngutu.ui.common.FlexPanel;
 import db.auth.FlexUser;
 
 /**

@@ -6,7 +6,7 @@
 package org.ngutu.ui.news;
 
 import com.vaadin.ui.Component;
-import components.FlexPanel;
+import org.ngutu.ui.common.FlexPanel;
 
 /**
  *

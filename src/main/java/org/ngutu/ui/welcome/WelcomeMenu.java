@@ -7,8 +7,8 @@ package org.ngutu.ui.welcome;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.UI;
-import components.FlexButton;
-import org.ngutu.ui.components.AbstractMenu;
+import org.ngutu.ui.common.FlexButton;
+import org.ngutu.ui.common.AbstractMenu;
 import org.ngutu.ui.news.MenuActions;
 import org.ngutu.ui.viewproviders.FlexViews;
 

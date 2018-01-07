@@ -5,7 +5,7 @@
  */
 package org.ngutu.ui.news;
 
-import org.ngutu.ui.components.AbstractView;
+import org.ngutu.ui.common.AbstractView;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.UI;
 import data.DataProviderType;

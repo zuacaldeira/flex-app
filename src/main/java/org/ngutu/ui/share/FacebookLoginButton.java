@@ -8,7 +8,7 @@ package org.ngutu.ui.share;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
-import components.FlexButton;
+import org.ngutu.ui.common.FlexButton;
 import ui.NgutuUI;
 
 /**

@@ -9,8 +9,8 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
-import components.FlexWindow;
-import components.SaveButton;
+import org.ngutu.ui.common.FlexWindow;
+import org.ngutu.ui.common.SaveButton;
 import db.news.NewsArticle;
 import org.ngutu.ui.share.ShareOnFacebook;
 

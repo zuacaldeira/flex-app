@@ -11,7 +11,7 @@ import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
-import components.FlexPanel;
+import org.ngutu.ui.common.FlexPanel;
 import db.auth.FlexUser;
 import factory.ArticleView;
 

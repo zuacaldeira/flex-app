@@ -5,7 +5,7 @@
  */
 package org.ngutu.ui.news;
 
-import org.ngutu.ui.components.AbstractMenu;
+import org.ngutu.ui.common.AbstractMenu;
 import com.vaadin.ui.UI;
 
 /**

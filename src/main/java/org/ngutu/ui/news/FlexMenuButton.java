@@ -8,7 +8,7 @@ package org.ngutu.ui.news;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
 import com.vaadin.server.Resource;
-import components.FlexButton;
+import org.ngutu.ui.common.FlexButton;
 
 /**
  *

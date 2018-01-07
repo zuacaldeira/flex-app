@@ -5,7 +5,7 @@
  */
 package org.ngutu.ui.books;
 
-import org.ngutu.ui.components.AdsFrame;
+import org.ngutu.ui.common.AdsFrame;
 import com.vaadin.server.ThemeResource;
 
 /**

@@ -5,7 +5,7 @@
  */
 package org.ngutu.ui.news;
 
-import org.ngutu.ui.components.AbstractBody;
+import org.ngutu.ui.common.AbstractBody;
 
 /**
  *

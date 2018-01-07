@@ -9,6 +9,8 @@ import db.news.NewsAuthor;
  * Created by zua on 13/04/17.
  */
 public class AuthorView extends GraphEntityView<NewsAuthor> {
+
+    private static final long serialVersionUID = 2908477970400166461L;
     private Label name;
 
     public AuthorView(FlexUser user, NewsAuthor author) {
