@@ -1,5 +1,6 @@
 package ui;
 
+import backend.services.auth.FlexUserService;
 import com.restfb.types.User;
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Push;
@@ -13,7 +14,6 @@ import db.auth.AuthUserInfo;
 import db.auth.FlexUser;
 import javax.servlet.annotation.WebServlet;
 import org.ngutu.ui.share.NgutuFacebookAPI;
-import backend.services.auth.FlexUserServiceInterface;
 import com.vaadin.shared.communication.PushMode;
 import utils.ServiceLocator;
 
@@ -46,7 +46,7 @@ public class NgutuUI extends SecuredUI {
     @Override
     public void init(VaadinRequest request) {
         setErrorHandler(new DefaultErrorHandlerForNgutu());
-        
+
         if (request != null) {
             String address = request.getParameter("v-loc");
             if (facebookAPI == null) {
@@ -101,7 +101,7 @@ public class NgutuUI extends SecuredUI {
     }
 
     private void updateSession(FlexUser user) {
-        FlexUserServiceInterface service = ServiceLocator.getInstance().findUserService();
+        FlexUserService service = ServiceLocator.getInstance().findUserService();
         if (!userExists(user.getUsername())) {
             user = service.register(user);
         } else {
@@ -153,10 +153,10 @@ public class NgutuUI extends SecuredUI {
 
     @WebServlet(urlPatterns = "/*", name = "NgutuUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(
-            ui = NgutuUI.class, 
-            productionMode = true, 
+            ui = NgutuUI.class,
+            productionMode = true,
             widgetset = "ui.AppWidgetSet"
-            )
+    )
     public static class NgutuUIServlet extends VaadinServlet {
 
         private static final long serialVersionUID = -3509795582956287827L;

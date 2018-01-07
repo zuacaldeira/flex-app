@@ -5,6 +5,7 @@
  */
 package components;
 
+import backend.services.auth.FlexUserService;
 import org.ngutu.ui.components.FlexForm;
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationException;
@@ -15,7 +16,6 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.UI;
 import db.auth.FlexUser;
 import org.ngutu.ui.viewproviders.FlexViews;
-import backend.services.auth.FlexUserServiceInterface;
 import utils.ServiceLocator;
 
 /**
@@ -26,7 +26,7 @@ public class RegisterForm extends FlexForm {
 
     private static final long serialVersionUID = 5363531124855151443L;
 
-    private FlexUserServiceInterface service;
+    private FlexUserService service;
     private FlexUser user;
 
     private final Binder<FlexUser> binder;

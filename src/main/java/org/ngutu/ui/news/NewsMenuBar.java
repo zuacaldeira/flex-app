@@ -71,8 +71,12 @@ public final class NewsMenuBar extends MenuBar {
         Observable<NewsSource> observable = Observable.fromIterable(ServiceLocator.getInstance().findSourcesService().findAllSources());
         Disposable disposable = observable.subscribe(onNext -> {
             publisherNames.add(onNext.getName());
-            publisherLanguages.add(onNext.getLanguage());
-            publisherCountries.add(onNext.getCountry());
+            if(LanguageCode.getByCode(onNext.getLanguage()) != null) {
+                publisherLanguages.add(LanguageCode.getByCode(onNext.getLanguage()).getName());
+            }
+            if(CountryCode.getByCode(onNext.getCountry()) != null) {
+                publisherCountries.add(CountryCode.getByCode(onNext.getCountry()).getName());
+            }
             tags.add(getCategoryCaption(onNext.getCategory().getTag()));
         }, onError -> {
             onError.printStackTrace();
@@ -110,17 +114,13 @@ public final class NewsMenuBar extends MenuBar {
 
     protected void populateNewsLanguages() {
         publisherLanguages.forEach(lang -> {
-            if(LanguageCode.getByCode(lang) != null) {
-                languages.addItem(LanguageCode.getByCode(lang).getName(), new LanguageCommand());
-            }
+            languages.addItem(lang, new LanguageCommand());
         });
     }
 
     protected void populateNewsCountries() {
         publisherCountries.forEach(country -> {
-            if(CountryCode.getByCode(country) != null) {
-                countries.addItem(CountryCode.getByCode(country).getName(), new CountryCommand());
-            }
+            countries.addItem(country, new CountryCommand());
         });
     }
 

@@ -81,7 +81,7 @@ public class ArticlesRepository {
         NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
         switch (type) {
             case LATEST:
-                return Observable.fromIterable(service.findAll(0, 10));
+                return service.findLatest();
             case OLDEST:
                 return service.findOldest();
             default:
