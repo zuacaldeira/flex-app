@@ -6,11 +6,9 @@
 package org.ngutu.ui.news;
 
 import com.vaadin.ui.Component;
-import com.vaadin.ui.UI;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
-import factory.ArticleView;
 import org.ngutu.ui.common.FlexPanel;
-import db.auth.FlexUser;
 
 /**
  *
@@ -20,54 +18,38 @@ public class SummariesPanel extends FlexPanel {
 
     private static final long serialVersionUID = -1288952601019827111L;
 
-    private final VerticalLayout overviews;
+    private HorizontalLayout base;
+    private final int columns;
+    private int currentColumn;
 
     public SummariesPanel(int columns) {
-        initUser();
-        overviews = new VerticalLayout();
-        overviews.setMargin(false);
+        this.columns = columns;
+        this.currentColumn = 0;
+        initBase();
+        super.setContent(base);
         super.setSizeFull();
-        super.setContent(overviews);
         super.setStyleName("items");
     }
 
-    private FlexUser initUser() {
-        if (UI.getCurrent() != null) {
-            return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
+    private void initBase() {
+        base = new HorizontalLayout();
+        base.setSizeFull();
+        base.setHeightUndefined();
+        for (int i = 0; i < columns; i++) {
+            VerticalLayout holder = new VerticalLayout();
+            holder.setWidth("100%");
+            holder.setMargin(false);
+            base.addComponent(holder);
         }
-        return null;
     }
 
     public void addItemView(Component component) {
-        overviews.addComponent(component);
-    }
-
-    public void full() {
-        int c = overviews.getComponentCount();
-        for (int k = 0; k < c; k++) {
-            ArticleView v = (ArticleView) overviews.getComponent(k);
-            v.full();
+        if (currentColumn == columns) {
+            currentColumn = 0;
         }
-    }
 
-    public void imagesOnly() {
-        int c = overviews.getComponentCount();
-        for (int k = 0; k < c; k++) {
-            ArticleView v = (ArticleView) overviews.getComponent(k);
-            v.imagesOnly();
-        }
-    }
-
-    public void titlesOnly() {
-        int c = overviews.getComponentCount();
-        for (int k = 0; k < c; k++) {
-            ArticleView v = (ArticleView) overviews.getComponent(k);
-            v.titlesOnly();
-        }
-    }
-
-    public VerticalLayout getOverviews() {
-        return overviews;
+        ((VerticalLayout) base.getComponent(currentColumn)).addComponent(component);
+        currentColumn++;
     }
 
 }

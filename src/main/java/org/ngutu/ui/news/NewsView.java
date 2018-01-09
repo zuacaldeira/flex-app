@@ -10,6 +10,7 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.UI;
 import data.DataProviderType;
 import db.auth.FlexUser;
+import org.ngutu.ui.common.AbstractBody;
 
 /**
  *
@@ -22,7 +23,7 @@ public class NewsView extends AbstractView {
     public NewsView() {
     }
 
-    public void replaceBody(NewsBody flexBody) {
+    public void replaceBody(AbstractBody flexBody) {
         replaceComponent(getBody(), flexBody);
     }
 
@@ -39,13 +40,13 @@ public class NewsView extends AbstractView {
     }
 
     @Override
-    protected NewsBody createBody() {
-        return new NewsBody();
+    protected EmbeddedMasterDetailView createBody() {
+        return new EmbeddedMasterDetailView();
     }
 
     @Override
-    public NewsBody getBody() {
-        return (NewsBody) super.getBody();
+    public AbstractBody getBody() {
+        return (AbstractBody) super.getBody();
     }
 
     @Override
@@ -55,7 +56,7 @@ public class NewsView extends AbstractView {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        NewsBody newBody = new NewsBody();
+        EmbeddedMasterDetailView newBody = createBody();
         replaceBody(newBody);
 
         Thread thread = null;

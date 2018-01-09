@@ -6,46 +6,42 @@
 package org.ngutu.ui.news;
 
 import factory.GraphEntityView;
-import com.vaadin.server.ExternalResource;
-import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.UI;
-import org.ngutu.ui.common.FlexPanel;
-import db.auth.FlexUser;
 import factory.ArticleView;
+import org.ngutu.ui.common.AbstractBody;
 
 /**
  *
  * @author zua
  */
-public class MasterDetailView extends FlexPanel {
+public abstract class MasterDetailView extends AbstractBody {
 
-    private static final long serialVersionUID = -2414042455007471125L;
+    private static final long serialVersionUID = 4092595001827313256L;
 
-    private final HorizontalLayout baseLayout;
+
+    private HorizontalLayout baseLayout;
     private SummariesPanel summariesPanel;
-    private BrowserFrame infoFrame;
+    private Component target;
     private ArticleView selected;
 
     public MasterDetailView() {
-        initSummaries(1);
-        initBrowserFrame();
-        baseLayout = new HorizontalLayout(summariesPanel, infoFrame);
-        baseLayout.setSizeFull();
-        baseLayout.setExpandRatio(summariesPanel, .25f);
-        baseLayout.setExpandRatio(infoFrame, 1f);
-        baseLayout.setSpacing(true);
-        baseLayout.setMargin(false);
-        super.setSizeFull();
-        super.setContent(baseLayout);
     }
-
-    private FlexUser getUser() {
-        if (UI.getCurrent() != null) {
-            return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
-        }
-        return null;
+    
+    public HorizontalLayout getBaseLayout() {
+        return baseLayout;
+    }
+    
+    public SummariesPanel getSummariesPanel() {
+        return summariesPanel;
+    }
+    
+    public Component getTarget() {
+        return target;
+    }
+    
+    public ArticleView getSelected() {
+        return selected;
     }
 
     private void initSummaries(int c) {
@@ -53,26 +49,15 @@ public class MasterDetailView extends FlexPanel {
         summariesPanel.setSizeFull();
     }
 
-    private void initBrowserFrame() {
-        infoFrame = new BrowserFrame();
-        infoFrame.setSizeFull();
-        infoFrame.setCaption("Reading...");
-        infoFrame.setStyleName("info-frame");
+    private void initTarget() {
+        target = createTargetView();
     }
 
     public SummariesPanel getSummaries() {
         return summariesPanel;
     }
 
-    public BrowserFrame getInfoFrame() {
-        return infoFrame;
-    }
-
-    public GraphEntityView getSelected() {
-        return selected;
-    }
-
-    private void updateSelected(ArticleView itemView) {
+    protected void updateSelected(ArticleView itemView) {
         if (selected != null) {
             selected.unselect();
         }
@@ -80,11 +65,7 @@ public class MasterDetailView extends FlexPanel {
         selected.select();
 
         String url = selected.getArticle().getUrl();
-        if (url != null) {
-            infoFrame.setSource(new ExternalResource(url));
-            infoFrame.setCaptionAsHtml(true);
-            infoFrame.setCaption("<a href=\"" + url + "\" target=\"_blank\"> Read this article outside Ngutu.org </a>");
-        }
+        updateTarget(url);
     }
 
     public void addSingleSummary(Component component) {
@@ -97,15 +78,23 @@ public class MasterDetailView extends FlexPanel {
         });
     }
 
-    public void full() {
-        summariesPanel.full();
+    @Override
+    protected Component createBodyContent() {
+        initSummaries(1);
+        initTarget();
+        baseLayout = new HorizontalLayout(summariesPanel, target);
+        baseLayout.setSizeFull();
+        baseLayout.setExpandRatio(summariesPanel, .25f);
+        baseLayout.setExpandRatio(target, 1f);
+        baseLayout.setSpacing(true);
+        baseLayout.setMargin(false);
+        super.setSizeFull();
+        super.setContent(baseLayout);
+        return baseLayout;
     }
 
-    public void imagesOnly() {
-        summariesPanel.imagesOnly();
-    }
+    
+    protected abstract Component createTargetView();
 
-    public void titlesOnly() {
-        summariesPanel.titlesOnly();
-    }
+    protected abstract void updateTarget(String url);
 }

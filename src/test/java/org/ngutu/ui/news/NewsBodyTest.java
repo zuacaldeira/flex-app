@@ -6,6 +6,7 @@
 package org.ngutu.ui.news;
 
 import db.auth.FlexUser;
+import org.ngutu.ui.common.AbstractBody;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 import org.testng.annotations.Test;
@@ -29,20 +30,19 @@ public class NewsBodyTest {
     public void testGetContent() {
         System.out.println("getContent");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsBody instance = new NewsBody();
+        AbstractBody instance = new EmbeddedMasterDetailView();
         assertNotNull(instance.getContent());
-        assertNotNull(instance.getMasterDetail());
     }
 
     /**
      * Test of getMasterDetail method, of class NewsBody.
      */
     @Test
-    public void testGetMasterDetail() {
+    public void testgetMasterDetailView() {
         System.out.println("getMasterDetail");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsBody instance = new NewsBody();
-        assertNotNull(instance.getMasterDetail());
+        AbstractBody instance = new EmbeddedMasterDetailView();
+        assertNotNull(instance.getContent());
     }
 
     /**
@@ -52,7 +52,7 @@ public class NewsBodyTest {
     public void testAddItemView() {
         System.out.println("addItemView");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsBody instance = new NewsBody();
+        AbstractBody instance = new EmbeddedMasterDetailView();
 
         //instance.addItemView(new NewsArticle("TEST_USERNAME", "TEST_PASSWORD", "TEST_USERNAME", "TEST_USERNAME", new Date(), "TEST_USERNAME", "TEST_USERNAME", "TEST_USERNAME"));
     }
@@ -64,7 +64,7 @@ public class NewsBodyTest {
     public void testGetUser() {
         System.out.println("getUser");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsBody instance = new NewsBody();
+        AbstractBody instance = new EmbeddedMasterDetailView();
         assertNull(instance.getUser());
     }
 
@@ -75,7 +75,7 @@ public class NewsBodyTest {
     public void testUpdateData() {
         System.out.println("updateData");
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        NewsBody instance = new NewsBody();
+        AbstractBody instance = new EmbeddedMasterDetailView();
     }
 
 }

@@ -71,10 +71,10 @@ public final class NewsMenuBar extends MenuBar {
         Observable<NewsSource> observable = Observable.fromIterable(ServiceLocator.getInstance().findSourcesService().findAllSources());
         Disposable disposable = observable.subscribe(onNext -> {
             publisherNames.add(onNext.getName());
-            if(LanguageCode.getByCode(onNext.getLanguage()) != null) {
+            if (LanguageCode.getByCode(onNext.getLanguage()) != null) {
                 publisherLanguages.add(LanguageCode.getByCode(onNext.getLanguage()).getName());
             }
-            if(CountryCode.getByCode(onNext.getCountry()) != null) {
+            if (CountryCode.getByCode(onNext.getCountry()) != null) {
                 publisherCountries.add(CountryCode.getByCode(onNext.getCountry()).getName());
             }
             tags.add(getCategoryCaption(onNext.getCategory().getTag()));
@@ -82,7 +82,7 @@ public final class NewsMenuBar extends MenuBar {
             onError.printStackTrace();
         });
     }
-    
+
     protected void initMenuItems() {
         top = addItem("Menu", VaadinIcons.MENU, null);
         news = top.addItem("Articles", null, null);
@@ -121,24 +121,6 @@ public final class NewsMenuBar extends MenuBar {
     protected void populateNewsCountries() {
         publisherCountries.forEach(country -> {
             countries.addItem(country, new CountryCommand());
-        });
-    }
-
-    private void populateViews() {
-        full = news.addItem("Full", (selectedItem) -> {
-            NewsBody body = ((NewsView) getUI().getContent()).getBody();
-            MasterDetailView masterDetail = body.getMasterDetail();
-            masterDetail.full();
-        });
-        imagesOnly = news.addItem("Images Only", (selectedItem) -> {
-            NewsBody body = ((NewsView) getUI().getContent()).getBody();
-            MasterDetailView masterDetail = body.getMasterDetail();
-            masterDetail.imagesOnly();
-        });
-        titlesOnly = news.addItem("Titles Only", (selectedItem) -> {
-            NewsBody body = ((NewsView) getUI().getContent()).getBody();
-            MasterDetailView masterDetail = body.getMasterDetail();
-            masterDetail.titlesOnly();
         });
     }
 

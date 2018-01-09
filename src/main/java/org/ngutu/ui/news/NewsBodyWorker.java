@@ -20,12 +20,12 @@ import io.reactivex.disposables.Disposable;
  */
 public class NewsBodyWorker extends Thread {
 
-    private final NewsBody body;
+    private final MasterDetailView body;
     private final FlexUser user;
     private final DataProviderType type;
     private final String value;
 
-    public NewsBodyWorker(NewsBody newsBody, FlexUser user, DataProviderType type, String value) {
+    public NewsBodyWorker(MasterDetailView newsBody, FlexUser user, DataProviderType type, String value) {
         this.body = newsBody;
         this.user = user;
         this.type = type;
@@ -41,7 +41,7 @@ public class NewsBodyWorker extends Thread {
                         if (body != null && body.getUI() != null) {
                             body.getUI().access(() -> {
                                 ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, article);
-                                body.getMasterDetail().addSingleSummary(aView);
+                                body.addSingleSummary(aView);
                             });
                             //Thread.sleep(5000);
                         }
