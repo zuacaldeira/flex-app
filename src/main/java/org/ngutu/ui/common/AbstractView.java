@@ -17,7 +17,7 @@ import org.ngutu.ui.footer.FlexFooter;
 public abstract class AbstractView extends VerticalLayout implements View {
 
     private static final long serialVersionUID = -4044534446064009709L;
-    
+
     private AbstractMenu menu;
     private AbstractBody body;
     private FlexFooter footer;
@@ -32,7 +32,7 @@ public abstract class AbstractView extends VerticalLayout implements View {
         super.setSizeFull();
         super.setMargin(false);
     }
-    
+
     private void initMenu() {
         menu = createMenu();
     }
@@ -43,9 +43,10 @@ public abstract class AbstractView extends VerticalLayout implements View {
 
     private void initFooter() {
         footer = new FlexFooter();
-    }    
+    }
 
     protected abstract AbstractMenu createMenu();
+
     protected abstract AbstractBody createBody();
 
     public AbstractMenu getMenu() {
@@ -63,9 +64,9 @@ public abstract class AbstractView extends VerticalLayout implements View {
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
     }
-    
-    
-    
 
-    
+    public void setBody(AbstractBody flexBody) {
+        this.body = flexBody;
+    }
+
 }

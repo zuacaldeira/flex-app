@@ -16,6 +16,7 @@ import org.ngutu.ui.viewproviders.FlexViews;
 import backend.utils.MyDateUtils;
 import com.neovisionaries.i18n.CountryCode;
 import com.neovisionaries.i18n.LanguageCode;
+import com.vaadin.server.Page;
 import com.vaadin.ui.themes.ValoTheme;
 import db.news.NewsSource;
 import io.reactivex.Observable;
@@ -53,6 +54,9 @@ public final class NewsMenuBar extends MenuBar {
     private TreeSet<String> publisherLanguages;
     private TreeSet<String> publisherNames;
     private TreeSet<String> publisherCountries;
+    private MenuItem views;
+    private MenuItem embeddedView;
+    private MenuItem externalView;
 
     public NewsMenuBar() {
         this.loadData();
@@ -90,6 +94,7 @@ public final class NewsMenuBar extends MenuBar {
         categories = top.addItem("Categories", null, null);
         languages = top.addItem("Languages", null, null);
         countries = top.addItem("Countries", null, null);
+        views = top.addItem("View", null, null);
         populate();
     }
 
@@ -136,6 +141,11 @@ public final class NewsMenuBar extends MenuBar {
             favorite = news.addItem("Favorite", VaadinIcons.STAR, new FavoriteCommand());
             fake = news.addItem("Fake", VaadinIcons.EXCLAMATION_CIRCLE, new FakeCommand());
         }
+    }
+
+    private void populateNewsViews() {
+        embeddedView = views.addItem("Embedded", new EmbeddedViewerCommand());
+        externalView = views.addItem("External", new ExternalViewerCommand());
     }
 
     private String getCategoryCaption(String cat) {
@@ -205,6 +215,7 @@ public final class NewsMenuBar extends MenuBar {
         populateNewsCategory();
         populateNewsLanguages();
         populateNewsCountries();
+        populateNewsViews();
     }
 
     private static class PublisherCommand implements Command {
@@ -348,6 +359,42 @@ public final class NewsMenuBar extends MenuBar {
             UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS + "/" + DataProviderType.FAKE.name().toLowerCase());
         }
 
+    }
+
+    private static class EmbeddedViewerCommand implements Command {
+
+        private static final long serialVersionUID = -2824605453531953079L;
+
+        public EmbeddedViewerCommand() {
+        }
+
+        @Override
+        public void menuSelected(MenuItem selectedItem) {
+            if (UI.getCurrent().getContent() instanceof NewsView) {
+                UI.getCurrent().getSession().setAttribute("view", "embedded");
+                Page.getCurrent().reload();
+            } else {
+                throw new IllegalStateException("Unexpected content");
+            }
+        }
+    }
+
+    private static class ExternalViewerCommand implements Command {
+
+        private static final long serialVersionUID = 9190400867638344587L;
+
+        public ExternalViewerCommand() {
+        }
+
+        @Override
+        public void menuSelected(MenuItem selectedItem) {
+            if (UI.getCurrent().getContent() instanceof NewsView) {
+                UI.getCurrent().getSession().setAttribute("view", "external");
+                Page.getCurrent().reload();
+            } else {
+                throw new IllegalStateException("Unexpected content");
+            }
+        }
     }
 
 }

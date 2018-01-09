@@ -40,8 +40,12 @@ public class NewsView extends AbstractView {
     }
 
     @Override
-    protected EmbeddedMasterDetailView createBody() {
-        return new EmbeddedMasterDetailView();
+    protected MasterDetailView createBody() {
+        if (isExternal()) {
+            return new ExternalMasterDetailView();
+        } else {
+            return new EmbeddedMasterDetailView();
+        }
     }
 
     @Override
@@ -56,7 +60,7 @@ public class NewsView extends AbstractView {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        EmbeddedMasterDetailView newBody = createBody();
+        MasterDetailView newBody = createBody();
         replaceBody(newBody);
 
         Thread thread = null;
@@ -85,4 +89,7 @@ public class NewsView extends AbstractView {
         }
     }
 
+    private boolean isExternal() {
+        return "external".equals(UI.getCurrent().getSession().getAttribute("view"));
+    }
 }

@@ -5,6 +5,7 @@
  */
 package org.ngutu.ui.news;
 
+import com.vaadin.server.Page;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Notification;
 
@@ -24,6 +25,12 @@ public class ExternalMasterDetailView extends MasterDetailView {
     @Override
     protected void updateTarget(String url) {
         Notification.show("Updating url in external target");
+        Page.getCurrent().open(url, "ngutu-aux");
+    }
+
+    @Override
+    protected SummariesPanel createSummariesPanel() {
+        return new SummariesPanel(4);
     }
 
 

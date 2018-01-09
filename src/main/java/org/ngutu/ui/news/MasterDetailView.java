@@ -9,16 +9,14 @@ import factory.GraphEntityView;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import factory.ArticleView;
-import org.ngutu.ui.common.AbstractBody;
 
 /**
  *
  * @author zua
  */
-public abstract class MasterDetailView extends AbstractBody {
+public abstract class MasterDetailView extends NewsBody {
 
     private static final long serialVersionUID = 4092595001827313256L;
-
 
     private HorizontalLayout baseLayout;
     private SummariesPanel summariesPanel;
@@ -27,30 +25,21 @@ public abstract class MasterDetailView extends AbstractBody {
 
     public MasterDetailView() {
     }
-    
+
     public HorizontalLayout getBaseLayout() {
         return baseLayout;
     }
-    
+
     public SummariesPanel getSummariesPanel() {
         return summariesPanel;
     }
-    
+
     public Component getTarget() {
         return target;
     }
-    
+
     public ArticleView getSelected() {
         return selected;
-    }
-
-    private void initSummaries(int c) {
-        summariesPanel = new SummariesPanel(c);
-        summariesPanel.setSizeFull();
-    }
-
-    private void initTarget() {
-        target = createTargetView();
     }
 
     public SummariesPanel getSummaries() {
@@ -80,12 +69,19 @@ public abstract class MasterDetailView extends AbstractBody {
 
     @Override
     protected Component createBodyContent() {
-        initSummaries(1);
-        initTarget();
-        baseLayout = new HorizontalLayout(summariesPanel, target);
+        summariesPanel = createSummariesPanel();
+        target = createTargetView();
+
+        baseLayout = new HorizontalLayout();
+        if (summariesPanel != null) {
+            baseLayout.addComponent(summariesPanel);
+            baseLayout.setExpandRatio(summariesPanel, .25f);
+        }
+        if (target != null) {
+            baseLayout.addComponent(target);
+            baseLayout.setExpandRatio(target, 1f);
+        }
         baseLayout.setSizeFull();
-        baseLayout.setExpandRatio(summariesPanel, .25f);
-        baseLayout.setExpandRatio(target, 1f);
         baseLayout.setSpacing(true);
         baseLayout.setMargin(false);
         super.setSizeFull();
@@ -93,7 +89,8 @@ public abstract class MasterDetailView extends AbstractBody {
         return baseLayout;
     }
 
-    
+    protected abstract SummariesPanel createSummariesPanel();
+
     protected abstract Component createTargetView();
 
     protected abstract void updateTarget(String url);

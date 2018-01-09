@@ -43,5 +43,10 @@ public class EmbeddedMasterDetailView extends MasterDetailView {
     public BrowserFrame getTarget() {
         return (BrowserFrame) super.getTarget();
     }
+
+    @Override
+    protected SummariesPanel createSummariesPanel() {
+        return new SummariesPanel(1);
+    }
     
 }

@@ -34,7 +34,7 @@
     <properties>
         <vaadin.version>8.2.0</vaadin.version>
         <vaadin.plugin.version>8.2.0</vaadin.plugin.version>
-        <jetty.plugin.version>9.4.7.RC0</jetty.plugin.version>
+        <jetty.plugin.version>9.4.7.v20170914</jetty.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -179,7 +179,7 @@
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-util</artifactId>
-            <version>9.4.7.RC0</version>
+            <version>${jetty.plugin.version}</version>
         </dependency>   
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
