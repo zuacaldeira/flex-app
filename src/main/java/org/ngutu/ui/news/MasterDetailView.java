@@ -57,7 +57,7 @@ public abstract class MasterDetailView extends NewsBody {
         updateTarget(url);
     }
 
-    public void addSingleSummary(Component component) {
+    public void addSingleSummary(GraphEntityView component) {
         summariesPanel.addItemView(component);
         if (selected == null) {
             updateSelected((ArticleView) component);

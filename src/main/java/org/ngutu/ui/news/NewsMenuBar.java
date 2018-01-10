@@ -57,6 +57,7 @@ public final class NewsMenuBar extends MenuBar {
     private MenuItem views;
     private MenuItem embeddedView;
     private MenuItem externalView;
+    private MenuItem mapView;
 
     public NewsMenuBar() {
         this.loadData();
@@ -146,6 +147,7 @@ public final class NewsMenuBar extends MenuBar {
     private void populateNewsViews() {
         embeddedView = views.addItem("Embedded", new EmbeddedViewerCommand());
         externalView = views.addItem("External", new ExternalViewerCommand());
+        mapView = views.addItem("Map", new MapViewerCommand());
     }
 
     private String getCategoryCaption(String cat) {
@@ -397,4 +399,21 @@ public final class NewsMenuBar extends MenuBar {
         }
     }
 
+    private static class MapViewerCommand implements Command {
+
+        private static final long serialVersionUID = 1031675810678728234L;
+
+        public MapViewerCommand() {
+        }
+
+        @Override
+        public void menuSelected(MenuItem selectedItem) {
+            if (UI.getCurrent().getContent() instanceof NewsView) {
+                UI.getCurrent().getSession().setAttribute("view", "map");
+                Page.getCurrent().reload();
+            } else {
+                throw new IllegalStateException("Unexpected content");
+            }
+        }
+    }
 }

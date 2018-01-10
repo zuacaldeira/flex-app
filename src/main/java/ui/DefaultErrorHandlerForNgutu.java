@@ -7,7 +7,6 @@ package ui;
 
 import com.vaadin.server.DefaultErrorHandler;
 import com.vaadin.server.ErrorEvent;
-import com.vaadin.ui.Notification;
 
 /**
  *
@@ -28,7 +27,7 @@ public class DefaultErrorHandlerForNgutu extends DefaultErrorHandler {
                 cause += t.getClass().getName() + "<br/>";
             }
         }
-        Notification.show("Error: " + cause, Notification.Type.HUMANIZED_MESSAGE);
+        System.out.println("Error: " + cause);
         doDefault(event);
     }
 

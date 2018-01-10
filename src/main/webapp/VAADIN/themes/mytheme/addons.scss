@@ -5,8 +5,13 @@
 @import "../../../VAADIN/addons/vaadin-icons/vaadin-icons.scss";
 
 
+/* Provided by maplayout-0.2.1.jar */
+@import "../../../VAADIN/addons/maplayout-addon/maplayout-addon.scss";
+
+
 /* Import and include this mixin into your project theme to include the addon themes */
 @mixin addons {
 	@include vaadin-icons;
+	@include maplayout-addon;
 }
 

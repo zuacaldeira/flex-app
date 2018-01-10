@@ -41,7 +41,10 @@ public class NewsView extends AbstractView {
 
     @Override
     protected MasterDetailView createBody() {
-        if (isExternal()) {
+        if(isMap()) {
+            return new MapMasterDetailView();
+        }
+        else if (isExternal()) {
             return new ExternalMasterDetailView();
         } else {
             return new EmbeddedMasterDetailView();
@@ -92,4 +95,9 @@ public class NewsView extends AbstractView {
     private boolean isExternal() {
         return "external".equals(UI.getCurrent().getSession().getAttribute("view"));
     }
+
+    private boolean isMap() {
+        return "map".equals(UI.getCurrent().getSession().getAttribute("view"));
+    }
+
 }

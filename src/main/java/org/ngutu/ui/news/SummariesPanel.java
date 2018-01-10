@@ -5,9 +5,11 @@
  */
 package org.ngutu.ui.news;
 
+import com.neovisionaries.i18n.CountryCode;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
+import factory.ArticleView;
 import org.ngutu.ui.common.FlexPanel;
 
 /**
@@ -50,6 +52,18 @@ public class SummariesPanel extends FlexPanel {
 
         ((VerticalLayout) base.getComponent(currentColumn)).addComponent(component);
         currentColumn++;
+    }
+
+    void setVisibleIf(CountryCode code, boolean visible) {
+        for (int i = 0; i < columns; i++) {
+            VerticalLayout holder = (VerticalLayout) base.getComponent(i);
+            for(int j = 0; j < holder.getComponentCount(); j++) {
+                ArticleView articleView = (ArticleView) holder.getComponent(j);
+                if(articleView.getArticle().getCountry().equalsIgnoreCase(code.getAlpha2())) {
+                    articleView.setVisible(visible);
+                }
+            }
+        }
     }
 
 }
