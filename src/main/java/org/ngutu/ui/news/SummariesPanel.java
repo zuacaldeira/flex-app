@@ -54,16 +54,21 @@ public class SummariesPanel extends FlexPanel {
         currentColumn++;
     }
 
-    void setVisibleIf(CountryCode code, boolean visible) {
+    boolean setVisibleIf(CountryCode code, boolean visible) {
+        boolean status = false;
         for (int i = 0; i < columns; i++) {
             VerticalLayout holder = (VerticalLayout) base.getComponent(i);
             for(int j = 0; j < holder.getComponentCount(); j++) {
                 ArticleView articleView = (ArticleView) holder.getComponent(j);
                 if(articleView.getArticle().getCountry().equalsIgnoreCase(code.getAlpha2())) {
                     articleView.setVisible(visible);
+                    if(!status) {
+                        status = true;
+                    }
                 }
             }
         }
+        return status;
     }
 
 }

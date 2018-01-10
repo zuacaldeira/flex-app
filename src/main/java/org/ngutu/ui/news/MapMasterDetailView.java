@@ -50,14 +50,20 @@ public class MapMasterDetailView extends ExternalMasterDetailView {
                 // Add/remove (Visible/invisible) articles from country from the summaries layout
                 if (codes.contains(code)) {
                     // Make articles from this country NOT VISIBLE
-                    getSummariesPanel().setVisibleIf(code, false);
-                    worldMap.setStyleNameOfItem("black", code, true);
-                    codes.remove(code);
+                    boolean status = getSummariesPanel().setVisibleIf(code, false);
+                    if (status) {
+                        worldMap.removeStyleNameFromItem("yellow", code);
+                        worldMap.addStyleNameToItem("black", code);
+                        codes.remove(code);
+                    }
                 } else {
                     // Load Articles from this country mark them VISIBLE
-                    getSummariesPanel().setVisibleIf(code, true);
-                    worldMap.setStyleNameOfItem("yellow", code, true);
-                    codes.add(code);
+                    boolean status = getSummariesPanel().setVisibleIf(code, true);
+                    if (status) {
+                        worldMap.addStyleNameToItem("yellow", code);
+                        worldMap.removeStyleNameFromItem("black", code);
+                        codes.add(code);
+                    }
                 }
             }
         });
