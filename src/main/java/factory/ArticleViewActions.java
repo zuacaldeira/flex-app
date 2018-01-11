@@ -16,6 +16,7 @@ import db.auth.FlexUser;
 import db.news.NewsArticle;
 import backend.services.auth.FlexUserService;
 import backend.services.news.NewsArticleService;
+import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.UI;
 import utils.ServiceLocator;
@@ -115,7 +116,13 @@ public class ArticleViewActions extends HorizontalLayout implements Button.Click
             button.setDescription("Mark as Unread");
         }
         if (getParent() != null && getParent().getParent() != null) {
-            ((VerticalLayout) getParent().getParent()).removeComponent(getParent());
+            ArticleView father = (ArticleView) getParent();
+            VerticalLayout grandFather = (VerticalLayout) father.getParent();
+            grandFather.removeComponent(father);
+            if(grandFather.getComponentCount() == 0) {
+                AbstractOrderedLayout grandGrandFather = (AbstractOrderedLayout) grandFather.getParent();
+                grandGrandFather.removeComponent(grandFather);
+            }
         }
     }
 
