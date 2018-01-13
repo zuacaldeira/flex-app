@@ -8,8 +8,14 @@ package org.ngutu.ui.news;
 import org.ngutu.ui.common.AbstractView;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.UI;
+import data.ArticlesRepository;
 import data.DataProviderType;
 import db.auth.FlexUser;
+import db.news.NewsArticle;
+import factory.ArticleView;
+import factory.FlexViewFactory;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 import org.ngutu.ui.common.AbstractBody;
 
 /**
@@ -41,10 +47,9 @@ public class NewsView extends AbstractView {
 
     @Override
     protected MasterDetailView createBody() {
-        if(isMap()) {
+        if (isMap()) {
             return new MapMasterDetailView();
-        }
-        else if (isExternal()) {
+        } else if (isExternal()) {
             return new ExternalMasterDetailView();
         } else {
             return new EmbeddedMasterDetailView();
@@ -66,10 +71,9 @@ public class NewsView extends AbstractView {
         MasterDetailView newBody = createBody();
         replaceBody(newBody);
 
-        Thread thread = null;
         String parameters = event.getParameters();
         if (parameters == null || parameters.isEmpty()) {
-            thread = new NewsBodyWorker(newBody, getUser(), DataProviderType.LATEST, null);
+            fillBodyWithNews(DataProviderType.LATEST, null);
         } else if (!parameters.isEmpty()) {
             parameters = parameters.replace('-', ' ');
             String parts[] = parameters.split("/");
@@ -79,16 +83,12 @@ public class NewsView extends AbstractView {
                 System.out.println("2-PARTS " + parts[0] + " - " + parts[1]);
                 context = parts[0];
                 target = parts[1];
-                thread = new NewsBodyWorker(newBody, getUser(), DataProviderType.valueOf(context.toUpperCase()), target);
+                fillBodyWithNews(DataProviderType.valueOf(context.toUpperCase()), target);
             } else if (parts.length == 1) {
                 System.out.println("1-PART " + parts[0]);
                 context = parts[0];
-                thread = new NewsBodyWorker(newBody, getUser(), DataProviderType.valueOf(context.toUpperCase()), null);
+                fillBodyWithNews(DataProviderType.valueOf(context.toUpperCase()), null);
             }
-        }
-
-        if (thread != null) {
-            thread.start();
         }
     }
 
@@ -98,6 +98,38 @@ public class NewsView extends AbstractView {
 
     private boolean isMap() {
         return "map".equals(UI.getCurrent().getSession().getAttribute("view"));
+    }
+
+    private void fillBodyWithNews(DataProviderType type, String value) {
+        Observable<NewsArticle> observable = getNodes(getUser(), type, value);
+        try {
+            Disposable disposable = observable.subscribe(
+                    article -> {
+                        if (getBody() != null && getBody().getUI() != null) {
+                            ArticleView aView = FlexViewFactory.getInstance().createArticleView(getUser(), article);
+                            getBody().addSingleSummary(aView);
+                        }
+                    },
+                    ex -> {
+                        throw new RuntimeException("Error on subscribed data: " + ex.getMessage());
+                    }
+            );
+            disposable.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private Observable<NewsArticle> getNodes(FlexUser user, DataProviderType type, String value) {
+        if (user != null && value != null && !value.isEmpty()) {
+            return new ArticlesRepository().loadNodes(type, value, user);
+        } else if (user != null && value == null) {
+            return new ArticlesRepository().loadNodes(type, user);
+        } else if (user == null && value != null && !value.isEmpty()) {
+            return new ArticlesRepository().loadNodes(type, value);
+        } else {
+            return new ArticlesRepository().loadNodes(type);
+        }
     }
 
 }

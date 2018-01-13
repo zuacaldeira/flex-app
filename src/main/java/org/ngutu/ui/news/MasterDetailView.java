@@ -57,6 +57,7 @@ public abstract class MasterDetailView extends NewsBody {
         updateTarget(url);
     }
 
+    @Override
     public void addSingleSummary(GraphEntityView component) {
         if (getUI() != null && getSession() != null) {
             summariesPanel.addItemView(component);
