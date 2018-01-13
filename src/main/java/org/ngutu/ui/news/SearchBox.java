@@ -33,7 +33,7 @@ public class SearchBox extends HorizontalLayout {
         this.text.setStyleName("search-box");
         this.text.setPlaceholder("Type a keyword, a name, etc...");
         
-        this.text.setValueChangeTimeout(5);
+        this.text.setValueChangeTimeout(5000);
         this.text.addValueChangeListener(e -> {
             if (!e.getValue().isEmpty()) {
                 searchValue = e.getValue();
