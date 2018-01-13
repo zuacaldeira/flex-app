@@ -54,7 +54,9 @@ public class SourceInfoView extends HorizontalLayout {
     }
     
     private void initSource(){
-        source = ServiceLocator.getInstance().findSourcesService().find(article.getSourceId());
+        if(article.getSourceId() != null) {
+            source = ServiceLocator.getInstance().findSourcesService().find(article.getSourceId());
+        }
     }
 
     private void initSourceLogo() {
