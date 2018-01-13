@@ -40,7 +40,7 @@ public class NewsBodyWorker extends Thread {
                     article -> {
                         ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, article);
                         
-                        if (body != null && body.getUI() != null && body.getUI().isAttached()) {
+                        if (body != null && body.getUI() != null) {
                             body.getUI().access(() -> {
                                 body.addSingleSummary(aView);
                             });
