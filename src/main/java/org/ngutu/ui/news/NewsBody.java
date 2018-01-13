@@ -5,6 +5,7 @@
  */
 package org.ngutu.ui.news;
 
+import factory.GraphEntityView;
 import org.ngutu.ui.common.AbstractBody;
 
 /**
@@ -14,5 +15,7 @@ import org.ngutu.ui.common.AbstractBody;
 public abstract class NewsBody extends AbstractBody {
 
     private static final long serialVersionUID = -8190670239928122735L;
+
+    public abstract void addSingleSummary(GraphEntityView component);
 
 }

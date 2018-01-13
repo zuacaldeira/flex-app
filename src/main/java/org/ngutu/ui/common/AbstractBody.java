@@ -8,7 +8,6 @@ package org.ngutu.ui.common;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
 import db.auth.FlexUser;
-import factory.GraphEntityView;
 
 /**
  *
@@ -37,5 +36,4 @@ public abstract class AbstractBody extends FlexPanel {
         return null;
     }
 
-    public abstract void addSingleSummary(GraphEntityView component);
 }
