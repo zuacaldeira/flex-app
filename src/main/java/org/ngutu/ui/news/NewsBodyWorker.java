@@ -38,10 +38,10 @@ public class NewsBodyWorker extends Thread {
         try {
             Disposable disposable = observable.subscribe(
                     article -> {
-                        ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, article);
                         
                         if (body != null && body.getUI() != null) {
                             body.getUI().access(() -> {
+                                ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, article);
                                 body.addSingleSummary(aView);
                             });
                             //Thread.sleep(5000);
