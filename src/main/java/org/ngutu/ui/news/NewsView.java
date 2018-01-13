@@ -73,7 +73,7 @@ public class NewsView extends AbstractView {
 
         String parameters = event.getParameters();
         if (parameters == null || parameters.isEmpty()) {
-            fillBodyWithNews(DataProviderType.LATEST, null);
+            fillBodyWithNews(newBody, DataProviderType.LATEST, null);
         } else if (!parameters.isEmpty()) {
             parameters = parameters.replace('-', ' ');
             String parts[] = parameters.split("/");
@@ -83,11 +83,11 @@ public class NewsView extends AbstractView {
                 System.out.println("2-PARTS " + parts[0] + " - " + parts[1]);
                 context = parts[0];
                 target = parts[1];
-                fillBodyWithNews(DataProviderType.valueOf(context.toUpperCase()), target);
+                fillBodyWithNews(newBody, DataProviderType.valueOf(context.toUpperCase()), target);
             } else if (parts.length == 1) {
                 System.out.println("1-PART " + parts[0]);
                 context = parts[0];
-                fillBodyWithNews(DataProviderType.valueOf(context.toUpperCase()), null);
+                fillBodyWithNews(newBody, DataProviderType.valueOf(context.toUpperCase()), null);
             }
         }
     }
@@ -100,14 +100,14 @@ public class NewsView extends AbstractView {
         return "map".equals(UI.getCurrent().getSession().getAttribute("view"));
     }
 
-    private void fillBodyWithNews(DataProviderType type, String value) {
+    private void fillBodyWithNews(MasterDetailView body, DataProviderType type, String value) {
         Observable<NewsArticle> observable = getNodes(getUser(), type, value);
         try {
             Disposable disposable = observable.subscribe(
                     article -> {
-                        if (getBody() != null && getBody().getUI() != null) {
+                        if (body != null && body.getUI() != null) {
                             ArticleView aView = FlexViewFactory.getInstance().createArticleView(getUser(), article);
-                            getBody().addSingleSummary(aView);
+                            body.addSingleSummary(aView);
                         }
                     },
                     ex -> {
