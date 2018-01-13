@@ -57,8 +57,8 @@ public class NewsView extends AbstractView {
     }
 
     @Override
-    public AbstractBody getBody() {
-        return (AbstractBody) super.getBody();
+    public NewsBody getBody() {
+        return (NewsBody) super.getBody();
     }
 
     @Override
