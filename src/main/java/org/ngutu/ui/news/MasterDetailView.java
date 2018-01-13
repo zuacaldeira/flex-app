@@ -59,15 +59,13 @@ public abstract class MasterDetailView extends NewsBody {
 
     @Override
     public void addSingleSummary(GraphEntityView component) {
-        if (getUI() != null && getSession() != null) {
-            summariesPanel.addItemView(component);
-            if (selected == null) {
-                updateSelected((ArticleView) component);
-            }
-            ((GraphEntityView) component).addLayoutClickListener(event -> {
-                updateSelected((ArticleView) component);
-            });
+        summariesPanel.addItemView(component);
+        if (selected == null) {
+            updateSelected((ArticleView) component);
         }
+        ((GraphEntityView) component).addLayoutClickListener(event -> {
+            updateSelected((ArticleView) component);
+        });
     }
 
     @Override
