@@ -25,7 +25,7 @@ public class ExternalMasterDetailView extends MasterDetailView {
     @Override
     protected void updateTarget(String url) {
         Notification.show("Updating url in external target");
-        Page.getCurrent().open(url, "ngutu-aux");
+        Page.getCurrent().open(url, "ngutu-aux", true);
     }
 
     @Override
