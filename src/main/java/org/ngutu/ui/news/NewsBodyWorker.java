@@ -46,9 +46,6 @@ public class NewsBodyWorker extends Thread {
                             });
                             //Thread.sleep(5000);
                         }
-                        else {
-                            return;
-                        }
                     },
                     ex -> {
                         throw new RuntimeException("Error on subscribed data: " + ex.getMessage());
