@@ -5,8 +5,7 @@
  */
 package org.ngutu.ui.news;
 
-import com.vaadin.event.ShortcutAction;
-import com.vaadin.event.ShortcutListener;
+import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
@@ -33,21 +32,14 @@ public class SearchBox extends HorizontalLayout {
         this.text.setStyleName("search-box");
         this.text.setPlaceholder("Type a keyword, a name, etc...");
         
-        this.text.setValueChangeTimeout(5000);
         this.text.addValueChangeListener(e -> {
-            if (!e.getValue().isEmpty()) {
+            if (e.getValue() != null && !e.getValue().isEmpty()) {
                 searchValue = e.getValue();
+                search(searchValue);
             }
         });
-        this.text.addShortcutListener(new ShortcutListener("Enter") {
-            private static final long serialVersionUID = -6411715953527315282L;
-            @Override
-            public void handleAction(Object sender, Object target) {
-                if(searchValue != null && !searchValue.isEmpty()) {
-                    search(searchValue);
-                }
-            }
-        });
+        this.text.setValueChangeMode(ValueChangeMode.TIMEOUT);
+        this.text.setValueChangeTimeout(3000);
         super.addComponents(text);
         super.setComponentAlignment(text, Alignment.MIDDLE_CENTER);
         super.setSpacing(false);
