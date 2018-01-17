@@ -15,9 +15,9 @@ $color-menu-text:           rgba(255, 255, 255, 1);
 $color-menu-shadow:         gray;
 
 // Defines the plaintext font size, weight and family. Font size affects general component sizing.
-$v-font-size: 12px;
+$v-font-size: 14px;
 //$v-font-weight: 300;
-$v-font-family: "Open Sans", sans-serif;
+$font-family: 'Elsie Swash Caps', cursive;
 
 // Defines the border used by all components.
 //$v-border: 2px solid (v-shade 0.7);
@@ -52,104 +52,25 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
 
 @import "../valo/valo.scss";
 
-@keyframes animationFrames {
-    0% {
-        opacity:0;
-        transform:  rotate(0deg) scaleX(2.00) scaleY(2.00) ;
-    }
-    100% {
-        opacity:1;
-        transform:  rotate(360deg) scaleX(1.00) scaleY(1.00) ;
-    }
-}
-
-@-moz-keyframes animationFrames{
-    0% {
-        opacity:0;
-        -moz-transform:  rotate(0deg) scaleX(2.00) scaleY(2.00) ;
-    }
-    100% {
-        opacity:1;
-        -moz-transform:  rotate(360deg) scaleX(1.00) scaleY(1.00) ;
-    }
-}
-
-@-webkit-keyframes animationFrames {
-    0% {
-        opacity:0;
-        -webkit-transform:  rotate(0deg) scaleX(2.00) scaleY(2.00) ;
-    }
-    100% {
-        opacity:1;
-        -webkit-transform:  rotate(360deg) scaleX(1.00) scaleY(1.00) ;
-    }
-}
-
-@-o-keyframes animationFrames {
-    0% {
-        opacity:0;
-        -o-transform:  rotate(0deg) scaleX(2.00) scaleY(2.00) ;
-    }
-    100% {
-        opacity:1;
-        -o-transform:  rotate(360deg) scaleX(1.00) scaleY(1.00) ;
-    }
-}
-
-@-ms-keyframes animationFrames {
-    0% {
-        opacity:0;
-        -ms-transform:  rotate(0deg) scaleX(2.00) scaleY(2.00) ;
-    }
-    100% {
-        opacity:1;
-        -ms-transform:  rotate(360deg) scaleX(1.00) scaleY(1.00) ;
-    }
-} 
-
 @mixin mytheme {
     @include valo;
-
 
     // Insert your own theme rules here
     .v-ui {
         background: white;
     }
 
-    .flex-action {
-        border-radius: 50%;
+    .menu {
+        color: #111;
+        box-shadow: 0 2px 4px 0 rgba(255, 0, 100, 1) rgba(0, 100, 255, 1);        
     }
 
-    .v-panel, .v-panel-bordeless {
-        border: none;
-        background: transparent;
+    .menu .menu-actions {
+        margin: 0 auto;
     }
 
-    .flex-window {
-        background: $color-menu;
-        box-shadow: $flex-menu-shadow;
-    }
-
-    .search-box {
-        background: rgba(255, 255, 255, 1);
-        color: rgba(255, 0, 0, .5);
-        font-weight: bold;
-    }
-
-    .flex-view {
-
-    }
-
-
-    .welcome-menu {
-        background: $color-menu;
-        color: white;
-    }
-
-    .flex-menu {
-        background: white;
-        color: $color-menu;
-        box-shadow: 0 4px 4px rgba(126, 126, 126, 1);        
+    .flex-menu .menu-action{
+        margin: 0 auto;
     }
 
     .books-button {
@@ -188,7 +109,7 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
         background: rbga(0, 255, 0, .5);    
     }
     .flex-menu-bar .v-menubar-submenu-indicator { }
-    
+
     .welcome-body{
         background: white;
 
@@ -209,8 +130,6 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
             }
         }
     }
-
-
 
     .flex-footer {
         background: $color-menu;

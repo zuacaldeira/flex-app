@@ -20,6 +20,7 @@ public class MenuActions extends HorizontalLayout {
         super.setMargin(false);
         super.setSpacing(true);
         super.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        super.setStyleName("menu-actions");
     }
     
 }

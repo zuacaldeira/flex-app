@@ -4,6 +4,7 @@ import backend.services.auth.FlexUserService;
 import com.restfb.types.User;
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Push;
+import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -30,6 +31,9 @@ import utils.ServiceLocator;
 @Title("Ngutu °°° Connecting the Unconnected Dots")
 @PushStateNavigation
 @Push(PushMode.AUTOMATIC)
+@StyleSheet("http://fonts.googleapis.com/css?family=Elsie+Swash+Caps")
+@StyleSheet("http://fonts.googleapis.com/css?family=Catamaran")
+@StyleSheet("http://fonts.googleapis.com/css?family=Tangerine")
 @JavaScript("app://VAADIN/themes/mytheme/js/adsense.js")
 public class NgutuUI extends SecuredUI {
 
@@ -142,6 +146,15 @@ public class NgutuUI extends SecuredUI {
         }
         if (address.contains("www.ngutu.org")) {
             return "http://www.ngutu.org/";
+        }
+        if (address.contains("https://ngutu.herokuapp.com/")) {
+            return "https://ngutu.herokuapp.com/";
+        }
+        if (address.contains("https://ngutu-development.herokuapp.com/")) {
+            return "https://ngutu-development.herokuapp.com/";
+        }
+        if (address.contains("https://ngutu-staging.herokuapp.com/")) {
+            return "https://ngutu-staging.herokuapp.com/";
         }
         throw new IllegalArgumentException("Uknown address " + address);
     }

@@ -6,6 +6,7 @@
 package org.ngutu.ui.common;
 
 import com.vaadin.server.ExternalResource;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
@@ -33,7 +34,7 @@ public abstract class AbstractMenu extends HorizontalLayout {
     private FlexButton facebookButton;
     private Image picture;
 
-    public static final String MENU_HEIGHT = "40px";
+    public static final String MENU_HEIGHT = "64px";
 
     public AbstractMenu() {
         initLogo();
@@ -45,8 +46,8 @@ public abstract class AbstractMenu extends HorizontalLayout {
         super.setExpandRatio(actions, 1f);
         super.setHeight(MENU_HEIGHT);
         super.setSpacing(true);
-        super.setMargin(false);
-        super.setStyleName("flex-menu");
+        super.setMargin(new MarginInfo(false, true));
+        super.setStyleName("menu");
     }
     
     protected abstract MenuActions createMenuActions();
@@ -78,9 +79,9 @@ public abstract class AbstractMenu extends HorizontalLayout {
         FlexUser user = getUser();
         if (user != null && user.getUserInfo() != null && user.getUserInfo().getPicture() != null) {
             picture = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
-            picture.setWidth(MENU_HEIGHT);
-            picture.setHeight(MENU_HEIGHT);
-            picture.setStyleName("gravatar");
+            picture.setWidth("48px");
+            picture.setHeight("48px");
+            picture.setStyleName("circle");
         }
         else {
             picture = new Image();

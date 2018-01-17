@@ -5,6 +5,7 @@
  */
 package org.ngutu.ui.news;
 
+import com.vaadin.shared.ui.MarginInfo;
 import factory.GraphEntityView;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
@@ -84,7 +85,7 @@ public abstract class MasterDetailView extends NewsBody {
         }
         baseLayout.setSizeFull();
         baseLayout.setSpacing(true);
-        baseLayout.setMargin(false);
+        baseLayout.setMargin(new MarginInfo(false, true));
         super.setSizeFull();
         super.setContent(baseLayout);
         return baseLayout;
