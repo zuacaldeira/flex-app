@@ -147,9 +147,9 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     }
 
     .flex-menu {
-        background: white;
-        color: $color-menu;
-        box-shadow: 0 4px 4px rgba(126, 126, 126, 1);        
+        background-color: #111;
+        color: rgba(126, 126, 126, 1);
+        box-shadow: 0 4px 4px rgba(255, 0, 80, 1);        
     }
 
     .books-button {
@@ -165,13 +165,11 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
 
 
     .flex-logo {
-        font-size: 200%;
-        font-variant: small-caps;
-        font-style: bold;
-        .ngutu{}
-        .follow-us{
-            transform: translateY(-10px);
-        }
+        
+    }
+    
+    .separator {
+        
     }
 
     .flex-menu-bar .v-menubar { 

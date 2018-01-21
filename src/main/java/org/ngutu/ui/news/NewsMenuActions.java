@@ -19,11 +19,17 @@ public class NewsMenuActions extends MenuActions {
     public NewsMenuActions() {
         searchBox = new SearchBox();
         super.addComponents(
-                searchBox,
-                new NewsMenuBar(),
-                new HomeButton());
-        super.setExpandRatio(searchBox, .5f);
-        super.setSizeFull();
+                new HomeButton(),
+                new FlexMenuButton("Latest"),
+                new FlexMenuButton("Publishers"),
+                new FlexMenuButton("Categories"),
+                new FlexMenuButton("Languages"),
+                new FlexMenuButton("Countries"),
+                new FlexMenuButton("Views"),
+                searchBox
+        );
+        //super.setExpandRatio(searchBox, .25f);
+        super.setSizeUndefined();
     }
 
 }

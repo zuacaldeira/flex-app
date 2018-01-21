@@ -6,7 +6,6 @@
 package org.ngutu.ui.common;
 
 import com.vaadin.server.ExternalResource;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Notification;
@@ -33,22 +32,14 @@ public abstract class AbstractMenu extends HorizontalLayout {
     private FlexButton facebookButton;
     private Image picture;
 
-    public static final String MENU_HEIGHT = "40px";
+    public static final String MENU_HEIGHT = "64px";
 
     public AbstractMenu() {
-        initLogo();
-        initActions();
-        super.addComponents(logo, actions);
-        super.setComponentAlignment(logo, Alignment.MIDDLE_LEFT);
-        super.setComponentAlignment(actions, Alignment.MIDDLE_RIGHT);
-        super.setWidth("100%");
-        super.setExpandRatio(actions, 1f);
+        super.setSizeFull();
         super.setHeight(MENU_HEIGHT);
-        super.setSpacing(true);
-        super.setMargin(false);
         super.setStyleName("flex-menu");
     }
-    
+
     protected abstract MenuActions createMenuActions();
 
     public FlexLogo getLogo() {
@@ -81,11 +72,10 @@ public abstract class AbstractMenu extends HorizontalLayout {
             picture.setWidth(MENU_HEIGHT);
             picture.setHeight(MENU_HEIGHT);
             picture.setStyleName("gravatar");
-        }
-        else {
+        } else {
             picture = new Image();
         }
-        
+
         picture.addClickListener(click -> {
             Notification.show("TODO: Navigate to User Profile", Notification.Type.WARNING_MESSAGE);
         });
@@ -119,6 +109,6 @@ public abstract class AbstractMenu extends HorizontalLayout {
 
     public void setFacebookButton(FlexButton facebookButton) {
         this.facebookButton = facebookButton;
-    }    
-    
+    }
+
 }
