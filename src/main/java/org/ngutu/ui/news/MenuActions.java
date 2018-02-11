@@ -13,7 +13,7 @@ import com.vaadin.ui.HorizontalLayout;
  * @author zua
  */
 public class MenuActions extends HorizontalLayout {
-    
+
     private static final long serialVersionUID = 7895033541498693167L;
 
     public MenuActions() {
@@ -22,5 +22,5 @@ public class MenuActions extends HorizontalLayout {
         super.setSpacing(false);
         super.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
     }
-    
+
 }

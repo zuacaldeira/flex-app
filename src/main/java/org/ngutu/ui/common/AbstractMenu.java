@@ -5,10 +5,11 @@
  */
 package org.ngutu.ui.common;
 
+import com.vaadin.server.ExternalResource;
 import com.vaadin.shared.ui.MarginInfo;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import db.auth.FlexUser;
@@ -32,19 +33,13 @@ public abstract class AbstractMenu extends HorizontalLayout {
     public static final String MENU_HEIGHT = "64px";
 
     public AbstractMenu() {
-        initLogo();
-        initActions();
-        super.addComponents(logo, actions);
-        super.setComponentAlignment(logo, Alignment.MIDDLE_LEFT);
-        super.setComponentAlignment(actions, Alignment.MIDDLE_RIGHT);
-        super.setWidth("100%");
-        super.setExpandRatio(actions, 1f);
+        super.setSizeFull();
         super.setHeight(MENU_HEIGHT);
         super.setSpacing(true);
         super.setMargin(new MarginInfo(false, true));
         super.setStyleName("flex-menu");
     }
-    
+
     protected abstract MenuActions createMenuActions();
 
     public FlexLogo getLogo() {
@@ -64,6 +59,22 @@ public abstract class AbstractMenu extends HorizontalLayout {
 
     private void initActions() {
         actions = createMenuActions();
+    }
+
+    private void initPicture() {
+        FlexUser user = getUser();
+        if (user != null && user.getUserInfo() != null && user.getUserInfo().getPicture() != null) {
+            picture = new Image(null, new ExternalResource(user.getUserInfo().getPicture()));
+            picture.setWidth(MENU_HEIGHT);
+            picture.setHeight(MENU_HEIGHT);
+            picture.setStyleName("gravatar");
+        } else {
+            picture = new Image();
+        }
+
+        picture.addClickListener(click -> {
+            Notification.show("TODO: Navigate to User Profile", Notification.Type.WARNING_MESSAGE);
+        });
     }
 
     public abstract AbstractBody getBody();

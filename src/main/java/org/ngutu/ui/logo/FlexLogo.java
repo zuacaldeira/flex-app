@@ -5,36 +5,27 @@
  */
 package org.ngutu.ui.logo;
 
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
+import org.ngutu.ui.news.FlexMenuButton;
 import org.ngutu.ui.viewproviders.FlexViews;
 
 /**
  *
  * @author zua
  */
-public class FlexLogo extends HorizontalLayout {
+public class FlexLogo extends FlexMenuButton {
 
     private static final long serialVersionUID = 8041620231458973471L;
 
     private Label ngutu;
     
     public FlexLogo() {
-        initLabel();
-        super.addComponent(ngutu);
-        super.setComponentAlignment(ngutu, Alignment.MIDDLE_CENTER);
-        super.setSizeUndefined();
-        super.addLayoutClickListener(event -> {
+        super("ngutu.org");
+        super.addClickListener(event -> {
             UI.getCurrent().getNavigator().navigateTo(FlexViews.WELCOME);
         });
-    }
-
-    private void initLabel() {
-        ngutu = new Label("ngutu.org");
-        ngutu.setStyleName("flex-logo");
-        ngutu.setSizeFull();
+        super.addStyleName("flex-logo");
     }
 
 }

@@ -6,7 +6,6 @@
 package org.ngutu.ui.books;
 
 import com.vaadin.ui.UI;
-import org.ngutu.ui.common.FlexButton;
 import db.auth.FlexUser;
 import org.ngutu.ui.common.AbstractMenu;
 import org.ngutu.ui.news.MenuActions;
@@ -19,7 +18,6 @@ public class BooksMenu extends AbstractMenu {
 
     private static final long serialVersionUID = 8366211712669711650L;
 
-
     public BooksMenu() {
         getSearchBox().setVisible(false);
     }
@@ -28,8 +26,7 @@ public class BooksMenu extends AbstractMenu {
     public BooksBody getBody() {
         return (BooksBody) ((BooksView) UI.getCurrent().getContent()).getBody();
     }
-    
-    
+
     private FlexUser getUser() {
         if (UI.getCurrent() != null) {
             return (FlexUser) UI.getCurrent().getSession().getAttribute("user");
@@ -38,12 +35,8 @@ public class BooksMenu extends AbstractMenu {
     }
 
     @Override
-    protected MenuActions createMenuActions() {        
-        MenuActions menuActions = new MenuActions();
-        FlexButton newsButton = new FlexButton("News");
-        menuActions.addComponent(newsButton);
-        return menuActions;
+    protected MenuActions createMenuActions() {
+        return null;
     }
-
 
 }

@@ -7,6 +7,8 @@ package org.ngutu.ui.news;
 
 import org.ngutu.ui.common.AbstractMenu;
 import com.vaadin.ui.UI;
+import org.ngutu.ui.logo.FlexLogo;
+import org.ngutu.ui.welcome.VerticalSeparator;
 
 /**
  *
@@ -18,6 +20,11 @@ public class NewsMenu extends AbstractMenu {
 
     public NewsMenu() {
         super();
+        super.addComponents(
+            new FlexLogo(),
+            new VerticalSeparator(),
+            new NewsMenuActions()
+        );
     }
 
     @Override
