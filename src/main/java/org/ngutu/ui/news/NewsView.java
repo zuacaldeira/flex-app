@@ -12,7 +12,6 @@ import data.ArticlesRepository;
 import data.DataProviderType;
 import db.auth.FlexUser;
 import db.news.NewsArticle;
-import io.reactivex.Observable;
 import org.ngutu.ui.common.AbstractBody;
 
 /**
