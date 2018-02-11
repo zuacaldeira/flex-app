@@ -1,5 +1,6 @@
 package factory;
 
+import com.vaadin.shared.ui.MarginInfo;
 import db.auth.FlexUser;
 import db.news.NewsArticle;
 
@@ -21,6 +22,7 @@ public class ArticleView extends GraphEntityView<NewsArticle> {
         this.initBody();
         this.initActions();
         super.setExpandRatio(articleViewBody, 1f);
+        super.setMargin(false);
     }
 
     

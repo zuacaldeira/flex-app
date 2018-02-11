@@ -6,6 +6,7 @@
 package org.ngutu.ui.news;
 
 import com.neovisionaries.i18n.CountryCode;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
@@ -29,8 +30,7 @@ public class SummariesPanel extends FlexPanel {
         this.currentColumn = 0;
         initBase();
         super.setContent(base);
-        super.setSizeFull();
-        super.setStyleName("items");
+        super.setStyleName("master");
     }
 
     private void initBase() {

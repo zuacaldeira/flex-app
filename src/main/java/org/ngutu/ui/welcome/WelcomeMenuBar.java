@@ -26,7 +26,7 @@ public final class WelcomeMenuBar extends MenuBar {
     public WelcomeMenuBar() {
         this.initMenuItems();
         setSizeUndefined();
-        setAutoOpen(true);
+        setAutoOpen(false);
         setStyleName("news-menu-bar");
         addStyleName(ValoTheme.MENUBAR_BORDERLESS);
     }

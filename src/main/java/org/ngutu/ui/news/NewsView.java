@@ -12,10 +12,7 @@ import data.ArticlesRepository;
 import data.DataProviderType;
 import db.auth.FlexUser;
 import db.news.NewsArticle;
-import factory.ArticleView;
-import factory.FlexViewFactory;
 import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
 import org.ngutu.ui.common.AbstractBody;
 
 /**
@@ -100,8 +97,10 @@ public class NewsView extends AbstractView {
         return "map".equals(UI.getCurrent().getSession().getAttribute("view"));
     }
 
-    private void fillBodyWithNews(MasterDetailView body, DataProviderType type, String value) {
-        Observable<NewsArticle> observable = getNodes(getUser(), type, value);
+    
+    /**
+     * private void fillBodyWithNews(MasterDetailView body, DataProviderType type, String value) {
+        Iterable<NewsArticle> observable = getNodes(getUser(), type, value);
         try {
             Disposable disposable = observable.subscribe(
                     article -> {
@@ -118,9 +117,12 @@ public class NewsView extends AbstractView {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }*/
+    private void fillBodyWithNews(MasterDetailView body, DataProviderType type, String value) {
+        new NewsBodyWorker(body, getUser(), type, value).start();
     }
 
-    private Observable<NewsArticle> getNodes(FlexUser user, DataProviderType type, String value) {
+    private Iterable<NewsArticle> getNodes(FlexUser user, DataProviderType type, String value) {
         if (user != null && value != null && !value.isEmpty()) {
             return new ArticlesRepository().loadNodes(type, value, user);
         } else if (user != null && value == null) {

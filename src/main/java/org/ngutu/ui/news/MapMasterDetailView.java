@@ -50,7 +50,7 @@ public class MapMasterDetailView extends ExternalMasterDetailView {
                 // Add/remove (Visible/invisible) articles from country from the summaries layout
                 if (codes.contains(code)) {
                     // Make articles from this country NOT VISIBLE
-                    boolean status = getSummariesPanel().setVisibleIf(code, false);
+                    boolean status = getMaster().setVisibleIf(code, false);
                     if (status) {
                         worldMap.removeStyleNameFromItem("yellow", code);
                         worldMap.addStyleNameToItem("black", code);
@@ -58,7 +58,7 @@ public class MapMasterDetailView extends ExternalMasterDetailView {
                     }
                 } else {
                     // Load Articles from this country mark them VISIBLE
-                    boolean status = getSummariesPanel().setVisibleIf(code, true);
+                    boolean status = getMaster().setVisibleIf(code, true);
                     if (status) {
                         worldMap.addStyleNameToItem("yellow", code);
                         worldMap.removeStyleNameFromItem("black", code);

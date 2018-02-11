@@ -150,6 +150,10 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
         background: white;
         color: $color-menu;
         box-shadow: 0 4px 4px rgba(126, 126, 126, 1);        
+        
+        .menu-action {
+            
+        }
     }
 
     .books-button {
@@ -210,7 +214,13 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
         }
     }
 
+    .master-detail .master {
+       background-color: lightblue;
+    }
 
+    .master-detail .detail {
+       background-color: lightgoldenrodyellow;
+    }
 
     .flex-footer {
         background: $color-menu;
@@ -222,10 +232,6 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
         word-wrap: break-word;
     }
 
-    .items {
-        //$v-font-family: "JF Flat","Open Sans", sans-serif;
-        border: none;
-    }
 
     .article-body {
         .title{
@@ -239,15 +245,6 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
     }
 
     .item {
-        margin: 4px;
-        background: white;
-        .article-header {
-            background: black;
-            color: white;
-        }
-    }
-
-    .item:hover {
         background: white;
         .article-header {
             background: black;
@@ -257,7 +254,6 @@ $flex-item-shadow:        2px 2px 2px 0px rgba(150, 0, 0, 0.4);
 
     .item-selected {
         background: white;
-        box-shadow: inset 1px 4px 2px 0 rgba(255, 0, 0, .7);
         .article-header {
             background: rgba(255, 0, 0, .7);
             color: white;

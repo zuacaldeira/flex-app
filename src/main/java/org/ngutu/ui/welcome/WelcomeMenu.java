@@ -9,6 +9,7 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.UI;
 import org.ngutu.ui.common.FlexButton;
 import org.ngutu.ui.common.AbstractMenu;
+import org.ngutu.ui.news.FlexMenuButton;
 import org.ngutu.ui.news.MenuActions;
 import org.ngutu.ui.viewproviders.FlexViews;
 
@@ -30,13 +31,13 @@ public class WelcomeMenu extends AbstractMenu {
     
     @Override
     protected MenuActions createMenuActions() {        
-        FlexButton newsButton = new FlexButton("Read the News", VaadinIcons.NEWSPAPER);
+        FlexButton newsButton = new FlexMenuButton("Read the News", VaadinIcons.NEWSPAPER);
         newsButton.addClickListener(click -> {
             UI.getCurrent().getNavigator().navigateTo(FlexViews.NEWS  + "/latest");
         });
         
         MenuActions menuActions = new MenuActions();        
-        menuActions.addComponent(newsButton);
+        menuActions.addComponents(newsButton, new UserLayout());
         return menuActions;
     }
 

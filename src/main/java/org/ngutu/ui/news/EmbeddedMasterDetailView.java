@@ -32,7 +32,7 @@ public class EmbeddedMasterDetailView extends MasterDetailView {
     @Override
     protected void updateTarget(String url) {
         if (url != null) {
-            BrowserFrame infoFrame = getTarget();
+            BrowserFrame infoFrame = getDetail();
             infoFrame.setSource(new ExternalResource(url));
             infoFrame.setCaptionAsHtml(true);
             infoFrame.setCaption("<a href=\"" + url + "\" target=\"_blank\"> Read this article outside Ngutu.org </a>");
@@ -40,8 +40,8 @@ public class EmbeddedMasterDetailView extends MasterDetailView {
     }
     
     @Override
-    public BrowserFrame getTarget() {
-        return (BrowserFrame) super.getTarget();
+    public BrowserFrame getDetail() {
+        return (BrowserFrame) super.getDetail();
     }
 
     @Override

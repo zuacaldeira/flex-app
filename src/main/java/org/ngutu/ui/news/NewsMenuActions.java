@@ -5,7 +5,7 @@
  */
 package org.ngutu.ui.news;
 
-import org.ngutu.ui.common.HomeButton;
+import org.ngutu.ui.welcome.UserLayout;
 
 /**
  *
@@ -20,10 +20,13 @@ public class NewsMenuActions extends MenuActions {
         searchBox = new SearchBox();
         super.addComponents(
                 searchBox,
-                new NewsMenuBar(),
-                new HomeButton());
+                new UserLayout(),
+                new NewsMenuBar()
+        );
         super.setExpandRatio(searchBox, .5f);
-        super.setSizeFull();
+        super.setSpacing(true);
+        super.setWidth("100%");
+        //super.setmargin()
     }
 
 }

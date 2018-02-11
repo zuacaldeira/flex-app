@@ -7,18 +7,17 @@ package org.ngutu.ui.welcome;
 
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Alignment;
-import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  *
  * @author zua
  */
-public class AboutUs extends GridLayout implements View {
+public class AboutUs extends VerticalLayout implements View {
 
     private static final long serialVersionUID = -5299532704066300758L;
 
     public AboutUs() {
-        super(2, 2);
         super.addComponents(
                 new NgutuMissionCard(),
                 new NgutuVisionCard(),

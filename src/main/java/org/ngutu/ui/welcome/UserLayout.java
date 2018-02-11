@@ -28,8 +28,8 @@ public class UserLayout extends HorizontalLayout {
 
     public UserLayout() {
         super.setSpacing(false);
-        initPicture();
         initFacebookButton();
+        initPicture();
     }
 
     private void initPicture() {
@@ -49,10 +49,6 @@ public class UserLayout extends HorizontalLayout {
             facebookLogin = new FacebookLoginButton();
             addComponent(facebookLogin);
             setComponentAlignment(facebookLogin, Alignment.MIDDLE_CENTER);
-        } else {
-            facebookLogout = new FacebookLogoutButton();
-            addComponent(facebookLogout);
-            setComponentAlignment(facebookLogout, Alignment.MIDDLE_CENTER);
         }
     }
 

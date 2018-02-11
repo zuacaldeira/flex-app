@@ -21,7 +21,6 @@ import com.vaadin.ui.themes.ValoTheme;
 import db.news.NewsSource;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
-import java.util.Collection;
 import utils.ServiceLocator;
 
 /**
@@ -49,7 +48,6 @@ public final class NewsMenuBar extends MenuBar {
     private MenuItem full;
     private MenuItem imagesOnly;
     private MenuItem titlesOnly;
-    private Collection<NewsSource> sources;
     private TreeSet<String> tags;
     private TreeSet<String> publisherLanguages;
     private TreeSet<String> publisherNames;
@@ -64,8 +62,7 @@ public final class NewsMenuBar extends MenuBar {
         this.initMenuItems();
         setSizeUndefined();
         setAutoOpen(true);
-        setStyleName(ValoTheme.MENUBAR_BORDERLESS);
-        setStyleName("flex-menu-bar");
+        setStyleName(ValoTheme.MENUBAR_BORDERLESS + " flex-menu-bar");
     }
 
     private void loadData() {
@@ -89,7 +86,7 @@ public final class NewsMenuBar extends MenuBar {
     }
 
     protected void initMenuItems() {
-        top = addItem("Menu", VaadinIcons.MENU, null);
+        top = addItem("", VaadinIcons.MENU, null);
         news = top.addItem("Articles", null, null);
         publishers = top.addItem("Publishers", null, null);
         categories = top.addItem("Categories", null, null);

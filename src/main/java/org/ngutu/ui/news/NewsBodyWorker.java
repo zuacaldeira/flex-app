@@ -11,8 +11,6 @@ import db.auth.FlexUser;
 import db.news.NewsArticle;
 import factory.ArticleView;
 import factory.FlexViewFactory;
-import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
 
 /**
  *
@@ -34,26 +32,18 @@ public class NewsBodyWorker extends Thread {
 
     @Override
     public void run() {
-        Observable<NewsArticle> observable = getNodes(user, type, value);
-        try {
-            Disposable disposable = observable.subscribe(
-                    article -> {
-                        if (body != null && body.getUI() != null) {
-                            ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, article);
-                            body.addSingleSummary(aView);
-                        }
-                    },
-                    ex -> {
-                        throw new RuntimeException("Error on subscribed data: " + ex.getMessage());
-                    }
-            );
-            disposable.dispose();
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        }
+        Iterable<NewsArticle> observable = getNodes(user, type, value);
+        observable.forEach(article -> {
+            if (body != null && body.getUI() != null) {
+                body.getUI().access(() -> {
+                    ArticleView aView = FlexViewFactory.getInstance().createArticleView(user, article);
+                    body.addSingleSummary(aView);
+                });
+            }
+        });
     }
 
-    private Observable<NewsArticle> getNodes(FlexUser user, DataProviderType type, String value) {
+    private Iterable<NewsArticle> getNodes(FlexUser user, DataProviderType type, String value) {
         if (user != null && value != null && !value.isEmpty()) {
             return new ArticlesRepository().loadNodes(type, value, user);
         } else if (user != null && value == null) {

@@ -64,7 +64,7 @@ public class ArticlesRepositoryTestIT {
         System.out.println("loadNodes");
         ArticlesRepository instance = new ArticlesRepository();
         FlexUser user = new FlexUser(TEST_USERNAME, TEST_PASSWORD);
-        Observable<NewsArticle> result = instance.loadNodes(type, value, user);
+        Iterable<NewsArticle> result = instance.loadNodes(type, value, user);
         assertNotNull(result);
     }
 

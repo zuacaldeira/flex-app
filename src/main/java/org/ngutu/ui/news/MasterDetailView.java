@@ -18,24 +18,24 @@ public abstract class MasterDetailView extends NewsBody {
 
     private static final long serialVersionUID = 4092595001827313256L;
 
-    private HorizontalLayout baseLayout;
-    private SummariesPanel summariesPanel;
-    private Component target;
+    private HorizontalLayout masterDetail;
+    private SummariesPanel master;
+    private Component detail;
     private ArticleView selected;
 
     public MasterDetailView() {
     }
 
-    public HorizontalLayout getBaseLayout() {
-        return baseLayout;
+    public HorizontalLayout getMasterDetail() {
+        return masterDetail;
     }
 
-    public SummariesPanel getSummariesPanel() {
-        return summariesPanel;
+    public SummariesPanel getMaster() {
+        return master;
     }
 
-    public Component getTarget() {
-        return target;
+    public Component getDetail() {
+        return detail;
     }
 
     public ArticleView getSelected() {
@@ -43,7 +43,7 @@ public abstract class MasterDetailView extends NewsBody {
     }
 
     public SummariesPanel getSummaries() {
-        return summariesPanel;
+        return master;
     }
 
     protected void updateSelected(ArticleView itemView) {
@@ -59,7 +59,7 @@ public abstract class MasterDetailView extends NewsBody {
 
     @Override
     public void addSingleSummary(GraphEntityView component) {
-        summariesPanel.addItemView(component);
+        master.addItemView(component);
         if (selected == null) {
             updateSelected((ArticleView) component);
         }
@@ -70,24 +70,27 @@ public abstract class MasterDetailView extends NewsBody {
 
     @Override
     protected Component createBodyContent() {
-        summariesPanel = createSummariesPanel();
-        target = createTargetView();
+        masterDetail = new HorizontalLayout();
+        masterDetail.setSizeFull();
+        masterDetail.setStyleName("master-detail");
 
-        baseLayout = new HorizontalLayout();
-        if (summariesPanel != null) {
-            baseLayout.addComponent(summariesPanel);
-            baseLayout.setExpandRatio(summariesPanel, .25f);
+        master = createSummariesPanel();
+        if (master != null) {
+            master.setStyleName("master");
+            masterDetail.addComponent(master);
+            masterDetail.setExpandRatio(master, .25f);
         }
-        if (target != null) {
-            baseLayout.addComponent(target);
-            baseLayout.setExpandRatio(target, 1f);
+
+        detail = createTargetView();
+        if (detail != null) {
+            detail.setStyleName("detail");
+            masterDetail.addComponent(detail);
+            masterDetail.setExpandRatio(detail, .75f);
         }
-        baseLayout.setSizeFull();
-        baseLayout.setSpacing(true);
-        baseLayout.setMargin(false);
         super.setSizeFull();
-        super.setContent(baseLayout);
-        return baseLayout;
+        
+        super.setContent(masterDetail);
+        return masterDetail;
     }
 
     protected abstract SummariesPanel createSummariesPanel();

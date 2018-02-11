@@ -7,22 +7,21 @@ package org.ngutu.ui.share;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.themes.ValoTheme;
-import org.ngutu.ui.common.FlexButton;
 import db.auth.FlexUser;
+import org.ngutu.ui.news.FlexMenuButton;
 import ui.NgutuUI;
 
 /**
  *
  * @author zua
  */
-public class FacebookLogoutButton extends FlexButton {
+public class FacebookLogoutButton extends FlexMenuButton {
 
     private static final long serialVersionUID = -3207358902945940207L;
 
     public FacebookLogoutButton() {
         super("Logout " + getUser().getUserInfo().getGivenName(), VaadinIcons.FACEBOOK_SQUARE);
-        super.setStyleName(ValoTheme.BUTTON_DANGER);
+        //super.setStyleName(ValoTheme.BUTTON_DANGER);
         super.addClickListener(click -> {
             if (UI.getCurrent() != null) {
                 UI.getCurrent().getSession().setAttribute("user", null);

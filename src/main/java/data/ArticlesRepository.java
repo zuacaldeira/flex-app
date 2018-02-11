@@ -10,7 +10,6 @@ import db.news.NewsArticle;
 import db.news.NewsSource;
 import backend.services.news.NewsArticleService;
 import backend.utils.MyDateUtils;
-import io.reactivex.Observable;
 import utils.ServiceLocator;
 
 /**
@@ -21,7 +20,7 @@ public class ArticlesRepository {
     public ArticlesRepository() {
     }
 
-    public Observable<NewsArticle> loadNodes(DataProviderType type, String value, FlexUser user) {
+    public Iterable<NewsArticle> loadNodes(DataProviderType type, String value, FlexUser user) {
         NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
         String username = (user != null) ? user.getUsername() : null;
         switch (type) {
@@ -40,7 +39,7 @@ public class ArticlesRepository {
         }
     }
 
-    public Observable<NewsArticle> loadNodes(DataProviderType type, String value) {
+    public Iterable<NewsArticle> loadNodes(DataProviderType type, String value) {
         NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
         switch (type) {
             case CATEGORY:
@@ -58,7 +57,7 @@ public class ArticlesRepository {
         }
     }
 
-    public Observable<NewsArticle> loadNodes(DataProviderType type, FlexUser user) {
+    public Iterable<NewsArticle> loadNodes(DataProviderType type, FlexUser user) {
         NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
         String username = (user != null) ? user.getUsername() : null;
         switch (type) {
@@ -77,7 +76,7 @@ public class ArticlesRepository {
         }
     }
 
-    public Observable<NewsArticle> loadNodes(DataProviderType type) {
+    public Iterable<NewsArticle> loadNodes(DataProviderType type) {
         NewsArticleService service = ServiceLocator.getInstance().findArticlesService();
         switch (type) {
             case LATEST:
