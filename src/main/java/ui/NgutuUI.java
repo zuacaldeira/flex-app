@@ -140,11 +140,14 @@ public class NgutuUI extends SecuredUI {
         if (address.contains("http://localhost:8080/")) {
             return "http://localhost:8080/";
         }
+        if (address.contains("ngutu-development.herokuapp.com")) {
+            return "http://ngutu-development.herokuapp.com/";
+        }
         if (address.contains("ngutu-staging.herokuapp.com")) {
             return "http://ngutu-staging.herokuapp.com/";
         }
         if (address.contains("ngutu.herokuapp.com")) {
-            return "http://ngutu-staging.herokuapp.com/";
+            return "http://ngutu.herokuapp.com/";
         }
         if (address.contains("news.ngutu.org")) {
             return "http://news.ngutu.org/";
